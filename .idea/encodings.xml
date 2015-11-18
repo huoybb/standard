@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/app/controllers/IndexController.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/controllers/StandardsController.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/models/Files.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/index.volt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/index/index.volt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/layouts/partial/commentForm.volt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/standards/edit.volt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/standards/editComment.volt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/standards/search.volt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/standards/show.volt" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

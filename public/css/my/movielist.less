@@ -1,0 +1,48 @@
+/* movie List for index.phtml*/
+#movies{
+	ul{
+		li{
+			float: left;
+			width: 200px;
+			height: 115px;
+			border: double;
+			margin: 0 5px 5px 0;
+			overflow: hidden;
+			// .row();
+			
+			div.pic{
+				float: left;
+				height: 114px;
+				img{
+					height: 100px;
+					width: 65px;
+					margin: 7px;
+				}
+			}
+			div:nth-child(2){
+				padding-top: 10px;
+				font-weight: bold;
+			}
+			div:nth-child(3){
+				
+				float: left;
+				width: 110px;//防止下面div切换显示的时候抖动
+				color: #00F;
+			}
+			div:nth-child(4){
+				color: #000000;
+			}
+			div.rating{
+				float: right;
+				width: 110px;
+				color: #00F;
+				position: relative;
+				margin-top: 15px;
+				li.curr{//修复评分显示
+					border: 0;//对评分的hack，主要是上面设置border:double的影响
+					height: 20px;
+				}
+			}
+		}
+	}
+}

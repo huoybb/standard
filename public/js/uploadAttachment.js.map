@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "uploadAttachment.js",
+  "sourceRoot": "",
+  "sources": [
+    "uploadAttachment.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,EAAA,CAAA,CAAE,SAAA,GAAA;AACA,QAAA,UAAA;AAAA,IAAA,UAAA,GAAiB,IAAA,QAAA,CAAS,sBAAT,CAAjB,CAAA;WACA,UAAU,CAAC,EAAX,CAAc,UAAd,EAAyB,SAAA,GAAA;aAAE,QAAQ,CAAC,MAAT,CAAA,EAAF;IAAA,CAAzB,EAFA;EAAA,CAAF,CAAA,CAAA;AAAA"
+}
