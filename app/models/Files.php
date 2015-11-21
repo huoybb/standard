@@ -3,6 +3,8 @@
 class Files extends myModel
 {
 
+    use attachableTrait;
+    use commentableTrait;
     /**
      *
      * @var integer
@@ -126,6 +128,10 @@ class Files extends myModel
         return $results->execute();
     }
 
+    /**这种形式能够在取出部分的时候速度比较快！
+     * @param $search
+     * @return \Phalcon\Mvc\Model\Query\BuilderInterface
+     */
     public function searchQuery($search)
     {
         $bits = explode(' ',trim($search));
@@ -140,16 +146,6 @@ class Files extends myModel
     }
 
 
-
-    public function attachments()
-    {
-        return $this->make('attachments',function(){
-            return Attachments::query()
-                ->where('file_id = :id:',['id'=>$this->id])
-                ->orderBy('created_at DESC')
-                ->execute();
-        });
-    }
 
 
 
@@ -211,10 +207,6 @@ class Files extends myModel
 
     }
 
-    public function getAddCommentFormUrl()
-    {
-        return $this->getDI()->get('url')->get(['for'=>'standards.addComment','file'=>$this->id]);
-    }
 
 
 
