@@ -3,6 +3,7 @@
 class Tags extends myModel
 {
 
+    use commentableTrait;
     /**
      *
      * @var integer
@@ -107,9 +108,5 @@ class Tags extends myModel
         });
     }
 
-    public function getAddCommentFormUrl()
-    {
-        return $this->getDI()->get('url')->get(['for'=>'tags.addComment','tag'=>$this->id]);
-    }
 
 }

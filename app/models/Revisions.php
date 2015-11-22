@@ -84,7 +84,12 @@ class Revisions extends myModel
     public function getAllRevisions()
     {
         return $this->make('AllRevisions',function(){
-            return self::find(['parent_id = :parent_id:','bind'=>['parent_id'=>$this->parent_id]]);
+//            return self::find(['parent_id = :parent_id:','bind'=>['parent_id'=>$this->parent_id]]);
+            return self::query()
+                ->where('parent_id = :parent_id:',['parent_id'=>$this->parent_id])
+                ->leftJoin('Files','file.id = Revisions.file_id','file')
+                ->columns(['Revisions.*','file.*'])
+                ->execute();
         });
     }
 

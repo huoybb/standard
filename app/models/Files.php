@@ -3,6 +3,11 @@
 class Files extends myModel
 {
 
+    use attachableTrait;
+    use commentableTrait;
+    use taggableTrait;
+    use navTrait;
+    use revisionableTrait;
     /**
      *
      * @var integer
@@ -126,6 +131,10 @@ class Files extends myModel
         return $results->execute();
     }
 
+    /**这种形式能够在取出部分的时候速度比较快！
+     * @param $search
+     * @return \Phalcon\Mvc\Model\Query\BuilderInterface
+     */
     public function searchQuery($search)
     {
         $bits = explode(' ',trim($search));
@@ -141,58 +150,16 @@ class Files extends myModel
 
 
 
-    public function attachments()
-    {
-        return $this->make('attachments',function(){
-            return Attachments::query()
-                ->where('file_id = :id:',['id'=>$this->id])
-                ->orderBy('created_at DESC')
-                ->execute();
-        });
-    }
-
-
-
-    public function tags()
-    {
-
-        return $this->make('tags',function(){
-            return Taggables::query()
-                ->leftJoin('Tags','Tags.id = Taggables.tag_id')
-                ->where('Taggables.taggable_type = :type:',['type'=>get_class($this)])
-                ->andWhere('Taggables.taggable_id = :id:',['id'=>$this->id])
-                ->columns(['Tags.id','Tags.name','Taggables.updated_at','Taggables.id AS tid'])
-                ->execute();
-        });
-    }
-
-    public function getRevision()
-    {
-        return $this->make('revision',function(){
-            return Revisions::findFirst(['file_id = :id:','bind'=>['id'=>$this->id]]);
-        });
-    }
 
 
 
 
-    public function getNext()
-    {
-        return  $this->make('next',function(){
-            $row = self::findFirst(['id > :id:','bind'=>['id'=>$this->id],'order'=>'id ASC']);
-            if(null == $row) $row =self::findFirst();
-            return $row;
-        });
-    }
-    
-    public function getPrevious()
-    {
-        return $this->make('before',function(){
-            $row = self::findFirst(['id<:id:','bind'=>['id'=>$this->id],'order'=>'id DESC']);
-            if(null == $row) $row = self::findFirst(['order'=>'id DESC']);
-            return $row;
-        });
-    }
+
+
+
+
+
+
 
 
 //事件绑定，下面是设置各种绑定事件的
@@ -211,10 +178,6 @@ class Files extends myModel
 
     }
 
-    public function getAddCommentFormUrl()
-    {
-        return $this->getDI()->get('url')->get(['for'=>'standards.addComment','file'=>$this->id]);
-    }
 
 
 
