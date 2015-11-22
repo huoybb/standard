@@ -1,4 +1,5 @@
 /app/cache
 /public/files
 /vendor
+/.idea/workspace.xml
 
