@@ -18,4 +18,25 @@ trait attachableTrait
                 ->execute();
         });
     }
+    public function deleteAttachment(Attachments $attachment)
+    {
+        $attachment->delete();
+        return $this;
+    }
+
+    public function uploadAndStoreAttachment(\Phalcon\Http\Request $request)
+    {
+        /** @var myModel $this */
+        foreach($request->getUploadedFiles() as $f){
+            $data = [];
+            $data['name'] = $f->getName();
+            $data['url']=myTools::storeAttachment($f);
+            $data['user_id'] = 1;
+            $data['file_id'] = $this->id;
+            (new Attachments())->save($data);
+        }
+        return $this;
+    }
+
+
 }

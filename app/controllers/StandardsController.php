@@ -124,7 +124,7 @@ class StandardsController extends myController
     public function addAttachmentAction(Files $file)
     {
         if ($this->request->hasFiles() == true) {
-            $this->uploadAndStoreAttachements($file);
+            $file->uploadAndStoreAttachment($this->request);
             return $this->success();
         }else{
             return $this->failed();
@@ -139,11 +139,12 @@ class StandardsController extends myController
 
     public function deleteAttachmentAction(Files $file,Attachments $attachment)
     {
-        $attachment->delete();
+        $file->deleteAttachment($attachment);
         return $this->redirectByRoute(['for'=>'standards.showAttachments','file'=>$file->id]);
     }
 
 
+    //标签相关操作
     public function addTagAction(Files $file)
     {
         $this->addTagToByName($file,$this->request->getPost()['tagName']);
@@ -184,21 +185,21 @@ class StandardsController extends myController
      * @param \Phalcon\Http\Request\File $attachment
      * @return string
      */
-    private function storeAttachment(\Phalcon\Http\Request\File $attachment)
-    {
-        $uploadDir = 'files'; //上传路径的设置
-        $time = time();
-        $path = myTools::makePath($uploadDir,$time);
-
-        $ext = preg_replace('%^.*?(\.[\w]+)$%', "$1", $attachment->getName()); //获取文件的后缀
-        $url = md5($attachment->getName());
-
-        $filename = $path . $time . $url . $ext;
-
-        $attachment->moveTo($filename);
-
-        return $filename;
-    }
+//    private function storeAttachment(\Phalcon\Http\Request\File $attachment)
+//    {
+//        $uploadDir = 'files'; //上传路径的设置
+//        $time = time();
+//        $path = myTools::makePath($uploadDir,$time);
+//
+//        $ext = preg_replace('%^.*?(\.[\w]+)$%', "$1", $attachment->getName()); //获取文件的后缀
+//        $url = md5($attachment->getName());
+//
+//        $filename = $path . $time . $url . $ext;
+//
+//        $attachment->moveTo($filename);
+//
+//        return $filename;
+//    }
 
     private function addTagToByName(myModel $file, $tagName)
     {
@@ -225,17 +226,17 @@ class StandardsController extends myController
         }
     }
 
-    private function uploadAndStoreAttachements(Files $file)
-    {
-        foreach($this->request->getUploadedFiles() as $f){
-            $data = [];
-            $data['name'] = $f->getName();
-            $data['url']=$this->storeAttachment($f);
-            $data['user_id'] = 1;
-            $data['file_id'] = $file->id;
-            (new Attachments())->save($data);
-        }
-    }
+//    private function uploadAndStoreAttachements(Files $file)
+//    {
+//        foreach($this->request->getUploadedFiles() as $f){
+//            $data = [];
+//            $data['name'] = $f->getName();
+//            $data['url']=$this->storeAttachment($f);
+//            $data['user_id'] = 1;
+//            $data['file_id'] = $file->id;
+//            (new Attachments())->save($data);
+//        }
+//    }
 
     private function addRevisionsToTwofiles(Files $file1,Files $file2)
     {

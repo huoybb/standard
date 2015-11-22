@@ -72,4 +72,20 @@ class myTools
         return $path;
     }
 
+    static function storeAttachment(\Phalcon\Http\Request\File $attachment)
+    {
+        $uploadDir = 'files'; //上传路径的设置
+        $time = time();
+        $path = myTools::makePath($uploadDir,$time);
+
+        $ext = preg_replace('%^.*?(\.[\w]+)$%', "$1", $attachment->getName()); //获取文件的后缀
+        $url = md5($attachment->getName());
+
+        $filename = $path . $time . $url . $ext;
+
+        $attachment->moveTo($filename);
+
+        return $filename;
+    }
+
 }
