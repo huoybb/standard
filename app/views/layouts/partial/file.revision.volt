@@ -10,9 +10,9 @@
             </tr>
             {% for item in file.getRevision().getAllRevisions() %}
                 <tr>
-                    <td>{{item.id}}</td>
-                    <td><a href="{{ url(['for':'standards.show','file':item.file_id]) }}">{{ item.name }}</a></td>
-                    <td>--</td>
+                    <td>{{item.file.id}}</td>
+                    <td><a href="{{ url(['for':'standards.show','file':item.file.id]) }}">{{ item.file.title }}</a></td>
+                    <td>{{ item.file.updated_at_website }}</td>
                 </tr>
             {% endfor %}
         </table>
