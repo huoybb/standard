@@ -18,8 +18,23 @@ class StandardsController extends myController
 
     }
 
+    public function addDoDAction(Files $file)
+    {
+//        dd($this->request->getPost());
+        if($this->request->isPost()){
+           $file->saveDoDFile($this->request->getPost()['file_id']);
+        }
+        $this->redirectByRoute(['for'=>'index','page'=>1]);
+
+
+    }
+
+
     public function showAction(Files $file)
     {
+//        $DoD_file = new oai_dtic_mil_parser();
+//        dd($DoD_file->parseInfo('ADA290877'));
+
 //        $datas = unserialize(file_get_contents('gb-data'));
 //        foreach($datas as $data){
 //            $data['title'] = $data['name'];

@@ -178,12 +178,25 @@ class Files extends myModel
 
     }
 
+    public function saveDoDFile($file_id)
+    {
 
+        $DoD_file = new oai_dtic_mil_parser();
+        $info = $DoD_file->parseInfo($file_id);
 
+        $this->save([
+            'title'=> $info['Title'],
+            'url'=>$DoD_file->getURLById($file_id),
+            'updated_at_website'=>$info['Report_Date'],
+            'standard_number'=>$info['Accession_Number']
+        ]);
 
+        $info['file_id'] = $this->id;
 
-
-
+        $oaiDticMil = new OaiDticMil();
+        $oaiDticMil->save($info);
+        return $this;
+    }
 
 
 }
