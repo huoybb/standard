@@ -21,17 +21,28 @@ class StandardsController extends myController
     public function addDoDAction(Files $file)
     {
 //        dd($this->request->getPost());
-        if($this->request->isPost()){
-           $file->saveDoDFile($this->request->getPost()['file_id']);
-        }
-        $this->redirectByRoute(['for'=>'index','page'=>1]);
+        $file_id = $this->request->getPost()['file_id'];
+        if($this->request->isPost() ){
+            //如果已经保存过该文件
+            $dod = OaiDticMil::findByAccessNo($file_id);
+            if($dod) return  $this->redirectByRoute(['for'=>'standards.show','file'=>$dod->getStandard()->id]);
 
+            //正常进行保存
+            $file->saveDoDFile($file_id);
+            return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
+        }
+        dd('非法路径，不允许直接访问该地址');
 
     }
 
 
     public function showAction(Files $file)
     {
+//        $dodfiles = OaiDticMil::find();
+//        foreach($dodfiles as $file){
+//            $standard = $file->getStandard();
+//            $standard->add
+//        }
 //        $DoD_file = new oai_dtic_mil_parser();
 //        dd($DoD_file->parseInfo('ADA290877'));
 

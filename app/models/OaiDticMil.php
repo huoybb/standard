@@ -88,6 +88,17 @@ class OaiDticMil extends \Phalcon\Mvc\Model
     public $file_id;
 
     /**
+     * @param $Accession_Number
+     * @return OaiDticMil
+     */
+    public static function findByAccessNo($Accession_Number)
+    {
+        return self::query()
+            ->where('Accession_Number = :Accession_Number:',['Accession_Number'=>$Accession_Number])
+            ->execute()->getFirst();
+    }
+
+    /**
      * Returns table name mapped in the model.
      *
      * @return string
@@ -143,6 +154,14 @@ class OaiDticMil extends \Phalcon\Mvc\Model
             'Distribution_Statement' => 'Distribution_Statement',
             'file_id' => 'file_id'
         );
+    }
+
+    /**
+     * @return Files
+     */
+    public function getStandard()
+    {
+        return Files::findFirst($this->file_id);
     }
 
 }
