@@ -38,34 +38,8 @@ class StandardsController extends myController
 
     public function showAction(Files $file)
     {
-//        $dodfiles = OaiDticMil::find();
-//        foreach($dodfiles as $file){
-//            $standard = $file->getStandard();
-//            $standard->add
-//        }
-//        $DoD_file = new oai_dtic_mil_parser();
-//        dd($DoD_file->parseInfo('ADA290877'));
-
-//        $datas = unserialize(file_get_contents('gb-data'));
-//        foreach($datas as $data){
-//            $data['title'] = $data['name'];
-//            (new Files())->save($data);
-//        }
-//        dd($datas);
-//        dd($file->comments());
-//        $attachments = $file->attachments();
-//        foreach($attachments as $attach){
-//            dd($attach->getFileSize());
-//        }
-//        dd($file->getRevision());
-//        $file->attachments();
-//        dd($file->toArray());
         $this->view->file = $file;
-//        $this->view->form = $this->buildCommentForm($file);
-//        $this->view->comments = $file->comments();
         $this->view->form = myForm::buildCommentForm($file);
-//        dd($this->view->form);
-
     }
 
 
@@ -77,7 +51,6 @@ class StandardsController extends myController
             return $this->success();
         }
         $this->view->file = $file;
-//        $this->view->form = $this->buildFormFromModel($file);
         $this->view->form = myForm::buildFormFromModel($file);
     }
 
@@ -173,11 +146,9 @@ class StandardsController extends myController
     //标签相关操作
     public function addTagAction(Files $file)
     {
-        $this->addTagToByName($file,$this->request->getPost()['tagName']);
+        $tag = Tags::findOrNewByName($this->request->getPost()['tagName']);
+        $file->addTag($tag);
         return $this->success();
-
-//        return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
-
     }
 
     public function deleteTagAction(Files $file,Taggables $taggable)
@@ -203,66 +174,6 @@ class StandardsController extends myController
 
 
 
-    
-
-
-
-    /**将附件改名并移动到相应的目录下，返回新的文件名称
-     * @param \Phalcon\Http\Request\File $attachment
-     * @return string
-     */
-//    private function storeAttachment(\Phalcon\Http\Request\File $attachment)
-//    {
-//        $uploadDir = 'files'; //上传路径的设置
-//        $time = time();
-//        $path = myTools::makePath($uploadDir,$time);
-//
-//        $ext = preg_replace('%^.*?(\.[\w]+)$%', "$1", $attachment->getName()); //获取文件的后缀
-//        $url = md5($attachment->getName());
-//
-//        $filename = $path . $time . $url . $ext;
-//
-//        $attachment->moveTo($filename);
-//
-//        return $filename;
-//    }
-
-    private function addTagToByName(myModel $file, $tagName)
-    {
-        $data['name'] = $tagName;
-        $tag = Tags::findFirst(['name = :name:','bind'=>['name'=>$tagName]]);
-        if($tag == null){
-            $tag = new Tags();
-            $tag->save($data);
-        }
-        $taggables = Taggables::query()
-            ->where('tag_id = :tag:',['tag'=>$tag->id])
-            ->andWhere('taggable_type = :type:',['type'=>get_class($file)])
-            ->andWhere('taggable_id = :id:',['id'=>$file->id])
-            ->execute();
-        if($taggables->count() == 0){
-            $data = [
-                'tag_id'=>$tag->id,
-                'taggable_type'=>get_class($file),
-                'taggable_id'=>$file->id,
-                'user_id'=>1//@todo改成auth的变量
-            ];
-            $taggable = new Taggables();
-            $taggable->save($data);
-        }
-    }
-
-//    private function uploadAndStoreAttachements(Files $file)
-//    {
-//        foreach($this->request->getUploadedFiles() as $f){
-//            $data = [];
-//            $data['name'] = $f->getName();
-//            $data['url']=$this->storeAttachment($f);
-//            $data['user_id'] = 1;
-//            $data['file_id'] = $file->id;
-//            (new Attachments())->save($data);
-//        }
-//    }
 
     private function addRevisionsToTwofiles(Files $file1,Files $file2)
     {

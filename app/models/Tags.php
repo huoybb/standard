@@ -28,6 +28,17 @@ class Tags extends myModel
      */
     public $updated_at;
 
+    public static function findOrNewByName($tagName)
+    {
+        $data['name'] = $tagName;
+        $tag = self::findFirst(['name = :name:','bind'=>['name'=>$tagName]]);
+        if($tag == null){
+            $tag = new self();
+            $tag->save($data);
+        }
+        return $tag;
+    }
+
     /**
      * Initialize method for model.
      */

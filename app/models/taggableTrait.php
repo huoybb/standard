@@ -21,4 +21,31 @@ trait taggableTrait
                 ->execute();
         });
     }
+    public function addTag(Tags $tag)
+    {
+        /** @var myModel $this */
+        $taggables = Taggables::query()
+            ->where('tag_id = :tag:',['tag'=>$tag->id])
+            ->andWhere('taggable_type = :type:',['type'=>get_class($this)])
+            ->andWhere('taggable_id = :id:',['id'=>$this->id])
+            ->execute();
+        if($taggables->count() == 0){
+            $data = [
+                'tag_id'=>$tag->id,
+                'taggable_type'=>get_class($this),
+                'taggable_id'=>$this->id,
+                'user_id'=>1//@todo 改成auth的变量
+            ];
+            $taggable = new Taggables();
+            $taggable->save($data);
+        }
+        return $this;
+    }
+
+//    public function deleteTag(Tags $tag)
+//    {
+//
+//    }
+
+
 }
