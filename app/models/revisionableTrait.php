@@ -10,8 +10,8 @@ trait revisionableTrait
 {
     public function getRevision()
     {
-        /** @var myModel $this */
         return $this->make('revision',function(){
+            /** @var myModel $this */
             return Revisions::findFirst(['file_id = :id:','bind'=>['id'=>$this->id]]);
         });
     }

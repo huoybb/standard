@@ -10,8 +10,8 @@ trait navTrait
 {
     public function getNext()
     {
-        /** @var myModel $this */
         return  $this->make('next',function(){
+            /** @var myModel $this */
             $row = self::findFirst(['id > :id:','bind'=>['id'=>$this->id],'order'=>'id ASC']);
             if(null == $row) $row =self::findFirst();
             return $row;
@@ -20,8 +20,8 @@ trait navTrait
 
     public function getPrevious()
     {
-        /** @var myModel $this */
         return $this->make('before',function(){
+            /** @var myModel $this */
             $row = self::findFirst(['id<:id:','bind'=>['id'=>$this->id],'order'=>'id DESC']);
             if(null == $row) $row = self::findFirst(['order'=>'id DESC']);
             return $row;

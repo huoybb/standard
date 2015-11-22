@@ -15,6 +15,7 @@ trait commentableTrait
      */
     public function comments()
     {
+        /** @var myModel $this */
         return $this->make('comments',function(){
             return Comments::query()
                 ->where('commentable_id = :tag_id:')
@@ -28,6 +29,7 @@ trait commentableTrait
 
     public function addComment($data)
     {
+        /** @var myModel $this */
         $comment = new Comments();
         $comment->content=$data['content'];
         $comment->commentable_id = $this->id;

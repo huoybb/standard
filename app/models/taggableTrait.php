@@ -10,9 +10,9 @@ trait taggableTrait
 {
     public function tags()
     {
-
         /** @var myModel $this */
         return $this->make('tags',function(){
+            /** @var myModel $this */
             return Taggables::query()
                 ->leftJoin('Tags','Tags.id = Taggables.tag_id')
                 ->where('Taggables.taggable_type = :type:',['type'=>get_class($this)])
