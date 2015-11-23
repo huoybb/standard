@@ -23,17 +23,17 @@ class StandardsController extends myController
 //        dd($this->request->getPost());
         $file_id = $this->request->getPost()['file_id'];
         if($this->request->isPost() ){
-            //如果已经保存过该文件
-            $dod = OaiDticMil::findByAccessNo($file_id);
-            if($dod) return  $this->redirectByRoute(['for'=>'standards.show','file'=>$dod->getStandard()->id]);
-
-            //正常进行保存
-            $file->saveDoDFile($file_id);
-            return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
+            $this->addDoDFile($file_id,$file);
         }
         dd('非法路径，不允许直接访问该地址');
 
     }
+
+    public function addDoDByGetAction($accessNumber,Files $file)
+    {
+        $this->addDoDFile($accessNumber,$file);
+    }
+
 
 
     public function showAction(Files $file)
@@ -238,5 +238,13 @@ class StandardsController extends myController
         if($tag->tagCounts() == 0){
             $tag->delete();
         }
+    }
+
+    private function addDoDFile($accessNumber, Files $file)
+    {
+        $dod = OaiDticMil::findByAccessNo($accessNumber);
+        if($dod) return  $this->redirectByRoute(['for'=>'standards.show','file'=>$dod->getStandard()->id]);
+        $file->saveDoDFile($accessNumber);
+        return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
     }
 }

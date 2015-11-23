@@ -14,6 +14,7 @@ $router->add('/search/{search:[^/]+}/{item:[0-9]+}','standards::showSearchItem')
 
 $router->addx('/standards/add','standards::add',['standardRules'])->setName('standards.add');
 $router->add('/standards/addDoD','standards::addDoD')->setName('standards.addDoD');
+$router->add('/standards/addDoD/{accessNumber:[A-Z0-9]+}','standards::addDoDByGet')->setName('standards.addDoDByGet');
 
 $router->add('/standards/{file:[0-9]+}','standards::show')->setName('standards.show');
 $router->addx('/standards/{file:[0-9]+}/edit','standards::edit',['standardRules'])->setName('standards.edit');
