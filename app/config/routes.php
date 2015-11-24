@@ -6,7 +6,7 @@ $router = new myRouter(false);
 
 $router->removeExtraSlashes(true);
 $router->add('/page/{page:[0-9]+}','index::index')->setName('index');
-$router->add('/','index::index');
+$router->add('/','index::index')->setName('home');
 
 $router->add('/search/{search:[^/]+}/page/{page:[0-9]+}','standards::search')->setName('standards.search');
 $router->add('/search/{search:[^/]+}','standards::search')->setName('standards.search.index');

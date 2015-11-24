@@ -8,6 +8,7 @@ class Files extends myModel
     use taggableTrait;
     use navTrait;
     use revisionableTrait;
+    use OaiDticMilTrait;
     /**
      *
      * @var integer
@@ -146,56 +147,6 @@ class Files extends myModel
             $builder->andWhere("title like :search{$key}:",["search{$key}"=>'%'.$bit.'%']);
         }
         return $builder;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//事件绑定，下面是设置各种绑定事件的
-
-    public function beforeDelete()
-    {
-        foreach($this->comments() as $c){$c->delete();}
-
-        foreach($this->attachments() as $a){$a->delete();}
-
-        $tags = Taggables::query()
-            ->where('Taggables.taggable_type = :type:',['type'=>get_class($this)])
-            ->andWhere('Taggables.taggable_id = :id:',['id'=>$this->id])
-            ->execute();
-        foreach($tags as $t){$t->delete();}
-
-    }
-
-    public function saveDoDFile($file_id)
-    {
-
-        $DoD_file = new oai_dtic_mil_parser();
-        $info = $DoD_file->parseInfo($file_id);
-
-        $this->save([
-            'title'=> $info['Title'],
-            'url'=>$DoD_file->getURLById($file_id),
-            'updated_at_website'=>$info['Report_Date'],
-            'standard_number'=>$info['Accession_Number']
-        ]);
-
-        $info['file_id'] = $this->id;
-
-        $oaiDticMil = new OaiDticMil();
-        $oaiDticMil->save($info);
-        return $this;
     }
 
 

@@ -49,4 +49,12 @@ trait commentableTrait
         return $this->getDI()->get('url')->get(['for'=>$modelName.'.addComment',$modelNameSingleForm=>$this->id]);
     }
 
+    public function beforeDeleteForComments()
+    {
+        $comments = $this->comments();
+        if($comments) $comments->delete();
+        return $this;
+    }
+
+
 }

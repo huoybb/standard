@@ -38,5 +38,13 @@ trait attachableTrait
         return $this;
     }
 
+    public function beforeDeleteForAttachments()
+    {
+        $attachments = $this->attachments();
+        if($attachments) $attachments->delete();
+        return $this;
+    }
+
+
 
 }

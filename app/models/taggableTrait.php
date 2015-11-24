@@ -41,11 +41,15 @@ trait taggableTrait
         }
         return $this;
     }
-
-//    public function deleteTag(Tags $tag)
-//    {
-//
-//    }
+    public function beforeDeleteForTaggables()
+    {
+        $tags = Taggables::query()
+            ->where('Taggables.taggable_type = :type:',['type'=>get_class($this)])
+            ->andWhere('Taggables.taggable_id = :id:',['id'=>$this->id])
+            ->execute();
+        if($tags) $tags->delete();
+        return $this;
+    }
 
 
 }

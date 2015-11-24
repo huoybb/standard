@@ -118,7 +118,7 @@ class Attachments extends myModel
         });
     }
 
-    public function beforeDelete()
+    public function beforeDeleteRemoveFile()
     {
         //删除附件的实体文件，避免出现死文件
         unlink($this->url);

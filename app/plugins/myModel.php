@@ -29,12 +29,22 @@ abstract class myModel extends Model{
         }
 
         $this->updated_at = Carbon::now()->toDateTimeString();
+        $this->getEventMethodsAndExecute('|beforeSave.+|');
     }
 
     public function afterFetch()
     {
         if(isset($this->created_at)) $this->created_at = Carbon::parse($this->created_at);
         if(isset($this->updated_at)) $this->updated_at = Carbon::parse($this->updated_at);
+        $this->getEventMethodsAndExecute('|afterFetch.+|');
+    }
+    public function afterSave()
+    {
+        $this->getEventMethodsAndExecute('|afterSave.+|');
+    }
+    public function beforeDelete()
+    {
+        $this->getEventMethodsAndExecute('|beforeDelete.+|');
     }
 
 
@@ -60,7 +70,18 @@ abstract class myModel extends Model{
         return $instance->save($data);
     }
 
-
-
+    private function getEventMethodsAndExecute($format){
+        $hooks = [];
+        foreach($this->getMethods() as $method){
+            if(preg_match($format,$method->name)) $hooks[]=$method->name;
+        }
+        foreach($hooks as $method){
+            $this->{$method}();
+        }
+    }
+    private function getMethods(){
+        $r = new ReflectionClass($this);
+        return $r->getMethods();
+    }
 
 } 

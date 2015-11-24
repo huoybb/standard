@@ -60,7 +60,9 @@ class StandardsController extends myController
             $file->delete();
             return $this->success();
         }
-
+//        dd($file);
+        $file->delete();
+        return $this->redirectByRoute(['for'=>'home']);
     }
 
 

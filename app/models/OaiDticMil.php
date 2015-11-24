@@ -163,5 +163,13 @@ class OaiDticMil extends \Phalcon\Mvc\Model
     {
         return Files::findFirst($this->file_id);
     }
+    public function getHtml($key)
+    {
+        if($key == 'Abstract'){
+            return '<pre>'.$this->$key.'</pre>';
+        }
+
+        return $this->$key;
+    }
 
 }

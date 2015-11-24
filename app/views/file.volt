@@ -17,7 +17,7 @@
                 {% block breadcrumb %}{% endblock %}
                 <p>{{ flash.output() }}</p>
                 <h2><a href="{{ url(['for':'standards.show','file':file.id]) }}">{{ file.title }}</a></h2>
-                <div class="row col-md-10">
+                <div class="col-md-10">
                     {% include 'layouts/partial/file.info.volt' %}
 
                     {% block nav %}{% endblock %}
@@ -28,8 +28,11 @@
                     {% include 'layouts/partial/commentListForFile.volt' %}
                     {% include 'layouts/partial/commentForm.volt' %}
                 </div>
-                {% include 'layouts/partial/addRevisionFile.volt' %}
-                {% include 'layouts/partial/addTag.volt' %}
+                <div class="col-md-2">
+                    {% include 'layouts/partial/addRevisionFile.volt' %}
+                    {% include 'layouts/partial/addTag.volt' %}
+                </div>
+
             </div>
         {% block footer %}
             <div class="container">

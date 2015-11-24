@@ -16,4 +16,12 @@ trait revisionableTrait
             return Revisions::findFirst(['file_id = :id:','bind'=>['id'=>$this->id]]);
         });
     }
+
+    public function beforeDeleteForRevision()
+    {
+        $revision = $this->getRevision();
+        if($revision) $revision->delete();
+        return $this;
+    }
+
 }
