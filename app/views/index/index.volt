@@ -19,12 +19,12 @@
                         </ul>
                     </nav>
                 {% endif %}
-                <table class="table table-hover">
+                <table class="table table-hover table-layout:fixed">
                     <tr>
-                        <th>#</th>
-                        <th>标准</th>
-                        <th>更新时间</th>
-                        <th colspan="2"><div align="center">操作</div></th>
+                        <th width="10%">#</th>
+                        <th width="65%">标准</th>
+                        <th width="15">更新时间</th>
+                        <th colspan="2" width="10%"><div align="center">操作</div></th>
                     </tr>
                     {% for item in page.items %}
                         <tr>

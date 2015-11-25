@@ -14,7 +14,9 @@
             'Corporate_Author':'单位',
             'Personal_Author':'作者',
             'Pagination_or_Media_Count':'页数',
-            'Abstract':'摘要'
+            'Abstract':'摘要',
+            'Descriptors':'描述分类',
+            'Subject_Categories':'主题分类'
         ] %}
         {% for key,value in format if file.getOaiDticMil().getHtml(key) %}
             <div class="row">

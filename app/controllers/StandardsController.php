@@ -38,6 +38,15 @@ class StandardsController extends myController
 
     public function showAction(Files $file)
     {
+//        $tag = Tags::findOrNewByName('FMECA');
+//        $dod =OaiDticMil::query()
+//            ->where('id > :id:',['id'=>83])
+//            ->execute();
+//        foreach($dod as $f){
+//            /** @var OaiDticMil $f */
+//            $f->getStandard()->addTag($tag);
+//        }
+
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }

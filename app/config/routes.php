@@ -40,13 +40,14 @@ $router->add('/revisions/{rev:[0-9]+}/delete','revisions::delete')->setName('rev
 
 $router->add('/tags','tags::index')->setName('tags.index');
 $router->add('/tags/{tag:[0-9]+}','tags::show')->setName('tags.show');
+$router->add('/tags/{tag:[0-9]+}/page/{page:[0-9]+}','tags::show')->setName('tags.show.page');
 $router->add('/tags/{tag:[0-9]+}/edit','tags::edit')->setName('tags.edit');
 
 $router->add('/tags/{tag:[0-9]+}/addComment','tags::addComment')->setName('tags.addComment');
 $router->add('/tags/{tag:[0-9]+}/comments/{comment:[0-9]+}/edit','tags::editComment')->setName('tags.editComment');
 $router->add('/tags/{tag:[0-9]+}/comments/{comment:[0-9]+}/delete','tags::deleteComment')->setName('tags.deleteComment');
 
-$router->add('/tags/{tag:[0-9]+}/{item:[0-9]+}','tags::showItem')->setName('tags.showItem');
+$router->add('/tags/{tag:[0-9]+}/item/{item:[0-9]+}','tags::showItem')->setName('tags.showItem');
 $router->add('/tags/{tag:[0-9]+}/item/{taggable:[0-9]+}/delete','tags::deleteItem')->setName('tags.deleteItem');
 
 return $router;
