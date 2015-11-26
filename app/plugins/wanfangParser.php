@@ -41,8 +41,12 @@ class wanfangParser
         $data = [];
         $crawler = $this->client->request('get',$this->Id2Url($wanfangId));
         $data['title'] = trim($crawler->filter('.section-baseinfo h1')->text());
-        $data['english_title'] = trim($crawler->filter('.section-baseinfo h2')->text());
+        //修正没有英文标题的问题
+        if($crawler->filter('.section-baseinfo h2')->count()){
+            $data['english_title'] = trim($crawler->filter('.section-baseinfo h2')->text());
+        }
 //        $data['abstract'] = trim($crawler->filter('.abstract .text')->text());
+//        dd($data);
         $crawler->filter('.baseinfo-feild .row')->each(function($row) use(&$data) {
             /** @var Symfony\Component\DomCrawler\Crawler $row */
             $key = preg_replace('/(\s*)|(：)/m', '', trim($row->filter('.pre')->text()));
