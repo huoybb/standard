@@ -34,6 +34,21 @@ class StandardsController extends myController
         $this->addDoDFile($accessNumber,$file);
     }
 
+    public function addWanfangAction($wanfangId,Files $file)
+    {
+        $wanfang = new wanfangParser($wanfangId);
+        $data = $wanfang->parseInfo();
+        $file->save([
+            'title'=> $data['title'],
+            'url'=>$wanfang->Id2Url(),
+            'updated_at_website'=>$data['publishDate']
+        ]);
+        $data['file_id']=$file->id;
+        (new Wanfang())->save($data);
+        return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
+    }
+
+
 
 
     public function showAction(Files $file)

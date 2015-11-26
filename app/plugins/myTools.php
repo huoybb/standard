@@ -87,5 +87,30 @@ class myTools
 
         return $filename;
     }
+    /*
+     * 接受任何编码，并将之变成UTF-8的编码
+     * 这个函数在抓取万方数据有用
+     *
+     */
+    static function correct_encoding($text) {
+        $current_encoding = mb_detect_encoding($text, 'auto');
+        $text = iconv($current_encoding, 'UTF-8', $text);
+        return $text;
+    }
+
+    /*
+     * 去除页面中的各种不必要的标签
+     *
+     *
+     */
+    static function html2txt($document){
+        $search = array('@<script[^>]*?>.*?</script>@si',  // Strip out javascript
+
+            '@<style[^>]*?>.*?</style>@siU',    // Strip style tags properly
+            '@<![\s\S]*?--[ \t\n\r]*>@'         // Strip multi-line comments including CDATA
+        );
+        $text = preg_replace($search, '', $document);
+        return $text;
+    }
 
 }

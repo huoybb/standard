@@ -19,6 +19,7 @@ class oai_dtic_mil_parser
         $result = [];
         $crawler = $this->client->request('get',$this->getURLById($file_id));
         $crawler->filter('p')->each(function($info) use(&$result){
+            /** @var Symfony\Component\DomCrawler\Crawler $info */
             if (preg_match('%<b>\s*([^:]+?)\s*:.*?</b>(.+)$%sm', $info->html(), $regs)) {
                 $name = $regs[1];
                 $name = str_replace(' ','_',$name);
