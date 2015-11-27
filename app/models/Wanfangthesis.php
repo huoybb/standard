@@ -1,6 +1,6 @@
 <?php
 
-class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
+class Wanfangthesis extends \Phalcon\Mvc\Model implements FileableInterface
 {
 
     /**
@@ -13,18 +13,13 @@ class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
      *
      * @var string
      */
-    public $title;
-    /**
-     *
-     * @var string
-     */
     public $wanfangId;
 
     /**
      *
      * @var string
      */
-    public $english_title;
+    public $title;
 
     /**
      *
@@ -48,25 +43,31 @@ class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
      *
      * @var string
      */
-    public $Corporate_Author;
+    public $major;
 
     /**
      *
      * @var string
      */
-    public $Journal;
+    public $degree;
 
     /**
      *
      * @var string
      */
-    public $yearMonthNumber;
+    public $school;
 
     /**
      *
      * @var string
      */
-    public $keywords;
+    public $supervisor;
+
+    /**
+     *
+     * @var string
+     */
+    public $year;
 
     /**
      *
@@ -76,20 +77,15 @@ class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
 
     /**
      *
+     * @var string
+     */
+    public $keywords;
+
+    /**
+     *
      * @var integer
      */
     public $file_id;
-
-    /**
-     * @param $wanfangId
-     * @return Wanfang
-     */
-    public static function findByWanfangId($wanfangId)
-    {
-        return self::query()
-            ->where('wanfangId = :id:',['id'=>$wanfangId])
-            ->execute()->getFirst();
-    }
 
     /**
      * Returns table name mapped in the model.
@@ -98,14 +94,14 @@ class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
      */
     public function getSource()
     {
-        return 'wanfang';
+        return 'wanfangthesis';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Wanfang[]
+     * @return Wanfangthesis[]
      */
     public static function find($parameters = null)
     {
@@ -116,11 +112,22 @@ class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Wanfang
+     * @return Wanfangthesis
      */
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
+    }
+
+    /**
+     * @param $wanfangId
+     * @return Wanfangthesis
+     */
+    public static function findByWanfangId($wanfangId)
+    {
+        return self::query()
+            ->where('wanfangId = :id:',['id'=>$wanfangId])
+            ->execute()->getFirst();
     }
 
     /**
@@ -133,33 +140,42 @@ class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
     {
         return array(
             'id' => 'id',
-            'title' => 'title',
             'wanfangId' => 'wanfangId',
-            'english_title' => 'english_title',
+            'title' => 'title',
             'abstract' => 'abstract',
             'doi' => 'doi',
             'Personal_Author' => 'Personal_Author',
-            'Corporate_Author' => 'Corporate_Author',
-            'Journal' => 'Journal',
-            'yearMonthNumber' => 'yearMonthNumber',
-            'keywords' => 'keywords',
+            'major' => 'major',
+            'degree' => 'degree',
+            'school' => 'school',
+            'supervisor' => 'supervisor',
+            'year' => 'year',
             'publishDate' => 'publishDate',
+            'keywords' => 'keywords',
             'file_id' => 'file_id'
         );
     }
+
+    public function getStandard()
+    {
+        return Files::findFirst($this->file_id);
+    }
+
     public function format()
     {
         return [
             'doi' => 'doi',
-            'english_title' => 'title',
-            'Corporate_Author'=>'单位',
             'Personal_Author'=>'作者',
-            'Journal' => '刊名',
-            'yearMonthNumber' => '年，卷(期)',
+            'major' => '学科专业',
+            'degree' => '授予学位',
+            'school' => '学位授予单位',
+            'supervisor' => '导师姓名',
+            'year' => '学位年度',
             'abstract'=>'摘要',
             'keywords' => '关键词',
         ];
     }
+
     public function getHtml($key)
     {
         if($key == 'abstract'){
@@ -168,9 +184,4 @@ class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
         }
         return $this->$key;
     }
-    public function getStandard()
-    {
-        return Files::findFirst($this->file_id);
-    }
-
 }

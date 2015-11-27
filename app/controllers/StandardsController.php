@@ -34,12 +34,19 @@ class StandardsController extends myController
         $this->addDoDFile($accessNumber,$file);
     }
 
-    public function addWanfangAction($wanfangId,Files $file)
+    public function addWanfangAction($type,$wanfangId,Files $file)
     {
-        $wanfang = Wanfang::findByWanfangId($wanfangId);
+        $data = [
+            'Periodical'=>'Wanfang',
+            'Thesis'=>'Wanfangthesis'
+        ];
+
+        $className = $data[$type];
+        $wanfang = $className::findByWanfangId($wanfangId);
         if($wanfang)  return $this->redirectByRoute(['for'=>'standards.show','file'=>$wanfang->getStandard()->id]);
-        $file->saveWanfangFile($wanfangId);
+        $file->saveWanfangFile($wanfangId,$type);
         return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
+
     }
 
 
@@ -47,33 +54,9 @@ class StandardsController extends myController
 
     public function showAction(Files $file)
     {
-//        $tag = Tags::findOrNewByName('FMECA');
-//        $dod =OaiDticMil::query()
-//            ->where('id > :id:',['id'=>83])
-//            ->execute();
-//        foreach($dod as $f){
-//            /** @var OaiDticMil $f */
-//            $f->getStandard()->addTag($tag);
-//        }
 
-//        foreach(Wanfang::find() as $f){
-//            $fileable = new Fileable();
-//            $fileable->save([
-//                'file_id'=>$f->file_id,
-//                'fileable_type'=>get_class($f),
-//                'fileable_id'=>$f->id
-//            ]);
-//        }
-//        dd('结束，请查看数据库');
-//        dd($file->getFileable());
-//        foreach(Wanfang::find() as $f){
-//            $standard = $f->getStandard();
-//            $wanfangId = preg_replace('%http://d.wanfangdata.com.cn/Periodical/(.+)%m', '$1', $standard->url);
-//            echo $wanfangId.'<br>';
-//            $f->wanfangId = $wanfangId;
-//            $f->save();
-//        }
-//        dd('测试');
+//        $thesis = new wanfangThesisParser('Y1352594');
+//        dd($thesis->parseInfo());
 
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);

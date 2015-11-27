@@ -58,23 +58,39 @@ trait FileableTrait
         return $this;
     }
 
-    public function saveWanfangFile($wanfangId)
+    public function saveWanfangFile($wanfangId,$type = 'Periodical')
     {
-        $wf = new wanfangParser($wanfangId);
-        $data = $wf->parseInfo();
-        /** @var Files $this */
-        $this->save([
-            'title'=> $data['title'],
-            'url'=>$wf->Id2Url(),
-            'updated_at_website'=>$data['publishDate']
-        ]);
-        $data['file_id']=$this->id;
-        $data['wanfangId']=$wanfangId;
+        if($type == 'Periodical') {
+            $wf = new wanfangParser($wanfangId);
+            $data = $wf->parseInfo();
+            /** @var Files $this */
+            $this->save([
+                'title'=> $data['title'],
+                'url'=>$wf->Id2Url(),
+                'updated_at_website'=>$data['publishDate']
+            ]);
+            $data['file_id']=$this->id;
+            $wanfang = new Wanfang();
+            $wanfang->save($data);
+            $this->saveFileable($wanfang);
+        }
+        if($type == 'Thesis'){
+            $wf = new wanfangThesisParser($wanfangId);
+            $data = $wf->parseInfo();
+            /** @var Files $this */
+            $this->save([
+                'title'=> $data['title'],
+                'url'=>$wf->Id2Url(),
+                'updated_at_website'=>$data['publishDate']
+            ]);
+            $data['file_id']=$this->id;
+            $wanfang = new wanfangThesis();
+            $wanfang->save($data);
+            $this->saveFileable($wanfang);
 
-        $wanfang = new Wanfang();
-        $wanfang->save($data);
+        }
 
-        $this->saveFileable($wanfang);
+
         return $this;
     }
     private function saveFileable($fileableObject)

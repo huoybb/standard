@@ -62,7 +62,7 @@ class wanfangParser
             }
             $data[$key]=$value;
         });
-        $result = [];
+        $result = ['wanfangId'=>$wanfangId];
         foreach($data as $key=>$value){
             if(isset($this->format[$key]))$result[$this->format[$key]]=$value;
         }
