@@ -1,6 +1,6 @@
 <?php
 
-class OaiDticMil extends \Phalcon\Mvc\Model
+class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
 {
 
     /**
@@ -180,5 +180,20 @@ class OaiDticMil extends \Phalcon\Mvc\Model
 
         return $this->$key;
     }
+
+    public function format()
+    {
+        return [
+            'Accession_Number'=>'序列号',
+            'Descriptive_Note'=>'文档类型',
+            'Corporate_Author'=>'单位',
+            'Personal_Author'=>'作者',
+            'Pagination_or_Media_Count'=>'页数',
+            'Abstract'=>'摘要',
+            'Descriptors'=>'描述分类',
+            'Subject_Categories'=>'主题分类'
+        ];
+    }
+
 
 }

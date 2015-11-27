@@ -51,6 +51,7 @@ $di->set('view', function () use ($config) {
 
             $compiler = $volt->getCompiler();
             $compiler->addFilter('basename','basename');
+            $compiler->addFunction('get_class','get_class');
             $compiler->addFilter('formatSizeUnits',function($size){ return '$this->myTools->formatSizeUnits('.$size.')';});
 
             return $volt;

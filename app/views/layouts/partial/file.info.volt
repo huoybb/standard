@@ -7,21 +7,12 @@
         </div>
     {% endfor %}
 
-    {% if file.getOaiDticMil() %}
-        {% set format = [
-            'Accession_Number':'序列号',
-            'Descriptive_Note':'文档类型',
-            'Corporate_Author':'单位',
-            'Personal_Author':'作者',
-            'Pagination_or_Media_Count':'页数',
-            'Abstract':'摘要',
-            'Descriptors':'描述分类',
-            'Subject_Categories':'主题分类'
-        ] %}
-        {% for key,value in format if file.getOaiDticMil().getHtml(key) %}
+    {% if file.getFileable() %}
+
+        {% for key,value in file.getFileable().format() if file.getFileable().getHtml(key) %}
             <div class="row">
                 <div class="col-md-2" align="right"><span>{{value}}</span>:</div>
-                <div class="col-md-10"><span>{{ file.getOaiDticMil().getHtml(key) }}</span></div>
+                <div class="col-md-10"><span>{{ file.getFileable().getHtml(key) }}</span></div>
             </div>
         {% endfor %}
     {% endif %}

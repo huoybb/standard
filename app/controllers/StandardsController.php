@@ -36,15 +36,9 @@ class StandardsController extends myController
 
     public function addWanfangAction($wanfangId,Files $file)
     {
-        $wanfang = new wanfangParser($wanfangId);
-        $data = $wanfang->parseInfo();
-        $file->save([
-            'title'=> $data['title'],
-            'url'=>$wanfang->Id2Url(),
-            'updated_at_website'=>$data['publishDate']
-        ]);
-        $data['file_id']=$file->id;
-        (new Wanfang())->save($data);
+        $wanfang = Wanfang::findByWanfangId($wanfangId);
+        if($wanfang)  return $this->redirectByRoute(['for'=>'standards.show','file'=>$wanfang->getStandard()->id]);
+        $file->saveWanfangFile($wanfangId);
         return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
     }
 
@@ -61,6 +55,25 @@ class StandardsController extends myController
 //            /** @var OaiDticMil $f */
 //            $f->getStandard()->addTag($tag);
 //        }
+
+//        foreach(Wanfang::find() as $f){
+//            $fileable = new Fileable();
+//            $fileable->save([
+//                'file_id'=>$f->file_id,
+//                'fileable_type'=>get_class($f),
+//                'fileable_id'=>$f->id
+//            ]);
+//        }
+//        dd('结束，请查看数据库');
+//        dd($file->getFileable());
+//        foreach(Wanfang::find() as $f){
+//            $standard = $f->getStandard();
+//            $wanfangId = preg_replace('%http://d.wanfangdata.com.cn/Periodical/(.+)%m', '$1', $standard->url);
+//            echo $wanfangId.'<br>';
+//            $f->wanfangId = $wanfangId;
+//            $f->save();
+//        }
+//        dd('测试');
 
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);

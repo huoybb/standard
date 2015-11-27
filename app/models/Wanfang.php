@@ -1,6 +1,6 @@
 <?php
 
-class Wanfang extends \Phalcon\Mvc\Model
+class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
 {
 
     /**
@@ -14,6 +14,11 @@ class Wanfang extends \Phalcon\Mvc\Model
      * @var string
      */
     public $title;
+    /**
+     *
+     * @var string
+     */
+    public $wanfangId;
 
     /**
      *
@@ -76,6 +81,23 @@ class Wanfang extends \Phalcon\Mvc\Model
     public $file_id;
 
     /**
+     * @param $wanfangId
+     * @return Wanfang
+     */
+    public static function findByWanfangId($wanfangId)
+    {
+        return self::query()
+            ->where('wanfangId = :id:',['id'=>$wanfangId])
+            ->execute()->getFirst();
+    }
+
+    public function getStandard()
+    {
+        return Files::findFirst($this->file_id);
+    }
+
+
+    /**
      * Returns table name mapped in the model.
      *
      * @return string
@@ -118,6 +140,7 @@ class Wanfang extends \Phalcon\Mvc\Model
         return array(
             'id' => 'id',
             'title' => 'title',
+            'wanfangId' => 'wanfangId',
             'english_title' => 'english_title',
             'abstract' => 'abstract',
             'doi' => 'doi',
@@ -129,6 +152,27 @@ class Wanfang extends \Phalcon\Mvc\Model
             'publishDate' => 'publishDate',
             'file_id' => 'file_id'
         );
+    }
+    public function format()
+    {
+        return [
+            'doi' => 'doi',
+            'english_title' => 'title',
+            'Corporate_Author'=>'单位',
+            'Personal_Author'=>'作者',
+            'Journal' => '刊名',
+            'yearMonthNumber' => '年，卷(期)',
+            'abstract'=>'摘要',
+            'keywords' => 'keywords',
+        ];
+    }
+    public function getHtml($key)
+    {
+        if($key == 'abstract'){
+            if($this->$key == null) return null;
+            return '<pre>'.$this->$key.'</pre>';
+        }
+        return $this->$key;
     }
 
 }

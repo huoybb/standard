@@ -8,7 +8,7 @@ class Files extends myModel
     use taggableTrait;
     use navTrait;
     use revisionableTrait;
-    use OaiDticMilTrait;
+    use FileableTrait;
     /**
      *
      * @var integer
