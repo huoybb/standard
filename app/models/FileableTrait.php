@@ -13,6 +13,7 @@ trait FileableTrait
         /** @var Files $this */
         return $this->make('fileable',function(){
             /** @var Files $this */
+            /** @var Fileable $fileable */
             $fileable =  Fileable::query()
                 ->where('file_id = :id:',['id'=>$this->id])
                 ->execute()->getFirst();
@@ -52,11 +53,8 @@ trait FileableTrait
 
         $oaiDticMil = new OaiDticMil();
         $oaiDticMil->save($info);
-        (new Fileable())->save([
-            'file_id'=>$this->id,
-            'fileable_type'=>get_class($oaiDticMil),
-            'fileable_id'=>$oaiDticMil->id,
-        ]);
+
+        $this->saveFileable($oaiDticMil);
         return $this;
     }
 
@@ -76,12 +74,16 @@ trait FileableTrait
         $wanfang = new Wanfang();
         $wanfang->save($data);
 
+        $this->saveFileable($wanfang);
+        return $this;
+    }
+    private function saveFileable($fileableObject)
+    {
         (new Fileable())->save([
             'file_id'=>$this->id,
-            'fileable_type'=>get_class($wanfang),
-            'fileable_id'=>$wanfang->id,
+            'fileable_type'=>get_class($fileableObject),
+            'fileable_id'=>$fileableObject->id,
         ]);
-        return $this;
     }
 
 
