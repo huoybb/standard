@@ -8,6 +8,9 @@
  */
 trait FileableTrait
 {
+    /**
+     * @return FileableInterface
+     */
     public function getFileable()
     {
         /** @var Files $this */
@@ -84,10 +87,23 @@ trait FileableTrait
                 'updated_at_website'=>$data['publishDate']
             ]);
             $data['file_id']=$this->id;
-            $wanfang = new wanfangThesis();
+            $wanfang = new Wanfangthesis();
             $wanfang->save($data);
             $this->saveFileable($wanfang);
 
+        }
+        if($type == 'Conference'){
+            $wf = new wanfangConferenceParser($wanfangId);
+            $data = $wf->parseInfo();
+            $this->save([
+                'title'=> $data['title'],
+                'url'=>$wf->Id2Url(),
+                'updated_at_website'=>$data['publishDate']
+            ]);
+            $data['file_id']=$this->id;
+            $wanfang = new Wanfangconference();
+            $wanfang->save($data);
+            $this->saveFileable($wanfang);
         }
 
 

@@ -16,7 +16,7 @@
             <div class="container">
                 {% block breadcrumb %}{% endblock %}
                 <p>{{ flash.output() }}</p>
-                <h2><a href="{{ url(['for':'standards.show','file':file.id]) }}">{{ file.title }}</a></h2>
+                <h2>{{ fileType }}:<a href="{{ url(['for':'standards.show','file':file.id]) }}">{{ file.title }}</a></h2>
                 <div class="col-md-10">
                     {% include 'layouts/partial/file.info.volt' %}
 

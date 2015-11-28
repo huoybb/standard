@@ -1,7 +1,7 @@
 {% extends 'file.volt' %}
 
 {% block title %}
-    标准：{{ file.title }}
+    {{ fileType }}：{{ file.title }}
 {% endblock %}
 
 {% block nav %}

@@ -1,13 +1,17 @@
 <?php
 
-class Wanfangthesis extends \Phalcon\Mvc\Model implements FileableInterface
+class Wanfangconference extends \Phalcon\Mvc\Model implements FileableInterface
 {
 
     /**
      *
      * @var integer
      */
-    public $id;
+    public $id; /**
+     *
+     * @var integer
+     */
+    public $file_id;
 
     /**
      *
@@ -31,49 +35,43 @@ class Wanfangthesis extends \Phalcon\Mvc\Model implements FileableInterface
      *
      * @var string
      */
-    public $doi;
-
-    /**
-     *
-     * @var string
-     */
     public $Personal_Author;
 
     /**
      *
      * @var string
      */
-    public $major;
+    public $Corporate_Author;
 
     /**
      *
      * @var string
      */
-    public $degree;
+    public $parent_literature;
 
     /**
      *
      * @var string
      */
-    public $school;
+    public $conference_title;
 
     /**
      *
      * @var string
      */
-    public $supervisor;
+    public $conference_date;
 
     /**
      *
      * @var string
      */
-    public $year;
+    public $conference_place;
 
     /**
      *
      * @var string
      */
-    public $publishDate;
+    public $host_unit;
 
     /**
      *
@@ -83,9 +81,9 @@ class Wanfangthesis extends \Phalcon\Mvc\Model implements FileableInterface
 
     /**
      *
-     * @var integer
+     * @var string
      */
-    public $file_id;
+    public $publishDate;
 
     /**
      * Returns table name mapped in the model.
@@ -94,14 +92,14 @@ class Wanfangthesis extends \Phalcon\Mvc\Model implements FileableInterface
      */
     public function getSource()
     {
-        return 'wanfangthesis';
+        return 'wanfangconference';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Wanfangthesis[]
+     * @return Wanfangconference[]
      */
     public static function find($parameters = null)
     {
@@ -112,22 +110,11 @@ class Wanfangthesis extends \Phalcon\Mvc\Model implements FileableInterface
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Wanfangthesis
+     * @return Wanfangconference
      */
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
-    }
-
-    /**
-     * @param $wanfangId
-     * @return Wanfangthesis
-     */
-    public static function findBySourceId($souceId)
-    {
-        return self::query()
-            ->where('wanfangId = :id:',['id'=>$souceId])
-            ->execute()->getFirst();
     }
 
     /**
@@ -143,15 +130,15 @@ class Wanfangthesis extends \Phalcon\Mvc\Model implements FileableInterface
             'wanfangId' => 'wanfangId',
             'title' => 'title',
             'abstract' => 'abstract',
-            'doi' => 'doi',
             'Personal_Author' => 'Personal_Author',
-            'major' => 'major',
-            'degree' => 'degree',
-            'school' => 'school',
-            'supervisor' => 'supervisor',
-            'year' => 'year',
-            'publishDate' => 'publishDate',
+            'Corporate_Author' => 'Corporate_Author',
+            'parent_literature' => 'parent_literature',
+            'conference_title' => 'conference_title',
+            'conference_date' => 'conference_date',
+            'conference_place' => 'conference_place',
+            'host_unit' => 'host_unit',
             'keywords' => 'keywords',
+            'publishDate' => 'publishDate',
             'file_id' => 'file_id'
         );
     }
@@ -164,13 +151,13 @@ class Wanfangthesis extends \Phalcon\Mvc\Model implements FileableInterface
     public function format()
     {
         return [
-            'doi' => 'doi',
             'Personal_Author'=>'作者',
-            'major' => '学科专业',
-            'degree' => '授予学位',
-            'school' => '学位授予单位',
-            'supervisor' => '导师姓名',
-            'year' => '学位年度',
+            'Corporate_Author' => '作者单位',
+            'parent_literature' => '母体文献',
+            'conference_title' => '会议名称',
+            'conference_date' => '会议时间',
+            'conference_place' => '会议地点',
+            'host_unit' => '主办单位',
             'abstract'=>'摘要',
             'keywords' => '关键词',
         ];
@@ -184,8 +171,16 @@ class Wanfangthesis extends \Phalcon\Mvc\Model implements FileableInterface
         }
         return $this->$key;
     }
+    public static function findBySourceId($souceId)
+    {
+        return self::query()
+            ->where('wanfangId = :id:',['id'=>$souceId])
+            ->execute()->getFirst();
+    }
+
+
     public function getType()
     {
-        return '学位';
+        return '会议';
     }
 }

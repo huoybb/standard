@@ -84,10 +84,10 @@ class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
      * @param $wanfangId
      * @return Wanfang
      */
-    public static function findByWanfangId($wanfangId)
+    public static function findBySourceId($souceId)
     {
         return self::query()
-            ->where('wanfangId = :id:',['id'=>$wanfangId])
+            ->where('wanfangId = :id:',['id'=>$souceId])
             ->execute()->getFirst();
     }
 
@@ -173,4 +173,9 @@ class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
         return Files::findFirst($this->file_id);
     }
 
+
+    public function getType()
+    {
+        return '期刊';
+    }
 }

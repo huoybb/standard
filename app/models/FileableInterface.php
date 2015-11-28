@@ -13,4 +13,6 @@ interface FileableInterface
     public function getStandard();
     public function format();
     public function getHtml($key);
+    public function getType();//返回文档类型
+    public static function findBySourceId($souceId);
 }

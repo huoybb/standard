@@ -38,11 +38,12 @@ class StandardsController extends myController
     {
         $data = [
             'Periodical'=>'Wanfang',
-            'Thesis'=>'Wanfangthesis'
+            'Thesis'=>'Wanfangthesis',
+            'Conference'=>'Wanfangconference',
         ];
 
         $className = $data[$type];
-        $wanfang = $className::findByWanfangId($wanfangId);
+        $wanfang = $className::findBySourceId($wanfangId);
         if($wanfang)  return $this->redirectByRoute(['for'=>'standards.show','file'=>$wanfang->getStandard()->id]);
         $file->saveWanfangFile($wanfangId,$type);
         return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
@@ -55,10 +56,12 @@ class StandardsController extends myController
     public function showAction(Files $file)
     {
 
-//        $thesis = new wanfangThesisParser('Y1352594');
-//        dd($thesis->parseInfo());
-
         $this->view->file = $file;
+        $type = '标准';
+        if($file->getFileable()){
+            $type = $file->getFileable()->getType();
+        }
+        $this->view->fileType = $type;
         $this->view->form = myForm::buildCommentForm($file);
     }
 
@@ -264,7 +267,7 @@ class StandardsController extends myController
 
     private function addDoDFile($accessNumber, Files $file)
     {
-        $dod = OaiDticMil::findByAccessNo($accessNumber);
+        $dod = OaiDticMil::findBySourceId($accessNumber);
         if($dod) return  $this->redirectByRoute(['for'=>'standards.show','file'=>$dod->getStandard()->id]);
         $file->saveDoDFile($accessNumber);
         return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);

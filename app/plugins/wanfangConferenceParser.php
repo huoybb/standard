@@ -3,23 +3,23 @@
 /**
  * Created by PhpStorm.
  * User: ThinkPad
- * Date: 2015/11/27
- * Time: 14:44
+ * Date: 2015/11/28
+ * Time: 11:49
  */
 use Goutte\Client;
-class wanfangThesisParser
+class wanfangConferenceParser
 {
     private $wanfangId = null;
     private $format = [
         'title'=>'title',
         'abstract'=>'abstract',
-        'doi'=>'doi',
         '作者'=>'Personal_Author',
-        '学科专业'=>'major',
-        '授予学位'=>'degree',
-        '学位授予单位'=>'school',
-        '导师姓名'=>'supervisor',
-        '学位年度'=>'year',
+        '作者单位'=>'Corporate_Author',
+        '母体文献'=>'parent_literature',
+        '会议名称'=>'conference_title',
+        '会议时间'=>'conference_date',
+        '会议地点'=>'conference_place',
+        '主办单位'=>'host_unit',
         '在线出版日期'=>'publishDate',
         '关键词'=>'keywords',
     ];
@@ -31,7 +31,7 @@ class wanfangThesisParser
     public function Id2Url($wanfangId = null)
     {
         if($wanfangId == null) $wanfangId = $this->wanfangId;
-        return 'http://d.wanfangdata.com.cn/Thesis/'.$wanfangId;
+        return 'http://d.wanfangdata.com.cn/Conference/'.$wanfangId;
     }
     public function parseInfo($wanfangId = null){
         if($wanfangId == null) $wanfangId = $this->wanfangId;
@@ -51,7 +51,7 @@ class wanfangThesisParser
             if($row->filter('.pre')->count()){
                 $key = preg_replace('/(\s*)|(：)/m', '', trim($row->filter('.pre')->text()));
                 $value = trim($row->filter('.text')->text());
-                if($key == '关键词' OR $key =='导师姓名') {
+                if($key == '关键词') {
                     $links = [];
                     $row->filter('.text a')->each(function($link) use (&$links){
                         $links[] =$link->text();

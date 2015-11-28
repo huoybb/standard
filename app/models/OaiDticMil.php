@@ -88,17 +88,6 @@ class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
     public $file_id;
 
     /**
-     * @param $Accession_Number
-     * @return OaiDticMil
-     */
-    public static function findByAccessNo($Accession_Number)
-    {
-        return self::query()
-            ->where('Accession_Number = :Accession_Number:',['Accession_Number'=>$Accession_Number])
-            ->execute()->getFirst();
-    }
-
-    /**
      * Returns table name mapped in the model.
      *
      * @return string
@@ -155,6 +144,16 @@ class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
             'file_id' => 'file_id'
         );
     }
+    /**
+     * @param $souceId
+     * @return OaiDticMil
+     */
+    public static function findBySourceId($souceId)
+    {
+        return self::query()
+            ->where('Accession_Number = :Accession_Number:',['Accession_Number'=>$souceId])
+            ->execute()->getFirst();
+    }
 
     /**
      * @return Files
@@ -194,6 +193,9 @@ class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
             'Subject_Categories'=>'主题分类'
         ];
     }
-
+    public function getType()
+    {
+        return '美军';
+    }
 
 }
