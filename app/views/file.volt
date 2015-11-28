@@ -2,7 +2,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>{% block title %}{% endblock %}</title>
+		<title>
+            {% block title %}
+                {{ file.getFileType() }}：{{ file.title }}
+            {% endblock %}
+        </title>
         <link rel="stylesheet" href="{{ url.getBaseUri() }}css/app.css">
         <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/jquery-2.1.4.min.js"></script>
         <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/keymaster.js"></script>
@@ -16,7 +20,7 @@
             <div class="container">
                 {% block breadcrumb %}{% endblock %}
                 <p>{{ flash.output() }}</p>
-                <h2>{{ fileType }}:<a href="{{ url(['for':'standards.show','file':file.id]) }}">{{ file.title }}</a></h2>
+                <h2>{{ file.getFileType() }}:<a href="{{ url(['for':'standards.show','file':file.id]) }}">{{ file.title }}</a></h2>
                 <div class="col-md-10">
                     {% include 'layouts/partial/file.info.volt' %}
 

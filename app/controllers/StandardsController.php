@@ -57,11 +57,6 @@ class StandardsController extends myController
     {
 
         $this->view->file = $file;
-        $type = '标准';
-        if($file->getFileable()){
-            $type = $file->getFileable()->getType();
-        }
-        $this->view->fileType = $type;
         $this->view->form = myForm::buildCommentForm($file);
     }
 

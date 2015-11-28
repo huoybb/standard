@@ -1,9 +1,5 @@
 {% extends 'file.volt' %}
 
-{% block title %}
-    {{ fileType }}：{{ file.title }}
-{% endblock %}
-
 {% block nav %}
     <div class="row" id="nav">
         <nav>

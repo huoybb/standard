@@ -1,8 +1,6 @@
 {% extends 'file.volt' %}
 
-{% block title %}
-    标准：{{ file.title }}
-{% endblock %}
+
 {% block breadcrumb %}
     <ol class="breadcrumb">
         <li><a href="{{ url.getBaseUri() }}">首页</a></li>

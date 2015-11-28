@@ -60,6 +60,14 @@ trait FileableTrait
         $this->saveFileable($oaiDticMil);
         return $this;
     }
+    public function getFileType()
+    {
+        $type = '标准';
+        if($this->getFileable()){
+            $type = $this->getFileable()->getType();
+        }
+        return $type;
+    }
 
     public function saveWanfangFile($wanfangId,$type = 'Periodical')
     {
