@@ -71,49 +71,17 @@ trait FileableTrait
 
     public function saveWanfangFile($wanfangId,$type = 'Periodical')
     {
-        if($type == 'Periodical') {
-            $wf = new wanfangParser($wanfangId);
-            $data = $wf->parseInfo();
-            /** @var Files $this */
-            $this->save([
-                'title'=> $data['title'],
-                'url'=>$wf->Id2Url(),
-                'updated_at_website'=>$data['publishDate']
-            ]);
-            $data['file_id']=$this->id;
-            $wanfang = new Wanfang();
-            $wanfang->save($data);
-            $this->saveFileable($wanfang);
-        }
-        if($type == 'Thesis'){
-            $wf = new wanfangThesisParser($wanfangId);
-            $data = $wf->parseInfo();
-            /** @var Files $this */
-            $this->save([
-                'title'=> $data['title'],
-                'url'=>$wf->Id2Url(),
-                'updated_at_website'=>$data['publishDate']
-            ]);
-            $data['file_id']=$this->id;
-            $wanfang = new Wanfangthesis();
-            $wanfang->save($data);
-            $this->saveFileable($wanfang);
-
-        }
-        if($type == 'Conference'){
-            $wf = new wanfangConferenceParser($wanfangId);
-            $data = $wf->parseInfo();
-            $this->save([
-                'title'=> $data['title'],
-                'url'=>$wf->Id2Url(),
-                'updated_at_website'=>$data['publishDate']
-            ]);
-            $data['file_id']=$this->id;
-            $wanfang = new Wanfangconference();
-            $wanfang->save($data);
-            $this->saveFileable($wanfang);
-        }
-
+        $wf = WanfangWebParser::getParser($type,$wanfangId);
+        $data = $wf->parseInfo();
+        $this->save([
+            'title'=> $data['title'],
+            'url'=>$wf->Id2Url(),
+            'updated_at_website'=>$data['publishDate']
+        ]);
+        $data['file_id']=$this->id;
+        $wanfang = WanfangWebParser::getModel($type);
+        $wanfang->save($data);
+        $this->saveFileable($wanfang);
 
         return $this;
     }

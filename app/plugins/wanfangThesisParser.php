@@ -7,10 +7,9 @@
  * Time: 14:44
  */
 use Goutte\Client;
-class wanfangThesisParser
+class wanfangThesisParser extends WanfangWebParser
 {
-    private $wanfangId = null;
-    private $format = [
+    protected $format = [
         'title'=>'title',
         'abstract'=>'abstract',
         'doi'=>'doi',
@@ -23,50 +22,18 @@ class wanfangThesisParser
         '在线出版日期'=>'publishDate',
         '关键词'=>'keywords',
     ];
-    public function __construct($wanfangId = null)
+    protected $url = 'http://d.wanfangdata.com.cn/Thesis/';
+    protected $patchKeys = ['关键词','导师姓名'];
+
+    protected function patchValue($key, $value, $row)
     {
-        if($wanfangId <> null) $this->wanfangId = $wanfangId;
-        $this->client = new Client();
-    }
-    public function Id2Url($wanfangId = null)
-    {
-        if($wanfangId == null) $wanfangId = $this->wanfangId;
-        return 'http://d.wanfangdata.com.cn/Thesis/'.$wanfangId;
-    }
-    public function parseInfo($wanfangId = null){
-        if($wanfangId == null) $wanfangId = $this->wanfangId;
-        $data = [];
-        $crawler = $this->client->request('get',$this->Id2Url($wanfangId));
-        $data['title'] = trim($crawler->filter('.section-baseinfo h1')->text());
-        if($crawler->filter('.abstract .fl .text')->count()){
-            $data['abstract'] = trim($crawler->filter('.abstract .fl .text')->text());
-        }else{
-            $data['abstract'] = trim($crawler->filter('.abstract .row .text')->text());
+        if($key == '关键词' OR $key =='导师姓名') {
+            $links = [];
+            $row->filter('.text a')->each(function($link) use (&$links){
+                $links[] =$link->text();
+            });
+            $value = implode(' ',$links);
         }
-
-
-        $crawler->filter('.baseinfo-feild .row')->each(function($row) use(&$data) {
-            /** @var Symfony\Component\DomCrawler\Crawler $row */
-//            dd($row->filter('.pre')->count());
-            if($row->filter('.pre')->count()){
-                $key = preg_replace('/(\s*)|(：)/m', '', trim($row->filter('.pre')->text()));
-                $value = trim($row->filter('.text')->text());
-                if($key == '关键词' OR $key =='导师姓名') {
-                    $links = [];
-                    $row->filter('.text a')->each(function($link) use (&$links){
-                        $links[] =$link->text();
-                    });
-                    $value = implode(' ',$links);
-                }
-                $data[$key]=$value;
-            }
-        });
-        $result = ['wanfangId'=>$wanfangId];
-        foreach($data as $key=>$value){
-            if(isset($this->format[$key]))$result[$this->format[$key]]=$value;
-        }
-//        dd($result);
-        return $result;
+        return $value;
     }
-
 }
