@@ -205,6 +205,18 @@ class StandardsController extends myController
         return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
     }
 
+    public function addTag2ListAction()
+    {
+        $data = $this->request->getPost();
+        $tagName = $data['tagName'];
+        $tag = Tags::findOrNewByName($tagName);
+
+        if(isset($data['file_id'])) $tag->addFileList($data['file_id']);
+
+        return $this->redirectBack();
+    }
+
+
 
 
     public function addRevisionsAction(Files $file,Files $file2)

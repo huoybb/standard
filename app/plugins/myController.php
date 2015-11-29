@@ -34,6 +34,10 @@ abstract class myController extends Controller
         return $this->response->redirect($url);
     }
 
+    protected function redirectBack(){
+        return $this->response->redirect($_SERVER['HTTP_REFERER']);
+    }
+
 
 
     /**
