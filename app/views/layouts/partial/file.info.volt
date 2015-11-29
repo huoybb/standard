@@ -18,7 +18,17 @@
             </div>
         </div>
     {% endif %}
-    {% set format = ['url':'相关链接','updated_at_website':'更新时间'] %}
+    <div class="row">
+        <div class="col-md-2" align="right"><span><a href="{{ url(['for':'standards.showLinks','file':file.id]) }}">相关链接</a></span>:</div>
+        <div class="col-md-10">
+            <span>{{ file.getHtml('url') }}</span>
+            {% for link in file.getLinks() %}
+                <span><a href="{{ link.url }}" target="_blank">{{ link.getSiteName() }}</a></span>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% set format = ['updated_at_website':'更新时间'] %}
     {% for key,value in format %}
         <div class="row">
             <div class="col-md-2" align="right"><span>{{value}}</span>:</div>

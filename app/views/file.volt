@@ -33,6 +33,7 @@
                     {% include 'layouts/partial/commentForm.volt' %}
                 </div>
                 <div class="col-md-2">
+                    {% include 'layouts/partial/file.addLink.volt' %}
                     {% include 'layouts/partial/addRevisionFile.volt' %}
                     {% include 'layouts/partial/addTag.volt' %}
                 </div>

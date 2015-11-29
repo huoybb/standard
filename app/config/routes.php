@@ -34,6 +34,10 @@ $router->add('/standards/{file:[0-9]+}/addTag','standards::addTag')->setName('st
 $router->add('/standards/{file:[0-9]+}/deleteTag/{taggable:[0-9]+}','standards::deleteTag')->setName('standards.deleteTag');
 $router->add('/standards/{file:[0-9]+}/tags','standards::showTags')->setName('standards.showTags');
 
+$router->add('/standards/{file:[0-9]+}/addLink','standards::addLink')->setName('standards.addLink');
+$router->add('/standards/{file:[0-9]+}/Links','standards::showLinks')->setName('standards.showLinks');
+$router->add('/standards/{file:[0-9]+}/deleteLink/{link:[0-9]+}','standards::deleteLink')->setName('standards.deleteLink');
+
 $router->add('/standards/{file:[0-9]+}/addRevisionTo/{file2:[0-9]+}','standards::addRevisions')->setName('standards.addRevisionsTo');
 
 $router->add('/revisions/{rev:[0-9]+}','revisions::show')->setName('revisions.show');

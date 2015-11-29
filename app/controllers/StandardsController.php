@@ -53,9 +53,14 @@ class StandardsController extends myController
 
 
 
+
+
+
+
     public function showAction(Files $file)
     {
 
+//        dd($file->getLinks());
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }
@@ -181,6 +186,25 @@ class StandardsController extends myController
     {
         $this->view->file = $file;
     }
+
+    public function addLinkAction(Files $file)
+    {
+        $url = $this->request->getPost()['link'];
+        $file->addLink($url);
+        return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
+    }
+
+    public function showLinksAction(Files $file)
+    {
+        $this->view->file = $file;
+    }
+
+    public function deleteLinkAction(Files $file,Link $link)
+    {
+        $link->delete();
+        return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
+    }
+
 
 
     public function addRevisionsAction(Files $file,Files $file2)

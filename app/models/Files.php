@@ -9,6 +9,7 @@ class Files extends myModel
     use navTrait;
     use revisionableTrait;
     use FileableTrait;
+    use LinkableTrait;
     /**
      *
      * @var integer
