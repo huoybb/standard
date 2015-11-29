@@ -5,6 +5,7 @@
 {% endblock %}
 {% block content %}
 <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/standards.delete.js"></script>
+<script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/standards.search.selectFiles.js"></script>
 
     <div class="container">
         <h1>搜索关键词：{{ search }}<span class="badge">{{ page.total_items }}</span></h1>
@@ -20,8 +21,11 @@
                     </ul>
                 </nav>
             {% endif %}
+
+            {{ form(url(['for':'standards.list.addTag']), "method": "post","id":"list-tag-form","class":'form-inline') }}
             <table class="table table-hover">
                 <tr>
+                    <th><input type="checkbox" id="fileSelect" ></th>
                     <th>#</th>
                     <th>标准</th>
                     <th>更新时间</th>
@@ -29,6 +33,7 @@
                 </tr>
                 {% for key,item in page.items %}
                     <tr>
+                        <th><input name="file_id[]" type="checkbox" value="{{ item.id }}" class="file_id"></th>
                         <td>{{item.id}}</td>
                         <td><a href="{{ url(['for':'standards.showSearchItem','search':search,'item':key+1+page.limit*(page.current-1)]) }}">{{ item.title }}</a></td>
                         <td>{{ item.updated_at_website }}</td>
@@ -37,6 +42,12 @@
                     </tr>
                 {% endfor %}
             </table>
+            <div class="form-group">
+                <label for="tagName">标签</label>
+                <input type="text" class="form-control" id="tagName" name="tagName" value="{{ search }}">
+            </div>
+            <button type="submit" class="btn btn-default">添加标签</button>
+            {{ endform() }}
 
         </div>
             <div class="col-md-2">

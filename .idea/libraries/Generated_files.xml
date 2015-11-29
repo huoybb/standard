@@ -2,19 +2,21 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
-        <item url="file://$PROJECT_DIR$/public/js/showFile.js" />
         <item url="file://$PROJECT_DIR$/public/js/standards.edit.js" />
         <item url="file://$PROJECT_DIR$/public/js/my.js" />
         <item url="file://$PROJECT_DIR$/public/js/standards.delete.js" />
         <item url="file://$PROJECT_DIR$/public/js/uploadAttachment.js" />
+        <item url="file://$PROJECT_DIR$/public/js/standards.search.selectFiles.js" />
+        <item url="file://$PROJECT_DIR$/public/js/showFile.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/public/js/showFile.js" />
       <root url="file://$PROJECT_DIR$/public/js/standards.edit.js" />
       <root url="file://$PROJECT_DIR$/public/js/my.js" />
       <root url="file://$PROJECT_DIR$/public/js/standards.delete.js" />
       <root url="file://$PROJECT_DIR$/public/js/uploadAttachment.js" />
+      <root url="file://$PROJECT_DIR$/public/js/standards.search.selectFiles.js" />
+      <root url="file://$PROJECT_DIR$/public/js/showFile.js" />
     </CLASSES>
     <SOURCES />
   </library>

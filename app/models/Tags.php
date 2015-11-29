@@ -119,5 +119,19 @@ class Tags extends myModel
         });
     }
 
+    public function addFileList(array $file_ids)
+    {
+        if(count($file_ids)){
+            $files = Files::query()
+                ->inWhere('id',$file_ids)
+                ->execute();
+            foreach($files as $file){
+                /** @var Files $file */
+                $file->addTag($this);
+            }
+        }
+        return $this;
+    }
+
 
 }
