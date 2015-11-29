@@ -212,7 +212,6 @@ class StandardsController extends myController
         $tag = Tags::findOrNewByName($tagName);
 
         if(isset($data['file_id'])) $tag->addFileList($data['file_id']);
-
         return $this->redirectBack();
     }
 
