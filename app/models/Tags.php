@@ -108,11 +108,10 @@ class Tags extends myModel
     {
         return $this->make('taggables',function() use($type) {
             $results = Taggables::query()
-                ->leftJoin('Tags','Tags.id = Taggables.tag_id')
-                ->where('Taggables.tag_id = :tag:',['tag'=>$this->id])
-                ->orderBy('Taggables.updated_at DESC');
+                ->where('tag_id = :tag:',['tag'=>$this->id])
+                ->orderBy('updated_at DESC');
             if($type <> null){
-                $results->andWhere('Taggables.taggable_type = :type:',['type'=>$type]);
+                $results->andWhere('taggable_type = :type:',['type'=>$type]);
             }
 
             return $results->execute();

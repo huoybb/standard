@@ -12,7 +12,7 @@
             <blockquote><p>{{ mytag.description }}</p></blockquote>
         {% endif %}
         <p>创建日期：{{ mytag.created_at.diffForHumans() }}</p>
-        <P>操作：<a href="{{ url(['for':'tags.edit','tag':mytag.id]) }}">修改</a> <a href="#">删除</a></P>
+        <P>操作：<a href="{{ url(['for':'tags.edit','tag':mytag.id]) }}">修改</a> <a href="{{ url(['for':'tags.delete','tag':mytag.id]) }}">删除</a></P>
 
         <div><span class="label label-primary">共计{{ page.total_items }}条标准</span>--<span class="label label-primary">第{{ page.current }}页/总{{ page.total_pages }}页</span></div>
         {% if page.total_pages > 1 %}

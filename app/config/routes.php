@@ -49,6 +49,7 @@ $router->add('/tags','tags::index')->setName('tags.index');
 $router->add('/tags/{tag:[0-9]+}','tags::show')->setName('tags.show');
 $router->add('/tags/{tag:[0-9]+}/page/{page:[0-9]+}','tags::show')->setName('tags.show.page');
 $router->add('/tags/{tag:[0-9]+}/edit','tags::edit')->setName('tags.edit');
+$router->add('/tags/{tag:[0-9]+}/delete','tags::delete')->setName('tags.delete');
 
 $router->add('/tags/{tag:[0-9]+}/addComment','tags::addComment')->setName('tags.addComment');
 $router->add('/tags/{tag:[0-9]+}/comments/{comment:[0-9]+}/edit','tags::editComment')->setName('tags.editComment');
