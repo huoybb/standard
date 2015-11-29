@@ -6,7 +6,6 @@ use Phalcon\Mvc\Router;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
-use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 
@@ -41,20 +40,7 @@ $di->set('view', function () use ($config) {
 
     $view->registerEngines(array(
         '.volt' => function ($view, $di) use ($config) {
-
-            $volt = new VoltEngine($view, $di);
-
-            $volt->setOptions(array(
-                'compiledPath' => $config->application->cacheDir,
-                'compiledSeparator' => '_'
-            ));
-
-            $compiler = $volt->getCompiler();
-            $compiler->addFilter('basename','basename');
-            $compiler->addFunction('get_class','get_class');
-            $compiler->addFilter('formatSizeUnits',function($size){ return '$this->myTools->formatSizeUnits('.$size.')';});
-
-            return $volt;
+            return include 'volt.php';
         },
         '.phtml' => 'Phalcon\Mvc\View\Engine\Php'
     ));

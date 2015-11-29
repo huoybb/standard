@@ -118,6 +118,19 @@ class Attachments extends myModel
         });
     }
 
+    /**
+     * 根据文件名来检索出百度云盘上自己的文件，pdf文件是可以直接阅读，视频音频文件则可以直接观看或收听
+     * @return mixed
+     */
+    public function getBaiduURL()
+    {
+        return $this->make('baiduUrl',function(){
+            $fileName = substr(basename($this->url),0,-4);
+            return 'http://pan.baidu.com/disk/home#key='.$fileName;
+        });
+    }
+
+
     public function beforeDeleteRemoveFile()
     {
         //删除附件的实体文件，避免出现死文件

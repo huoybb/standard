@@ -115,7 +115,11 @@ class Files extends myModel
     public function getHtml($key)
     {
         if($key == 'url'){
-            return '<a href="'.$this->$key.'" target="_blank" >链接</a>';
+            $siteName = '链接';
+            if(preg_match('%http://d.wanfangdata.com.cn/%m', $this->$key)) $siteName = '万方';
+            if(preg_match('%http://www.pv265.com/%m', $this->$key)) $siteName = 'PV265';
+            if(preg_match('%http://oai.dtic.mil/%m', $this->$key)) $siteName = 'OAI';
+            return '<a href="'.$this->$key.'" target="_blank" >'.$siteName.'</a>';
         }
 
         return $this->$key;

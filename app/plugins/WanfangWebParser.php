@@ -95,9 +95,7 @@ abstract class WanfangWebParser
         /** @var Symfony\Component\DomCrawler\Crawler $crawler */
         $data['title'] = $this->getTitle($crawler);
         //修正没有英文标题的问题
-        if($crawler->filter('.section-baseinfo h2')->count()){
-            $data['english_title'] = $this->getEngishTitle($crawler);
-        }
+        $data['english_title'] = $this->getEngishTitle($crawler);
         $data['abstract'] = $this->getAbstract($crawler);
 //        dd($data);
         return $data;
@@ -110,6 +108,7 @@ abstract class WanfangWebParser
     protected function getEngishTitle($crawler)
     {
         /** @var Symfony\Component\DomCrawler\Crawler $crawler */
+        if($crawler->filter('.section-baseinfo h2')->count() == 0) return null;
         return trim($crawler->filter('.section-baseinfo h2')->text());
     }
 

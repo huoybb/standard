@@ -16,7 +16,7 @@
                     <td><a href="{{ url.getBaseUri() }}{{ attachment.url }}" target="_blank">下载</a></td>
                     <td>{{ attachment.name }}</td>
                     <td>{{ attachment.updated_at.diffForHumans() }}</td>
-                    <td>没有预览</td>
+                    <td><a href="{{ attachment.getBaiduURL() }}" target="_blank">百度云</a></td>
                 </tr>
                 <tr>
                     <td colspan="3">{{ attachment.url | basename }}</td><td>{{ attachment.getFileSize() | formatSizeUnits}}</td>
