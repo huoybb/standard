@@ -18,10 +18,10 @@
                 </tr>
                 {% for item in rev.getAllRevisions() %}
                     <tr>
-                        <td>{{item.id}}</td>
-                        <td><a href="{{ url(['for':'standards.show','file':item.file_id]) }}">{{ item.name }}</a></td>
+                        <td>{{item.revisions.id}}</td>
+                        <td><a href="{{ url(['for':'standards.show','file':item.file.id]) }}">{{ item.file.title }}</a></td>
                         <td><span><a href="#" ><div align="center">修改</div></a></span></td>
-                        <td><span><a href="{{ url(['for':'revisions.delete','rev':item.id]) }}" ><div align="center">删除</div></a></span></td>
+                        <td><span><a href="{{ url(['for':'revisions.delete','rev':item.revisions.id]) }}" ><div align="center">删除</div></a></span></td>
                     </tr>
                 {% endfor %}
             </table>
