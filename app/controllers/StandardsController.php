@@ -121,7 +121,8 @@ class StandardsController extends myController
 
     public function addCommentAction(Files $file)
     {
-        if ($this->request->isPost() && $this->addCommentTo($file)) {
+        if ($this->request->isPost()) {
+            $file->addComment($this->request->getPost());
             return $this->success();
         }
         dd('添加评论出错啦！');
@@ -200,9 +201,12 @@ class StandardsController extends myController
 
     public function addLinkAction(Files $file)
     {
-        $url = $this->request->getPost()['link'];
-        $file->addLink($url);
-        return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
+        if($this->request->isPost()){
+            $url = $this->request->getPost()['link'];
+            $file->addLink($url);
+            return 'success';
+        }
+        return 'failed';
     }
 
     public function showLinksAction(Files $file)

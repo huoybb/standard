@@ -12,7 +12,7 @@
         <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/keymaster.js"></script>
         <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/dropzone.js"></script>
         <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/my.js"></script>
-        <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/showFile.js"></script>
+        <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/file.js"></script>
 	</head>
 	<body>
         {% include "layouts/header.volt" %}

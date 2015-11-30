@@ -44,7 +44,7 @@
       });
       return false;
     });
-    return $('#addRev-form').submit(function() {
+    $('#addRev-form').submit(function() {
       var file2, file2url, url;
       file2url = $('#addRev').val();
       if (!/http:\/\/standard.zhaobing\/standards\/([0-9]+)/.test(file2url)) {
@@ -60,8 +60,22 @@
       });
       return false;
     });
+    return $('#addLink-form').submit(function() {
+      var url;
+      url = $(this).attr('action');
+      if ($('#link').val() === '') {
+        console.log('链接不能够为空');
+      }
+      $.post(url, $(this).serialize(), function(data) {
+        if (data === 'success') {
+          console.log('添加成功');
+          return location.reload();
+        }
+      });
+      return false;
+    });
   });
 
 }).call(this);
 
-//# sourceMappingURL=showFile.js.map
+//# sourceMappingURL=file.js.map

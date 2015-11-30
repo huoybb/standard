@@ -43,3 +43,16 @@ $ ->
       if data is 'success'
         location.reload()
     return false
+
+  #添加链接
+  $('#addLink-form').submit ->
+    url = $(this).attr('action')
+    if $('#link').val() is ''
+      console.log '链接不能够为空'
+    $.post url,$(this).serialize(),(data)->
+      if data is 'success'
+        console.log '添加成功'
+        location.reload()
+    return false
+
+

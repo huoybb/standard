@@ -40,22 +40,6 @@ abstract class myController extends Controller
 
 
 
-    /**
-     * 这里可以作为一个通用的保存评论的方法来使用
-     * @param myModel $model
-     * @param $data
-     */
-    protected function addCommentTo($file)
-    {
-        $data = $this->request->getPost();
-        $data['user_id'] = 1;
-        $data['commentable_type'] = get_class($file);
-        $data['commentable_id'] = $file->id;
-        return Comments::saveNew($data);
-//        return (new Comments())->save($data);
-    }
-
-
     protected function getPaginator($rowSets, $limit, $page)
     {
         $paginator = new Phalcon\Paginator\Adapter\Model([

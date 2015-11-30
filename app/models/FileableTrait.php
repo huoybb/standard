@@ -28,6 +28,15 @@ trait FileableTrait
         });
     }
 
+    public function getFileType()
+    {
+        $type = '标准';
+        if($this->getFileable()){
+            $type = $this->getFileable()->getType();
+        }
+        return $type;
+    }
+
     public function beforeDeleteRemoveFilealbe()
     {
         $fileable_object = $this->getFileable();
@@ -39,15 +48,15 @@ trait FileableTrait
         return $this;
     }
 
-    public function saveDoDFile($file_id)
+    public function saveDoDFile($source_id)
     {
         $DoD_file = new oai_dtic_mil_parser();
-        $info = $DoD_file->parseInfo($file_id);
+        $info = $DoD_file->parseInfo($source_id);
 
         /** @var Files $this */
         $this->save([
             'title'=> $info['Title'],
-            'url'=>$DoD_file->getURLById($file_id),
+            'url'=>$DoD_file->getURLById($source_id),
             'updated_at_website'=>$info['Report_Date'],
             'standard_number'=>$info['Accession_Number']
         ]);
@@ -60,18 +69,11 @@ trait FileableTrait
         $this->saveFileable($oaiDticMil);
         return $this;
     }
-    public function getFileType()
-    {
-        $type = '标准';
-        if($this->getFileable()){
-            $type = $this->getFileable()->getType();
-        }
-        return $type;
-    }
 
-    public function saveWanfangFile($wanfangId,$type = 'Periodical')
+
+    public function saveWanfangFile($source_id, $type = 'Periodical')
     {
-        $wf = WanfangWebParser::getParser($type,$wanfangId);
+        $wf = WanfangWebParser::getParser($type,$source_id);
         $data = $wf->parseInfo();
         $this->save([
             'title'=> $data['title'],
@@ -86,13 +88,13 @@ trait FileableTrait
         return $this;
     }
 
-    public function saveEverySpecFile($everySpecID)
+    public function saveEverySpecFile($source_id)
     {
-        $es = new everySpecParser($everySpecID);
+        $es = new everySpecParser($source_id);
         $data = $es->parseInfo();
         $this->save([
             'title'=>$data['standard_no'].','.$data['title'],
-            'url'=>$es->getUrlFromId($everySpecID),
+            'url'=>$es->getUrlFromId($source_id),
             'updated_at_website'=>$data['date']
         ]);
         $data['file_id']=$this->id;

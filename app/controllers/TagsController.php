@@ -26,7 +26,8 @@ class TagsController extends myController
 
     public function addCommentAction(Tags $tag)
     {
-        if ($this->request->isPost() && $this->addCommentTo($tag)) {
+        if ($this->request->isPost()) {
+            $tag->addComment($this->request->getPost());
             return $this->redirectByRoute(['for'=>'tags.show','tag'=>$tag->id]);
         }
     }
