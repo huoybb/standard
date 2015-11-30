@@ -6,14 +6,8 @@
  * Date: 2015/11/22
  * Time: 14:27
  */
-use Goutte\Client;
-class oai_dtic_mil_parser
+class oai_dtic_mil_parser extends myParser
 {
-
-    function __construct()
-    {
-        $this->client = new Client();
-    }
     public function parseInfo($file_id)
     {
         $result = [];

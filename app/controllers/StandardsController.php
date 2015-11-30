@@ -42,12 +42,24 @@ class StandardsController extends myController
         ];
 
         $className = $data[$type];
+
         $wanfang = $className::findBySourceId($wanfangId);
         if($wanfang)  return $this->redirectByRoute(['for'=>'standards.show','file'=>$wanfang->getStandard()->id]);
         $file->saveWanfangFile($wanfangId,$type);
         return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
 
     }
+
+    public function addEverySpecAction($everySpecID,Files $file)
+    {
+        $everySpec = Everyspec::findBySourceId($everySpecID);
+        if($everySpec) return $this->redirectByRoute(['for'=>'standards.show','file'=>$everySpec->getStandard()->id]);
+        $file->saveEverySpecFile($everySpecID);
+        return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
+
+
+    }
+
 
 
 
@@ -301,4 +313,5 @@ class StandardsController extends myController
         $file->saveDoDFile($accessNumber);
         return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
     }
+
 }

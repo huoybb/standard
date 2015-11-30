@@ -3,7 +3,7 @@
 class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
 {
 
-    use WebSourceTrait;
+    use FileableInterfaceTrait;
     /**
      *
      * @var integer
@@ -156,13 +156,7 @@ class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
             ->execute()->getFirst();
     }
 
-    /**
-     * @return Files
-     */
-    public function getStandard()
-    {
-        return Files::findFirst($this->file_id);
-    }
+
 
 
     public function format()

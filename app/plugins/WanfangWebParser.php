@@ -7,7 +7,7 @@
  * Time: 17:20
  */
 use Goutte\Client;
-abstract class WanfangWebParser
+abstract class WanfangWebParser extends myParser
 {
     protected $wanfangId = null;
 
@@ -29,8 +29,8 @@ abstract class WanfangWebParser
 
     public function __construct($wanfangId = null)
     {
+        parent::__construct();
         if($wanfangId <> null) $this->wanfangId = $wanfangId;
-        $this->client = new Client();
     }
 
     /**

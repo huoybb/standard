@@ -6,7 +6,7 @@
  * Date: 2015/11/30
  * Time: 8:14
  */
-trait WebSourceTrait
+trait FileableInterfaceTrait
 {
     public function getHtml($key)
     {
@@ -46,6 +46,14 @@ trait WebSourceTrait
 
 
         return $this->$key;
+    }
+
+    /**
+     * @return Files
+     */
+    public function getStandard()
+    {
+        return Files::findFirst($this->file_id);
     }
 
 }

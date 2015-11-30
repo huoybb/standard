@@ -85,6 +85,23 @@ trait FileableTrait
 
         return $this;
     }
+
+    public function saveEverySpecFile($everySpecID)
+    {
+        $es = new everySpecParser($everySpecID);
+        $data = $es->parseInfo();
+        $this->save([
+            'title'=>$data['standard_no'].','.$data['title'],
+            'url'=>$es->getUrlFromId($everySpecID),
+            'updated_at_website'=>$data['date']
+        ]);
+        $data['file_id']=$this->id;
+        $everySpec = new Everyspec();
+        $everySpec->save($data);
+        $this->saveFileable($everySpec);
+        return $this;
+    }
+
     private function saveFileable($fileableObject)
     {
         (new Fileable())->save([

@@ -3,7 +3,7 @@
 class Wanfangconference extends \Phalcon\Mvc\Model implements FileableInterface
 {
 
-    use WebSourceTrait;
+    use FileableInterfaceTrait;
 
     /**
      *
@@ -145,10 +145,6 @@ class Wanfangconference extends \Phalcon\Mvc\Model implements FileableInterface
         );
     }
 
-    public function getStandard()
-    {
-        return Files::findFirst($this->file_id);
-    }
 
     public function format()
     {
