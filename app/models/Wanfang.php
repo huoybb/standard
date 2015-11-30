@@ -3,6 +3,8 @@
 class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
 {
 
+    use WebSourceTrait;
+
     /**
      *
      * @var integer
@@ -160,14 +162,7 @@ class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
             'keywords' => '关键词',
         ];
     }
-    public function getHtml($key)
-    {
-        if($key == 'abstract'){
-            if($this->$key == null) return null;
-            return '<pre>'.$this->$key.'</pre>';
-        }
-        return $this->$key;
-    }
+
     public function getStandard()
     {
         return Files::findFirst($this->file_id);

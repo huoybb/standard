@@ -4,7 +4,7 @@
         {% for key,value in file.getFileable().format() if file.getFileable().getHtml(key) %}
             <div class="row">
                 <div class="col-md-2" align="right"><span>{{value}}</span>:</div>
-                <div class="col-md-10"><span>{{ file.getFileable().getHtml(key) }}</span></div>
+                <div class="col-md-10">{{ file.getFileable().getHtml(key) }}</div>
             </div>
         {% endfor %}
     {% endif %}

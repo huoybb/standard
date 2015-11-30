@@ -3,6 +3,7 @@
 class Wanfangthesis extends \Phalcon\Mvc\Model implements FileableInterface
 {
 
+    use WebSourceTrait;
     /**
      *
      * @var integer
@@ -176,14 +177,6 @@ class Wanfangthesis extends \Phalcon\Mvc\Model implements FileableInterface
         ];
     }
 
-    public function getHtml($key)
-    {
-        if($key == 'abstract'){
-            if($this->$key == null) return null;
-            return '<pre>'.$this->$key.'</pre>';
-        }
-        return $this->$key;
-    }
     public function getType()
     {
         return '学位';

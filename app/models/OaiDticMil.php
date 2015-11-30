@@ -3,6 +3,7 @@
 class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
 {
 
+    use WebSourceTrait;
     /**
      *
      * @var integer
@@ -162,23 +163,7 @@ class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
     {
         return Files::findFirst($this->file_id);
     }
-    public function getHtml($key)
-    {
-        if($key == 'Abstract'){
-            if($this->$key == null) return null;
-            return '<pre>'.$this->$key.'</pre>';
-        }
 
-        if($key == 'Subject_Categories'){
-            $result = '';
-            foreach(preg_split('/<br>\s*/m', $this->$key) as $category){
-                $result .='<span>'.trim($category).'</span>';
-            }
-            return $result;
-        }
-
-        return $this->$key;
-    }
 
     public function format()
     {

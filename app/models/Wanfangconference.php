@@ -3,6 +3,8 @@
 class Wanfangconference extends \Phalcon\Mvc\Model implements FileableInterface
 {
 
+    use WebSourceTrait;
+
     /**
      *
      * @var integer
@@ -163,14 +165,7 @@ class Wanfangconference extends \Phalcon\Mvc\Model implements FileableInterface
         ];
     }
 
-    public function getHtml($key)
-    {
-        if($key == 'abstract'){
-            if($this->$key == null) return null;
-            return '<pre>'.$this->$key.'</pre>';
-        }
-        return $this->$key;
-    }
+
     public static function findBySourceId($souceId)
     {
         return self::query()
