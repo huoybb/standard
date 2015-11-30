@@ -12,18 +12,17 @@ class StandardsController extends myController
         if ($this->request->isPost()) {
 //            dd($this->request->getPost());
             $file->save($this->request->getPost());
-            $this->redirectByRoute(['for'=>'index','page'=>1]);
+            return $this->redirectByRoute(['for'=>'index','page'=>1]);
         }
         $this->view->form = myForm::buildFormFromModel($file);
-
     }
 
     public function addDoDAction(Files $file)
     {
 //        dd($this->request->getPost());
-        $file_id = $this->request->getPost()['file_id'];
-        if($this->request->isPost() ){
-            $this->addDoDFile($file_id,$file);
+        if($this->request->isPost()){
+            $file_id = $this->request->getPost()['file_id'];
+            return $this->addDoDFile($file_id,$file);
         }
         dd('非法路径，不允许直接访问该地址');
 
@@ -31,7 +30,7 @@ class StandardsController extends myController
 
     public function addDoDByGetAction($accessNumber,Files $file)
     {
-        $this->addDoDFile($accessNumber,$file);
+        return $this->addDoDFile($accessNumber,$file);
     }
 
     public function addWanfangAction($type,$wanfangId,Files $file)
