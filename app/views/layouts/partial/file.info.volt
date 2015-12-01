@@ -29,7 +29,7 @@
     </div>
 
     {% set format = ['updated_at_website':'更新时间'] %}
-    {% for key,value in format %}
+    {% for key,value in format if file.getHtml(key) %}
         <div class="row">
             <div class="col-md-2" align="right"><span>{{value}}</span>:</div>
             <div class="col-md-10"><span>{{ file.getHtml(key) }}</span></div>
