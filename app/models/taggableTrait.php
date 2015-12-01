@@ -38,6 +38,7 @@ trait taggableTrait
             ];
             $taggable = new Taggables();
             $taggable->save($data);
+            $tag->save();//更新标签的时间，以便体现更新的时间
         }
         return $this;
     }

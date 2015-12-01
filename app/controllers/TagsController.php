@@ -6,7 +6,7 @@ class TagsController extends myController
     public function indexAction($page = 1)
     {
         $tags = Tags::query()
-            ->orderBy('created_at DESC')
+            ->orderBy('updated_at DESC')
             ->execute();
         $this->view->page = $this->getPaginator($tags,25,$page);
     }
