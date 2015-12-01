@@ -142,11 +142,11 @@ class Files extends myModel
      * @param $search
      * @return \Phalcon\Mvc\Model\Query\BuilderInterface
      */
-    public function searchQuery($search)
+    static public function searchQuery($search)
     {
         $bits = explode(' ',trim($search));
-        $builder = $this->getModelsManager()->createBuilder()
-            ->from('Files')
+        $builder = (new self)->getModelsManager()->createBuilder()
+            ->from(self::class)
             ->orderBy('id DESC')
             ->where('title like :search:',['search'=>'%'.array_shift($bits).'%']);
         foreach($bits as $key=>$bit){

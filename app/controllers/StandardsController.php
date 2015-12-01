@@ -100,18 +100,18 @@ class StandardsController extends myController
     }
 
 
-    public function searchAction($search,$page = 1,Files $file)
+    public function searchAction($search,$page = 1)
     {
 //        $this->view->page = $this->getPaginator($file->search($search),50,$page);
-        $this->view->page = $this->getPaginatorByQueryBuilder($file->searchQuery($search),50,$page);
+        $this->view->page = $this->getPaginatorByQueryBuilder(Files::searchQuery($search),50,$page);
         $this->view->search = $search;
     }
 
-    public function showSearchItemAction($search,$item,Files $file)
+    public function showSearchItemAction($search,$item)
     {
 //        $page = $this->getPaginatorByQueryBuilder($file->searchQuery($search),1,$item);
 
-        $this->view->page = $this->getPaginatorByQueryBuilder($file->searchQuery($search),1,$item);
+        $this->view->page = $this->getPaginatorByQueryBuilder(Files::searchQuery($search),1,$item);
         $this->view->file = $this->view->page->items[0];
         $this->view->form = myForm::buildCommentForm($this->view->file);
         $this->view->search = $search;
