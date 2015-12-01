@@ -48,25 +48,8 @@ trait FileableTrait
         return $this;
     }
 
-    public function saveDoDFile($source_id)
-    {
-        $type = 'DoDFile';
-        return $this->addWebFile($source_id,$type);
-    }
 
-
-    public function saveWanfangFile($source_id, $type = 'Periodical')
-    {
-        return $this->addWebFile($source_id,$type);
-    }
-
-    public function saveEverySpecFile($source_id)
-    {
-        $type = 'EverySpec';
-        return $this->addWebFile($source_id,$type);
-    }
-
-    private function addWebFile($source_id,$type)
+    public function addWebFile($source_id,$type)
     {
         $parser = myParser::getParser($type,$source_id);//获取Parser
         $data = $parser->parseInfo();//抽取数据

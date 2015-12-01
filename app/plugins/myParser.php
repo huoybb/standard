@@ -50,13 +50,17 @@ abstract class myParser
     }
 
     /**
+     * 如果source_id等于null，则返回新对象，否则就按照source_id查询对应的对象
      * @param $type
-     * @return  \Phalcon\Mvc\Model
+     * @return  \Phalcon\Mvc\Model|FileableInterface
      */
-    public static function getModel($type)
+    public static function getModel($type,$source_id = null)
     {
         if(!isset(self::$modelType[$type])) dd('不存在这个类型'.$type);
         $className = self::$modelType[$type];
+
+        if($source_id <> null) return $className::findBySourceId($source_id);
+
         return new $className();
     }
 

@@ -28,45 +28,14 @@ class StandardsController extends myController
 
     }
 
-    public function addDoDByGetAction($accessNumber,Files $file)
+    public function getWebDataAction($type,$source_id,Files $file)
     {
-        return $this->addDoDFile($accessNumber,$file);
-    }
+        $model = myParser::getModel($type,$source_id);
+        if($model)  return $this->redirectByRoute(['for'=>'standards.show','file'=>$model->getStandard()->id]);
 
-    public function addWanfangAction($type,$wanfangId,Files $file)
-    {
-        $data = [
-            'Periodical'=>'Wanfang',
-            'Thesis'=>'Wanfangthesis',
-            'Conference'=>'Wanfangconference',
-        ];
-
-        $className = $data[$type];
-
-        $wanfang = $className::findBySourceId($wanfangId);
-        if($wanfang)  return $this->redirectByRoute(['for'=>'standards.show','file'=>$wanfang->getStandard()->id]);
-        $file->saveWanfangFile($wanfangId,$type);
+        $file->addWebFile($source_id,$type);
         return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
-
     }
-
-    public function addEverySpecAction($everySpecID,Files $file)
-    {
-        $everySpec = Everyspec::findBySourceId($everySpecID);
-        if($everySpec) return $this->redirectByRoute(['for'=>'standards.show','file'=>$everySpec->getStandard()->id]);
-        $file->saveEverySpecFile($everySpecID);
-        return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
-
-
-    }
-
-
-
-
-
-
-
-
 
     public function showAction(Files $file)
     {
@@ -314,7 +283,7 @@ class StandardsController extends myController
     {
         $dod = OaiDticMil::findBySourceId($accessNumber);
         if($dod) return  $this->redirectByRoute(['for'=>'standards.show','file'=>$dod->getStandard()->id]);
-        $file->saveDoDFile($accessNumber);
+        $file->addWebFile($accessNumber,'DoDFile');
         return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
     }
 

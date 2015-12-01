@@ -14,9 +14,8 @@ $router->add('/search/{search:[^/]+}/{item:[0-9]+}','standards::showSearchItem')
 
 $router->addx('/standards/add','standards::add',['standardRules'])->setName('standards.add');
 $router->add('/standards/addDoD','standards::addDoD')->setName('standards.addDoD');
-$router->add('/standards/addDoD/{accessNumber}','standards::addDoDByGet')->setName('standards.addDoDByGet');
-$router->add('/standards/addWanfang/{type}/{wanfangId}','standards::addWanfang')->setName('standards.addWanfang');
-$router->add('/standards/addEverySpec/{everySpecID}','standards::addEverySpec')->setName('standards.addEverySpec');
+
+$router->add('/standards/addWebData/{type}/{source_id}','standards::getWebData')->setName('standards.getWebData');
 
 $router->add('/standards/addTag2List','standards::addTag2List')->setName('standards.list.addTag');
 
