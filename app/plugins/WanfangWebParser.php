@@ -9,61 +9,32 @@
 use Goutte\Client;
 abstract class WanfangWebParser extends myParser
 {
-    protected $wanfangId = null;
-
     protected $format = [];
     protected $patchKeys = [];
-    protected $url = null;
-
-    static protected $parserType = [
-        'Periodical'=>'wanfangParser',
-        'Thesis'=>'wanfangThesisParser',
-        'Conference'=>'wanfangConferenceParser',
-    ];
-
-    static protected $modelType = [
-        'Periodical'=>'Wanfang',
-        'Thesis'=>'Wanfangthesis',
-        'Conference'=>'Wanfangconference',
-    ];
-
-    public function __construct($wanfangId = null)
-    {
-        parent::__construct();
-        if($wanfangId <> null) $this->wanfangId = $wanfangId;
-    }
-
-    /**
-     * @param $type
-     * @param $wanfangId
-     * @return WanfangWebParser
-     */
-    public static function getParser($type, $wanfangId)
-    {
-        if(!isset(self::$parserType[$type])) dd('不存在这个类型'.$type);
-        $className = self::$parserType[$type];
-        return new $className($wanfangId);
-    }
-
-    public static function getModel($type)
-    {
-        if(!isset(self::$modelType[$type])) dd('不存在这个类型'.$type);
-        $className = self::$modelType[$type];
-        return new $className();
-    }
-
+    protected $url = null;//需要被继承者替换掉的变量
 
     public function Id2Url($wanfangId = null)
     {
-        if($wanfangId == null) $wanfangId = $this->wanfangId;
+        if($wanfangId == null) $wanfangId = $this->source_id;
         if($this->url == null) dd('url是空的，请注意！');
         return $this->url.$wanfangId;
     }
-    abstract protected function patchValue($key,$value,$row);
+
+    public function getDataForFile()
+    {
+        return
+            [
+                'title'=> $this->info['title'],
+                'url'=>$this->Id2Url(),
+                'updated_at_website'=>$this->info['publishDate']
+            ];
+
+    }
+
 
     public function parseInfo($wanfangId = null)
     {
-        if($wanfangId == null) $wanfangId = $this->wanfangId;
+        if($wanfangId == null) $wanfangId = $this->source_id;
 
         $crawler = $this->client->request('get',$this->Id2Url($wanfangId));
         $data = $this->getBaseInfo($crawler);
@@ -82,7 +53,8 @@ abstract class WanfangWebParser extends myParser
         foreach($data as $key=>$value){
             if($this->format($key)) $result[$this->format($key)]=$value;
         }
-        return $result;
+        $this->info = $result;
+        return $this->info;
     }
     protected function format($key)
     {
@@ -120,5 +92,7 @@ abstract class WanfangWebParser extends myParser
         }
         return trim($crawler->filter('.abstract .text')->text());
     }
+    abstract protected function patchValue($key,$value,$row);
+
 
 }

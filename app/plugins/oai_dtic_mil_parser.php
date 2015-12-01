@@ -8,10 +8,12 @@
  */
 class oai_dtic_mil_parser extends myParser
 {
-    public function parseInfo($file_id)
+
+    public function parseInfo($source_id =null)
     {
+        if(null == $source_id) $source_id = $this->source_id;
         $result = [];
-        $crawler = $this->client->request('get',$this->getURLById($file_id));
+        $crawler = $this->client->request('get',$this->Id2Url($source_id));
         $crawler->filter('p')->each(function($info) use(&$result){
             /** @var Symfony\Component\DomCrawler\Crawler $info */
             if (preg_match('%<b>\s*([^:]+?)\s*:.*?</b>(.+)$%sm', $info->html(), $regs)) {
@@ -23,13 +25,23 @@ class oai_dtic_mil_parser extends myParser
                 $result[$name] = $value;
             }
         });
-        return $result;
+        $this->info = $result;
+        return $this->info;
     }
 
-    public function getURLById($id)
+
+    public function getDataForFile()
     {
-        return 'http://oai.dtic.mil/oai/oai?verb=getRecord&metadataPrefix=html&identifier='.$id;
+        return [
+            'title'=> $this->info['Title'],
+            'url'=>$this->Id2Url($this->source_id),
+            'updated_at_website'=>$this->info['Report_Date'],
+            'standard_number'=>$this->info['Accession_Number']
+        ];
     }
 
-
+    public function Id2Url($source_id = null)
+    {
+        return 'http://oai.dtic.mil/oai/oai?verb=getRecord&metadataPrefix=html&identifier='.$source_id;
+    }
 }

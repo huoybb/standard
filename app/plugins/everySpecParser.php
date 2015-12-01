@@ -9,19 +9,11 @@
 class everySpecParser extends myParser
 {
 
-    private $file_id = null;
-    public function __construct($file_id = null)
+    public function parseInfo($source_id = null)
     {
-        parent::__construct();
-        if($file_id <> null) $this->file_id = $file_id;
-    }
+        $crawler = $this->client->request('get',$this->Id2Url());
 
-    public function parseInfo($file_id = null)
-    {
-        if($file_id == null) $file_id = $this->file_id;
-        $crawler = $this->client->request('get',$this->getUrlFromId($file_id));
-
-        $result = ['source_id'=>$file_id];
+        $result = ['source_id'=>$this->source_id];
 
         $data = $crawler->filter('h1')->text();
         if (preg_match('/^((?<no>[^,]+),)?\s*(?<title>[^(]+)\((?<date>[^)]+)\)?.*$/m', $data, $regs)) {
@@ -31,11 +23,22 @@ class everySpecParser extends myParser
         }
 
         $result['abstract'] = $crawler->filter('h1')->nextAll()->last()->text();
+        $this->info = $result;
         return $result;
     }
-    public function getUrlFromId($file_id)
+    public function Id2Url($file_id = null)
     {
-        return base64_decode($file_id);
+        return base64_decode($this->source_id);
     }
+
+    public function getDataForFile()
+    {
+        return [
+            'title'=>$this->info['standard_no'].','.$this->info['title'],
+            'url'=>$this->Id2Url($this->source_id),
+            'updated_at_website'=>$this->info['date']
+        ];
+    }
+
 
 }

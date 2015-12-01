@@ -47,6 +47,7 @@ $router->add('/revisions/{rev:[0-9]+}','revisions::show')->setName('revisions.sh
 $router->add('/revisions/{rev:[0-9]+}/delete','revisions::delete')->setName('revisions.delete');
 
 $router->add('/tags','tags::index')->setName('tags.index');
+$router->add('/tags/page/{page:[0-9]+}','tags::index')->setName('tags.index.page');
 $router->add('/tags/{tag:[0-9]+}','tags::show')->setName('tags.show');
 $router->add('/tags/{tag:[0-9]+}/page/{page:[0-9]+}','tags::show')->setName('tags.show.page');
 $router->add('/tags/{tag:[0-9]+}/edit','tags::edit')->setName('tags.edit');

@@ -50,63 +50,36 @@ trait FileableTrait
 
     public function saveDoDFile($source_id)
     {
-        $DoD_file = new oai_dtic_mil_parser();
-        $info = $DoD_file->parseInfo($source_id);
-
-        /** @var Files $this */
-        $this->save([
-            'title'=> $info['Title'],
-            'url'=>$DoD_file->getURLById($source_id),
-            'updated_at_website'=>$info['Report_Date'],
-            'standard_number'=>$info['Accession_Number']
-        ]);
-
-        $info['file_id'] = $this->id;
-
-        $oaiDticMil = new OaiDticMil();
-        $oaiDticMil->save($info);
-
-        $this->saveFileable($oaiDticMil);
-        return $this;
+        $type = 'DoDFile';
+        return $this->addWebFile($source_id,$type);
     }
 
 
     public function saveWanfangFile($source_id, $type = 'Periodical')
     {
-        $wf = WanfangWebParser::getParser($type,$source_id);
-        $data = $wf->parseInfo();
-        $this->save([
-            'title'=> $data['title'],
-            'url'=>$wf->Id2Url(),
-            'updated_at_website'=>$data['publishDate']
-        ]);
-        $data['file_id']=$this->id;
-        $wanfang = WanfangWebParser::getModel($type);
-        $wanfang->save($data);
-        $this->saveFileable($wanfang);
-
-        return $this;
+        return $this->addWebFile($source_id,$type);
     }
 
     public function saveEverySpecFile($source_id)
     {
-        $es = new everySpecParser($source_id);
-        $data = $es->parseInfo();
-        $this->save([
-            'title'=>$data['standard_no'].','.$data['title'],
-            'url'=>$es->getUrlFromId($source_id),
-            'updated_at_website'=>$data['date']
-        ]);
-        $data['file_id']=$this->id;
-        $everySpec = new Everyspec();
-        $everySpec->save($data);
-        $this->saveFileable($everySpec);
-        return $this;
+        $type = 'EverySpec';
+        return $this->addWebFile($source_id,$type);
     }
 
+    private function addWebFile($source_id,$type)
+    {
+        $parser = myParser::getParser($type,$source_id);
+        $data = $parser->parseInfo();
+        $this->save($parser->getDataForFile());
+        $data['file_id'] = $this->id;
+        $model = myParser::getModel($type);
+        $model->save($data);
+        $this->saveFileable($model);
+        return $this;
+    }
     private function saveFileable($fileableObject)
     {
-        (new Fileable())->save([
+        return (new Fileable())->save([
             'file_id'=>$this->id,
             'fileable_type'=>get_class($fileableObject),
             'fileable_id'=>$fileableObject->id,

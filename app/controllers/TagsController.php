@@ -5,7 +5,10 @@ class TagsController extends myController
 
     public function indexAction($page = 1)
     {
-        $this->view->page = $this->getPaginator(Tags::find(),25,$page);
+        $tags = Tags::query()
+            ->orderBy('created_at DESC')
+            ->execute();
+        $this->view->page = $this->getPaginator($tags,25,$page);
     }
     public function showAction(Tags $tag, $page = 1)
     {

@@ -15,8 +15,8 @@
         {% if page.total_pages > 1 %}
             <nav>
                 <ul class="pager">
-                    <li class="previous"><a href="{{ url.get(['for':'tags.index','page':page.before]) }}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
-                    <li class="next"><a href="{{ url.get(['for':'tags.index','page':page.next]) }}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+                    <li class="previous"><a href="{{ url.get(['for':'tags.index.page','page':page.before]) }}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+                    <li class="next"><a href="{{ url.get(['for':'tags.index.page','page':page.next]) }}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
                 </ul>
             </nav>
         {% endif %}
