@@ -68,13 +68,16 @@ trait FileableTrait
 
     private function addWebFile($source_id,$type)
     {
-        $parser = myParser::getParser($type,$source_id);
-        $data = $parser->parseInfo();
-        $this->save($parser->getDataForFile());
-        $data['file_id'] = $this->id;
-        $model = myParser::getModel($type);
-        $model->save($data);
-        $this->saveFileable($model);
+        $parser = myParser::getParser($type,$source_id);//获取Parser
+        $data = $parser->parseInfo();//抽取数据
+
+        $this->save($parser->getDataForFile());//保存file对象
+
+        $data['file_id'] = $this->id;//补充数据，添加file_id
+        $model = myParser::getModel($type);//获取模型
+        $model->save($data);//保存模型数据
+
+        $this->saveFileable($model);//保存关联对象数据
         return $this;
     }
     private function saveFileable($fileableObject)
