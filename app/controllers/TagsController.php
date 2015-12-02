@@ -48,7 +48,7 @@ class TagsController extends myController
     }
     public function deleteCommentAction(Tags $tag,Comments $comment)
     {
-        $comment->delete();
+        $tag->deleteComment($comment);
         return $this->redirectByRoute(['for'=>'tags.show','tag'=>$tag->id]);
     }
 

@@ -51,6 +51,11 @@ class Files extends myModel
      * @var string
      */
     public $updated_at_website;
+    /**
+     *
+     * @var integer
+     */
+    public $commentCount;
 
 
 
@@ -109,12 +114,14 @@ class Files extends myModel
             'updated_at' => 'updated_at',
             'created_at' => 'created_at',
             'standard_number' => 'standard_number',
-            'updated_at_website' => 'updated_at_website'
+            'updated_at_website' => 'updated_at_website',
+            'commentCount' => 'commentCount'
         );
     }
 
     public function getHtml($key)
     {
+        if(!$this->$key) return null;
         if($key == 'url'){
             $siteName = '链接';
             if(preg_match('%http://d.wanfangdata.com.cn/%m', $this->$key)) $siteName = '万方';

@@ -34,10 +34,23 @@ trait commentableTrait
         $comment->content=$data['content'];
         $comment->commentable_id = $this->id;
         $comment->commentable_type = get_class($this);
-        $comment->user_id = $this->getDI()->getShared('session')->get('auth')['id'];//获得当前登录对象的id
+//        $comment->user_id = $this->getDI()->getShared('session')->get('auth')['id'];//获得当前登录对象的id
+        $comment->user_id = 1;//获得当前登录对象的id
+//        dd($comment);
         $comment->save();
+        $this->commentCount += 1;
+        $this->save();
         return $this;
     }
+
+    public function deleteComment(Comments $comment)
+    {
+        /** @var myModel $this */
+        $this->commentCount -= 1;
+        $this->save();
+        return $comment->delete();
+    }
+
     public function getAddCommentFormUrl()
     {
         /** @var myModel $this */

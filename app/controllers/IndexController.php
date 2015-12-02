@@ -12,8 +12,5 @@ class IndexController extends myController
 
         $this->view->page = $this->getPaginatorByQueryBuilder($builder,50,$page);
     }
-
-
-
 }
 

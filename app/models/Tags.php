@@ -27,6 +27,11 @@ class Tags extends myModel
      * @var string
      */
     public $updated_at;
+    /**
+     *
+     * @var integer
+     */
+    public $commentCount;
 
     public static function findOrNewByName($tagName)
     {
@@ -92,7 +97,8 @@ class Tags extends myModel
             'name' => 'name',
             'created_at' => 'created_at',
             'updated_at' => 'updated_at',
-            'description' => 'description'
+            'description' => 'description',
+            'commentCount' => 'commentCount'
         );
     }
 
@@ -123,9 +129,8 @@ class Tags extends myModel
         return $this->make('files',function(){
             return Files::query()
                 ->rightJoin('Taggables','Taggables.taggable_id = Files.id AND Taggables.taggable_type="Files"')
-                ->leftJoin('Comments','Comments.commentable_id = Files.id AND Comments.commentable_type = "Files"')
                 ->where('Taggables.tag_id = :tag:',['tag'=>$this->id])
-                ->columns(['Files.*','Taggables.*','Count(Comments.id) AS CommentsCount'])
+                ->columns(['Files.*','Taggables.*'])
                 ->groupBy('Files.id')
                 ->orderBy('Taggables.created_at DESC')
                 ->execute();

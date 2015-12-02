@@ -39,11 +39,10 @@ class StandardsController extends myController
 
     public function showAction(Files $file)
     {
-
+//        dd($file->toArray());
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }
-
 
 
     public function editAction(Files $file)
@@ -115,7 +114,7 @@ class StandardsController extends myController
 
     public function deleteCommentAction(Files $file,Comments $comment)
     {
-        if ($comment->delete()) {
+        if ($file->deleteComment($comment)) {
             return $this->success();
         }
     }

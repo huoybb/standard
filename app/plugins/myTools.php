@@ -114,7 +114,7 @@ class myTools
     }
 
     public static function cut($string){
-        $maxLength = 60;
+        $maxLength = 40;
         $result = mb_substr($string,0,$maxLength,'utf-8');
         if(mb_strlen($string) > $maxLength) $result .= ' ...';
         return $result;
