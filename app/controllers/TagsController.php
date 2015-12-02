@@ -12,8 +12,9 @@ class TagsController extends myController
     }
     public function showAction(Tags $tag, $page = 1)
     {
+//        dd($tag->getTaggedFiles()->count());
         $this->view->mytag = $tag;
-        $this->view->page = $this->getPaginator($tag->taggables(),25,$page);
+        $this->view->page = $this->getPaginator($tag->getTaggedFiles(),25,$page);
 //        $this->view->form = $this->buildCommentForm($tag);
         $this->view->form = myForm::buildCommentForm($tag);
     }
@@ -54,8 +55,8 @@ class TagsController extends myController
     public function showItemAction(Tags $tag,$item)
     {
         $this->view->mytag = $tag;
-        $this->view->page = $this->getPaginator($tag->taggables(),1,$item);
-        $this->view->file = $this->view->page->items[0]->getTagged();
+        $this->view->page = $this->getPaginator($tag->getTaggedFiles(),1,$item);
+        $this->view->file = $this->view->page->items[0]->files;
         $this->view->form = myForm::buildCommentForm($this->view->file);
     }
 
