@@ -29,14 +29,16 @@
                 <th>#</th>
                 <th>标准</th>
                 <th>打签时间</th>
+                <th>评论数量</th>
                 <th><div align="center">操作</div></th>
             </tr>
             {% for key,item in page.items %}
                 <tr>
-                    <td>{{item.taggable_id}}</td>
-                    <td><a title="{{ item.getTagged().title }}" href="{{ url(['for':'tags.showItem','item':key+1+page.limit*(page.current-1),'tag':item.tag_id]) }}">{{ item.getTagged().title |cut }}</a></td>
-                    <td>{{ item.created_at.diffForHumans() }}</td>
-                    <td><span><a href="{{ url(['for':'tags.deleteItem','taggable':item.id,'tag':mytag.id]) }}" ><div align="center">删除</div></a></span></td>
+                    <td>{{item.files.id}}</td>
+                    <td><a title="{{ item.files.title }}" href="{{ url(['for':'tags.showItem','item':key+1+page.limit*(page.current-1),'tag':mytag.id]) }}">{{ item.files.title |cut }}</a></td>
+                    <td>{{ item.taggables.created_at.diffForHumans() }}</td>
+                    <td>{{ item.CommentsCount }}</td>
+                    <td><span><a href="{{ url(['for':'tags.deleteItem','taggable':item.taggables.id,'tag':mytag.id]) }}" ><div align="center">删除</div></a></span></td>
                 </tr>
             {% endfor %}
         </table>

@@ -118,6 +118,22 @@ class Tags extends myModel
         });
     }
 
+    public function getTaggedFiles()
+    {
+        return $this->make('files',function(){
+            return Files::query()
+                ->rightJoin('Taggables','Taggables.taggable_id = Files.id AND Taggables.taggable_type="Files"')
+                ->leftJoin('Comments','Comments.commentable_id = Files.id AND Comments.commentable_type = "Files"')
+                ->where('Taggables.tag_id = :tag:',['tag'=>$this->id])
+                ->columns(['Files.*','Taggables.*','Count(Comments.id) AS CommentsCount'])
+                ->groupBy('Files.id')
+                ->orderBy('Taggables.created_at DESC')
+                ->execute();
+
+        });
+    }
+
+
     public function addFileList(array $file_ids)
     {
         $files = Files::query()
