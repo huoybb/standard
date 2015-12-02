@@ -14,5 +14,6 @@ $compiler = $volt->getCompiler();
 $compiler->addFunction('get_class','get_class');
 $compiler->addFilter('basename','basename');
 $compiler->addFilter('formatSizeUnits',function($size){ return 'myTools::formatSizeUnits('.$size.')';});
+$compiler->addFilter('cut',function($string){ return 'myTools::cut('.$string.')';});
 
 return $volt;

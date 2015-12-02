@@ -113,4 +113,11 @@ class myTools
         return $text;
     }
 
+    public static function cut($string){
+        $maxLength = 60;
+        $result = mb_substr($string,0,$maxLength,'utf-8');
+        if(mb_strlen($string) > $maxLength) $result .= ' ...';
+        return $result;
+    }
+
 }

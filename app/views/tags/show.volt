@@ -34,7 +34,7 @@
             {% for key,item in page.items %}
                 <tr>
                     <td>{{item.taggable_id}}</td>
-                    <td><a href="{{ url(['for':'tags.showItem','item':key+1+page.limit*(page.current-1),'tag':item.tag_id]) }}">{{ item.getTagged().title }}</a></td>
+                    <td><a title="{{ item.getTagged().title }}" href="{{ url(['for':'tags.showItem','item':key+1+page.limit*(page.current-1),'tag':item.tag_id]) }}">{{ item.getTagged().title |cut }}</a></td>
                     <td>{{ item.created_at.diffForHumans() }}</td>
                     <td><span><a href="{{ url(['for':'tags.deleteItem','taggable':item.id,'tag':mytag.id]) }}" ><div align="center">删除</div></a></span></td>
                 </tr>
