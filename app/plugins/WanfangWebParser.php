@@ -13,11 +13,11 @@ abstract class WanfangWebParser extends myParser
     protected $patchKeys = [];
     protected $url = null;//需要被继承者替换掉的变量
 
-    public function Id2Url($wanfangId = null)
+    public function Id2Url($source_id = null)
     {
-        if($wanfangId == null) $wanfangId = $this->source_id;
+        if($source_id == null) $source_id = $this->source_id;
         if($this->url == null) dd('url是空的，请注意！');
-        return $this->url.$wanfangId;
+        return $this->url.$source_id;
     }
 
     public function getDataForFile()
@@ -26,17 +26,18 @@ abstract class WanfangWebParser extends myParser
             [
                 'title'=> $this->info['title'],
                 'url'=>$this->Id2Url(),
-                'updated_at_website'=>$this->info['publishDate']
+                'updated_at_website'=>$this->info['publishDate'],
+                'standard_number'=>$this->info['wanfangId']
             ];
 
     }
 
 
-    public function parseInfo($wanfangId = null)
+    public function parseInfo($source_id = null)
     {
-        if($wanfangId == null) $wanfangId = $this->source_id;
+        if($source_id == null) $source_id = $this->source_id;
 
-        $crawler = $this->client->request('get',$this->Id2Url($wanfangId));
+        $crawler = $this->client->request('get',$this->Id2Url($source_id));
         $data = $this->getBaseInfo($crawler);
 
         $crawler->filter('.baseinfo-feild .row')->each(function($row) use(&$data) {
@@ -49,7 +50,7 @@ abstract class WanfangWebParser extends myParser
             }
 
         });
-        $result = ['wanfangId'=>$wanfangId];
+        $result = ['wanfangId'=>$source_id];
         foreach($data as $key=>$value){
             if($this->format($key)) $result[$this->format($key)]=$value;
         }

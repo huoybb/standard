@@ -155,4 +155,16 @@ class Files extends myModel
         return $builder;
     }
 
+    /**
+     * @param $search
+     * @return Files
+     */
+    public static function findByStandardNumber($search)
+    {
+        return self::query()
+            ->where('standard_number = :SN:',['SN'=>$search])
+            ->execute()
+            ->getFirst();
+    }
+
 }

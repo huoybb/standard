@@ -10,6 +10,8 @@ trait FileableInterfaceTrait
 {
     public function getHtml($key)
     {
+        if(null == $this->$key) return null;
+
         if($key == 'abstract' OR $key == 'Abstract'){
             if($this->$key == null) return null;
             return '<pre>'.$this->$key.'</pre>';

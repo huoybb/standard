@@ -40,14 +40,6 @@ class StandardsController extends myController
     public function showAction(Files $file)
     {
 
-//        dd($file->getLinks());
-//        foreach(OaiDticMil::find() as $o){
-//            $file = $o->getStandard();
-//            $file->save([
-//                'title'=>$o->Title,
-//                'standard_number'=>$o->Accession_Number,
-//            ]);
-//        }
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }
@@ -79,6 +71,10 @@ class StandardsController extends myController
     public function searchAction($search,$page = 1)
     {
 //        $this->view->page = $this->getPaginator($file->search($search),50,$page);
+        if(preg_match('/[a-zA-Z0-9-]+/m', $search)) {
+            $file = Files::findByStandardNumber($search);
+            if($file) return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
+        }
         $this->view->page = $this->getPaginatorByQueryBuilder(Files::searchQuery($search),50,$page);
         $this->view->search = $search;
     }
