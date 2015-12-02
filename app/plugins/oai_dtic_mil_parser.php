@@ -33,7 +33,7 @@ class oai_dtic_mil_parser extends myParser
     public function getDataForFile()
     {
         return [
-            'title'=> $this->info['Accession_Number'].'-'.$this->info['Title'],
+            'title'=>$this->info['Title'],
             'url'=>$this->Id2Url($this->source_id),
             'updated_at_website'=>$this->info['Report_Date'],
             'standard_number'=>$this->info['Accession_Number']

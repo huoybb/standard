@@ -41,6 +41,13 @@ class StandardsController extends myController
     {
 
 //        dd($file->getLinks());
+//        foreach(OaiDticMil::find() as $o){
+//            $file = $o->getStandard();
+//            $file->save([
+//                'title'=>$o->Title,
+//                'standard_number'=>$o->Accession_Number,
+//            ]);
+//        }
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }
