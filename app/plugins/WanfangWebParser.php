@@ -76,13 +76,14 @@ abstract class WanfangWebParser extends myParser
     protected function getTitle($crawler)
     {
         /** @var Symfony\Component\DomCrawler\Crawler $crawler */
-        return trim($crawler->filter('.section-baseinfo h1')->text());
+        if($crawler->filter('.section-baseinfo h1')->count()) return trim($crawler->filter('.section-baseinfo h1')->text());
+        return null;
     }
     protected function getEngishTitle($crawler)
     {
         /** @var Symfony\Component\DomCrawler\Crawler $crawler */
-        if($crawler->filter('.section-baseinfo h2')->count() == 0) return null;
-        return trim($crawler->filter('.section-baseinfo h2')->text());
+        if($crawler->filter('.section-baseinfo h2')->count()) return trim($crawler->filter('.section-baseinfo h2')->text());
+        return null;
     }
 
     protected function getAbstract($crawler)
@@ -91,7 +92,10 @@ abstract class WanfangWebParser extends myParser
         if($crawler->filter('.abstract .fl .text')->count()){
             return  trim($crawler->filter('.abstract .fl .text')->text());
         }
-        return trim($crawler->filter('.abstract .text')->text());
+        if($crawler->filter('.abstract .text')->count()){
+            return trim($crawler->filter('.abstract .text')->text());
+        }
+        return null;
     }
     abstract protected function patchValue($key,$value,$row);
 
