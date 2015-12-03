@@ -30,7 +30,7 @@
                 <th><input type="checkbox" id="fileSelect" ></th>
                 <th>#</th>
                 <th>标准</th>
-                <th>更新时间</th>
+                <th>发布时间</th>
                 <th>评论</th>
                 <th colspan="2" width="10%"><div align="center">操作</div></th>
             </tr>

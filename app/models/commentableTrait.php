@@ -39,7 +39,7 @@ trait commentableTrait
 //        dd($comment);
         $comment->save();
         $this->commentCount += 1;
-        $this->save();
+        $this->save();//除了更新commentCount，updated_at也会自动更新
         return $this;
     }
 
