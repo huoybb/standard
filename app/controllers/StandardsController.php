@@ -39,7 +39,6 @@ class StandardsController extends myController
 
     public function showAction(Files $file)
     {
-
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }

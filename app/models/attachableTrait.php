@@ -13,7 +13,8 @@ trait attachableTrait
         /** @var myModel $this */
         return $this->make('attachments',function(){
             return Attachments::query()
-                ->where('file_id = :id:',['id'=>$this->id])
+                ->where('attachable_id = :id:',['id'=>$this->id])
+                ->andWhere('attachable_type = :type:',['type'=>get_class($this)])
                 ->orderBy('created_at DESC')
                 ->execute();
         });
@@ -35,7 +36,8 @@ trait attachableTrait
             $data['name'] = $f->getName();
             $data['url']=myTools::storeAttachment($f);
             $data['user_id'] = 1;
-            $data['file_id'] = $this->id;
+            $data['attachable_id'] = $this->id;
+            $data['attachable_type'] = get_class($this);
             (new Attachments())->save($data);
             $this->attachmentCount += 1;
             $this->save();

@@ -31,8 +31,8 @@ class Attachments extends myModel
      *
      * @var integer
      */
-    public $file_id;
-
+    public $attachable_id;
+    public $attachable_type;
     /**
      *
      * @var integer
@@ -104,7 +104,8 @@ class Attachments extends myModel
             'name' => 'name',
             'url' => 'url',
             'description' => 'description',
-            'file_id' => 'file_id',
+            'attachable_id' => 'attachable_id',
+            'attachable_type' => 'attachable_type',
             'user_id' => 'user_id',
             'updated_at' => 'updated_at',
             'created_at' => 'created_at'
