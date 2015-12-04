@@ -26,7 +26,7 @@
                     <h2>标签</h2>
                     <?php foreach($this->allTags as $mytag){?>
                     {#{% for mytag in allTags %}#}
-                    <span><a href="{{ url(['for':'tags.show','tag':mytag.id]) }}">{{ mytag.name }}</a>({{ mytag.tagCounts() }})</span>
+                    <span><a href="{{ url(['for':'tags.show','tag':mytag.id]) }}">{{ mytag.name }}</a>({{ mytag.taggableCount }})</span>
                     {#{% endfor %}#}
                     <?php }?>
                 {% endblock %}

@@ -1,6 +1,7 @@
 <hr>
 
 <h2>Comments:</h2>
+{% if file.commentCount %}
 <ul>
     {% for comment in file.comments() %}
     <li>
@@ -16,3 +17,4 @@
     </li>
     {% endfor %}
 </ul>
+{% endif %}

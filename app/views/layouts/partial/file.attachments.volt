@@ -1,5 +1,5 @@
 <hr>
-{% if file.attachments().count() %}
+{% if file.attachmCount %}
     <h2><a href="{{ url(['for':'standards.showAttachments','file':file.id]) }}">Attachments</a></h2>
     <div id="attachments">
         {% for attachment in file.attachments() %}
