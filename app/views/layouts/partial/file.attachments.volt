@@ -1,5 +1,5 @@
 <hr>
-{% if file.attachmCount %}
+{% if file.attachmentCount %}
     <h2><a href="{{ url(['for':'standards.showAttachments','file':file.id]) }}">Attachments</a></h2>
     <div id="attachments">
         {% for attachment in file.attachments() %}
@@ -21,7 +21,8 @@
                 <tr>
                     <td colspan="3">{{ attachment.url | basename }}</td><td>{{ attachment.getFileSize() | formatSizeUnits}}</td>
                 </tr>
-                </tbody></table>
+                </tbody>
+            </table>
         {% endfor %}
     </div>
 {% endif %}

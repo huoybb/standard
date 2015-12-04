@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "tag.js",
+  "sourceRoot": "",
+  "sources": [
+    "tag.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,EAAA,CAAA,CAAE,SAAA,GAAA;AAEA,QAAA,UAAA;AAAA,IAAA,UAAA,GAAiB,IAAA,QAAA,CAAS,sBAAT,CAAjB,CAAA;WACA,UAAU,CAAC,EAAX,CAAc,UAAd,EAAyB,SAAA,GAAA;aAAE,QAAQ,CAAC,MAAT,CAAA,EAAF;IAAA,CAAzB,EAHA;EAAA,CAAF,CAAA,CAAA;AAAA"
+}

@@ -6,9 +6,11 @@
     <link rel="stylesheet" href="{{ url.getBaseUri() }}css/app.css">
     <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/jquery-2.1.4.min.js"></script>
     <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/keymaster.js"></script>
+    <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/dropzone.js"></script>
     <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/my.js"></script>
     <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/standards.delete.js"></script>
     <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/standards.search.selectFiles.js"></script>
+    <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/tag.js"></script>
 </head>
 <body>
     {% include "layouts/header.volt" %}
@@ -23,12 +25,17 @@
             </div>
             <div class="col-md-2">
                 {% block sidebar %}
-                    <h2>标签</h2>
-                    <?php foreach($this->allTags as $mytag){?>
-                    {#{% for mytag in allTags %}#}
-                    <span><a href="{{ url(['for':'tags.show','tag':mytag.id]) }}">{{ mytag.name }}</a>({{ mytag.taggableCount }})</span>
-                    {#{% endfor %}#}
-                    <?php }?>
+                    <div class="row">
+                        <h2>标签</h2>
+                        <div>
+                            <?php foreach($this->allTags as $mytag){?>
+                            {#{% for mytag in allTags %}#}
+                            <span><a href="{{ url(['for':'tags.show','tag':mytag.id]) }}">{{ mytag.name }}</a>({{ mytag.taggableCount }})</span>
+                            {#{% endfor %}#}
+                            <?php }?>
+                        </div>
+
+                    </div>
                 {% endblock %}
             </div>
         </div>

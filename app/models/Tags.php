@@ -4,6 +4,7 @@ class Tags extends myModel
 {
 
     use commentableTrait;
+    use attachableTrait;
     /**
      *
      * @var integer
@@ -37,6 +38,11 @@ class Tags extends myModel
      * @var integer
      */
     public $taggableCount;
+    /**
+     *
+     * @var integer
+     */
+    public $attachmentCount;
 
     public static function findOrNewByName($tagName)
     {
@@ -105,6 +111,7 @@ class Tags extends myModel
             'description' => 'description',
             'commentCount' => 'commentCount',
             'taggableCount' => 'taggableCount',
+            'attachmentCount' => 'attachmentCount',
         );
     }
 

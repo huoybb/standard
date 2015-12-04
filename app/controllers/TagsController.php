@@ -75,5 +75,30 @@ class TagsController extends myController
         return $this->redirectByRoute(['for'=>'home']);
     }
 
+    public function addAttachmentAction(Tags $tag)
+    {
+        if ($this->request->hasFiles() == true) {
+            $tag->uploadAndStoreAttachment($this->request);
+            return $this->success();
+        }else{
+            return $this->failed();
+        }
+    }
+
+    public function showAttachmentsAction(Tags $tag)
+    {
+        $this->view->mytag = $tag;
+
+    }
+
+    public function deleteAttachmentAction(Tags $tag,Attachments $attachment)
+    {
+        $tag->deleteAttachment($attachment);
+        return $this->redirectByRoute(['for'=>'tags.show','tag'=>$tag->id]);
+    }
+
+
+
+
 
 }

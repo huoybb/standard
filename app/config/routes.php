@@ -52,6 +52,10 @@ $router->add('/tags/{tag:[0-9]+}/page/{page:[0-9]+}','tags::show')->setName('tag
 $router->add('/tags/{tag:[0-9]+}/edit','tags::edit')->setName('tags.edit');
 $router->add('/tags/{tag:[0-9]+}/delete','tags::delete')->setName('tags.delete');
 
+$router->add('/tags/{tag:[0-9]+}/addAttachment','tags::addAttachment')->setName('tags.addAttachment');
+$router->add('/tags/{tag:[0-9]+}/Attachments','tags::showAttachments')->setName('tags.showAttachments');
+$router->add('/tags/{tag:[0-9]+}/Attachments/{attachment:[0-9]+}/delete','tags::deleteAttachment')->setName('tags.deleteAttachment');
+
 $router->add('/tags/{tag:[0-9]+}/addComment','tags::addComment')->setName('tags.addComment');
 $router->add('/tags/{tag:[0-9]+}/comments/{comment:[0-9]+}/edit','tags::editComment')->setName('tags.editComment');
 $router->add('/tags/{tag:[0-9]+}/comments/{comment:[0-9]+}/delete','tags::deleteComment')->setName('tags.deleteComment');

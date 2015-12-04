@@ -1,13 +1,13 @@
 {% extends 'fileList.volt' %}
 
 {% block title %}
-    我的标准库-首页
+    我的文档库-首页
 {% endblock %}
 {% block listTitle %}
-    <h1>标准汇总<span class="badge">{{ page.total_items }}</span></h1>
+    <h1>文档汇总<span class="badge">{{ page.total_items }}</span></h1>
 {% endblock %}
 {% block listInfo %}
-    <p>标准列表显示如下：</p>
+    <p>文档列表显示如下：</p>
 {% endblock %}
 {% block nav %}
     <div><span class="label label-primary">共计{{ page.total_items }}条标准</span>--<span class="label label-primary">第{{ page.current }}页/总{{ page.total_pages }}页</span></div>

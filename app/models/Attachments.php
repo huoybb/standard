@@ -111,6 +111,12 @@ class Attachments extends myModel
             'created_at' => 'created_at'
         );
     }
+    public function getLastEditTime()
+    {
+        return $this->make('fileLastEditTime',function(){
+            return \Carbon\Carbon::createFromTimestampUTC(filemtime($this->url));
+        });
+    }
 
     public function getFileSize()
     {
