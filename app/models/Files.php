@@ -56,7 +56,22 @@ class Files extends myModel
      * @var integer
      */
     public $commentCount;
+    /**
+     *
+     * @var integer
+     */
+    public $attachmentCount;
 
+    /**
+     *
+     * @var integer
+     */
+    public $linkCount;
+    /**
+     *
+     * @var string
+     */
+    public $type;
 
 
     /**
@@ -76,6 +91,8 @@ class Files extends myModel
     {
         return 'Files';
     }
+
+
 
     /**
      * Allows to query a set of records that match the specified conditions
@@ -115,7 +132,10 @@ class Files extends myModel
             'created_at' => 'created_at',
             'standard_number' => 'standard_number',
             'updated_at_website' => 'updated_at_website',
-            'commentCount' => 'commentCount'
+            'commentCount' => 'commentCount',
+            'attachmentCount' => 'attachmentCount',
+            'linkCount' => 'linkCount',
+            'type' => 'type',
         );
     }
 

@@ -39,7 +39,7 @@ class StandardsController extends myController
 
     public function showAction(Files $file)
     {
-//        dd($file->toArray());
+
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }
@@ -161,7 +161,7 @@ class StandardsController extends myController
 
     public function deleteTagAction(Files $file,Taggables $taggable)
     {
-        $this->deleteTaggable($taggable);
+        $file->deleteTag($taggable);
         return $this->redirectByRoute(['for'=>'standards.showTags','file'=>$file->id]);
     }
 
@@ -187,7 +187,7 @@ class StandardsController extends myController
 
     public function deleteLinkAction(Files $file,Link $link)
     {
-        $link->delete();
+        $file->deleteLink($link);
         return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
     }
 
@@ -270,15 +270,6 @@ class StandardsController extends myController
 
 
         return false;
-    }
-
-    private function deleteTaggable(Taggables $taggable)
-    {
-        $tag = $taggable->tag();
-        $taggable->delete();
-        if($tag->tagCounts() == 0){
-            $tag->delete();
-        }
     }
 
     private function addDoDFile($accessNumber, Files $file)

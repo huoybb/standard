@@ -32,6 +32,11 @@ class Tags extends myModel
      * @var integer
      */
     public $commentCount;
+    /**
+     *
+     * @var integer
+     */
+    public $taggableCount;
 
     public static function findOrNewByName($tagName)
     {
@@ -98,16 +103,15 @@ class Tags extends myModel
             'created_at' => 'created_at',
             'updated_at' => 'updated_at',
             'description' => 'description',
-            'commentCount' => 'commentCount'
+            'commentCount' => 'commentCount',
+            'taggableCount' => 'taggableCount',
         );
     }
 
 
     public function tagCounts()
     {
-        return $this->make('taggablesCount',function(){
-            return Taggables::count(['tag_id = :tag:','bind'=>['tag'=>$this->id]]);
-        });
+        return $this->taggableCount;
     }
 
     public function taggables($type = null)

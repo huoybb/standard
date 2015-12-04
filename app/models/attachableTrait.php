@@ -20,7 +20,10 @@ trait attachableTrait
     }
     public function deleteAttachment(Attachments $attachment)
     {
+        /** @var myModel $this */
         $attachment->delete();
+        $this->attachmentCount -= 1;
+        $this->save();
         return $this;
     }
 
@@ -34,6 +37,8 @@ trait attachableTrait
             $data['user_id'] = 1;
             $data['file_id'] = $this->id;
             (new Attachments())->save($data);
+            $this->attachmentCount += 1;
+            $this->save();
         }
         return $this;
     }

@@ -27,10 +27,12 @@
             <tr>
                 <th><input type="checkbox" id="fileSelect" ></th>
                 <th>#</th>
-                <th>标准</th>
+                <th>名称</th>
                 <th>发布时间</th>
+                <th>附件</th>
+                <th>链接</th>
                 <th>评论</th>
-                <th><div align="center">操作</div></th>
+                <th colspan="2"><div align="center">操作</div></th>
             </tr>
             {% for item in page.items %}
                 <tr>
@@ -38,6 +40,8 @@
                     <td>{{item.id}}</td>
                     <td><a title="{{ item.title }}" href="{{ url(['for':'standards.show','file':item.id]) }}">{{ item.title | cut}}</a></td>
                     <td>{{ item.updated_at_website }}</td>
+                    <td>{{ item.getHtml('attachmentCount') }}</td>
+                    <td>{{ item.getHtml('linkCount') }}</td>
                     <td>{{ item.getHtml('commentCount') }}</td>
                     <td><span><a href="{{ url(['for':'standards.edit','file':item.id]) }}" ><div align="center">修改</div></a></span></td>
                     <td><span><a href="{{ url(['for':'standards.delete','file':item.id]) }}" class="delete" ><div align="center">删除</div></a></span></td>

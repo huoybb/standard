@@ -30,9 +30,11 @@
             <tr>
                 <th><input width="2%" type="checkbox" id="fileSelect" ></th>
                 <th>#</th>
-                <th>标准</th>
+                <th>名称</th>
                 <th>发布时间</th>
                 <th>打签时间</th>
+                <th>附件</th>
+                <th>链接</th>
                 <th>评论</th>
                 <th><div align="center">操作</div></th>
             </tr>
@@ -43,6 +45,8 @@
                     <td><a title="{{ item.files.title }}" href="{{ url(['for':'tags.showItem','item':key+1+page.limit*(page.current-1),'tag':mytag.id]) }}">{{ item.files.title |cut }}</a></td>
                     <td>{{ item.files.updated_at_website }}</td>
                     <td>{{ item.taggables.created_at.diffForHumans() }}</td>
+                    <td>{{ item.files.getHtml('attachmentCount') }}</td>
+                    <td>{{ item.files.getHtml('linkCount') }}</td>
                     <td>{{ item.files.getHtml('commentCount') }}</td>
                     <td><span><a href="{{ url(['for':'tags.deleteItem','taggable':item.taggables.id,'tag':mytag.id]) }}" ><div align="center">删除</div></a></span></td>
                 </tr>

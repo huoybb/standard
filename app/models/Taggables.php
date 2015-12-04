@@ -113,6 +113,9 @@ class Taggables extends myModel
         });
     }
 
+    /**
+     * @return Tags
+     */
     public function tag()
     {
         return $this->make('tag',function(){

@@ -23,12 +23,7 @@ trait taggableTrait
     }
     public function addTag(Tags $tag)
     {
-        /** @var myModel $this */
-        $taggables = Taggables::query()
-            ->where('tag_id = :tag:',['tag'=>$tag->id])
-            ->andWhere('taggable_type = :type:',['type'=>get_class($this)])
-            ->andWhere('taggable_id = :id:',['id'=>$this->id])
-            ->execute();
+        $taggables = $this->getTaggable($tag);
         if($taggables->count() == 0){
             $data = [
                 'tag_id'=>$tag->id,
@@ -38,7 +33,19 @@ trait taggableTrait
             ];
             $taggable = new Taggables();
             $taggable->save($data);
+            $tag->taggableCount += 1;
             $tag->save();//更新标签的时间，以便体现更新的时间
+        }
+        return $this;
+    }
+    public function deleteTag(Taggables $taggable){
+        $tag = $taggable->tag();
+        $taggable->delete();
+
+        $tag->taggableCount -=1;
+
+        if($tag->taggableCount == 0){
+            $tag->delete();
         }
         return $this;
     }
@@ -50,6 +57,14 @@ trait taggableTrait
             ->execute();
         if($tags) $tags->delete();
         return $this;
+    }
+
+    public function getTaggable(Tags $tag){
+        return Taggables::query()
+            ->where('tag_id = :tag:',['tag'=>$tag->id])
+            ->andWhere('taggable_type = :type:',['type'=>get_class($this)])
+            ->andWhere('taggable_id = :id:',['id'=>$this->id])
+            ->execute();
     }
 
 

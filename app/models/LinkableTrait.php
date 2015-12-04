@@ -10,6 +10,7 @@ trait LinkableTrait
 {
     public function addLink($url)
     {
+        /** @var myModel $this */
         $link = new Link();
         $link->save([
             'url'=>$url,
@@ -17,8 +18,20 @@ trait LinkableTrait
             'linkable_type'=>get_class($this),
             'linkable_id'=>$this->id
         ]);
+        $this->linkCount += 1;
+        $this->save();
         return $this;
     }
+
+    public function deleteLink(Link $link)
+    {
+        /** @var myModel $this */
+        $link->delete();
+        $this->linkCount -= 1;
+        $this->save();
+        return $this;
+    }
+
     public function getLinks()
     {
         /** @var myModel $this */
