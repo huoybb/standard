@@ -42,4 +42,11 @@ trait LinkableTrait
         });
     }
 
+    public function beforeDeleteRemoveLinks()
+    {
+        $links = $this->getLinks();
+        if($links->count()) $links->delete();
+    }
+
+
 }
