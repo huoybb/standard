@@ -8,7 +8,7 @@
 {% endblock %}
 {% block listInfo %}
     {% if mytag.description %}
-        <blockquote><p>{{ mytag.description }}</p></blockquote>
+        <blockquote><pre>{{ mytag.description }}</pre></blockquote>
     {% endif %}
     <p>创建日期：{{ mytag.created_at.diffForHumans() }}</p>
     <P>操作：
