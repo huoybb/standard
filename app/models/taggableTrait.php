@@ -51,11 +51,13 @@ trait taggableTrait
     }
     public function beforeDeleteForTaggables()
     {
-        $tags = Taggables::query()
+        $taggables = Taggables::query()
             ->where('Taggables.taggable_type = :type:',['type'=>get_class($this)])
             ->andWhere('Taggables.taggable_id = :id:',['id'=>$this->id])
             ->execute();
-        if($tags) $tags->delete();
+        foreach($taggables as $taggable){
+            $this->deleteTag($taggable);
+        }
         return $this;
     }
 

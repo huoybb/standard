@@ -39,8 +39,10 @@ trait FileableTrait
 
     public function beforeDeleteRemoveFilealbe()
     {
+        //删除链接对应的库中的数据
         $fileable_object = $this->getFileable();
         if($fileable_object) $fileable_object->delete();
+        //删除链接表中的数据
         $fileable = Fileable::query()
             ->where('file_id = :id:',['id'=>$this->id])
             ->execute();
