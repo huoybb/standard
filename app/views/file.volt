@@ -30,6 +30,7 @@
                     {% include 'layouts/partial/file.attachments.volt' %}
 
                     {% include 'layouts/partial/commentListForFile.volt' %}
+                    {% block otherCommentList %}{% endblock %}
                     {% include 'layouts/partial/commentForm.volt' %}
                 </div>
                 <div class="col-md-2">

@@ -66,6 +66,7 @@ abstract class myController extends Controller
         return $page;
     }
 
+
     protected function success()
     {
         echo 'success';

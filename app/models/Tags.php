@@ -149,6 +149,20 @@ class Tags extends myModel
 
         });
     }
+    public function getTaggedFileComments()
+    {
+        /** @var myModel $this */
+        return $this->make('taggedFileComments',function(){
+            $query = Comments::query()
+                ->leftJoin('Taggables','commentable_type = "Taggables" AND commentable_id = Taggables.id')
+                ->leftJoin('Files','Taggables.taggable_type = "Files" AND Taggables.taggable_id = Files.id')
+                ->leftJoin('Tags','Taggables.tag_id = Tags.id')
+                ->Where('Tags.id = :tag:',['tag'=>$this->id])
+                ->orderBy('Comments.updated_at DESC')
+                ->columns(['Files.*','Comments.*']);
+            return $query->execute();
+        });
+    }
 
 
     public function addFileList(array $file_ids)

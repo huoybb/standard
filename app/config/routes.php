@@ -62,5 +62,6 @@ $router->add('/tags/{tag:[0-9]+}/comments/{comment:[0-9]+}/delete','tags::delete
 
 $router->add('/tags/{tag:[0-9]+}/item/{item:[0-9]+}','tags::showItem')->setName('tags.showItem');
 $router->add('/tags/{tag:[0-9]+}/item/{taggable:[0-9]+}/delete','tags::deleteItem')->setName('tags.deleteItem');
+$router->add('/taggables/{taggable:[0-9]+}/addComment','tags::commentItem')->setName('taggables.addComment');
 
 return $router;

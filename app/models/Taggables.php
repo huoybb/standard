@@ -3,6 +3,7 @@
 class Taggables extends myModel
 {
 
+    use commentableTrait;
     /**
      *
      * @var integer
@@ -107,7 +108,7 @@ class Taggables extends myModel
 
     public function getTagged()
     {
-        return $this->make('tagged',function(){
+        return $this->make('taggedObject',function(){
             $className = $this->taggable_type;
             return  $className::findFirst($this->taggable_id);
         });

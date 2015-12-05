@@ -24,7 +24,7 @@ trait taggableTrait
     public function addTag(Tags $tag)
     {
         $taggables = $this->getTaggable($tag);
-        if($taggables->count() == 0){
+        if($taggables == null){
             $data = [
                 'tag_id'=>$tag->id,
                 'taggable_type'=>get_class($this),
@@ -55,13 +55,32 @@ trait taggableTrait
         return $this;
     }
 
+    /**
+     * @param Tags $tag
+     * @return myModel
+     */
     public function getTaggable(Tags $tag){
         return Taggables::query()
             ->where('tag_id = :tag:',['tag'=>$tag->id])
             ->andWhere('taggable_type = :type:',['type'=>get_class($this)])
             ->andWhere('taggable_id = :id:',['id'=>$this->id])
-            ->execute();
+            ->execute()->getFirst();
     }
+    public function getTaggableComments(Tags $tag=null)
+    {
+        /** @var myModel $this */
+        return $this->make('taggableComments',function() use($tag){
+            $query = Comments::query()
+                ->leftJoin('Taggables','commentable_type = "Taggables" AND commentable_id = Taggables.id')
+                ->leftJoin('Files','Taggables.taggable_type = "Files" AND Taggables.taggable_id = Files.id')
+                ->leftJoin('Tags','Taggables.tag_id = Tags.id')
+                ->where('Files.id = :id:',['id'=>$this->id])
+                ->columns(['Tags.*','Comments.*']);
+            if($tag <> null) $query=$query->andWhere('Tags.id = :tag:',['tag'=>$tag->id]);
+            return $query->execute();
+        });
+    }
+
 
 
 }
