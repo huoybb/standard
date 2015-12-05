@@ -38,16 +38,15 @@ trait commentableTrait
         $comment->user_id = 1;//获得当前登录对象的id
 //        dd($comment);
         $comment->save();
-        $this->commentCount += 1;
-        $this->save();//除了更新commentCount，updated_at也会自动更新
+        /** @var myModel $this */
+        $this->increaseCount('commentCount');
         return $this;
     }
 
     public function deleteComment(Comments $comment)
     {
         /** @var myModel $this */
-        $this->commentCount -= 1;
-        $this->save();
+        $this->decreaseCount('commentCount');
         return $comment->delete();
     }
 

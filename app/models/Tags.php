@@ -5,6 +5,7 @@ class Tags extends myModel
 
     use commentableTrait;
     use attachableTrait;
+    use countForRootClassTrait;
     /**
      *
      * @var integer
@@ -161,6 +162,8 @@ class Tags extends myModel
         }
         return $this;
     }
+
+
 
 
 }

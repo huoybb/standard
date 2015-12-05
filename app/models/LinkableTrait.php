@@ -18,8 +18,7 @@ trait LinkableTrait
             'linkable_type'=>get_class($this),
             'linkable_id'=>$this->id
         ]);
-        $this->linkCount += 1;
-        $this->save();
+        $this->increaseCount('linkCount');
         return $this;
     }
 
@@ -27,8 +26,7 @@ trait LinkableTrait
     {
         /** @var myModel $this */
         $link->delete();
-        $this->linkCount -= 1;
-        $this->save();
+        $this->decreaseCount('linkCount');
         return $this;
     }
 

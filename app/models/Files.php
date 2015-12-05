@@ -10,6 +10,7 @@ class Files extends myModel
     use revisionableTrait;
     use FileableTrait;
     use LinkableTrait;
+    use countForRootClassTrait;
     /**
      *
      * @var integer

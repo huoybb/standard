@@ -33,20 +33,14 @@ trait taggableTrait
             ];
             $taggable = new Taggables();
             $taggable->save($data);
-            $tag->taggableCount += 1;
-            $tag->save();//更新标签的时间，以便体现更新的时间
+            $tag->increaseCount('taggableCount');
         }
         return $this;
     }
     public function deleteTag(Taggables $taggable){
         $tag = $taggable->tag();
         $taggable->delete();
-
-        $tag->taggableCount -=1;
-
-        if($tag->taggableCount == 0){
-            $tag->delete();
-        }
+        $tag->decreaseCount('taggableCount');
         return $this;
     }
     public function beforeDeleteForTaggables()

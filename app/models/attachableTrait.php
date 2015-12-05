@@ -23,8 +23,7 @@ trait attachableTrait
     {
         /** @var myModel $this */
         $attachment->delete();
-        $this->attachmentCount -= 1;
-        $this->save();
+        $this->decreaseCount('attachmentCount');
         return $this;
     }
 
@@ -39,8 +38,8 @@ trait attachableTrait
             $data['attachable_id'] = $this->id;
             $data['attachable_type'] = get_class($this);
             (new Attachments())->save($data);
-            $this->attachmentCount += 1;
-            $this->save();
+            
+            $this->increaseCount('attachmentCount');
         }
         return $this;
     }
