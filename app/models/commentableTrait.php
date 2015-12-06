@@ -39,7 +39,11 @@ trait commentableTrait
 //        dd($comment);
         $comment->save();
         /** @var myModel $this */
-        if(method_exists($this,'increaseCount')) $this->increaseCount('commentCount');
+        if(method_exists($this,'increaseCount')){
+            $this->increaseCount('commentCount');
+        }else{
+            $this->save();//更新时间
+        }
         return $this;
     }
 

@@ -144,7 +144,7 @@ class Tags extends myModel
                 ->where('Taggables.tag_id = :tag:',['tag'=>$this->id])
                 ->columns(['Files.*','Taggables.*'])
                 ->groupBy('Files.id')
-                ->orderBy('Taggables.created_at DESC')
+                ->orderBy('Taggables.updated_at DESC')//按照更新的时间排序
                 ->execute();
 
         });
