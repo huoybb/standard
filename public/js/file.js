@@ -60,7 +60,7 @@
       });
       return false;
     });
-    return $('#addLink-form').submit(function() {
+    $('#addLink-form').submit(function() {
       var url;
       url = $(this).attr('action');
       if ($('#link').val() === '') {
@@ -73,6 +73,14 @@
         }
       });
       return false;
+    });
+    $('#expand').click(function() {
+      $("#expand").parents('div.abstract').hide();
+      return $("#collaps").parents('div.abstract').show();
+    });
+    return $('#collaps').click(function() {
+      $("#expand").parents('div.abstract').show();
+      return $("#collaps").parents('div.abstract').hide();
     });
   });
 

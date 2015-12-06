@@ -14,7 +14,16 @@ trait FileableInterfaceTrait
 
         if($key == 'abstract' OR $key == 'Abstract'){
             if($this->$key == null) return null;
-            return '<pre>'.myTools::cut($this->$key,200).'</pre>';
+            $maxLength = 200;//最大显示长度
+
+            if(mb_strlen($this->$key) > $maxLength){
+                return '<div class="abstract" style="display: block;">'.
+                    '<pre>'.myTools::cut($this->$key,$maxLength).'  <a href="#" id="expand">展开</a></pre>'.'</div><div class="abstract" style="display: none;">'.
+                '<pre>'.$this->$key.'  <a href="#" id="collaps">收起</a></pre></div>';
+            }
+
+            return '<pre>'.myTools::cut($this->$key,$maxLength).'</pre>';
+
         }
 
 

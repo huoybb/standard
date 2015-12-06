@@ -55,4 +55,12 @@ $ ->
         location.reload()
     return false
 
+  #切换摘要的显示
+  $('#expand').click ->
+    $("#expand").parents('div.abstract').hide()
+    $("#collaps").parents('div.abstract').show()
+  $('#collaps').click ->
+    $("#expand").parents('div.abstract').show()
+    $("#collaps").parents('div.abstract').hide()
+
 

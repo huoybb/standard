@@ -38,7 +38,6 @@
                     {% include 'layouts/partial/addRevisionFile.volt' %}
                     {% include 'layouts/partial/addTag.volt' %}
                 </div>
-
             </div>
         {% block footer %}
             <div class="container">
