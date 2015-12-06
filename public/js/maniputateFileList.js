@@ -47,6 +47,9 @@
     return $('#deleteItems').click(function() {
       var url;
       url = location.href + '/deleteTaggableItems';
+      if (/http:\/\/standard.zhaobing\/(page\/[0-9]+)?/m.test(location.href) || /http:\/\/standard.zhaobing\/search\/.+/m.test(location.href)) {
+        url = '/standards/deleteSelectedFiles';
+      }
       $.post(url, $('#list-tag-form').serialize(), function(data) {
         if (data === 'success') {
           location.reload();

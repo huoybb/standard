@@ -6,7 +6,7 @@
         <item url="file://$PROJECT_DIR$/public/js/my.js" />
         <item url="file://$PROJECT_DIR$/public/js/standards.delete.js" />
         <item url="file://$PROJECT_DIR$/public/js/uploadAttachment.js" />
-        <item url="file://$PROJECT_DIR$/public/js/standards.search.selectFiles.js" />
+        <item url="file://$PROJECT_DIR$/public/js/maniputateFileList.js" />
         <item url="file://$PROJECT_DIR$/public/js/tag.js" />
       </sourceFilesUrls>
     </properties>

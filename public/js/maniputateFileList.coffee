@@ -29,17 +29,15 @@ $ ->
         location.reload()
       if data is 'failed'
         alert '请选择要打标签的条目！'
-      # @todo 不知道为什么这种设计不可以，需要查询一下
-#      location.reload()
     return false;
 
   $('#deleteItems').click ->
     url = location.href + '/deleteTaggableItems'
+    if /http:\/\/standard.zhaobing\/(page\/[0-9]+)?/m.test(location.href) or /http:\/\/standard.zhaobing\/search\/.+/m.test(location.href)
+      url = '/standards/deleteSelectedFiles'
     $.post url,$('#list-tag-form').serialize(),(data)->
       if data is 'success'
         location.reload()
       if data is 'failed'
         alert '请选择要打标签的条目！'
-      # @todo 不知道为什么这种设计不可以，需要查询一下
-#      location.reload()
     return false

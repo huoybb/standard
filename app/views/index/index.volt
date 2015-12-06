@@ -32,7 +32,7 @@
                 <th>附件</th>
                 <th>链接</th>
                 <th>评论</th>
-                <th colspan="2"><div align="center">操作</div></th>
+                <th><div align="center">操作</div></th>
             </tr>
             {% for item in page.items %}
                 <tr>
@@ -44,11 +44,11 @@
                     <td>{{ item.getHtml('linkCount') }}</td>
                     <td>{{ item.getHtml('commentCount') }}</td>
                     <td><span><a href="{{ url(['for':'standards.edit','file':item.id]) }}" ><div align="center">修改</div></a></span></td>
-                    <td><span><a href="{{ url(['for':'standards.delete','file':item.id]) }}" class="delete" ><div align="center">删除</div></a></span></td>
                 </tr>
             {% endfor %}
         </table>
     {% include "layouts/partial/fileList.commandButton.volt" %}
     {{ endform() }}
 {% endblock %}
+{#{% block sidebar %}{% endblock %}#}
 

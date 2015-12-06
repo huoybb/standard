@@ -226,7 +226,18 @@ class StandardsController extends myController
         if($this->combineRevisions($data['file_id'])) return $this->success();
         return $this->failed();
     }
-
+    public function deleteSelectedFilesAction()
+    {
+        $data = $this->request->getPost();
+        if(count($data['file_id'])){
+            $files = Files::query()
+                ->inWhere('id',$data['file_id'])
+                ->execute();
+            $files->delete();
+            return 'success';
+        }
+        return 'failed';
+    }
 
 
 
