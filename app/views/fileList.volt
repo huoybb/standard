@@ -8,8 +8,7 @@
     <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/keymaster.js"></script>
     <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/dropzone.js"></script>
     <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/my.js"></script>
-    <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/standards.delete.js"></script>
-    <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/standards.search.selectFiles.js"></script>
+    <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/maniputateFileList.js"></script>
     <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/tag.js"></script>
 </head>
 <body>

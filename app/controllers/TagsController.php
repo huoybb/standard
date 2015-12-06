@@ -111,6 +111,13 @@ class TagsController extends myController
         return $this->redirectByRoute(['for'=>'tags.show','tag'=>$tag->id]);
     }
 
+    public function deleteTaggableItemsAction(Tags $tag)
+    {
+        $data = $this->request->getPost();
+        if($tag->softDeleteFiles($data['file_id'])) return $this->success();
+        return $this->failed();
+    }
+
 
 
 

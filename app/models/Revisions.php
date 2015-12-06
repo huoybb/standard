@@ -88,6 +88,7 @@ class Revisions extends myModel
             return self::query()
                 ->where('parent_id = :parent_id:',['parent_id'=>$this->parent_id])
                 ->leftJoin('Files','file.id = Revisions.file_id','file')
+                ->orderBy('standard_number DESC')
                 ->columns(['Revisions.*','file.*'])
                 ->execute();
         });

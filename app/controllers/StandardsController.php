@@ -81,6 +81,12 @@ class StandardsController extends myController
     {
 //        $page = $this->getPaginatorByQueryBuilder($file->searchQuery($search),1,$item);
 
+//        foreach(Everyspec::find() as $es){
+//            $file = $es->getStandard();
+//            $file->standard_number = $es->standard_no;
+//            $file->save();
+//        }
+
         $this->view->page = $this->getPaginatorByQueryBuilder(Files::searchQuery($search),1,$item);
         $this->view->file = $this->view->page->items[0];
         $this->view->form = myForm::buildCommentForm($this->view->file);
@@ -196,8 +202,11 @@ class StandardsController extends myController
         $tagName = $data['tagName'];
         $tag = Tags::findOrNewByName($tagName);
 
-        if(isset($data['file_id'])) $tag->addFileList($data['file_id']);
-        return $this->redirectBack();
+        if(isset($data['file_id'])) {
+            $tag->addFileList($data['file_id']);
+            return 'success';
+        }
+        return 'failed';
     }
 
 
@@ -208,12 +217,32 @@ class StandardsController extends myController
         if ($this->addRevisionsToTwofiles($file,$file2)) {
             return $this->success();
         }
+        return $this->failed();
+    }
+
+    public function combineRevisionsAction()
+    {
+        $data = $this->request->getPost();
+        if($this->combineRevisions($data['file_id'])) return $this->success();
+        return $this->failed();
     }
 
 
 
 
 
+
+    private function combineRevisions(array $fileList)
+    {
+        if(count($fileList) == 0) return false;
+        $first = Files::findFirst(array_shift($fileList));
+        foreach($fileList as $id){
+            $second = Files::findFirst($id);
+            $this->addRevisionsToTwofiles($first,$second);
+            $first = Files::findFirst($id);
+        }
+        return true;
+    }
 
     private function addRevisionsToTwofiles(Files $file1,Files $file2)
     {
@@ -263,10 +292,13 @@ class StandardsController extends myController
         //如果两个都不是空的
 
         if($rev1 <> null && $rev2 <> null){
-            $rev2->getAllRevisions()->update(['parent_id'=>$rev1->parent_id]);
+            /** @var Revisions $rev2 */
+            $revisions = $rev2->getAllRevisions();
+            foreach($revisions as $rev){
+                $rev->revisions->update(['parent_id'=>$rev1->parent_id]);
+            }
             return true;
         }
-
 
         return false;
     }

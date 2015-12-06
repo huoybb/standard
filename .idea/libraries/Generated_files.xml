@@ -15,7 +15,7 @@
       <root url="file://$PROJECT_DIR$/public/js/my.js" />
       <root url="file://$PROJECT_DIR$/public/js/standards.delete.js" />
       <root url="file://$PROJECT_DIR$/public/js/uploadAttachment.js" />
-      <root url="file://$PROJECT_DIR$/public/js/standards.search.selectFiles.js" />
+      <root url="file://$PROJECT_DIR$/public/js/maniputateFileList.js" />
       <root url="file://$PROJECT_DIR$/public/js/tag.js" />
       <root url="file://$PROJECT_DIR$/public/js/file.js" />
     </CLASSES>

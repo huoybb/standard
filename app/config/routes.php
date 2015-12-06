@@ -41,6 +41,7 @@ $router->add('/standards/{file:[0-9]+}/Links','standards::showLinks')->setName('
 $router->add('/standards/{file:[0-9]+}/deleteLink/{link:[0-9]+}','standards::deleteLink')->setName('standards.deleteLink');
 
 $router->add('/standards/{file:[0-9]+}/addRevisionTo/{file2:[0-9]+}','standards::addRevisions')->setName('standards.addRevisionsTo');
+$router->add('/standards/combineRevisions','standards::combineRevisions')->setName('standards.combineRevisions');
 
 $router->add('/revisions/{rev:[0-9]+}','revisions::show')->setName('revisions.show');
 $router->add('/revisions/{rev:[0-9]+}/delete','revisions::delete')->setName('revisions.delete');
@@ -55,6 +56,8 @@ $router->add('/tags/{tag:[0-9]+}/delete','tags::delete')->setName('tags.delete')
 $router->add('/tags/{tag:[0-9]+}/addAttachment','tags::addAttachment')->setName('tags.addAttachment');
 $router->add('/tags/{tag:[0-9]+}/Attachments','tags::showAttachments')->setName('tags.showAttachments');
 $router->add('/tags/{tag:[0-9]+}/Attachments/{attachment:[0-9]+}/delete','tags::deleteAttachment')->setName('tags.deleteAttachment');
+
+$router->add('/tags/{tag:[0-9]+}/deleteTaggableItems','tags::deleteTaggableItems')->setName('tags.deleteTaggableItems');
 
 $router->add('/tags/{tag:[0-9]+}/addComment','tags::addComment')->setName('tags.addComment');
 $router->add('/tags/{tag:[0-9]+}/comments/{comment:[0-9]+}/edit','tags::editComment')->setName('tags.editComment');

@@ -48,11 +48,7 @@
                 </tr>
             {% endfor %}
         </table>
-        <div class="form-group">
-            <label for="tagName">标签</label>
-            <input type="text" class="form-control" id="tagName" name="tagName" value="{{ search }}">
-        </div>
-        <button type="submit" class="btn btn-default">添加标签</button>
+    {% include "layouts/partial/fileList.commandButton.volt" %}
     {{ endform() }}
 {% endblock %}
 

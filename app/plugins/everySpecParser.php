@@ -33,11 +33,15 @@ class everySpecParser extends myParser
 
     public function getDataForFile()
     {
-        return [
+
+        $result = [
             'title'=>$this->info['standard_no'].','.$this->info['title'],
             'url'=>$this->Id2Url($this->source_id),
-            'updated_at_website'=>$this->info['date']
+            'updated_at_website'=>$this->info['date'],
+
         ];
+        if($this->info['standard_no']) $result['standard_number'] = $this->info['standard_no'];
+        return $result;
     }
 
 

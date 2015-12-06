@@ -177,7 +177,19 @@ class Tags extends myModel
         return $this;
     }
 
-
+    public function softDeleteFiles(array $file_id)
+    {
+        if(count($file_id)){
+            $taggables = Taggables::query()
+                ->where('tag_id = :tag:',['tag'=>$this->id])
+                ->inWhere('taggable_id',$file_id)
+                ->andWhere('taggable_type = "Files"')
+                ->execute();
+            $taggables->delete();
+            return true;
+        }
+        return false;
+    }
 
 
 }
