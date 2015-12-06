@@ -46,7 +46,7 @@ trait commentableTrait
     public function deleteComment(Comments $comment)
     {
         /** @var myModel $this */
-        $this->decreaseCount('commentCount');
+        if(method_exists($this,'decreaseCount')) $this->decreaseCount('commentCount');
         return $comment->delete();
     }
 

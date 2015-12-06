@@ -113,11 +113,28 @@ class myTools
         return $text;
     }
 
-    public static function cut($string){
-        $maxLength = 40;
-        $result = mb_substr($string,0,$maxLength,'utf-8');
+    public static function cut($string,$maxLength=50){
+//        $result = mb_substr($string,0,$maxLength,'utf-8');
+        $result = mb_strcut($string,0,$maxLength,'utf-8');
         if(mb_strlen($string) > $maxLength) $result .= ' ...';
         return $result;
     }
+
+    public static function my_substr($str, $start, $len)
+    {
+        $tmpstr = "";
+        $strlen = $start + $len;
+        for($i = 0; $i < $strlen; $i++)
+        {
+            if( ord( substr($str, $i, 1) ) > 0xa0 )
+            {
+                $tmpstr .= substr($str, $i, 3);
+                $i += 2;
+            } else
+                $tmpstr .= substr($str, $i, 1);
+        }
+        return $tmpstr;
+    }
+
 
 }

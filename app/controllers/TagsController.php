@@ -70,6 +70,7 @@ class TagsController extends myController
     {
         $taggable->addComment($this->request->getPost());
         $taggable->getTagged()->increaseCount('commentCount');
+        $taggable->tag()->save();//刷新一下时间戳updated_at
         return 'success';
     }
 

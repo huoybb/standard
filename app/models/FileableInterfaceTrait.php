@@ -14,7 +14,7 @@ trait FileableInterfaceTrait
 
         if($key == 'abstract' OR $key == 'Abstract'){
             if($this->$key == null) return null;
-            return '<pre>'.$this->$key.'</pre>';
+            return '<pre>'.myTools::cut($this->$key,200).'</pre>';
         }
 
 
