@@ -8,36 +8,41 @@ $ ->
   #  打标签的操作
   $('#list-tag-form').submit ->
     url = $(this).attr('action')
+    if $("input[name='file_id[]']:checked").length is 0
+      alert '请选择条目，不能空'
+      return false
+    if $('#tagName').val() is ''
+      alert '标签不能为空，请填写'
+      return false
     $.post url,$(this).serialize(),(data)->
       if data is 'success'
         location.reload()
-      if data is 'failed'
-        alert '请选择要打标签的条目！'
+      else
+        alert data
     return false
-  #  删除文件的操作
-  $('a.delete').click ->
-    url = $(this).attr('href')
-    $.post url,(data)->
-      if data is 'success'
-        location.reload()
-    return false;
-
+  # 合并版本
   $('#combineRevisions').click ->
     url = '/standards/combineRevisions'
+    if $("input[name='file_id[]']:checked").length is 0
+      alert '请选择条目，不能空'
+      return false
     $.post url,$('#list-tag-form').serialize(),(data)->
       if data is 'success'
         location.reload()
-      if data is 'failed'
-        alert '请选择要打标签的条目！'
+      else
+        alert data
     return false;
-
+  #  删除条目
   $('#deleteItems').click ->
     url = location.href + '/deleteTaggableItems'
+    if $("input[name='file_id[]']:checked").length is 0
+      alert '请选择条目，不能空'
+      return false
     if /http:\/\/standard.zhaobing\/(page\/[0-9]+)?/m.test(location.href) or /http:\/\/standard.zhaobing\/search\/.+/m.test(location.href)
       url = '/standards/deleteSelectedFiles'
     $.post url,$('#list-tag-form').serialize(),(data)->
       if data is 'success'
         location.reload()
-      if data is 'failed'
-        alert '请选择要打标签的条目！'
+      else
+        alert data
     return false

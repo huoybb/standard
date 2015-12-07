@@ -11,22 +11,19 @@
     $('#list-tag-form').submit(function() {
       var url;
       url = $(this).attr('action');
+      if ($("input[name='file_id[]']:checked").length === 0) {
+        alert('请选择条目，不能空');
+        return false;
+      }
+      if ($('#tagName').val() === '') {
+        alert('标签不能为空，请填写');
+        return false;
+      }
       $.post(url, $(this).serialize(), function(data) {
         if (data === 'success') {
-          location.reload();
-        }
-        if (data === 'failed') {
-          return alert('请选择要打标签的条目！');
-        }
-      });
-      return false;
-    });
-    $('a.delete').click(function() {
-      var url;
-      url = $(this).attr('href');
-      $.post(url, function(data) {
-        if (data === 'success') {
           return location.reload();
+        } else {
+          return alert(data);
         }
       });
       return false;
@@ -34,12 +31,15 @@
     $('#combineRevisions').click(function() {
       var url;
       url = '/standards/combineRevisions';
+      if ($("input[name='file_id[]']:checked").length === 0) {
+        alert('请选择条目，不能空');
+        return false;
+      }
       $.post(url, $('#list-tag-form').serialize(), function(data) {
         if (data === 'success') {
-          location.reload();
-        }
-        if (data === 'failed') {
-          return alert('请选择要打标签的条目！');
+          return location.reload();
+        } else {
+          return alert(data);
         }
       });
       return false;
@@ -47,15 +47,18 @@
     return $('#deleteItems').click(function() {
       var url;
       url = location.href + '/deleteTaggableItems';
+      if ($("input[name='file_id[]']:checked").length === 0) {
+        alert('请选择条目，不能空');
+        return false;
+      }
       if (/http:\/\/standard.zhaobing\/(page\/[0-9]+)?/m.test(location.href) || /http:\/\/standard.zhaobing\/search\/.+/m.test(location.href)) {
         url = '/standards/deleteSelectedFiles';
       }
       $.post(url, $('#list-tag-form').serialize(), function(data) {
         if (data === 'success') {
-          location.reload();
-        }
-        if (data === 'failed') {
-          return alert('请选择要打标签的条目！');
+          return location.reload();
+        } else {
+          return alert(data);
         }
       });
       return false;
