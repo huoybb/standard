@@ -14,7 +14,7 @@ class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
      *
      * @var string
      */
-    public $Accession_Number;
+    public $source_id;
 
     /**
      *
@@ -130,7 +130,7 @@ class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
     {
         return array(
             'id' => 'id',
-            'Accession_Number' => 'Accession_Number',
+            'source_id' => 'source_id',
             'Title' => 'Title',
             'Descriptive_Note' => 'Descriptive_Note',
             'Corporate_Author' => 'Corporate_Author',
@@ -152,7 +152,7 @@ class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
     public static function findBySourceId($souceId)
     {
         return self::query()
-            ->where('Accession_Number = :Accession_Number:',['Accession_Number'=>$souceId])
+            ->where('source_id = :source_id:',['source_id'=>$souceId])
             ->execute()->getFirst();
     }
 
@@ -162,7 +162,7 @@ class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
     public function format()
     {
         return [
-            'Accession_Number'=>'序列号',
+            'source_id'=>'序列号',
             'Descriptive_Note'=>'文档类型',
             'Corporate_Author'=>'单位',
             'Personal_Author'=>'作者',

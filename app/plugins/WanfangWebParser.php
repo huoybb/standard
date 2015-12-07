@@ -50,7 +50,7 @@ abstract class WanfangWebParser extends myParser
             }
 
         });
-        $result = ['wanfangId'=>$source_id];
+        $result = ['source_id'=>$source_id];
         foreach($data as $key=>$value){
             if($this->format($key)) $result[$this->format($key)]=$value;
         }

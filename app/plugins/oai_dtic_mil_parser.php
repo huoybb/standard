@@ -25,6 +25,7 @@ class oai_dtic_mil_parser extends myParser
                 $result[$name] = $value;
             }
         });
+        $result['source_id']=$source_id;
         $this->info = $result;
         return $this->info;
     }

@@ -20,7 +20,7 @@ class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
      *
      * @var string
      */
-    public $wanfangId;
+    public $source_id;
 
     /**
      *
@@ -83,13 +83,13 @@ class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
     public $file_id;
 
     /**
-     * @param $wanfangId
+     * @param $sourceId
      * @return Wanfang
      */
     public static function findBySourceId($souceId)
     {
         return self::query()
-            ->where('wanfangId = :id:',['id'=>$souceId])
+            ->where('source_id = :id:',['id'=>$souceId])
             ->execute()->getFirst();
     }
 
@@ -136,7 +136,7 @@ class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
         return array(
             'id' => 'id',
             'title' => 'title',
-            'wanfangId' => 'wanfangId',
+            'source_id' => 'source_id',
             'english_title' => 'english_title',
             'abstract' => 'abstract',
             'doi' => 'doi',

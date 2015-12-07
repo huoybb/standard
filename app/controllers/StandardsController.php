@@ -28,6 +28,15 @@ class StandardsController extends myController
 
     }
 
+    public function showDoDFilesAction()
+    {
+        $files = Files::query()
+            ->rightJoin('OaiDticMil','OaiDticMil.file_id = Files.id')
+            ->execute();
+        dd($files);
+    }
+
+
     public function getWebDataAction($type,$source_id,Files $file)
     {
         $model = myParser::getModel($type,$source_id);
