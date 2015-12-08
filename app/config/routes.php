@@ -14,7 +14,6 @@ $router->add('/search/{search:[^/]+}/{item:[0-9]+}','standards::showSearchItem')
 
 $router->addx('/standards/add','standards::add',['standardRules'])->setName('standards.add');
 $router->add('/standards/addDoD','standards::addDoD')->setName('standards.addDoD');
-$router->add('/standards/DoD','standards::showDoDFiles')->setName('standards.showDoDFiles');
 
 $router->add('/standards/addWebData/{type}/{source_id}','standards::getWebData')->setName('standards.getWebData');
 

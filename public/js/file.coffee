@@ -59,8 +59,10 @@ $ ->
   $('#expand').click ->
     $("#expand").parents('div.abstract').hide()
     $("#collaps").parents('div.abstract').show()
+    return false
   $('#collaps').click ->
     $("#expand").parents('div.abstract').show()
     $("#collaps").parents('div.abstract').hide()
+    return false
 
 

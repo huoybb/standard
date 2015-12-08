@@ -76,11 +76,13 @@
     });
     $('#expand').click(function() {
       $("#expand").parents('div.abstract').hide();
-      return $("#collaps").parents('div.abstract').show();
+      $("#collaps").parents('div.abstract').show();
+      return false;
     });
     return $('#collaps').click(function() {
       $("#expand").parents('div.abstract').show();
-      return $("#collaps").parents('div.abstract').hide();
+      $("#collaps").parents('div.abstract').hide();
+      return false;
     });
   });
 

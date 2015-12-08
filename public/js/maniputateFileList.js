@@ -46,7 +46,8 @@
     list = new fileList();
     $('#fileSelect').click((function(_this) {
       return function() {
-        return list.selectControl();
+        list.selectControl();
+        return false;
       };
     })(this));
     $('#list-tag-form').submit((function(_this) {

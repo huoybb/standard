@@ -19,6 +19,7 @@ $ ->
   #  选择的操作
   $('#fileSelect').click =>
     list.selectControl()
+    return false
 
   #  打标签的操作
   $('#list-tag-form').submit =>
