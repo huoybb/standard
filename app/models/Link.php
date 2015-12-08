@@ -115,6 +115,7 @@ class Link extends myModel
         if(preg_match('%http://xueshu.baidu.com/%m', $url)) $siteName = '百度学术';
         if(preg_match('%http://www.docin.com/%m', $url)) $siteName = '豆丁';
         if(preg_match('%http://www.cqvip.com/%m', $url)) $siteName = '维普';
+        if(preg_match('%http://wenku.baidu.com/%m', $url)) $siteName = '百度文库';
         return $siteName;
     }
 

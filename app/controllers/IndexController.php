@@ -10,7 +10,7 @@ class IndexController extends myController
             ->from('Files')
             ->orderBy('id DESC');
 
-        $this->view->page = $this->getPaginatorByQueryBuilder($builder,50,$page);
+        $this->view->page = $this->getPaginatorByQueryBuilder($builder,25,$page);
     }
 }
 
