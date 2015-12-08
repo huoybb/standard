@@ -144,7 +144,7 @@ class Tags extends myModel
                 ->where('Taggables.tag_id = :tag:',['tag'=>$this->id])
                 ->columns(['Files.*','Taggables.*'])
                 ->groupBy('Files.id')
-                ->orderBy('Taggables.updated_at DESC')//按照更新的时间排序
+                ->orderBy('Taggables.created_at DESC')//按照生成的时间排序，如果按照更新的时间排序，则会出现不稳定的现象，这个问题在多人一同操作的时候可能会发生，需要避免的
                 ->execute();
 
         });
