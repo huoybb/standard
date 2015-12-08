@@ -215,7 +215,7 @@ class StandardsController extends myController
 
     public function addRevisionsAction(Files $file,Files $file2)
     {
-        if ($this->addRevisionsToTwofiles($file,$file2)) {
+        if ($file->addRevisionWithAnotherFile($file2)) {
             return $this->success();
         }
         return $this->failed();
@@ -224,7 +224,7 @@ class StandardsController extends myController
     public function combineRevisionsAction()
     {
         $data = $this->request->getPost();
-        if($this->combineRevisions($data['file_id'])) return $this->success();
+        if(Files::combineRevisions($data['file_id'])) return $this->success();
         return $this->failed();
     }
     public function deleteSelectedFilesAction()
@@ -242,78 +242,6 @@ class StandardsController extends myController
 
 
 
-
-
-    private function combineRevisions(array $fileList)
-    {
-        if(count($fileList) == 0) return false;
-        $first = Files::findFirst(array_shift($fileList));
-        foreach($fileList as $id){
-            $second = Files::findFirst($id);
-            $this->addRevisionsToTwofiles($first,$second);
-            $first = Files::findFirst($id);
-        }
-        return true;
-    }
-
-    private function addRevisionsToTwofiles(Files $file1,Files $file2)
-    {
-        $rev1 = $file1->getRevision();
-        $rev2 = $file2->getRevision();
-
-        //如果两个都是空的
-        if($rev1 == null && $rev2 == null){
-            $rev1 = new Revisions();
-            $rev1->save([
-                'file_id'=> $file1->id,
-                'name'=> $file1->title
-            ]);
-            $rev1->update([
-                'parent_id'=>$rev1->id
-            ]);
-
-            $rev2 = new Revisions();
-            $rev2->save([
-                'file_id'=>$file2->id,
-                'parent_id'=>$rev1->id,
-                'name'=>$file2->title
-            ]);
-            return true;
-        }
-        //如果其中一个是空的
-        if($rev1 <> null && $rev2 == null){
-            $rev2 = new Revisions();
-            $rev2->save([
-                'file_id'=>$file2->id,
-                'parent_id'=>$rev1->parent_id,
-                'name'=>$file2->title
-            ]);
-            return true;
-        }
-
-        if($rev1 == null && $rev2 <> null){
-            $rev1 = new Revisions();
-            $rev1->save([
-                'file_id'=>$file1->id,
-                'parent_id'=>$rev2->parent_id,
-                'name'=>$file1->title
-            ]);
-            return true;
-        }
-
-        //如果两个都不是空的
-
-        if($rev1 <> null && $rev2 <> null){
-            /** @var Revisions $rev2 */
-            $revisions = $rev2->getAllRevisions();
-            foreach($revisions as $rev){
-                $rev->revisions->update(['parent_id'=>$rev1->parent_id]);
-            }
-            return true;
-        }
-
-        return false;
-    }
 
     private function addDoDFile($accessNumber, Files $file)
     {
