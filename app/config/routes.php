@@ -44,6 +44,9 @@ $router->add('/standards/{file:[0-9]+}/addRevisionTo/{file2:[0-9]+}','standards:
 $router->add('/standards/combineRevisions','standards::combineRevisions')->setName('standards.combineRevisions');
 $router->add('/standards/deleteSelectedFiles','standards::deleteSelectedFiles')->setName('standards.deleteSelectedFiles');
 
+$router->add('/standards/{file:[0-9]+}/relationship','standards::relationship')->setName('standards.relationship');
+$router->add('/standards/{file:[0-9]+}/relationship/addReferenceTo/{file2:[0-9]+}','standards::addReference')->setName('standards.addReference');
+
 $router->add('/revisions/{rev:[0-9]+}','revisions::show')->setName('revisions.show');
 $router->add('/revisions/{rev:[0-9]+}/delete','revisions::delete')->setName('revisions.delete');
 

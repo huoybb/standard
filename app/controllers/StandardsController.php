@@ -40,6 +40,14 @@ class StandardsController extends myController
 
     public function showAction(Files $file)
     {
+//        $id = [1564,42790];
+//        foreach($id as $i){
+//            $from = Files::findFirst($i);
+//            $file->addReference($from);
+//        }
+
+//        dd($file->getReferences());
+
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }
@@ -239,6 +247,22 @@ class StandardsController extends myController
         }
         return 'failed';
     }
+
+    public function relationshipAction(Files $file)
+    {
+        dd($file);
+//        $this->view->file = $file;
+    }
+
+    public function addReferenceAction(Files $file,Files $file2)
+    {
+        $file->addReference($file2);
+        return 'success';
+    }
+
+
+
+
 
 
 

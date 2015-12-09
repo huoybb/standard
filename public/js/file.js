@@ -44,6 +44,24 @@
       });
       return false;
     });
+    $('#addReference-form').submit(function() {
+      var file2, file2url, url;
+      file2url = $('#addReference').val();
+      if (!/http:\/\/standard.zhaobing\/standards\/([0-9]+)/.test(file2url)) {
+        console.log(file2url);
+        return false;
+      }
+      file2 = file2url.replace(/http:\/\/standard.zhaobing\/standards\/([0-9]+)/mg, "$1");
+      url = $(this).attr('action') + file2;
+      $.post(url, $(this).serialize(), function(data) {
+        if (data === 'success') {
+          return location.reload();
+        } else {
+          return alert(data);
+        }
+      });
+      return false;
+    });
     $('#addRev-form').submit(function() {
       var file2, file2url, url;
       file2url = $('#addRev').val();

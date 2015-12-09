@@ -26,6 +26,8 @@
 
                     {% block nav %}{% endblock %}
 
+                    {% include 'layouts/partial/file.reference.volt' %}
+                    {% include 'layouts/partial/file.citation.volt' %}
                     {% include 'layouts/partial/file.revision.volt' %}
                     {% include 'layouts/partial/file.attachments.volt' %}
 
@@ -35,6 +37,7 @@
                 </div>
                 <div class="col-md-2">
                     {% include 'layouts/partial/file.addLink.volt' %}
+                    {% include 'layouts/partial/addReference.volt' %}
                     {% include 'layouts/partial/addRevisionFile.volt' %}
                     {% include 'layouts/partial/addTag.volt' %}
                 </div>

@@ -11,6 +11,7 @@ class Files extends myModel
     use FileableTrait;
     use LinkableTrait;
     use countForRootClassTrait;
+    use RelationshipTrait;
     /**
      *
      * @var integer

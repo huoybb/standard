@@ -30,6 +30,21 @@ $ ->
       if data is 'success'
         location.reload()
     return false
+  #增加引用文档
+  $('#addReference-form').submit ->
+    file2url = $('#addReference').val()
+    unless /http:\/\/standard.zhaobing\/standards\/([0-9]+)/.test(file2url)
+      console.log file2url
+      return false
+    file2 = file2url.replace(/http:\/\/standard.zhaobing\/standards\/([0-9]+)/mg, "$1");
+    url = $(this).attr('action')+file2
+    #    console.log url
+    $.post url,$(this).serialize(),(data)->
+      if data is 'success'
+        location.reload()
+      else
+        alert data
+    return false
   #添加版本
   $('#addRev-form').submit ->
     file2url = $('#addRev').val()
