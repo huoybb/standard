@@ -6805,6 +6805,285 @@ button.close {
   border: 0;
   height: 20px;
 }
+.citeRelation {
+  width: 1170px;
+  margin: 0 auto;
+  height: 560px;
+  display: none;
+  position: relative;
+}
+.citeRelation .refciteMap {
+  position: absolute;
+  width: 440px;
+  height: 415px;
+  float: left;
+  left: 365px;
+  top: 44px;
+  z-index: 1;
+}
+.citeRelation .refciteMap .map-item {
+  width: 100px;
+  height: 100px;
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  cursor: pointer;
+  position: absolute;
+}
+.citeRelation .refciteMap .map-item div {
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  color: #fff;
+  text-align: center;
+}
+.citeRelation .refciteMap .map-item .tt {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 1px;
+  margin-top: -12px;
+}
+.citeRelation .refciteMap .map-item .count {
+  position: absolute;
+  width: 84px;
+  top: 50%;
+  left: 21px;
+  margin-top: 2px;
+}
+.citeRelation .refciteMap .map-item:hover {
+  -moz-box-shadow: 0 0 10px #ccc;
+  -webkit-box-shadow: 0 0 10px #ccc;
+  box-shadow: 0 0 10px #ccc;
+}
+.citeRelation .refciteMap .cite {
+  background-color: #accbf3;
+  background-color: rgba(116, 169, 235, 0.6);
+}
+.citeRelation .refciteMap .ref {
+  background-color: #8bdde3;
+  background-color: rgba(62, 199, 208, 0.6);
+}
+.citeRelation .refciteMap .cite1 {
+  top: 250px;
+  left: 86px;
+}
+.citeRelation .refciteMap .cite1 .tt {
+  top: 28%;
+  left: -2px;
+  width: 70px;
+}
+.citeRelation .refciteMap .cite1 .count {
+  top: 28%;
+  left: 4px;
+}
+.citeRelation .refciteMap .ref1 {
+  top: 46px;
+  left: 234px;
+}
+.citeRelation .refciteMap .ref1 .tt {
+  top: 67%;
+  left: 29px;
+  width: 100px;
+}
+.citeRelation .refciteMap .ref1 .count {
+  top: 66%;
+  left: 61px;
+  width: 60px;
+}
+.citeRelation .refciteMap .cite1,
+.citeRelation .refciteMap .ref1 {
+  width: 120px;
+  height: 120px;
+}
+.citeRelation .refciteMap .cite2 {
+  top: 318px;
+  left: 106px;
+}
+.citeRelation .refciteMap .cite2 .tt {
+  top: 42%;
+  left: -7px;
+}
+.citeRelation .refciteMap .cite2 .count {
+  top: 42%;
+  left: 4px;
+}
+.citeRelation .refciteMap .cite2,
+.citeRelation .refciteMap .ref2 {
+  width: 80px;
+  height: 80px;
+  font-size: 12px;
+}
+.citeRelation .refciteMap .ref2 {
+  top: 18px;
+  left: 254px;
+}
+.citeRelation .refciteMap .ref2 .tt {
+  top: 57%;
+  left: 5px;
+}
+.citeRelation .refciteMap .ref2 .count {
+  top: 56%;
+  left: 30px;
+  width: 50px;
+}
+.citeRelation .refciteMap .cite2,
+.citeRelation .refciteMap .ref2 {
+  width: 80px;
+  height: 80px;
+  font-size: 12px;
+}
+.citeRelation .refciteMap .sameCite {
+  top: 158px;
+  left: 20px;
+}
+.citeRelation .refciteMap .sameRef {
+  top: 158px;
+  left: 320px;
+}
+.citeRelation .refciteMap .text {
+  top: 158px;
+  left: 170px;
+  background-color: #fff;
+  border: 1px solid #8bdde3;
+  border-color: #8bdde3 #accbf3 #accbf3 #8bdde3;
+}
+.citeRelation .refciteMap .text .tt {
+  color: #999;
+}
+.citeRelation .refciteMap #markLine {
+  height: 2px;
+  position: absolute;
+}
+.citeRelation .refciteMap .mark-ref1 {
+  background-color: #8bdde3;
+  width: 124px;
+  top: 105px;
+  left: 377px;
+}
+.citeRelation .refciteMap .mark-ref2 {
+  background-color: #8bdde3;
+  width: 152px;
+  top: 57px;
+  left: 349px;
+}
+.citeRelation .refciteMap .mark-sameRef {
+  background-color: #8bdde3;
+  width: 64px;
+  top: 207px;
+  left: 438px;
+}
+.citeRelation .refciteMap .mark-sameCite {
+  background-color: #accbf3;
+  width: 64px;
+  left: -62px;
+  top: 207px;
+}
+.citeRelation .refciteMap .mark-cite1 {
+  background-color: #accbf3;
+  width: 124px;
+  left: -62px;
+  top: 309px;
+}
+.citeRelation .refciteMap .mark-cite2 {
+  background-color: #accbf3;
+  width: 152px;
+  left: -62px;
+  top: 357px;
+}
+.citeRelation .cite-g {
+  left: 730px;
+  -moz-animation: citeRelation-right 0.3s forwards;
+  -webkit-animation: citeRelation-right 0.3s forwards;
+  -o-animation: citeRelation-right 0.3s forwards;
+  animation: citeRelation-right 0.3s forwards;
+}
+.citeRelation .ref-g {
+  left: 0;
+  -moz-animation: citeRelation-left 0.3s forwards;
+  -webkit-animation: citeRelation-left 0.3s forwards;
+  -o-animation: citeRelation-left 0.3s forwards;
+  animation: citeRelation-left 0.3s forwards;
+}
+.citeRelation .cite-papers {
+  padding-right: 28px;
+  border-right: 2px solid #accbf3;
+  left: 0;
+  -moz-animation: papers-right 0.3s forwards;
+  -webkit-animation: papers-right 0.3s forwards;
+  -o-animation: papers-right 0.3s forwards;
+  animation: papers-right 0.3s forwards;
+}
+.citeRelation .ref-papers {
+  padding-left: 28px;
+  border-left: 2px solid #8bdde3;
+  left: 500px;
+  -moz-animation: papers-left 0.3s forwards;
+  -webkit-animation: papers-left 0.3s forwards;
+  -o-animation: papers-left 0.3s forwards;
+  animation: papers-left 0.3s forwards;
+}
+.citeRelation .papers {
+  position: absolute;
+  top: 44px;
+  height: 470px;
+  width: 670px;
+  font-size: 12px;
+}
+.citeRelation .papers .hd {
+  font-size: 14px;
+  color: #666;
+  font-weight: 700;
+}
+.citeRelation .papers .hd span {
+  font-size: 12px;
+  color: #999;
+  margin-left: 12px;
+  font-weight: 300;
+}
+.citeRelation .papers .year {
+  width: 110px;
+  margin-top: 8px;
+  background-color: #ccc;
+  position: relative;
+  color: #fff;
+}
+.citeRelation .papers .year .year-list {
+  display: none;
+  position: absolute;
+  background-color: #ccc;
+  width: 640px;
+  top: 25px;
+  left: 0;
+  padding: 10px 0;
+}
+.citeRelation .papers .paper-list .item {
+  color: #65686f;
+  width: 640px;
+  margin: 16px 0;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.citeRelation .papers .paper-list .item .no-fulltext {
+  height: 1px;
+}
+.citeRelation .papers .active .year-list {
+  display: block;
+}
+.pager {
+  color: #444851;
+  text-align: left;
+  position: absolute;
+  bottom: 0;
+  left: 28px;
+}
 body {
   padding-top: 60px;
   font: 15px Helvetica, Arial, sans-serif;

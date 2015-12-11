@@ -47,7 +47,6 @@ class StandardsController extends myController
 //        }
 
 //        dd($file->getReferences());
-
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }
@@ -259,6 +258,14 @@ class StandardsController extends myController
         $file->addReference($file2);
         return 'success';
     }
+
+    public function getRelationAction(Files $file,$relation)
+    {
+        $this->view->file = $file;
+        $this->view->relation = $relation;
+//        dd($file->getRelationDescription($relation));
+    }
+
 
 
 
