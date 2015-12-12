@@ -108,6 +108,7 @@
 {% endblock %}
 
 {% block sidebar %}
+    <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/tag.js"></script>
     <div class="row">
         <div class="fileUpload" id="fileUpload">
             <form action="{{ url(['for':'tags.addAttachment','tag':mytag.id]) }}" id="my-awesome-dropzone">

@@ -191,5 +191,18 @@ class Tags extends myModel
         return false;
     }
 
+    /**这个函数将来在PHP7中能够更加简化
+     * @return mixed
+     */
+    public function getAllTags()
+    {
+        return $this->make('allTags',function(){
+            return Tags::query()
+                ->orderBy('updated_at DESC')
+                ->execute();
+        });
+    }
+
+
 
 }

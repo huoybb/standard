@@ -6,6 +6,7 @@
         <item url="file://$PROJECT_DIR$/public/js/my.js" />
         <item url="file://$PROJECT_DIR$/public/js/standards.delete.js" />
         <item url="file://$PROJECT_DIR$/public/js/uploadAttachment.js" />
+        <item url="file://$PROJECT_DIR$/public/js/filterTags.js" />
         <item url="file://$PROJECT_DIR$/public/js/manipulateRelationMap.js" />
         <item url="file://$PROJECT_DIR$/public/js/maniputateFileList.js" />
         <item url="file://$PROJECT_DIR$/public/js/file.js" />
@@ -17,6 +18,7 @@
       <root url="file://$PROJECT_DIR$/public/js/my.js" />
       <root url="file://$PROJECT_DIR$/public/js/standards.delete.js" />
       <root url="file://$PROJECT_DIR$/public/js/uploadAttachment.js" />
+      <root url="file://$PROJECT_DIR$/public/js/filterTags.js" />
       <root url="file://$PROJECT_DIR$/public/js/manipulateRelationMap.js" />
       <root url="file://$PROJECT_DIR$/public/js/maniputateFileList.js" />
       <root url="file://$PROJECT_DIR$/public/js/file.js" />

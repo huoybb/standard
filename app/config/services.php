@@ -142,9 +142,7 @@ $di->set("myTools",function(){
  * 是因为使用静态调用导致的吗？
  */
 $di->set("allTags",function(){
-    return Tags::query() //获取所有标签，这个其实可以进一步的进行缓存的！
-        ->orderBy('updated_at DESC')
-        ->execute();
+    return new Tags();
 },true);
 
 //下面合格为什么能够使用了呢？为什么上面这个不能够使用呢？比较奇怪的问题呀！
