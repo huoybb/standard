@@ -82,7 +82,7 @@ class StandardsController extends myController
     public function searchAction($search,$page = 1)
     {
 //        $this->view->page = $this->getPaginator($file->search($search),50,$page);
-        if(preg_match('/[a-zA-Z0-9-]+/m', $search)) {
+        if($this->isStandardNumber($search)) {
             $file = Files::findByStandardNumber($search);
             if($file) return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
         }
@@ -285,6 +285,11 @@ class StandardsController extends myController
         if($dod) return  $this->redirectByRoute(['for'=>'standards.show','file'=>$dod->getStandard()->id]);
         $file->addWebFile($accessNumber,'DoDFile');
         return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
+    }
+
+    private function isStandardNumber($search)
+    {
+        return preg_match('/[a-zA-Z0-9-]+/m', $search);
     }
 
 }
