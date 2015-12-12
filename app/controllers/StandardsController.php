@@ -45,8 +45,13 @@ class StandardsController extends myController
 //            $from = Files::findFirst($i);
 //            $file->addReference($from);
 //        }
-
 //        dd($file->getReferences());
+//        foreach(Relationship::find() as $r){
+//            $from = Files::findFirst($r->start_point);
+//            $end = Files::findFirst($r->end_point);
+//            $from->save(['hasRelation'=>true]);
+//            $end->save(['hasRelation'=>true]);
+//        }
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }

@@ -16,7 +16,7 @@
 <div class="paper-list">
     {% for item in file.getRelation(relation) %}
         <div class="item">
-            {{ item.id }}:<a href="{{ url(['for':'standards.show','file':item.id]) }}">{{ item.title }}</a>
+            {{ item.id }}:<a href="{{ url(['for':'standards.show','file':item.id]) }}" target="_blank">{{ item.title }}</a>
             {%  if item.commentCount %}
                 <span>评论({{ item.commentCount }})</span>
             {% endif %}

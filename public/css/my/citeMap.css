@@ -124,12 +124,6 @@
   left: 30px;
   width: 50px;
 }
-.citeRelation .refciteMap .cite2,
-.citeRelation .refciteMap .ref2 {
-  width: 80px;
-  height: 80px;
-  font-size: 12px;
-}
 .citeRelation .refciteMap .sameCite {
   top: 158px;
   left: 20px;
@@ -269,11 +263,4 @@
 }
 .citeRelation .papers .active .year-list {
   display: block;
-}
-.pager {
-  color: #444851;
-  text-align: left;
-  position: absolute;
-  bottom: 0;
-  left: 28px;
 }

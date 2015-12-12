@@ -35,7 +35,9 @@
                     {% include 'layouts/partial/commentListForFile.volt' %}
                     {% block otherCommentList %}{% endblock %}
                     {% include 'layouts/partial/commentForm.volt' %}
-                    {% include 'layouts/partial/file.citeRelation.volt' %}
+                    {% if file.hasRelation %}
+                        {% include 'layouts/partial/file.citeRelation.volt' %}
+                    {% endif %}
                 </div>
                 <div class="col-md-2">
                     {% include 'layouts/partial/file.addLink.volt' %}

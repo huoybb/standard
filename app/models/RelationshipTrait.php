@@ -14,12 +14,16 @@ trait RelationshipTrait
             ->andWhere('end_point = :end:',['end'=>$this->id])
             ->execute()->getFirst();
         if($relation) return $this;
+
         $relation = new Relationship();
         $relation->save([
             'start_point'=>$file->id,
             'end_point'=>$this->id,
             'type'=>'reference'
         ]);
+        if(!$file->hasRelation) $file->save(['hasRelation'=>true]);
+        if(!$this->hasRelation) $this->save(['hasRelation'=>true]);
+
         return $this;
     }
     public function addReferenceList(array $ids)
@@ -51,12 +55,12 @@ trait RelationshipTrait
     public function getRelationDescription($relation)
     {
         $format = [
-            'ref1'=>['title'=>'参考文献','note'=>'参考了哪些文献，或者引用了哪些标准'],
-            'ref2'=>['title'=>'二级参考文献','note'=>'***'],
-            'sameRef'=>['title'=>'共参文献','note'=>'***'],
-            'cite1'=>['title'=>'引证文献','note'=>'****'],
-            'cite2'=>['title'=>'二级引证文献','note'=>'****'],
-            'sameCite'=>['title'=>'共引文献','note'=>'（也称同引文献）与本文有相同参考文献的文献，与本文有共同研究背景或依据'],
+            'ref1'=>['title'=>'参考文献','note'=>'反映本文研究工作的背景和依据'],
+            'ref2'=>['title'=>'二级参考文献','note'=>'本文参考文献的参考文献。进一步反映本文研究工作的背景和依据'],
+            'sameRef'=>['title'=>'共参文献','note'=>'（也称同引文献）与本文有相同参考文献的文献，与本文有共同研究背景或依据'],
+            'cite1'=>['title'=>'引证文献','note'=>'引用本文的文献。本文研究工作的继续、应用、发展或评价'],
+            'cite2'=>['title'=>'二级引证文献','note'=>'本文引证文献的引证文献。更进一步反映本文研究工作的继续、发展或评价'],
+            'sameCite'=>['title'=>'共引文献 ','note'=>'（与本文同时被作为参考文献引用的文献，与本文共同作为进一步研究的基础'],
         ];
         if(isset($format[$relation])){
             return $format[$relation];
