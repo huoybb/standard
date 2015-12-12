@@ -1,5 +1,5 @@
 .citeRelation {
-  width: 1170px;
+  width: 950px;
   margin: 0 auto;
   height: 560px;
   display: none;
@@ -10,7 +10,7 @@
   width: 440px;
   height: 415px;
   float: left;
-  left: 365px;
+  left: 255px;
   top: 44px;
   z-index: 1;
 }
@@ -183,7 +183,7 @@
   top: 357px;
 }
 .citeRelation .cite-g {
-  left: 730px;
+  left: 510px;
   -moz-animation: citeRelation-right 0.3s forwards;
   -webkit-animation: citeRelation-right 0.3s forwards;
   -o-animation: citeRelation-right 0.3s forwards;
@@ -218,7 +218,7 @@
   position: absolute;
   top: 44px;
   height: 470px;
-  width: 670px;
+  width: 450px;
   font-size: 12px;
 }
 .citeRelation .papers .hd {
@@ -250,7 +250,6 @@
 }
 .citeRelation .papers .paper-list .item {
   color: #65686f;
-  width: 640px;
   margin: 16px 0;
   overflow: hidden;
   -ms-text-overflow: ellipsis;

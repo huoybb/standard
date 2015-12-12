@@ -33,13 +33,10 @@ class relationMap
     }
 
   }
-  showSameRef:->
-    $('.refciteMap').attr('class','refciteMap ref-g')
-    $('#markLine').attr('class','mark-sameRef')
-    $('.papers').attr('class','papers ref-papers')
+
   show:(key)->
     item = @format[key]
-    file_id = $('h1>a').attr('href').replace(/^\/standards\/([0-9]+)/mg, "$1");
+    file_id = $('.citeRelation').data('id');
     url = 'http://standard.zhaobing/standards/'+file_id+'/getRelation/'+key
     $.get url,(data)=>
       $('.refciteMap').attr('class',item.map)
@@ -49,9 +46,13 @@ class relationMap
 
 $ ->
   map = new relationMap()
-  $('.sameRef').click => map.show('sameRef')
-  $('.sameCite').click => map.show('sameCite')
-  $('.ref1').click => map.show('ref1')
-  $('.ref2').click => map.show('ref2')
-  $('.cite1').click => map.show('cite1')
-  $('.cite2').click => map.show('cite2')
+  for key,item of map.format
+    do(key)-> $('.'+key).click => map.show(key)
+#    console.log key
+#
+#  $('.sameRef').click => map.show('sameRef')
+#  $('.sameCite').click => map.show('sameCite')
+#  $('.ref1').click => map.show('ref1')
+#  $('.ref2').click => map.show('ref2')
+#  $('.cite1').click => map.show('cite1')
+#  $('.cite2').click => map.show('cite2')

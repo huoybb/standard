@@ -38,16 +38,10 @@
       }
     };
 
-    relationMap.prototype.showSameRef = function() {
-      $('.refciteMap').attr('class', 'refciteMap ref-g');
-      $('#markLine').attr('class', 'mark-sameRef');
-      return $('.papers').attr('class', 'papers ref-papers');
-    };
-
     relationMap.prototype.show = function(key) {
       var file_id, item, url;
       item = this.format[key];
-      file_id = $('h1>a').attr('href').replace(/^\/standards\/([0-9]+)/mg, "$1");
+      file_id = $('.citeRelation').data('id');
       url = 'http://standard.zhaobing/standards/' + file_id + '/getRelation/' + key;
       return $.get(url, (function(_this) {
         return function(data) {
@@ -63,38 +57,21 @@
   })();
 
   $(function() {
-    var map;
+    var item, key, map, ref, results;
     map = new relationMap();
-    $('.sameRef').click((function(_this) {
-      return function() {
-        return map.show('sameRef');
-      };
-    })(this));
-    $('.sameCite').click((function(_this) {
-      return function() {
-        return map.show('sameCite');
-      };
-    })(this));
-    $('.ref1').click((function(_this) {
-      return function() {
-        return map.show('ref1');
-      };
-    })(this));
-    $('.ref2').click((function(_this) {
-      return function() {
-        return map.show('ref2');
-      };
-    })(this));
-    $('.cite1').click((function(_this) {
-      return function() {
-        return map.show('cite1');
-      };
-    })(this));
-    return $('.cite2').click((function(_this) {
-      return function() {
-        return map.show('cite2');
-      };
-    })(this));
+    ref = map.format;
+    results = [];
+    for (key in ref) {
+      item = ref[key];
+      results.push((function(key) {
+        return $('.' + key).click((function(_this) {
+          return function() {
+            return map.show(key);
+          };
+        })(this));
+      })(key));
+    }
+    return results;
   });
 
 }).call(this);

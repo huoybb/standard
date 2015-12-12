@@ -1,20 +1,25 @@
 .citeRelation {
-  width: 1170px;
+  @map-left:510px;
+  @map-width:440px;
+  @papers-width:450px;
+  width: @map-left+@map-width;
   margin: 0 auto;
   height: 560px;
   display: none;
   position: relative;
   .refciteMap {
+    @basic-size:100px;
+
     position: absolute;
-    width: 440px;
+    width: @map-width;
     height: 415px;
     float: left;
-    left: 365px;
+    left: @map-left/2;
     top: 44px;
     z-index: 1;
     .map-item {
-      width: 100px;
-      height: 100px;
+      width: @basic-size;
+      height: @basic-size;
       -moz-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
       -o-transform: rotate(45deg);
@@ -87,8 +92,8 @@
       }
     }
     .cite1,.ref1 {
-      width: 120px;
-      height: 120px;
+      width: @basic-size*1.2;
+      height: @basic-size*1.2;
     }
     .cite2 {
       top: 318px;
@@ -103,8 +108,8 @@
       }
     }
     .cite2,.ref2 {
-      width: 80px;
-      height: 80px;
+      width: @basic-size*0.8;
+      height: @basic-size*0.8;
       font-size: 12px;
     }
     .ref2 {
@@ -180,7 +185,7 @@
     }
   }
   .cite-g {
-    left: 730px;
+    left: @map-left;
     -moz-animation: citeRelation-right .3s forwards;
     -webkit-animation: citeRelation-right .3s forwards;
     -o-animation: citeRelation-right .3s forwards;
@@ -215,7 +220,7 @@
     position: absolute;
     top: 44px;
     height: 470px;
-    width: 670px;
+    width: @papers-width;
     font-size: 12px;
     .hd {
       font-size: 14px;
@@ -247,7 +252,7 @@
     .paper-list{
       .item {
         color: #65686f;
-        width: 640px;
+        //width: 640px;
         margin: 16px 0;
         overflow: hidden;
         -ms-text-overflow: ellipsis;
