@@ -75,6 +75,7 @@ trait taggableTrait
                 ->leftJoin('Files','Taggables.taggable_type = "Files" AND Taggables.taggable_id = Files.id')
                 ->leftJoin('Tags','Taggables.tag_id = Tags.id')
                 ->where('Files.id = :id:',['id'=>$this->id])
+                ->orderBy('Comments.updated_at DESC')
                 ->columns(['Tags.*','Comments.*']);
             if($tag <> null) $query=$query->andWhere('Tags.id = :tag:',['tag'=>$tag->id]);
             return $query->execute();

@@ -3,8 +3,18 @@
   $(function() {
     var myDropzone;
     myDropzone = new Dropzone("#my-awesome-dropzone");
-    return myDropzone.on('complete', function() {
+    myDropzone.on('complete', function() {
       return location.reload();
+    });
+    return $('a.delete').click(function() {
+      var url;
+      url = $(this).attr('href');
+      $.post(url, function(data) {
+        if (data === 'success') {
+          return location.reload();
+        }
+      });
+      return false;
     });
   });
 

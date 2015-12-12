@@ -149,6 +149,15 @@ class Tags extends myModel
 
         });
     }
+    public function getItemID(Files $file)
+    {
+        foreach($this->getTaggedFiles() as $id=>$item){
+//            dd($item);
+            if($item->files->id == $file->id) return $id+1;
+        }
+        return null;
+    }
+
     public function getTaggedFileComments()
     {
         /** @var myModel $this */
