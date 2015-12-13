@@ -169,4 +169,16 @@ trait RelationshipTrait
                 ->execute();
         });
     }
+
+    public function beforeDeleteRemoveRelationships()
+    {
+        foreach($this->getReferences() as $file){
+            $this->deleteReference($file);
+        }
+        foreach($this->getCitations() as $file){
+            $file->deleteReference($this);
+        }
+        return $this;
+    }
+
 }
