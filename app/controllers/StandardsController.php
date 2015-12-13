@@ -40,17 +40,13 @@ class StandardsController extends myController
 
     public function showAction(Files $file)
     {
-//        $id = [1564,42790];
-//        foreach($id as $i){
-//            $from = Files::findFirst($i);
-//            $file->addReference($from);
-//        }
-//        dd($file->getReferences());
-//        foreach(Relationship::find() as $r){
-//            $from = Files::findFirst($r->start_point);
-//            $end = Files::findFirst($r->end_point);
-//            $from->save(['hasRelation'=>true]);
-//            $end->save(['hasRelation'=>true]);
+//        $files = Files::query()
+//            ->where('relationCount > 0')
+//            ->execute();
+//        foreach($files as $f){
+//            /** @var Files $f */
+//            $count = $f->getReferences()->count()+$f->getCitations()->count();
+//            $f->save(['relationCount'=>$count]);
 //        }
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);

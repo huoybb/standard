@@ -31,13 +31,10 @@
                     {#{% include 'layouts/partial/file.citation.volt' %}#}
                     {% include 'layouts/partial/file.revision.volt' %}
                     {% include 'layouts/partial/file.attachments.volt' %}
-
                     {% include 'layouts/partial/commentListForFile.volt' %}
                     {% block otherCommentList %}{% endblock %}
                     {% include 'layouts/partial/commentForm.volt' %}
-                    {% if file.hasRelation %}
-                        {% include 'layouts/partial/file.citeRelation.volt' %}
-                    {% endif %}
+                    {% include 'layouts/partial/file.citeRelation.volt' %}
                 </div>
                 <div class="col-md-2">
                     {% include 'layouts/partial/file.addLink.volt' %}

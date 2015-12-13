@@ -8,6 +8,11 @@
  */
 trait attachableTrait
 {
+    public function hasAttachments()
+    {
+        return $this->attachmentCount > 0;
+    }
+
     public function attachments()
     {
         /** @var myModel $this */

@@ -8,6 +8,11 @@
  */
 trait commentableTrait
 {
+    public function hasComments()
+    {
+        return $this->commentCount > 0;
+    }
+
     /**
      * 获取该模型的所有评论
      * 这个其实也可以变成一个通用的方法落实在myModel中的

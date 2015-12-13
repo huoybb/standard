@@ -1,7 +1,7 @@
 <hr>
 
 <h2>Comments:</h2>
-{% if file.commentCount %}
+{% if file.hasComments() %}
 <ul>
     {% for comment in file.comments() %}
     <li>

@@ -74,7 +74,11 @@ class Files extends myModel
      * @var string
      */
     public $type;
-    public $hasRelation;
+    /**
+     *
+     * @var integer
+     */
+    public $relationCount;
 
 
     /**
@@ -139,7 +143,7 @@ class Files extends myModel
             'attachmentCount' => 'attachmentCount',
             'linkCount' => 'linkCount',
             'type' => 'type',
-            'hasRelation' => 'hasRelation',
+            'relationCount' => 'relationCount',
         );
     }
 
