@@ -50,5 +50,15 @@
     {% include "layouts/partial/fileList.commandButton.volt" %}
     {{ endform() }}
 {% endblock %}
-{#{% block sidebar %}{% endblock %}#}
+{% block sidebar %}
+    {% include "layouts/partial/allTagList.volt" %}
+    <div class="row">
+        <h2>Archives</h2>
+        <ul>
+            {% for data in item.getStaticsByMonth() %}
+            <li><a href="#">{{ data.month }}</a>  ({{ data.num }})</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
 

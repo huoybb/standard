@@ -48,6 +48,7 @@ class StandardsController extends myController
 //            $count = $f->getReferences()->count()+$f->getCitations()->count();
 //            $f->save(['relationCount'=>$count]);
 //        }
+//        dd($file->getStaticsByDay()->toArray());
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }

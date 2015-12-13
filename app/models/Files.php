@@ -12,6 +12,7 @@ class Files extends myModel
     use LinkableTrait;
     use countForRootClassTrait;
     use RelationshipTrait;
+    use StatisticsTrait;
     /**
      *
      * @var integer
@@ -201,5 +202,4 @@ class Files extends myModel
             ->execute()
             ->getFirst();
     }
-
 }

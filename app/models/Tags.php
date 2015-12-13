@@ -7,6 +7,7 @@ class Tags extends myModel
     use attachableTrait;
     use countForRootClassTrait;
     use RelationshipTrait;
+    use StatisticsTrait;
     /**
      *
      * @var integer
