@@ -14,6 +14,10 @@ class TagsController extends myController
     {
 //        dd($tag->getTaggedFiles()->count());
 //        dd($tag->getTaggedFileComments());
+//        $tag1 = Tags::findFirst(166);
+//        $tag->addReference($tag1);
+//        dd('test');
+//        dd($tag->getReferences()->toArray());
         $this->view->mytag = $tag;
         $this->view->page = $this->getPaginator($tag->getTaggedFiles(),25,$page);
 //        $this->view->form = $this->buildCommentForm($tag);
