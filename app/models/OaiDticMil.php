@@ -174,7 +174,11 @@ class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
     }
     public function getType()
     {
-        return '美军';
+        return 'DTIC';
     }
 
+    public static function getDatabaseName()
+    {
+        return 'DTIC';
+    }
 }

@@ -15,4 +15,5 @@ interface FileableInterface
     public function getHtml($key);
     public function getType();//返回文档类型
     public static function findBySourceId($souceId);
+    public static function getDatabaseName();//返回当前数据库的名称
 }

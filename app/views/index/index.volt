@@ -51,14 +51,23 @@
     {{ endform() }}
 {% endblock %}
 {% block sidebar %}
-    {% include "layouts/partial/allTagList.volt" %}
+
+    <div class="row">
+        <h2>分库统计</h2>
+        <ul>
+            {% for data in statistics %}
+                <li><a href="#">{{ data['name'] }}</a> ({{ data['count'] }})</li>
+            {% endfor %}
+        </ul>
+    </div>
     <div class="row">
         <h2>Archives</h2>
         <ul>
             {% for data in item.getStaticsByMonth() %}
-            <li><a href="#">{{ data.month }}</a>  ({{ data.num }})</li>
+                <li><a href="#">{{ data.month }}</a>  ({{ data.num }})</li>
             {% endfor %}
         </ul>
     </div>
+    {% include "layouts/partial/allTagList.volt" %}
 {% endblock %}
 

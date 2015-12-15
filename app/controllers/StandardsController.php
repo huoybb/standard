@@ -40,15 +40,6 @@ class StandardsController extends myController
 
     public function showAction(Files $file)
     {
-//        $files = Files::query()
-//            ->where('relationCount > 0')
-//            ->execute();
-//        foreach($files as $f){
-//            /** @var Files $f */
-//            $count = $f->getReferences()->count()+$f->getCitations()->count();
-//            $f->save(['relationCount'=>$count]);
-//        }
-//        dd($file->getStaticsByDay()->toArray());
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }

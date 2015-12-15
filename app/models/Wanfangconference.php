@@ -174,4 +174,9 @@ class Wanfangconference extends \Phalcon\Mvc\Model implements FileableInterface
     {
         return '会议';
     }
+
+    public static function getDatabaseName()
+    {
+        return '万方会议';
+    }
 }

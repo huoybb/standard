@@ -110,7 +110,7 @@ class Everyspec extends \Phalcon\Mvc\Model implements FileableInterface
 
     public function getType()
     {
-        return '外国标准';
+        return 'EverySpec';
     }
 
     /**
@@ -122,5 +122,11 @@ class Everyspec extends \Phalcon\Mvc\Model implements FileableInterface
         return self::query()
             ->where('source_id = :id:',['id'=>$source_id])
             ->execute()->getFirst();
+    }
+
+
+    public static function getDatabaseName()
+    {
+        return 'EverySpec';
     }
 }

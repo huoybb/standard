@@ -64,4 +64,16 @@ abstract class myParser
         return new $className();
     }
 
+    public static function getStatistics()
+    {
+        $result = [];
+        foreach(self::$modelType as $type){
+            $result[]=[
+                'name'  =>  $type::getDatabaseName(),
+                'count' =>  $type::count()
+            ];
+        }
+        return $result;
+    }
+
 }

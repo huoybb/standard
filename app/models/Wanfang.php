@@ -167,4 +167,9 @@ class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
     {
         return '期刊';
     }
+
+    public static function getDatabaseName()
+    {
+        return '万方期刊';
+    }
 }

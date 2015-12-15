@@ -177,4 +177,8 @@ class Wanfangthesis extends \Phalcon\Mvc\Model implements FileableInterface
     {
         return '学位';
     }
+    public static function getDatabaseName()
+    {
+        return '万方学位';
+    }
 }
