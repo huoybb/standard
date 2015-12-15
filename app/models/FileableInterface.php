@@ -16,4 +16,6 @@ interface FileableInterface
     public function getType();//返回文档类型
     public static function findBySourceId($souceId);
     public static function getDatabaseName();//返回当前数据库的名称
+    public function getDBName();//返回当前数据库的名称
+    public function getModelType();//返回当前数据库的类型
 }

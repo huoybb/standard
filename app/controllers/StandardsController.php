@@ -269,24 +269,6 @@ class StandardsController extends myController
     }
 
 
-    public function subRepositoryAction($repository,$page = 1)
-    {
-        $builder = $this->modelsManager->createBuilder()
-            ->from('Files')
-            ->rightJoin(myParser::getModelName($repository),'sub.file_id = Files.id','sub')
-            ->orderBy('Files.id DESC');
-        $this->view->page = $this->getPaginatorByQueryBuilder($builder,25,$page);
-        $this->view->page->statistics = myParser::getStatistics();
-        $this->view->page->repository = myParser::getModelName($repository);
-        $this->view->pick('index/index');
-    }
-
-
-
-
-
-
-
 
 
     private function addDoDFile($accessNumber, Files $file)

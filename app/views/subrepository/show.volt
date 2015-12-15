@@ -1,11 +1,11 @@
 {% extends 'fileList.volt' %}
 
 {% block title %}
-    我的文档库-首页
+    {{ page.repository.getDBName() }}--我的文档库
 {% endblock %}
 {% block listTitle %}
     <h1>
-            文档汇总<span class="badge">{{ page.total_items }}</span>
+            {{ page.repository.getDBName() }}文档汇总 <span class="badge">{{ page.total_items }}</span>
     </h1>
 {% endblock %}
 {% block listInfo %}
@@ -17,10 +17,10 @@
         <nav>
             <ul class="pager">
                 <li class="previous"><a href="
-                    {{ url.get(['for':'index','page':page.before]) }}
+                    {{ url.get(['for':'subRepository.page','page':page.before,'repository':page.repository.getModelType()]) }}
                 "><span aria-hidden="true">&larr;</span> 上一页</a></li>
                 <li class="next"><a href="
-                    {{ url.get(['for':'index','page':page.next]) }}
+                    {{ url.get(['for':'subRepository.page','page':page.next,'repository':page.repository.getModelType()]) }}
                 ">下一页 <span aria-hidden="true">&rarr;</span></a></li>
             </ul>
         </nav>

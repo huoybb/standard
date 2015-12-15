@@ -67,4 +67,16 @@ trait FileableInterfaceTrait
         return Files::findFirst($this->file_id);
     }
 
+    public function getDBName()
+    {
+        return static::getDatabaseName();
+    }
+
+    public function getModelType()
+    {
+        $name = static::class;
+        return myParser::getModelType($name);
+    }
+
+
 }
