@@ -12,6 +12,7 @@ $volt->setOptions(array(
 
 $compiler = $volt->getCompiler();
 $compiler->addFunction('get_class','get_class');
+$compiler->addFunction('isset','isset');
 $compiler->addFilter('basename','basename');
 $compiler->addFilter('formatSizeUnits',function($size){ return 'myTools::formatSizeUnits('.$size.')';});
 $compiler->addFilter('cut',function($resolvedArgs,$exprArgs){ return 'myTools::cut('.$resolvedArgs.')';});//$exprArgs,这个变量的作用是什么呢？奇怪！

@@ -64,13 +64,30 @@ abstract class myParser
         return new $className();
     }
 
+    public static function getModelName($type)
+    {
+        if(!isset(self::$modelType[$type])) dd('不存在这个类型'.$type);
+        return self::$modelType[$type];
+    }
+
+    public static function getModelType($name)
+    {
+        foreach(self::$modelType as $key=>$value){
+            if($value == $name) return $key;
+        }
+        dd('不存在子库：'.$name);
+    }
+
+
+
     public static function getStatistics()
     {
         $result = [];
-        foreach(self::$modelType as $type){
+        foreach(self::$modelType as $type => $className){
             $result[]=[
-                'name'  =>  $type::getDatabaseName(),
-                'count' =>  $type::count()
+                'name'  =>  $className::getDatabaseName(),
+                'count' =>  $className::count(),
+                'type'  =>  $type,
             ];
         }
         return $result;

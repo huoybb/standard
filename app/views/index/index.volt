@@ -4,7 +4,14 @@
     我的文档库-首页
 {% endblock %}
 {% block listTitle %}
-    <h1>文档汇总<span class="badge">{{ page.total_items }}</span></h1>
+    <h1>
+        {% if isset(repository) %}
+            <?php echo $repository::getDatabaseName() ?>:
+            <?php $type = myParser::getModelType($repository);?>
+        {% endif %}
+            文档汇总
+        <span class="badge">{{ page.total_items }}</span>
+    </h1>
 {% endblock %}
 {% block listInfo %}
     <p>文档列表显示如下：</p>
@@ -14,8 +21,20 @@
     {% if page.total_items > page.limit %}
         <nav>
             <ul class="pager">
-                <li class="previous"><a href="{{ url.get(['for':'index','page':page.before]) }}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
-                <li class="next"><a href="{{ url.get(['for':'index','page':page.next]) }}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+                <li class="previous"><a href="
+                {% if isset(repository) %}
+                    {{ url.get(['for':'subRepository.page','page':page.before,'repository':type]) }}
+                {% else %}
+                    {{ url.get(['for':'index','page':page.before]) }}
+                {% endif %}
+                "><span aria-hidden="true">&larr;</span> 上一页</a></li>
+                <li class="next"><a href="
+                {% if isset(repository) %}
+                    {{ url.get(['for':'subRepository.page','page':page.next,'repository':type]) }}
+                {% else %}
+                    {{ url.get(['for':'index','page':page.next]) }}
+                {% endif %}
+                ">下一页 <span aria-hidden="true">&rarr;</span></a></li>
             </ul>
         </nav>
     {% endif %}
@@ -56,7 +75,7 @@
         <h2>分库统计</h2>
         <ul>
             {% for data in statistics %}
-                <li><a href="#">{{ data['name'] }}</a> ({{ data['count'] }})</li>
+                <li><a href="{{ url(['for':'subRepository','repository':data['type']]) }}">{{ data['name'] }}</a> ({{ data['count'] }})</li>
             {% endfor %}
         </ul>
     </div>

@@ -260,6 +260,20 @@ class StandardsController extends myController
     }
 
 
+    public function subRepositoryAction($repository,$page = 1)
+    {
+        $model = myParser::getModelName($repository);
+        $builder = $this->modelsManager->createBuilder()
+            ->from('Files')
+            ->rightJoin($model,'sub.file_id = Files.id','sub')
+            ->orderBy('Files.id DESC');
+        $this->view->page = $this->getPaginatorByQueryBuilder($builder,25,$page);
+        $this->view->statistics = myParser::getStatistics();
+        $this->view->repository = $model;
+        $this->view->pick('index/index');
+    }
+
+
 
 
 
