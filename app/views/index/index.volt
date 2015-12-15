@@ -5,9 +5,9 @@
 {% endblock %}
 {% block listTitle %}
     <h1>
-        {% if isset(repository) %}
-            <?php echo $repository::getDatabaseName() ?>:
-            <?php $type = myParser::getModelType($repository);?>
+        {% if isset(page.repository) %}
+            <?php $repo = $page->repository; echo $repo::getDatabaseName(); ?>:
+            <?php $type = myParser::getModelType($page->repository);?>
         {% endif %}
             文档汇总
         <span class="badge">{{ page.total_items }}</span>
@@ -22,14 +22,14 @@
         <nav>
             <ul class="pager">
                 <li class="previous"><a href="
-                {% if isset(repository) %}
+                {% if isset(page.repository) %}
                     {{ url.get(['for':'subRepository.page','page':page.before,'repository':type]) }}
                 {% else %}
                     {{ url.get(['for':'index','page':page.before]) }}
                 {% endif %}
                 "><span aria-hidden="true">&larr;</span> 上一页</a></li>
                 <li class="next"><a href="
-                {% if isset(repository) %}
+                {% if isset(page.repository) %}
                     {{ url.get(['for':'subRepository.page','page':page.next,'repository':type]) }}
                 {% else %}
                     {{ url.get(['for':'index','page':page.next]) }}
@@ -74,7 +74,7 @@
     <div class="row">
         <h2>分库统计</h2>
         <ul>
-            {% for data in statistics %}
+            {% for data in page.statistics %}
                 <li><a href="{{ url(['for':'subRepository','repository':data['type']]) }}">{{ data['name'] }}</a> ({{ data['count'] }})</li>
             {% endfor %}
         </ul>
@@ -83,7 +83,7 @@
         <h2>Archives</h2>
         <ul>
             {% for data in item.getStaticsByMonth() %}
-                <li><a href="#">{{ data.month }}</a>  ({{ data.num }})</li>
+                <li><a href="{{ url(['for':'standards.archive','month':data.month]) }}">{{ data.month }}</a>  ({{ data.num }})</li>
             {% endfor %}
         </ul>
     </div>

@@ -38,6 +38,23 @@ class StandardsController extends myController
         return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
     }
 
+    public function archiveAction($month,$page = 1)
+    {
+        $startTime = new \Carbon\Carbon();
+        $startTime->setTimestamp(strtotime($month));
+        $endTime = clone $startTime;
+        $endTime->addMonth();
+
+        $builder = $this->modelsManager->createBuilder()
+            ->from('Files')
+            ->where('created_at > :start:',['start'=>$startTime->toDateTimeString()])
+            ->andWhere('created_at < :end:',['end'=>$endTime->toDateTimeString()])
+            ->orderBy('created_at DESC');
+        $this->view->page = $this->getPaginatorByQueryBuilder($builder,25,$page);
+        $this->view->page->statistics = myParser::getStatistics();
+        $this->view->pick('index/index');
+    }
+
     public function showAction(Files $file)
     {
         $this->view->file = $file;
@@ -80,14 +97,6 @@ class StandardsController extends myController
 
     public function showSearchItemAction($search,$item)
     {
-//        $page = $this->getPaginatorByQueryBuilder($file->searchQuery($search),1,$item);
-
-//        foreach(Everyspec::find() as $es){
-//            $file = $es->getStandard();
-//            $file->standard_number = $es->standard_no;
-//            $file->save();
-//        }
-
         $this->view->page = $this->getPaginatorByQueryBuilder(Files::searchQuery($search),1,$item);
         $this->view->file = $this->view->page->items[0];
         $this->view->form = myForm::buildCommentForm($this->view->file);
@@ -262,14 +271,13 @@ class StandardsController extends myController
 
     public function subRepositoryAction($repository,$page = 1)
     {
-        $model = myParser::getModelName($repository);
         $builder = $this->modelsManager->createBuilder()
             ->from('Files')
-            ->rightJoin($model,'sub.file_id = Files.id','sub')
+            ->rightJoin(myParser::getModelName($repository),'sub.file_id = Files.id','sub')
             ->orderBy('Files.id DESC');
         $this->view->page = $this->getPaginatorByQueryBuilder($builder,25,$page);
-        $this->view->statistics = myParser::getStatistics();
-        $this->view->repository = $model;
+        $this->view->page->statistics = myParser::getStatistics();
+        $this->view->page->repository = myParser::getModelName($repository);
         $this->view->pick('index/index');
     }
 

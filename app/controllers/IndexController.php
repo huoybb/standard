@@ -9,9 +9,8 @@ class IndexController extends myController
         $builder = $this->modelsManager->createBuilder()
             ->from('Files')
             ->orderBy('id DESC');
-
         $this->view->page = $this->getPaginatorByQueryBuilder($builder,25,$page);
-        $this->view->statistics = myParser::getStatistics();
+        $this->view->page->statistics = myParser::getStatistics();
     }
 }
 

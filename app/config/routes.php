@@ -18,6 +18,7 @@ $router->add('/standards/addDoD','standards::addDoD')->setName('standards.addDoD
 $router->add('/standards/addWebData/{type}/{source_id}','standards::getWebData')->setName('standards.getWebData');
 
 $router->add('/standards/addTag2List','standards::addTag2List')->setName('standards.list.addTag');
+$router->add('/standards/archive/{month:[-0-9]+}','standards::archive')->setName('standards.archive');
 
 $router->add('/standards/{file:[0-9]+}','standards::show')->setName('standards.show');
 $router->addx('/standards/{file:[0-9]+}/edit','standards::edit',['standardRules'])->setName('standards.edit');
