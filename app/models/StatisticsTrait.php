@@ -8,12 +8,15 @@
  */
 trait StatisticsTrait
 {
-    public function getStaticsByMonth()
+    public function getStaticsByMonth($repo = null)
     {
-        return self::query()
-            ->columns(['count(id) AS num',"DATE_FORMAT(created_at,'%Y-%m') As month"])
+        $className = static::class;
+        $query = $className::query()
+            ->columns(['count('.$className.'.id) AS num','DATE_FORMAT('.$className.'.created_at,"%Y-%m") As month'])
             ->groupBy('month')
-            ->orderBy('month DESC')
+            ->orderBy('month DESC');
+        if($repo) $query = $query->rightJoin($repo,'sub.file_id = '.$className.'.id','sub');
+        return $query
             ->execute();
     }
     public function getStaticsByDay()

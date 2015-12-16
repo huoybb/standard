@@ -92,5 +92,4 @@ abstract class myParser
         }
         return $result;
     }
-
 }

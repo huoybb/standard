@@ -78,5 +78,10 @@ trait FileableInterfaceTrait
         return myParser::getModelType($name);
     }
 
+    public function getClassName()
+    {
+        return get_class($this);
+    }
+
 
 }

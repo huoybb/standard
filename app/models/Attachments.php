@@ -133,7 +133,7 @@ class Attachments extends myModel
     {
         return $this->make('baiduUrl',function(){
             $fileName = substr(basename($this->url),0,-4);
-            return 'http://pan.baidu.com/disk/home#key='.$fileName;
+            return 'http://pan.baidu.com/disk/home#search/key='.$fileName;
         });
     }
 

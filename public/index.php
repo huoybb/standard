@@ -5,7 +5,7 @@ function dd($x){ var_dump($x);die();}
 try {
 
     /*
-     *读取composer的自动加载
+     *鍔犺浇composer
      */
     require '../vendor/autoload.php';
     /**
