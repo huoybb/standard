@@ -129,4 +129,14 @@ class Everyspec extends \Phalcon\Mvc\Model implements FileableInterface
     {
         return 'EverySpec';
     }
+
+    public function getDBDescription()
+    {
+        return 'EverySpec provides free access to over 50,000 Military, DoD, Federal, NASA, DOE, and Government specifications, standards, handbooks, and publications.
+
+This data warehouse includes standardization documents with the designations of MIL, MIL-STD, MIL-PRF, MIL-DTL, FED, CID, JANS, MS, AND, USAF, DID, CID, UCF, and FIPS, including their Amendments, Notices, and Supplements.';
+    }
+    public function getDBHomePageLink(){
+        return 'http://everyspec.com/';
+    }
 }

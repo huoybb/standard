@@ -181,4 +181,13 @@ class Wanfangthesis extends \Phalcon\Mvc\Model implements FileableInterface
     {
         return '万方学位';
     }
+    public function getDBDescription()
+    {
+        return '中国学位论文全文数据库（China Dissertation Database，CDDB），收录始于1980年，年增30万篇，并逐年回溯，与国内900余所高校、科研院所合作，占研究生学位授予单位85%以上，涵盖理、工、农、医、人文社科、交通运输、航空航天、环境科学等各学科。';
+    }
+
+    public function getDBHomePageLink()
+    {
+        return 'http://www.wanfangdata.com.cn/';
+    }
 }

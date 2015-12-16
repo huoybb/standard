@@ -181,4 +181,15 @@ class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
     {
         return 'DTIC';
     }
+
+
+    public function getDBDescription()
+    {
+        return '美国国防技术情报中心';
+    }
+
+    public function getDBHomePageLink()
+    {
+        return 'http://www.dtic.mil/dtic/';
+    }
 }

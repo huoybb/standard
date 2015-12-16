@@ -18,4 +18,6 @@ interface FileableInterface
     public static function getDatabaseName();//返回当前数据库的名称
     public function getDBName();//返回当前数据库的名称
     public function getModelType();//返回当前数据库的类型
+    public function getDBDescription();//描述当前数据库
+    public function getDBHomePageLink();//当前数据库的网页首页链接
 }

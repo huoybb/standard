@@ -1,4 +1,4 @@
-{% extends 'fileList.volt' %}
+{% extends 'index/index.volt' %}
 
 {% block title %}
     {{ page.repository.getDBName() }}--我的文档库
@@ -9,6 +9,9 @@
     </h1>
 {% endblock %}
 {% block listInfo %}
+    <blockquote>
+        <pre>{{ page.repository.getDBName() }}:{{ page.repository.getDBDescription() }}<br><br>网站首页:<a href="{{ page.repository.getDBHomePageLink() }}" target="_blank">链接</a></pre>
+    </blockquote>
     <p>文档列表显示如下：</p>
 {% endblock %}
 {% block nav %}
@@ -61,25 +64,5 @@
         </table>
     {% include "layouts/partial/fileList.commandButton.volt" %}
     {{ endform() }}
-{% endblock %}
-{% block sidebar %}
-
-    <div class="row">
-        <h2>分库统计</h2>
-        <ul>
-            {% for data in page.statistics %}
-                <li><a href="{{ url(['for':'subRepository','repository':data['type']]) }}">{{ data['name'] }}</a> ({{ data['count'] }})</li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="row">
-        <h2>Archives</h2>
-        <ul>
-            {% for data in item.getStaticsByMonth() %}
-                <li><a href="{{ url(['for':'standards.archive','month':data.month]) }}">{{ data.month }}</a>  ({{ data.num }})</li>
-            {% endfor %}
-        </ul>
-    </div>
-    {% include "layouts/partial/allTagList.volt" %}
 {% endblock %}
 

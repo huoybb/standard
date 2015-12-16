@@ -52,7 +52,7 @@ class StandardsController extends myController
             ->orderBy('created_at DESC');
         $this->view->page = $this->getPaginatorByQueryBuilder($builder,25,$page);
         $this->view->page->statistics = myParser::getStatistics();
-        $this->view->pick('index/index');
+        $this->view->page->month = $month;
     }
 
     public function showAction(Files $file)

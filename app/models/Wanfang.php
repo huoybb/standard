@@ -172,4 +172,14 @@ class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
     {
         return '万方期刊';
     }
+
+    public function getDBDescription()
+    {
+        return '《中国学术期刊数据库》（China Science Periodical Database，CSPD）,收录始于1998年,7600余种，核心刊3000种，年增300万篇，周更新2次,涵盖理、工、农、医、经济、教育、文艺、社科、哲学政法等学科,全部拥有国内统一连续出版物号,免费注册DOI。';
+    }
+
+    public function getDBHomePageLink()
+    {
+        return 'http://www.wanfangdata.com.cn/';
+    }
 }

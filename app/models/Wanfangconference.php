@@ -179,4 +179,13 @@ class Wanfangconference extends \Phalcon\Mvc\Model implements FileableInterface
     {
         return '万方会议';
     }
+    public function getDBDescription()
+    {
+        return '中国学术会议文献数据库（China Conference Paper Database，CCPD），收录始于1983年，4000个重要的学术会议，年增20万篇全文，每月更新，国家级学会、协会、部委、高校召开的全国性学术会议为主，国内目前收录会议数量较多、质量较高、学科覆盖较广。';
+    }
+
+    public function getDBHomePageLink()
+    {
+        return 'http://www.wanfangdata.com.cn/';
+    }
 }
