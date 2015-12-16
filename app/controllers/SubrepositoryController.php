@@ -13,7 +13,8 @@ class SubrepositoryController extends myController
         $builder = $this->modelsManager->createBuilder()
             ->from('Files')
             ->rightJoin(myParser::getModelName($repository),'sub.file_id = Files.id','sub')
-            ->orderBy('Files.id DESC');
+            ->orderBy('Files.id DESC')
+            ->columns(['Files.*','sub.*']);
         $this->view->page = $this->getPaginatorByQueryBuilder($builder,25,$page);
         $this->view->page->statistics = myParser::getStatistics();
         $this->view->page->repository = myParser::getModel($repository);

@@ -40,11 +40,17 @@
                 <th>评论</th>
                 <th><div align="center">操作</div></th>
             </tr>
-            {% for item in page.items %}
+            {% for row in page.items %}
+                {% set item = row.files %}
                 <tr>
                     <td><input name="file_id[]" type="checkbox" value="{{ item.id }}" class="file_id"></td>
                     <td>{{item.id}}</td>
-                    <td><a title="{{ item.title }}" href="{{ url(['for':'standards.show','file':item.id]) }}">{{ item.title | cut}}</a></td>
+                    <td>
+                        {% if row.sub.getModelType() is 'Thesis' %}
+                            [{{ row.sub.degree }}]
+                        {% endif %}
+                        <a title="{{ item.title }}" href="{{ url(['for':'standards.show','file':item.id]) }}">{{ item.title | cut}}</a>
+                    </td>
                     <td>{{ item.updated_at_website }}</td>
                     <td>{{ item.getHtml('attachmentCount') }}</td>
                     <td>{{ item.getHtml('linkCount') }}</td>
