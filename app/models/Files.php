@@ -13,6 +13,7 @@ class Files extends myModel
     use countForRootClassTrait;
     use RelationshipTrait;
     use StatisticsTrait;
+    use timeableTrait;
     /**
      *
      * @var integer
@@ -80,6 +81,7 @@ class Files extends myModel
      * @var integer
      */
     public $relationCount;
+
 
 
     /**

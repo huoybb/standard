@@ -13,7 +13,7 @@
             <ul class="nav navbar-nav">
 
                 {% for key,value in ['standards/add':'新增','tags':'标签'] %}
-                <li><a href="http://standard.zhaobing/{{key}}">{{value}}</a></li>
+                <li><a href="{{ url.getBaseUri() }}{{key}}">{{value}}</a></li>
                 {% endfor %}
 
             </ul>

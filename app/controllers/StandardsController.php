@@ -38,19 +38,14 @@ class StandardsController extends myController
         return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
     }
 
-    public function archiveAction($month,$page = 1)
+    public function archiveAction($month,$page = 1,Files $file)
     {
         $startTime = new \Carbon\Carbon();
         $startTime->setTimestamp(strtotime($month));
         $endTime = clone $startTime;
         $endTime->addMonth();
 
-        $builder = $this->modelsManager->createBuilder()
-            ->from('Files')
-            ->where('created_at > :start:',['start'=>$startTime->toDateTimeString()])
-            ->andWhere('created_at < :end:',['end'=>$endTime->toDateTimeString()])
-            ->orderBy('created_at DESC');
-        $this->view->page = $this->getPaginatorByQueryBuilder($builder,25,$page);
+        $this->view->page = $this->getPaginatorByQueryBuilder($file->getResultsBetween($startTime,$endTime),25,$page);
         $this->view->page->statistics = myParser::getStatistics();
         $this->view->page->month = $month;
     }
