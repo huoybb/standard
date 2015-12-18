@@ -21,8 +21,7 @@ trait FileableTrait
                 ->where('file_id = :id:',['id'=>$this->id])
                 ->execute()->getFirst();
             if($fileable){
-                $objectName = $fileable->fileable_type;
-                return $objectName::findFirst($fileable->fileable_id);
+                return myParser::getModel($fileable->fileable_type,$fileable->fileable_id);
             }
             return null;
         });
@@ -60,7 +59,7 @@ trait FileableTrait
         $this->save($parser->getDataForFile());//保存file对象
 
         $data['file_id'] = $this->id;//补充数据，添加file_id
-        $model = myParser::getModel($type);//获取模型
+        $model = myParser::getModelBySourceId($type);//获取模型
         $model->save($data);//保存模型数据
 
         $this->saveFileable($model);//保存关联对象数据

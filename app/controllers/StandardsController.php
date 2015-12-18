@@ -31,7 +31,7 @@ class StandardsController extends myController
 
     public function getWebDataAction($type,$source_id,Files $file)
     {
-        $model = myParser::getModel($type,$source_id);
+        $model = myParser::getModelBySourceId($type,$source_id);
         if($model)  return $this->redirectByRoute(['for'=>'standards.show','file'=>$model->getStandard()->id]);
 
         $file->addWebFile($source_id,$type);

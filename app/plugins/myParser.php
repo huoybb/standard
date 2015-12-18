@@ -54,13 +54,19 @@ abstract class myParser
      * @param $type
      * @return  \Phalcon\Mvc\Model|FileableInterface
      */
-    public static function getModel($type,$source_id = null)
+    public static function getModelBySourceId($type, $source_id = null)
     {
         if(!isset(self::$modelType[$type])) dd('不存在这个类型'.$type);
         $className = self::$modelType[$type];
 
         if($source_id <> null) return $className::findBySourceId($source_id);
 
+        return new $className();
+    }
+    public static function getModel($type, $id = null)
+    {
+        $className = $type;
+        if($id <> null) return $className::findFirst($id);
         return new $className();
     }
 

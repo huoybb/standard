@@ -17,7 +17,7 @@ class SubrepositoryController extends myController
             ->columns(['Files.*','sub.*']);
         $this->view->page = $this->getPaginatorByQueryBuilder($builder,25,$page);
         $this->view->page->statistics = myParser::getStatistics();
-        $this->view->page->repository = myParser::getModel($repository);
+        $this->view->page->repository = myParser::getModelBySourceId($repository);
     }
 
 

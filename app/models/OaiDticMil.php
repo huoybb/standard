@@ -185,7 +185,7 @@ class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
 
     public function getDBDescription()
     {
-        return '美国国防技术情报中心';
+        return '美国国防技术情报中心(The Defense Technical Information Center)是美国国防部为了加强有关防务研究、开发、试验和鉴定而建立起来的唯一综合性军事科技情报机构，其发展历史克追溯到1945年。';
     }
 
     public function getDBHomePageLink()

@@ -1,5 +1,11 @@
 {% extends 'index/index.volt' %}
 
+{% block listTitle %}
+    <h1>
+        月度{{ page.month }}：文档汇总<span class="badge">{{ page.total_items }}</span>
+    </h1>
+{% endblock %}
+
 {% block nav %}
     <div><span class="label label-primary">共计{{ page.total_items }}条标准</span>--<span class="label label-primary">第{{ page.current }}页/总{{ page.total_pages }}页</span></div>
     {% if page.total_items > page.limit %}
