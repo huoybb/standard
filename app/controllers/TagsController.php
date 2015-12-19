@@ -18,11 +18,21 @@ class TagsController extends myController
 //        $tag->addReference($tag1);
 //        dd('test');
 //        dd($tag->getReferences()->toArray());
+//        dd($tag->getArchiveStatisticsByMonth());
         $this->view->mytag = $tag;
         $this->view->page = $this->getPaginator($tag->getTaggedFiles(),25,$page);
 //        $this->view->form = $this->buildCommentForm($tag);
         $this->view->form = myForm::buildCommentForm($tag);
     }
+
+    public function showArchiveAction($month,Tags $tag,$page = 1)
+    {
+        $this->view->mytag = $tag;
+        $this->view->page = $this->getPaginator($tag->getTaggedFilesByMonth($month),25,$page);
+        $this->view->form = myForm::buildCommentForm($tag);
+        $this->view->pick('tags/show');
+    }
+
 
     public function editAction(Tags $tag)
     {

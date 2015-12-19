@@ -152,6 +152,38 @@ class Tags extends myModel
 
         });
     }
+
+    public function getTaggedFilesByMonth($month)
+    {
+        return $this->make('files',function() use($month){
+            $times = myTools::getBetweenTimes($month);
+            $startTime = $times['startTime'];
+            $endTime = $times['endTime'];
+            return Files::query()
+                ->rightJoin('Taggables','Taggables.taggable_id = Files.id AND Taggables.taggable_type="Files"')
+                ->where('Taggables.tag_id = :tag:',['tag'=>$this->id])
+                ->andWhere('Taggables.created_at > :start:',['start'=>$startTime->toDateTimeString()])
+                ->andWhere('Taggables.created_at < :end:',['end'=>$endTime->toDateTimeString()])
+                ->columns(['Files.*','Taggables.*'])
+                ->groupBy('Files.id')
+                ->orderBy('Taggables.created_at DESC')//按照生成的时间排序，如果按照更新的时间排序，则会出现不稳定的现象，这个问题在多人一同操作的时候可能会发生，需要避免的
+                ->execute();
+
+        });
+    }
+
+    public function getArchiveStatisticsByMonth()
+    {
+        $query = Files::query()
+            ->rightJoin('Taggables','Taggables.taggable_id = Files.id AND Taggables.taggable_type="Files"')
+            ->where('Taggables.tag_id = :tag:',['tag'=>$this->id])
+            ->columns(['count(Files.id) AS num','DATE_FORMAT(Taggables.created_at,"%Y-%m") As month'])
+            ->groupBy('month')
+            ->orderBy('month DESC');
+        return $query
+            ->execute();
+    }
+
     public function getItemID(Files $file)
     {
         foreach($this->getTaggedFiles() as $id=>$item){

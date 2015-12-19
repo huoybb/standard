@@ -116,5 +116,13 @@
             </form>
         </div>
     </div>
+    <div class="row">
+        <h2>Archives</h2>
+        <ul>
+            {% for data in mytag.getArchiveStatisticsByMonth() %}
+                <li><a href="{{ url(['for':'tags.showArchive','tag':mytag.id,'month':data.month]) }}">{{ data.month }}</a>  ({{ data.num }})</li>
+            {% endfor %}
+        </ul>
+    </div>
     {{ super() }}
 {% endblock %}

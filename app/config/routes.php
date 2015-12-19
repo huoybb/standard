@@ -65,6 +65,8 @@ $router->add('/tags/{tag:[0-9]+}/addAttachment','tags::addAttachment')->setName(
 $router->add('/tags/{tag:[0-9]+}/Attachments','tags::showAttachments')->setName('tags.showAttachments');
 $router->add('/tags/{tag:[0-9]+}/Attachments/{attachment:[0-9]+}/delete','tags::deleteAttachment')->setName('tags.deleteAttachment');
 
+$router->add('/tags/{tag:[0-9]+}/archives/{month:[-0-9]+}','tags::showArchive')->setName('tags.showArchive');
+
 $router->add('/tags/{tag:[0-9]+}/deleteTaggableItems','tags::deleteTaggableItems')->setName('tags.deleteTaggableItems');
 
 $router->add('/tags/{tag:[0-9]+}/addComment','tags::addComment')->setName('tags.addComment');

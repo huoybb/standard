@@ -40,10 +40,9 @@ class StandardsController extends myController
 
     public function archiveAction($month,$page = 1,Files $file)
     {
-        $startTime = new \Carbon\Carbon();
-        $startTime->setTimestamp(strtotime($month));
-        $endTime = clone $startTime;
-        $endTime->addMonth();
+        $times = myTools::getBetweenTimes($month);
+        $startTime = $times['startTime'];
+        $endTime = $times['endTime'];
 
         $this->view->page = $this->getPaginatorByQueryBuilder($file->getResultsBetween($startTime,$endTime),25,$page);
         $this->view->page->statistics = myParser::getStatistics();

@@ -39,6 +39,15 @@ class myTools
         return $bytes;
     }
 
+    public static function getBetweenTimes($month)
+    {
+        $startTime = new \Carbon\Carbon();
+        $startTime->setTimestamp(strtotime($month));
+        $endTime = clone $startTime;
+        $endTime->addMonth();
+        return ['startTime'=>$startTime,'endTime'=>$endTime];
+    }
+
     function formatTimeUnit($time){
         if($time >86400){
             $time = number_format($time / 86400,2).' 天';
