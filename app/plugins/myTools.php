@@ -45,7 +45,7 @@ class myTools
         $startTime->setTimestamp(strtotime($month));
         $endTime = clone $startTime;
         $endTime->addMonth();
-        return ['startTime'=>$startTime,'endTime'=>$endTime];
+        return [$startTime,$endTime];
     }
 
     function formatTimeUnit($time){

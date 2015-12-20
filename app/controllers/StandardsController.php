@@ -40,10 +40,7 @@ class StandardsController extends myController
 
     public function archiveAction($month,$page = 1,Files $file)
     {
-        $times = myTools::getBetweenTimes($month);
-        $startTime = $times['startTime'];
-        $endTime = $times['endTime'];
-
+        list($startTime,$endTime) = myTools::getBetweenTimes($month);
         $this->view->page = $this->getPaginatorByQueryBuilder($file->getResultsBetween($startTime,$endTime),25,$page);
         $this->view->page->statistics = myParser::getStatistics();
         $this->view->page->month = $month;

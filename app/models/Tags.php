@@ -156,9 +156,7 @@ class Tags extends myModel
     public function getTaggedFilesByMonth($month)
     {
         return $this->make('files',function() use($month){
-            $times = myTools::getBetweenTimes($month);
-            $startTime = $times['startTime'];
-            $endTime = $times['endTime'];
+            list($startTime,$endTime) = myTools::getBetweenTimes($month);
             return Files::query()
                 ->rightJoin('Taggables','Taggables.taggable_id = Files.id AND Taggables.taggable_type="Files"')
                 ->where('Taggables.tag_id = :tag:',['tag'=>$this->id])

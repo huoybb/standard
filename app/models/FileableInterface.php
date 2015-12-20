@@ -11,7 +11,7 @@
 interface FileableInterface
 {
     public function getStandard();
-    public function format();
+    public function format();//视图中调用，返回需要显示的字段，以及字段的中文名称
     public function getHtml($key);
     public function getType();//返回文档类型
     public static function findBySourceId($souceId);

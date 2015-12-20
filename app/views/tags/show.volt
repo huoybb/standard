@@ -70,7 +70,7 @@
                 <tr>
                     <td><input name="file_id[]" type="checkbox" value="{{ item.files.id }}" class="file_id"></td>
                     <td>{{item.files.id}}</td>
-                    <td><a title="{{ item.files.title }}" href="{{ url(['for':'tags.showItem','item':key+1+page.limit*(page.current-1),'tag':mytag.id]) }}">{{ item.files.title |cut }}</a></td>
+                    <td width="400px"><a title="{{ item.files.title }}" href="{{ url(['for':'tags.showItem','item':key+1+page.limit*(page.current-1),'tag':mytag.id]) }}">{{ item.files.title |cut }}</a></td>
                     <td>{{ item.files.updated_at_website }}</td>
                     <td>{{ item.taggables.created_at.diffForHumans() }}</td>
                     <td>{{ item.files.getHtml('attachmentCount') }}</td>

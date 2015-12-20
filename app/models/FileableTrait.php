@@ -55,7 +55,7 @@ trait FileableTrait
         $parser = myParser::getParser($type,$source_id);//获取Parser
         $data = $parser->parseInfo();//抽取数据
 
-        /** @var myModel $this */
+        /** @var myModel|FileableTrait $this */
         $this->save($parser->getDataForFile());//保存file对象
 
         $data['file_id'] = $this->id;//补充数据，添加file_id
@@ -65,6 +65,7 @@ trait FileableTrait
         $this->saveFileable($model);//保存关联对象数据
         return $this;
     }
+
     private function saveFileable($fileableObject)
     {
         return (new Fileable())->save([
@@ -73,6 +74,7 @@ trait FileableTrait
             'fileable_id'=>$fileableObject->id,
         ]);
     }
+
 
 
 }
