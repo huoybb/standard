@@ -134,8 +134,10 @@ $di->set("carbon",function(){
     return new \Carbon\Carbon();
 },true);
 
-$di->set("myTools",function(){
-    return new myTools();
+$di->set("myTools",function() use($config){
+    $tools =  new myTools();
+    $tools->setSiteName($config->siteName);
+    return $tools;
 },true);
 /*
  * 为什么在volt中不能够直接引用呢？奇怪！！

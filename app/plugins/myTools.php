@@ -9,6 +9,17 @@
  */
 class myTools
 {
+    private $WebName = '';
+    public function setSiteName($webName)
+    {
+        $this->WebName = $webName;
+    }
+    public function getSiteName()
+    {
+        return $this->WebName;
+    }
+
+
     public static function formatSizeUnits($bytes)
     {
         if ($bytes >= 1073741824)

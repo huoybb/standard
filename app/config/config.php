@@ -19,5 +19,7 @@ return new \Phalcon\Config(array(
         'formDir'       => __DIR__ . '/../../app/forms/',
         'middlewaresDir' => __DIR__ . '/../../app/middlewares/',
         'baseUri'        => '/',
-    )
+    ),
+    'siteName' =>'我的文档库',
+
 ));
