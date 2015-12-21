@@ -5,7 +5,7 @@
       var keywords;
       keywords = $("#search").val().trim();
       keywords = keywords.replace(/\//, ' ');
-      location.href = "http://standard.zhaobing/search/" + keywords;
+      location.href = "http://" + location.host + ("/search/" + keywords);
       return false;
     });
     if ($('.next a').length) {

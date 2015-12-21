@@ -1,3 +1,8 @@
+regStr = 'http:\/\/'+location.host+'\/(page\/[0-9]+)?'
+regex = new RegExp(regStr,'m')
+
+regStrSearch = 'http:\/\/'+location.host+'\/search\/.+'
+regexSearch = new RegExp(regStrSearch,'m')
 class fileList
   selectControl:->
     if $('#fileSelect').is(':checked')
@@ -11,8 +16,8 @@ class fileList
       location.reload()
     else
       alert data
-  isOnIndexPage:-> /http:\/\/standard.zhaobing\/(page\/[0-9]+)?/m.test(location.href)
-  isOnSearchPage:-> /http:\/\/standard.zhaobing\/search\/.+/m.test(location.href)
+  isOnIndexPage:-> regex.test(location.href)
+  isOnSearchPage:-> regexSearch.test(location.href)
 
 $ ->
   list = new fileList()

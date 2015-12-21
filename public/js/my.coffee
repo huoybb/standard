@@ -3,7 +3,7 @@ $ ->
   $("#search-form").submit ->
     keywords = $("#search").val().trim()
     keywords = keywords.replace(/\//,' ') #去除搜索中的"/"，避免出现路由错误
-    location.href = "http://standard.zhaobing/search/#{keywords}"
+    location.href = "http://"+location.host+"/search/#{keywords}"
     false
   # 前后导航键的设置，方便浏览
   if $('.next a').length

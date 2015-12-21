@@ -37,7 +37,7 @@ class relationMap
   show:(key)->
     item = @format[key]
     file_id = $('.citeRelation').data('id');
-    url = 'http://standard.zhaobing/standards/'+file_id+'/getRelation/'+key
+    url = 'http://'+location.host+'/standards/'+file_id+'/getRelation/'+key
     $.get url,(data)=>
       $('.refciteMap').attr('class',item.map)
       $('#markLine').attr('class',item.line)

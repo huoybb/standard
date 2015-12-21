@@ -42,7 +42,7 @@
       var file_id, item, url;
       item = this.format[key];
       file_id = $('.citeRelation').data('id');
-      url = 'http://standard.zhaobing/standards/' + file_id + '/getRelation/' + key;
+      url = 'http://' + location.host + '/standards/' + file_id + '/getRelation/' + key;
       return $.get(url, (function(_this) {
         return function(data) {
           $('.refciteMap').attr('class', item.map);

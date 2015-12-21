@@ -3,6 +3,9 @@ $ ->
   myDropzone = new Dropzone("#my-awesome-dropzone")
   myDropzone.on('complete',->location.reload())
 
+  reStr = 'http:\/\/'+location.host+'\/standards\/([0-9]+)'
+  regex = new RegExp(reStr, "mg");
+
   #发布评论
   $("#comment-form").submit ->
     url = $(this).attr('action')
@@ -33,10 +36,10 @@ $ ->
   #增加引用文档
   $('#addReference-form').submit ->
     file2url = $('#addReference').val()
-    unless /http:\/\/standard.zhaobing\/standards\/([0-9]+)/.test(file2url)
+    unless regex.test(file2url)
       console.log file2url
       return false
-    file2 = file2url.replace(/http:\/\/standard.zhaobing\/standards\/([0-9]+)/mg, "$1");
+    file2 = file2url.replace(regex, "$1");
     url = $(this).attr('action')+file2
     #    console.log url
     $.post url,$(this).serialize(),(data)->
@@ -48,10 +51,10 @@ $ ->
   #添加版本
   $('#addRev-form').submit ->
     file2url = $('#addRev').val()
-    unless /http:\/\/standard.zhaobing\/standards\/([0-9]+)/.test(file2url)
+    unless regex.test(file2url)
       console.log file2url
       return false
-    file2 = file2url.replace(/http:\/\/standard.zhaobing\/standards\/([0-9]+)/mg, "$1");
+    file2 = file2url.replace(regex, "$1");
     url = $(this).attr('action')+file2
 #    console.log url
     $.post url,$(this).serialize(),(data)->
