@@ -7104,3 +7104,13 @@ h2 {
   text-align: center;
   display: block;
 }
+.titleCSS {
+  overflow: hidden;
+  /*自动隐藏文字*/
+  text-overflow: ellipsis;
+  /*文字隐藏后添加省略号*/
+  white-space: nowrap;
+  /*强制不换行*/
+  width: 400px;
+  /*不允许出现半汉字截断*/
+}

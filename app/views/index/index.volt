@@ -44,7 +44,7 @@
                 <tr>
                     <td><input name="file_id[]" type="checkbox" value="{{ item.id }}" class="file_id"></td>
                     <td>{{item.id}}</td>
-                    <td><a title="{{ item.title }}" href="{{ url(['for':'standards.show','file':item.id]) }}">{{ item.title | cut}}</a></td>
+                    <td><div class="titleCSS"><a title="{{ item.title }}" href="{{ url(['for':'standards.show','file':item.id]) }}">{{ item.title }}</a></div></td>
                     <td>{{ item.updated_at_website | date }}</td>
                     <td>{{ item.getHtml('attachmentCount') }}</td>
                     <td>{{ item.getHtml('linkCount') }}</td>
