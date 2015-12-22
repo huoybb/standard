@@ -12,16 +12,8 @@ class TagsController extends myController
     }
     public function showAction(Tags $tag, $page = 1)
     {
-//        dd($tag->getTaggedFiles()->count());
-//        dd($tag->getTaggedFileComments());
-//        $tag1 = Tags::findFirst(166);
-//        $tag->addReference($tag1);
-//        dd('test');
-//        dd($tag->getReferences()->toArray());
-//        dd($tag->getArchiveStatisticsByMonth());
         $this->view->mytag = $tag;
         $this->view->page = $this->getPaginator($tag->getTaggedFiles(),25,$page);
-//        $this->view->form = $this->buildCommentForm($tag);
         $this->view->form = myForm::buildCommentForm($tag);
     }
 

@@ -1,4 +1,5 @@
 <?php
+use Carbon\Carbon;
 
 /**
  * 这个对象将常见的一些工具集成在这个对象中
@@ -18,6 +19,16 @@ class myTools
     {
         return $this->WebName;
     }
+
+    public static function formatDate($time)
+    {
+        if($time == null) return null;
+        if (preg_match('/([0-9]+)年([0-9]+)月([0-9]+)日/m', $time, $regs)) {
+            return Carbon::create($regs[1],$regs[2],$regs[3])->format('Y-m-d');
+        }
+        return Carbon::createFromTimestamp(strtotime($time))->format('Y-m-d');
+    }
+
 
 
     public static function formatSizeUnits($bytes)
@@ -52,7 +63,7 @@ class myTools
 
     public static function getBetweenTimes($month)
     {
-        $startTime = new \Carbon\Carbon();
+        $startTime = new Carbon();
         $startTime->setTimestamp(strtotime($month));
         $endTime = clone $startTime;
         $endTime->addMonth();
