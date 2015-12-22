@@ -3,6 +3,12 @@
 {% block title %}
     {{ page.repository.getDBName() }}--我的文档库
 {% endblock %}
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li><a href="{{ url.getBaseUri() }}">首页</a></li>
+        <li class="active">子库：{{ page.repository.getDBName() }}</li>
+    </ol>
+{% endblock %}
 {% block listTitle %}
     <h1>
             {{ page.repository.getDBName() }}文档汇总 <span class="badge">{{ page.total_items }}</span>

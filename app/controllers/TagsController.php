@@ -22,7 +22,7 @@ class TagsController extends myController
         $this->view->mytag = $tag;
         $this->view->page = $this->getPaginator($tag->getTaggedFilesByMonth($month),25,$page);
         $this->view->form = myForm::buildCommentForm($tag);
-        $this->view->pick('tags/show');
+        $this->view->page->month = $month;
     }
 
 

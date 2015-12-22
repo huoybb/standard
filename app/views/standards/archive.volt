@@ -1,5 +1,10 @@
 {% extends 'index/index.volt' %}
-
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li><a href="{{ url.getBaseUri() }}">首页</a></li>
+        <li class="active">月度：{{ page.month }}</li>
+    </ol>
+{% endblock %}
 {% block listTitle %}
     <h1>
         月度{{ page.month }}：文档汇总<span class="badge">{{ page.total_items }}</span>

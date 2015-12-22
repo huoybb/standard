@@ -3,6 +3,12 @@
 {% block title %}
     标签：{{ mytag.name }}
 {% endblock %}
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li><a href="{{ url.getBaseUri() }}">首页</a></li>
+        <li class="active">标签：{{ mytag.name }}</li>
+    </ol>
+{% endblock %}
 {% block listTitle %}
     <h1>标签：{{ mytag.name }} <span class="badge">{{ page.total_items }}</span></h1>
 {% endblock %}

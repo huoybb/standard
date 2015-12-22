@@ -13,6 +13,7 @@
 <body>
     {% include "layouts/header.volt" %}
     <div class="container">
+        {% block breadcrumb %}{% endblock %}
         {% block listTitle %}{% endblock %}
         <div class="row">
             <div class="col-md-10">
