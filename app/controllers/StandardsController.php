@@ -48,6 +48,10 @@ class StandardsController extends myController
 
     public function showAction(Files $file)
     {
+//        dd($this->session->auth);
+//        $cookie = $this->cookies->get('auth')->getValue();
+//        dd(Users::isLoginByCookie($cookie));
+
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }

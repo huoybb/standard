@@ -7,6 +7,7 @@ use Phalcon\Mvc\View;
 use Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
+use Phalcon\Security;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 
 /**
@@ -77,13 +78,27 @@ $di->set('session', function () {
 
     return $session;
 },true);
+
+/*
+ * 设置security，这个可以用来加密密码以及产生token
+ */
+$di->set('security', function () {
+
+    $security = new Security();
+
+// Set the password hashing factor to 12 rounds
+    $security->setWorkFactor(12);
+
+    return $security;
+}, true);
 /*
  * 设置 cookies
  */
-//$di->set('cookies', function() {
-//    $cookies = new Cookies();
-//    return $cookies;
-//},true);
+$di->set('cookies', function() {
+    $cookies = new Cookies();
+    $cookies->useEncryption(false);
+    return $cookies;
+},true);
 //
 //$di->set('crypt', function() use($di) {
 //    $crypt = new \Phalcon\Crypt();
@@ -91,6 +106,8 @@ $di->set('session', function () {
 //    $crypt->setKey('ReallyRandomKey');
 //    return $crypt;
 //},true);
+
+
 /*
  * 设置 Flash
  */
@@ -147,11 +164,10 @@ $di->set("allTags",function(){
     return new Tags();
 },true);
 
-//下面合格为什么能够使用了呢？为什么上面这个不能够使用呢？比较奇怪的问题呀！
 /*
  * 身份验证的结果，这里给出当前登录的用户的身份，这里没有考虑guest的角色，将来可以考虑一下
  * 权限管理的设置需要找时间看看怎么做的！
  */
-//$di->set('auth',function() use($di){
-//    return Users::findFirst($di->get('session')->get('auth')['id']);
-//});
+$di->set('auth',function() use($di){
+    return Users::findFirst($di->get('session')->get('auth')['id']);
+});

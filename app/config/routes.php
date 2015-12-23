@@ -2,7 +2,7 @@
 
 $router = new myRouter(false);
 
-//$router->addMiddlewaresForEveryRoute(['IsLoginValidator']);
+$router->addMiddlewaresForEveryRoute(['IsLoginValidator']);
 
 $router->removeExtraSlashes(true);
 $router->add('/page/{page:[0-9]+}','index::index')->setName('index');
@@ -79,5 +79,8 @@ $router->add('/taggables/{taggable:[0-9]+}/addComment','tags::commentItem')->set
 
 $router->add('/subRepository/{repository}','subrepository::show')->setName('subRepository');
 $router->add('/subRepository/{repository}/page/{page:[0-9]+}','subrepository::show')->setName('subRepository.page');
+
+$router->add('/login','Users::login')->setName('login');
+$router->add('/logout','Users::logout')->setName('logout');
 
 return $router;

@@ -17,6 +17,7 @@
         {% block listTitle %}{% endblock %}
         <div class="row">
             <div class="col-md-10">
+                {{ flash.output() }}
                 {% block listInfo %}{% endblock %}
                 {% block nav %}{% endblock %}
                 {% block content %}{% endblock %}

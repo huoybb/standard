@@ -13,7 +13,7 @@ use Phalcon\Validation\Validator\PresenceOf;
  */
 class myForm
 {
-    static public function buildCommentForm(myModel $entity = null,Comments $comment = null){
+    public static function buildCommentForm(myModel $entity = null,Comments $comment = null){
         if ($comment == null) {
             $form = new Form();
             $form->add(new Submit('Add Comment'));
@@ -31,7 +31,7 @@ class myForm
         return $form;
     }
 
-    static public function buildFormFromModel(myModel $model)
+    public static function buildFormFromModel(myModel $model)
     {
         if($model->id){
             $form = new Form($model);
@@ -58,6 +58,16 @@ class myForm
         }else{
             $form->add(new Submit('增加'));
         }
+        return $form;
+    }
+
+    public static function buildLoginForm()
+    {
+        $form = new \Phalcon\Forms\Form();
+        $form->add(new \Phalcon\Forms\Element\Text('email'));
+        $form->add(new \Phalcon\Forms\Element\Password('password'));
+        $form->add(new \Phalcon\Forms\Element\Check('remember'));
+        $form->add(new \Phalcon\Forms\Element\Submit('Login'));
         return $form;
     }
 }
