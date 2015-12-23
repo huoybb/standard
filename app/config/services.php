@@ -100,12 +100,12 @@ $di->set('cookies', function() {
     return $cookies;
 },true);
 //
-//$di->set('crypt', function() use($di) {
-//    $crypt = new \Phalcon\Crypt();
+$di->set('crypt', function() use($di) {
+    $crypt = new \Phalcon\Crypt();
 //    $crypt->setMode(MCRYPT_MODE_CFB);
-//    $crypt->setKey('ReallyRandomKey');
-//    return $crypt;
-//},true);
+    $crypt->setKey('myCryptKey');
+    return $crypt;
+},true);
 
 
 /*

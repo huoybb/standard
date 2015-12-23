@@ -14,7 +14,7 @@ class UsersController extends myController
             $data = $this->request->getPost();
             $user = Users::findByEmail($data['email']);
 
-            if($this->security->checkHash($data['password'],$user->password)){
+            if($user AND $this->security->checkHash($data['password'],$user->password)){
                 $this->flash->success('欢迎'.$user->name.'登录！你上次登录的时间是：'.$user->updated_at);
 
                 $remember = 'off';
@@ -48,8 +48,8 @@ class UsersController extends myController
         if($remember == 'on'){
             $token = $this->security->getToken();
             $user->save(['remember_token'=>$token]);
-            $this->cookies->set('auth[email]',$user->email,time() + 15 * 86400);
-            $this->cookies->set('auth[token]',$token,time() + 15 * 86400);
+            $this->cookies->set('auth[email]',$this->crypt->encrypt($user->email),time() + 15 * 86400);
+            $this->cookies->set('auth[token]',$this->crypt->encrypt($token),time() + 15 * 86400);
         }
     }
 
