@@ -46,10 +46,7 @@ class UsersController extends myController
     {
         $this->session->set('auth',['id'=>$user->id,'name'=>$user->name]);
         if($remember == 'on'){
-            $token = $this->security->getToken();
-            $user->save(['remember_token'=>$token]);
-            $this->cookies->set('auth[email]',$this->crypt->encrypt($user->email),time() + 15 * 86400);
-            $this->cookies->set('auth[token]',$this->crypt->encrypt($token),time() + 15 * 86400);
+            $this->setCookie($user);
         }
     }
 
@@ -60,5 +57,13 @@ class UsersController extends myController
         $this->cookies->get('auth[email]')->delete();
         $this->cookies->get('auth[token]')->delete();
     }
+    protected function setCookie(Users $user)
+    {
+        $token = $this->security->getToken();
+        $user->save(['remember_token' => $token]);
+        $this->cookies->set('auth[email]', $this->crypt->encrypt($user->email), time() + 15 * 86400);
+        $this->cookies->set('auth[token]', $this->crypt->encrypt($token), time() + 15 * 86400);
+    }
+
 }
 

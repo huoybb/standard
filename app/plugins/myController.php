@@ -79,7 +79,4 @@ abstract class myController extends Controller
         return $this->view->disable();
     }
 
-
-
-
 }

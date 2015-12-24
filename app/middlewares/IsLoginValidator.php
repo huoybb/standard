@@ -16,12 +16,11 @@ class IsLoginValidator extends myValidation{
         if($this->cookies->has('auth')) {
             $auth = $this->getCookie();
             $user = Users::findByCookieAuth($auth);
+            if(!$user) return false;
             $this->flash->success('欢迎'.$user->name.'登录！你上次登录的时间是：'.$user->updated_at);
             $this->session->set('auth',['id'=>$user->id,'name'=>$user->name]);
             //登录
-//            $token = $this->security->getToken();
-//            $this->cookies->set('auth[token]',$token,time() + 15 * 86400);
-//            $user->save(['remember_token'=>$token]);
+            $this->setCookie($user);
             return true;
         }
         return false;
@@ -41,5 +40,15 @@ class IsLoginValidator extends myValidation{
         }
         return $auth;
     }
+//这部分与usercontroller中的东西有重复
+    private function setCookie(Users $user)
+    {
+        $token = $this->security->getToken();
+        $user->save(['remember_token'=>$token]);
+        $this->cookies->set('auth[email]',$this->crypt->encrypt($user->email),time() + 15 * 86400);
+        $this->cookies->set('auth[token]',$this->crypt->encrypt($token),time() + 15 * 86400);
+
+    }
+
 
 } 
