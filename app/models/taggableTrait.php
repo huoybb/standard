@@ -25,11 +25,12 @@ trait taggableTrait
     {
         $taggables = $this->getTaggable($tag);
         if($taggables == null){
+            $user = \Phalcon\Di::getDefault()->get('auth');
             $data = [
                 'tag_id'=>$tag->id,
                 'taggable_type'=>get_class($this),
                 'taggable_id'=>$this->id,
-                'user_id'=>1//@todo 改成auth的变量
+                'user_id'=>$user->id
             ];
             $taggable = new Taggables();
             $taggable->save($data);
@@ -71,12 +72,13 @@ trait taggableTrait
         /** @var myModel $this */
         return $this->make('taggableComments',function() use($tag){
             $query = Comments::query()
+                ->leftJoin('Users','Comments.user_id = Users.id')
                 ->leftJoin('Taggables','commentable_type = "Taggables" AND commentable_id = Taggables.id')
                 ->leftJoin('Files','Taggables.taggable_type = "Files" AND Taggables.taggable_id = Files.id')
                 ->leftJoin('Tags','Taggables.tag_id = Tags.id')
                 ->where('Files.id = :id:',['id'=>$this->id])
                 ->orderBy('Comments.updated_at DESC')
-                ->columns(['Tags.*','Comments.*']);
+                ->columns(['Tags.*','Comments.*','Users.*']);
             if($tag <> null) $query=$query->andWhere('Tags.id = :tag:',['tag'=>$tag->id]);
             return $query->execute();
         });

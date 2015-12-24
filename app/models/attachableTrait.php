@@ -34,12 +34,13 @@ trait attachableTrait
 
     public function uploadAndStoreAttachment(\Phalcon\Http\Request $request)
     {
+        $user = \Phalcon\Di::getDefault()->get('auth');
         /** @var myModel $this */
         foreach($request->getUploadedFiles() as $f){
             $data = [];
             $data['name'] = $f->getName();
             $data['url']=myTools::storeAttachment($f);
-            $data['user_id'] = 1;
+            $data['user_id'] = $user->id;
             $data['attachable_id'] = $this->id;
             $data['attachable_type'] = get_class($this);
             (new Attachments())->save($data);

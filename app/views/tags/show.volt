@@ -101,7 +101,7 @@
         <ul>
             {% for comment in mytag.getTaggedFileComments() %}
                 <li>
-                    <div><span>@<a href="{{ url(['for':'tags.showItem','tag':mytag.id,'item':mytag.getItemID(comment.files)]) }}">{{ comment.files.title|cut }}</a></span> <span>by <a href="#"> {{ comment.comments.user_id }}</a></span>--<span>at: {{ comment.comments.updated_at.diffForHumans() }}</span>
+                    <div><span>@<a href="{{ url(['for':'tags.showItem','tag':mytag.id,'item':mytag.getItemID(comment.files)]) }}">{{ comment.files.title|cut }}</a></span> <span>by <a href="#"> {{ comment.users.name }}</a></span>--<span>at: {{ comment.comments.updated_at.diffForHumans() }}</span>
                         {#{% if auth.has(comment) %}#}
                         <span><a href="{{ url(['for':'standards.editComment','file':comment.files.id,'comment':comment.comments.id]) }}">edit</a></span>
                         <span><a href="{{ url(['for':'standards.deleteComment','file':comment.files.id,'comment':comment.comments.id]) }}" class="delete">delete</a></span>

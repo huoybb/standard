@@ -23,10 +23,12 @@ trait commentableTrait
         /** @var myModel $this */
         return $this->make('comments',function(){
             return Comments::query()
-                ->where('commentable_id = :tag_id:')
-                ->andWhere('commentable_type = :type:')
-                ->bind(['tag_id'=>$this->id,'type'=>get_class($this)])
-                ->orderBy('updated_at Desc')
+                ->leftJoin('Users','Users.id = Comments.user_id')
+                ->where('Comments.commentable_id = :id:')
+                ->andWhere('Comments.commentable_type = :type:')
+                ->bind(['id'=>$this->id,'type'=>get_class($this)])
+                ->orderBy('Comments.updated_at Desc')
+                ->columns(['Comments.*','Users.*'])
                 ->execute();
         });
 
@@ -40,7 +42,8 @@ trait commentableTrait
         $comment->commentable_id = $this->id;
         $comment->commentable_type = get_class($this);
 //        $comment->user_id = $this->getDI()->getShared('session')->get('auth')['id'];//获得当前登录对象的id
-        $comment->user_id = 1;//获得当前登录对象的id
+        $user = \Phalcon\Di::getDefault()->get('auth');
+        $comment->user_id = $user->id;//获得当前登录对象的id
 //        dd($comment);
         $comment->save();
         /** @var myModel $this */

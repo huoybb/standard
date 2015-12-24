@@ -12,9 +12,10 @@ trait LinkableTrait
     {
         /** @var myModel $this */
         $link = new Link();
+        $user = \Phalcon\Di::getDefault()->get('auth');
         $link->save([
             'url'=>$url,
-            'user_id'=>1,//@todo 将来替换成登录的用户id
+            'user_id'=>$user->id,
             'linkable_type'=>get_class($this),
             'linkable_id'=>$this->id
         ]);
