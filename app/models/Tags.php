@@ -142,9 +142,11 @@ class Tags extends myModel
     public function getTaggedFiles()
     {
         return $this->make('files',function(){
+            $user  = \Phalcon\Di::getDefault()->get('auth');
             return Files::query()
                 ->rightJoin('Taggables','Taggables.taggable_id = Files.id AND Taggables.taggable_type="Files"')
                 ->where('Taggables.tag_id = :tag:',['tag'=>$this->id])
+                ->andWhere('Taggables.user_id = :user:',['user'=>$user->id])
                 ->columns(['Files.*','Taggables.*'])
                 ->groupBy('Files.id')
                 ->orderBy('Taggables.created_at DESC')//按照生成的时间排序，如果按照更新的时间排序，则会出现不稳定的现象，这个问题在多人一同操作的时候可能会发生，需要避免的
@@ -157,11 +159,13 @@ class Tags extends myModel
     {
         return $this->make('files',function() use($month){
             list($startTime,$endTime) = myTools::getBetweenTimes($month);
+            $user = \Phalcon\Di::getDefault()->get('auth');
             return Files::query()
                 ->rightJoin('Taggables','Taggables.taggable_id = Files.id AND Taggables.taggable_type="Files"')
                 ->where('Taggables.tag_id = :tag:',['tag'=>$this->id])
                 ->andWhere('Taggables.created_at > :start:',['start'=>$startTime->toDateTimeString()])
                 ->andWhere('Taggables.created_at < :end:',['end'=>$endTime->toDateTimeString()])
+                ->andWhere('Taggables.user_id = :user:',['user'=>$user->id])
                 ->columns(['Files.*','Taggables.*'])
                 ->groupBy('Files.id')
                 ->orderBy('Taggables.created_at DESC')//按照生成的时间排序，如果按照更新的时间排序，则会出现不稳定的现象，这个问题在多人一同操作的时候可能会发生，需要避免的
@@ -172,9 +176,11 @@ class Tags extends myModel
 
     public function getArchiveStatisticsByMonth()
     {
+        $user = \Phalcon\Di::getDefault()->get('auth');
         $query = Files::query()
             ->rightJoin('Taggables','Taggables.taggable_id = Files.id AND Taggables.taggable_type="Files"')
             ->where('Taggables.tag_id = :tag:',['tag'=>$this->id])
+            ->andWhere('Taggables.user_id = :user:',['user'=>$user->id])
             ->columns(['count(Files.id) AS num','DATE_FORMAT(Taggables.created_at,"%Y-%m") As month'])
             ->groupBy('month')
             ->orderBy('month DESC');
@@ -235,13 +241,18 @@ class Tags extends myModel
     }
 
     /**这个函数将来在PHP7中能够更加简化
+     * 针对不同的登录用户，显示当前登录用户的标签
      * @return mixed
      */
     public function getAllTags()
     {
         return $this->make('allTags',function(){
+            $user = \Phalcon\Di::getDefault()->get('auth');
             return Tags::query()
-                ->orderBy('updated_at DESC')
+                ->leftJoin('Taggables','Taggables.tag_id = Tags.id')
+                ->where('Taggables.user_id = :user:',['user'=>$user->id])
+                ->groupBy('Tags.id')
+                ->orderBy('Tags.updated_at DESC')
                 ->execute();
         });
     }

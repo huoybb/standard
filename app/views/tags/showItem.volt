@@ -25,7 +25,7 @@
         <ul>
             {% for comment in file.getTaggableComments(mytag) %}
                 <li>
-                    <div> <span>by <a href="#"> {{ comment.comments.user_id }}</a></span>--<span>at: {{ comment.comments.updated_at.diffForHumans() }}</span>
+                    <div> <span>by <a href="#"> {{ comment.users.name }}</a></span>--<span>at: {{ comment.comments.updated_at.diffForHumans() }}</span>
                         {#{% if auth.has(comment) %}#}
                         <span><a href="{{ url(['for':'standards.editComment','file':file.id,'comment':comment.comments.id]) }}">edit</a></span>
                         <span><a href="{{ url(['for':'standards.deleteComment','file':file.id,'comment':comment.comments.id]) }}" class="delete">delete</a></span>

@@ -17,25 +17,48 @@ trait taggableTrait
                 ->leftJoin('Tags','Tags.id = Taggables.tag_id')
                 ->where('Taggables.taggable_type = :type:',['type'=>get_class($this)])
                 ->andWhere('Taggables.taggable_id = :id:',['id'=>$this->id])
+                ->groupBy('Tags.id')
+                ->columns(['Tags.id','Tags.name','Taggables.updated_at','Taggables.id AS tid','Count(Tags.id) AS Count'])
+                ->execute();
+        });
+    }
+    
+    public function myTags()
+    {
+        /** @var myModel $this */
+        return $this->make('mytags',function(){
+            $user = \Phalcon\Di::getDefault()->get('auth');
+            /** @var myModel $this */
+            return Taggables::query()
+                ->leftJoin('Tags','Tags.id = Taggables.tag_id')
+                ->where('Taggables.taggable_type = :type:',['type'=>get_class($this)])
+                ->andWhere('Taggables.taggable_id = :id:',['id'=>$this->id])
+                ->andWhere('Taggables.user_id = :user:',['user'=>$user->id])
+                ->groupBy('Tags.id')
                 ->columns(['Tags.id','Tags.name','Taggables.updated_at','Taggables.id AS tid'])
                 ->execute();
         });
     }
+    
     public function addTag(Tags $tag)
     {
+        $user = \Phalcon\Di::getDefault()->get('auth');
+
         $taggables = $this->getTaggable($tag);
-        if($taggables == null){
-            $user = \Phalcon\Di::getDefault()->get('auth');
-            $data = [
-                'tag_id'=>$tag->id,
-                'taggable_type'=>get_class($this),
-                'taggable_id'=>$this->id,
-                'user_id'=>$user->id
-            ];
-            $taggable = new Taggables();
-            $taggable->save($data);
-            $tag->increaseCount('taggableCount');
+        foreach($taggables as $t){
+            if($t->user_id == $user->id) return $this;
         }
+
+        $data = [
+            'tag_id'=>$tag->id,
+            'taggable_type'=>get_class($this),
+            'taggable_id'=>$this->id,
+            'user_id'=>$user->id
+        ];
+        $taggable = new Taggables();
+        $taggable->save($data);
+
+        if($taggables->count() == 0) $tag->increaseCount('taggableCount');
         return $this;
     }
     public function deleteTag(Taggables $taggable){
@@ -65,7 +88,7 @@ trait taggableTrait
             ->where('tag_id = :tag:',['tag'=>$tag->id])
             ->andWhere('taggable_type = :type:',['type'=>get_class($this)])
             ->andWhere('taggable_id = :id:',['id'=>$this->id])
-            ->execute()->getFirst();
+            ->execute();
     }
     public function getTaggableComments(Tags $tag=null)
     {

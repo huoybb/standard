@@ -68,7 +68,7 @@ class TagsController extends myController
 //        dd($file->getTaggableComments());
 
         $this->view->file = $file;
-        $this->view->form = myForm::buildCommentForm($file->getTaggable($tag));
+        $this->view->form = myForm::buildCommentForm($file->getTaggable($tag)->getFirst());
 
 
     }

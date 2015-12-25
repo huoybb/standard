@@ -6,7 +6,6 @@
  * Date: 2015/11/28
  * Time: 17:20
  */
-use Goutte\Client;
 abstract class WanfangWebParser extends myParser
 {
     protected $format = [];
