@@ -52,6 +52,11 @@ trait commentableTrait
         }else{
             $this->save();//更新时间
         }
+
+        if(is_a($this,'Tags')){
+            $meta = $this->getTagmetaOrNew();
+            $meta->save();
+        }
         return $this;
     }
 

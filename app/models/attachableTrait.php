@@ -47,6 +47,10 @@ trait attachableTrait
             
             $this->increaseCount('attachmentCount');
         }
+        if(is_a($this,'Tags')){
+            $meta = $this->getTagmetaOrNew();
+            $meta->save();
+        }
         return $this;
     }
 
