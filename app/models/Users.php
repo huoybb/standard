@@ -128,5 +128,16 @@ class Users extends myModel
             'updated_at' => 'updated_at'
         );
     }
+    public function getMyTags()
+    {
+        $user = \Phalcon\Di::getDefault()->get('auth');
+        return Tagmetas::query()
+            ->leftJoin('Tags','Tags.id = Tagmetas.tag_id')
+            ->where('Tagmetas.user_id = :user:',['user'=>$user->id])
+            ->orderBy('Tagmetas.updated_at')
+            ->columns(['Tags.*','Tagmetas.*'])
+            ->execute();
+    }
+
 
 }

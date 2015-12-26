@@ -257,6 +257,18 @@ class Tags extends myModel
         });
     }
 
-
+    public function getTagmetaOrNew()
+    {
+        $user = \Phalcon\Di::getDefault()->get('auth');
+        $meta = Tagmetas::query()
+            ->where('tag_id = :tag:',['tag'=>$this->id])
+            ->andWhere('user_id = :user:',['user'=>$user->id])
+            ->execute()->getFirst();
+        if($meta) return $meta;
+        return new Tagmetas([
+            'tag_id'=>$this->id,
+            'user_id'=>$user->id,
+        ]);
+    }
 
 }
