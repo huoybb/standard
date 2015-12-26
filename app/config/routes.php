@@ -14,10 +14,7 @@ $router->add('/search/{search:[^/]+}/{item:[0-9]+}','standards::showSearchItem')
 
 $router->addx('/standards/add','standards::add',['standardRules'])->setName('standards.add');
 $router->add('/standards/addDoD','standards::addDoD')->setName('standards.addDoD');
-
 $router->add('/standards/addWebData/{type}/{source_id}','standards::getWebData')->setName('standards.getWebData');
-
-$router->add('/standards/addTag2List','standards::addTag2List')->setName('standards.list.addTag');
 
 $router->add('/standards/archive/{month:[-0-9]+}','standards::archive')->setName('standards.archive');
 $router->add('/standards/archive/{month:[-0-9]+}/page/{page:[0-9]+}','standards::archive')->setName('standards.archive.page');
@@ -38,6 +35,8 @@ $router->add('/standards/{file:[0-9]+}/Attachments/{attachment:[0-9]+}/delete','
 $router->add('/standards/{file:[0-9]+}/addTag','standards::addTag')->setName('standards.addTag');
 $router->add('/standards/{file:[0-9]+}/deleteTag/{taggable:[0-9]+}','standards::deleteTag')->setName('standards.deleteTag');
 $router->add('/standards/{file:[0-9]+}/tags','standards::showTags')->setName('standards.showTags');
+$router->add('/standards/addTag2List','standards::addTag2List')->setName('standards.list.addTag');
+
 
 $router->add('/standards/{file:[0-9]+}/addLink','standards::addLink')->setName('standards.addLink');
 $router->add('/standards/{file:[0-9]+}/Links','standards::showLinks')->setName('standards.showLinks');

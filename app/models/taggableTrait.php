@@ -46,7 +46,7 @@ trait taggableTrait
 
         $taggables = $this->getTaggable($tag);
         foreach($taggables as $t){
-            if($t->user_id == $user->id) return $this;
+            if($t->user_id == $user->id) return $this;//如果当前用户已经加过该taggable，则直接返回
         }
 
         $data = [

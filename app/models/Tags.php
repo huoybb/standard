@@ -201,12 +201,19 @@ class Tags extends myModel
     {
         /** @var myModel $this */
         return $this->make('taggedFileComments',function(){
+            $files = $this->getTaggedFiles();
+            $ids = [];
+            foreach($files as $f){
+                $ids[]=$f->files->id;
+            }
+            if(count($ids) == 0) return [];
             $query = Comments::query()
                 ->leftJoin('Users','Users.id = Comments.user_id')
                 ->leftJoin('Taggables','commentable_type = "Taggables" AND commentable_id = Taggables.id')
                 ->leftJoin('Files','Taggables.taggable_type = "Files" AND Taggables.taggable_id = Files.id')
                 ->leftJoin('Tags','Taggables.tag_id = Tags.id')
                 ->Where('Tags.id = :tag:',['tag'=>$this->id])
+                ->inWhere('Files.id',$ids)
                 ->orderBy('Comments.updated_at DESC')
                 ->columns(['Files.*','Comments.*','Users.*']);
             return $query->execute();
