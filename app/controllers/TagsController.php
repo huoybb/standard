@@ -83,7 +83,9 @@ class TagsController extends myController
 
     public function deleteItemAction($tag,Taggables $taggable)
     {
-        $taggable->delete();
+        /** @var Files $file */
+        $file = $taggable->getTagged();
+        $file->deleteTag($taggable);
         return $this->redirectByRoute(['for'=>'tags.show','tag'=>$tag]);
     }
 

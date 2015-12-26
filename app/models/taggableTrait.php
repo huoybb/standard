@@ -58,13 +58,22 @@ trait taggableTrait
         $taggable = new Taggables();
         $taggable->save($data);
 
+        $meta = $tag->getTagmetaOrNew();
+        $meta->save(['taggableCount'=>$meta->taggableCount+1]);
+
         if($taggables->count() == 0) $tag->increaseCount('taggableCount');
         return $this;
     }
     public function deleteTag(Taggables $taggable){
         $tag = $taggable->tag();
         $taggable->delete();
-        $tag->decreaseCount('taggableCount');
+
+        $taggables = $this->getTaggable($tag);
+        if($taggables->count() == 0) $tag->decreaseCount('taggableCount');
+
+        $meta = $tag->getTagmetaOrNew();
+        $meta->save(['taggableCount'=>$meta->taggableCount-1]);
+
         return $this;
     }
     public function beforeDeleteForTaggables()
@@ -83,11 +92,13 @@ trait taggableTrait
      * @param Tags $tag
      * @return myModel
      */
-    public function getTaggable(Tags $tag){
-        return Taggables::query()
+    public function getTaggable(Tags $tag,Users $user = null){
+        $query = Taggables::query()
             ->where('tag_id = :tag:',['tag'=>$tag->id])
             ->andWhere('taggable_type = :type:',['type'=>get_class($this)])
-            ->andWhere('taggable_id = :id:',['id'=>$this->id])
+            ->andWhere('taggable_id = :id:',['id'=>$this->id]);
+        if($user) $query->andWhere('user_id = :user:',['user'=>$user->id]);
+        return $query
             ->execute();
     }
     public function getTaggableComments(Tags $tag=null)
