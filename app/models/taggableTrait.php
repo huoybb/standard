@@ -74,6 +74,8 @@ trait taggableTrait
         $meta = $tag->getTagmetaOrNew();
         $meta->save(['taggableCount'=>$meta->taggableCount-1]);
 
+        if($meta->taggableCount == 0) $meta->delete();
+
         return $this;
     }
     public function beforeDeleteForTaggables()

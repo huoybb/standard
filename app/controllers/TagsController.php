@@ -91,10 +91,7 @@ class TagsController extends myController
 
     public function deleteAction(Tags $tag)
     {
-        foreach($tag->taggables() as $taggable){
-            $taggable->delete();
-        }
-        $tag->delete();
+        $tag->deleteByCurrentUser();
         return $this->redirectByRoute(['for'=>'home']);
     }
 

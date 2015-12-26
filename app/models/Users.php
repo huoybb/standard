@@ -134,7 +134,7 @@ class Users extends myModel
         return Tagmetas::query()
             ->leftJoin('Tags','Tags.id = Tagmetas.tag_id')
             ->where('Tagmetas.user_id = :user:',['user'=>$user->id])
-            ->orderBy('Tagmetas.updated_at')
+            ->orderBy('Tagmetas.updated_at DESC')
             ->columns(['Tags.*','Tagmetas.*'])
             ->execute();
     }

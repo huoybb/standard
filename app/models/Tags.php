@@ -239,6 +239,25 @@ class Tags extends myModel
         }
         return false;
     }
+    public function deleteByCurrentUser()
+    {
+        $user = \Phalcon\Di::getDefault()->get('auth');
+        $taggables = Taggables::query()
+            ->where('tag_id = :tag:',['tag'=>$this->id])
+            ->andWhere('user_id = :user:',['user'=>$user->id])
+            ->execute();
+        $taggables->delete();
+        $taggables = Taggables::query()
+            ->where('tag_id = :tag:',['tag'=>$this->id])
+            ->execute();
+
+        $meta = $this->getTagmetaOrNew();
+        $meta->delete();
+
+        if($taggables->count() == 0) $this->delete();
+
+    }
+
 
     /**这个函数将来在PHP7中能够更加简化
      * 针对不同的登录用户，显示当前登录用户的标签
