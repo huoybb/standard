@@ -41,13 +41,12 @@ class IsLoginValidator extends myValidation{
         return $auth;
     }
 //这部分与usercontroller中的东西有重复
-    private function setCookie(Users $user)
+    public function setCookie(Users $user)
     {
         $token = $this->security->getToken();
         $user->save(['remember_token'=>$token]);
-        $this->cookies->set('auth[email]',$this->crypt->encrypt($user->email),time() + 15 * 86400);
-        $this->cookies->set('auth[token]',$this->crypt->encrypt($token),time() + 15 * 86400);
-
+        setcookie('auth[email]',$this->crypt->encrypt($user->email),time() + 15 * 86400);
+        setcookie('auth[token]',$this->crypt->encrypt($token),time() + 15 * 86400);
     }
 
 
