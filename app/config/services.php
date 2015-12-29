@@ -170,4 +170,4 @@ $di->set("allTags",function(){
  */
 $di->set('auth',function() use($di){
     return Users::findFirst($di->get('session')->get('auth')['id']);
-});
+},true);

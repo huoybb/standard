@@ -1,5 +1,8 @@
 {
     "require": {
         "nesbot/carbon": "^1.20"
+    },
+    "require-dev": {
+        "snowair/phalcon-debugbar": "^1.1"
     }
 }
