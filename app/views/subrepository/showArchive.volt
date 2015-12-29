@@ -1,17 +1,15 @@
-{% extends 'index/index.volt' %}
+{% extends 'subrepository/show.volt' %}
 
-{% block title %}
-    {{ page.repository.getDBName() }}--我的文档库
-{% endblock %}
 {% block breadcrumb %}
     <ol class="breadcrumb">
         <li><a href="{{ url.getBaseUri() }}">首页</a></li>
-        <li class="active">子库：{{ page.repository.getDBName() }}</li>
+        <li><a href="{{ url(['for':'subRepository','repository':page.repository.getModelType()]) }}">子库：{{ page.repository.getDBName() }}</a></li>
+        <li class="active">月度:{{ page.month }}</li>
     </ol>
 {% endblock %}
 {% block listTitle %}
     <h1>
-            {{ page.repository.getDBName() }}文档汇总 <span class="badge">{{ page.total_items }}</span>
+            {{ page.repository.getDBName() }}:{{ page.month }} <span class="badge">{{ page.total_items }}</span>
     </h1>
 {% endblock %}
 {% block listInfo %}
@@ -26,10 +24,10 @@
         <nav>
             <ul class="pager">
                 <li class="previous"><a href="
-                    {{ url.get(['for':'subRepository.page','page':page.before,'repository':page.repository.getModelType()]) }}
+                    {{ url.get(['for':'subRepository.showArchive.page','month':page.month,'page':page.before,'repository':page.repository.getModelType()]) }}
                 "><span aria-hidden="true">&larr;</span> 上一页</a></li>
                 <li class="next"><a href="
-                    {{ url.get(['for':'subRepository.page','page':page.next,'repository':page.repository.getModelType()]) }}
+                    {{ url.get(['for':'subRepository.showArchive.page','month':page.month,'page':page.next,'repository':page.repository.getModelType()]) }}
                 ">下一页 <span aria-hidden="true">&rarr;</span></a></li>
             </ul>
         </nav>
@@ -74,15 +72,6 @@
 {% endblock %}
 
 {% block sidebar %}
-
-    <div class="row">
-        <h2>Archives</h2>
-        <ul>
-            {% for data in page.repository.getStatisticsByMonth() %}
-                <li><a href="{{ url(['for':'subRepository.showArchive','repository':page.repository.getModelType(),'month':data.month]) }}">{{ data.month }}</a>  ({{ data.num }})</li>
-            {% endfor %}
-        </ul>
-    </div>
     {% include "layouts/partial/allTagList.volt" %}
 {% endblock %}
 

@@ -79,6 +79,10 @@ $router->add('/taggables/{taggable:[0-9]+}/addComment','tags::commentItem')->set
 $router->add('/subRepository/{repository}','subrepository::show')->setName('subRepository');
 $router->add('/subRepository/{repository}/page/{page:[0-9]+}','subrepository::show')->setName('subRepository.page');
 
+$router->add('/subRepository/{repository}/archive/{month:[-0-9]+}','subrepository::showArchive')->setName('subRepository.showArchive');
+$router->add('/subRepository/{repository}/archive/{month:[-0-9]+}/page/{page:[0-9]+}','subrepository::showArchive')->setName('subRepository.showArchive.page');
+
+
 $router->add('/login','Users::login')->setName('login');
 $router->add('/logout','Users::logout')->setName('logout');
 

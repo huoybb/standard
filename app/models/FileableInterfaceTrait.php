@@ -90,5 +90,11 @@ trait FileableInterfaceTrait
             ->execute()->getFirst();
     }
 
+    public function getStatisticsByMonth()
+    {
+        return (new Files())->getStaticsByMonth($this->getClassName());
+    }
+
+
 
 }
