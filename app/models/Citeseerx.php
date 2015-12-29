@@ -107,9 +107,8 @@ class Citeseerx extends \Phalcon\Mvc\Model implements FileableInterface
     public function format()
     {
         return [
-            'title' => 'title',
+            'source_id' => '序列号',
             'authors' => 'authors',
-            'source_id' => 'source_id',
             'venue' => 'venue',
             'citations' => 'citations',
             'abstract' => 'abstract',
@@ -117,12 +116,12 @@ class Citeseerx extends \Phalcon\Mvc\Model implements FileableInterface
     }
     public function getType()
     {
-        return 'Citeseerx';
+        return self::getDatabaseName();
     }
 
     public static function getDatabaseName()
     {
-        return 'Citeseerx';
+        return 'CiteSeerX';
     }
     public function getDBDescription()
     {
