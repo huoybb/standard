@@ -145,19 +145,6 @@ class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
             'file_id' => 'file_id'
         );
     }
-    /**
-     * @param $souceId
-     * @return OaiDticMil
-     */
-    public static function findBySourceId($souceId)
-    {
-        return self::query()
-            ->where('source_id = :source_id:',['source_id'=>$souceId])
-            ->execute()->getFirst();
-    }
-
-
-
 
     public function format()
     {

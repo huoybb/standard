@@ -162,13 +162,6 @@ class Wanfangconference extends \Phalcon\Mvc\Model implements FileableInterface
     }
 
 
-    public static function findBySourceId($souceId)
-    {
-        return self::query()
-            ->where('source_id = :id:',['id'=>$souceId])
-            ->execute()->getFirst();
-    }
-
 
     public function getType()
     {

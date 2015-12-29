@@ -113,17 +113,6 @@ class Everyspec extends \Phalcon\Mvc\Model implements FileableInterface
         return 'EverySpec';
     }
 
-    /**
-     * @param $file_id
-     * @return Everyspec
-     */
-    public static function findBySourceId($source_id)
-    {
-        return self::query()
-            ->where('source_id = :id:',['id'=>$source_id])
-            ->execute()->getFirst();
-    }
-
 
     public static function getDatabaseName()
     {

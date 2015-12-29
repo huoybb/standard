@@ -27,6 +27,7 @@ abstract class myParser
         'Conference'=>'wanfangConferenceParser',
         'DoDFile'=>'oai_dtic_mil_parser',
         'EverySpec'=>'everySpecParser',
+        'Citeseerx'=>'citeseerxParser',
     ];
 
     static protected $modelType = [
@@ -35,6 +36,7 @@ abstract class myParser
         'Conference'=>'Wanfangconference',
         'DoDFile'=>'OaiDticMil',
         'EverySpec'=>'Everyspec',
+        'Citeseerx'=>'Citeseerx',
     ];
 
     /**
@@ -56,10 +58,12 @@ abstract class myParser
      */
     public static function getModelBySourceId($type, $source_id = null)
     {
+//        dd($type.' '.$source_id);
         if(!isset(self::$modelType[$type])) dd('不存在这个类型'.$type);
         $className = self::$modelType[$type];
-
+//        dd($className);
         if($source_id <> null) return $className::findBySourceId($source_id);
+//        if($source_id <> null) return Citeseerx::findBySourceId($source_id);
 
         return new $className();
     }
@@ -89,12 +93,17 @@ abstract class myParser
     public static function getStatistics()
     {
         $result = [];
+//        dd(self::$modelType);
+        $className = 'Citeseerx';
+//        dd($className::count());
+//        dd(Citeseerx::count());
         foreach(self::$modelType as $type => $className){
             $result[]=[
                 'name'  =>  $className::getDatabaseName(),
                 'count' =>  $className::count(),
                 'type'  =>  $type,
             ];
+//            var_dump($result);
         }
         return $result;
     }

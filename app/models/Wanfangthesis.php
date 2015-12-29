@@ -120,16 +120,6 @@ class Wanfangthesis extends \Phalcon\Mvc\Model implements FileableInterface
         return parent::findFirst($parameters);
     }
 
-    /**
-     * @param $wanfangId
-     * @return Wanfangthesis
-     */
-    public static function findBySourceId($souceId)
-    {
-        return self::query()
-            ->where('source_id = :id:',['id'=>$souceId])
-            ->execute()->getFirst();
-    }
 
     /**
      * Independent Column Mapping.

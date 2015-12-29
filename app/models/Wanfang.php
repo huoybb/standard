@@ -83,17 +83,6 @@ class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
     public $file_id;
 
     /**
-     * @param $sourceId
-     * @return Wanfang
-     */
-    public static function findBySourceId($souceId)
-    {
-        return self::query()
-            ->where('source_id = :id:',['id'=>$souceId])
-            ->execute()->getFirst();
-    }
-
-    /**
      * Returns table name mapped in the model.
      *
      * @return string

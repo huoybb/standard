@@ -53,8 +53,9 @@ trait FileableTrait
     public function addWebFile($source_id,$type)
     {
         $parser = myParser::getParser($type,$source_id);//获取Parser
+//        dd($parser);
         $data = $parser->parseInfo();//抽取数据
-
+//        dd($data);
         /** @var myModel|FileableTrait $this */
         $this->save($parser->getDataForFile());//保存file对象
 

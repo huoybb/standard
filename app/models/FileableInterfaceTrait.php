@@ -83,5 +83,12 @@ trait FileableInterfaceTrait
         return get_class($this);
     }
 
+    public static function findBySourceId($souceId)
+    {
+        return static::query()
+            ->where('source_id = :id:',['id'=>$souceId])
+            ->execute()->getFirst();
+    }
+
 
 }
