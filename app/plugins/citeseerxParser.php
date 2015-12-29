@@ -20,7 +20,22 @@ class citeseerxParser extends myParser
         if (preg_match('/\s+by\s+(\S.+\S)\s+/m', $data, $regs)) {
             $result['authors'] = $regs[1];
         }
-        $result['abstract'] = $data = $crawler->filter('#abstract p')->text();
+        $result['abstract'] =  $crawler->filter('#abstract p')->text();
+
+        $data = $crawler->filter('#docVenue');
+        if($data->count()) {
+            if (preg_match('/Venue:(.+)/m', $data->text(), $regs)) {
+                $result['venue'] = $regs[1];
+            }
+        }
+
+        $data = $crawler->filter('#docCites');
+        if($data->count()){
+            if (preg_match('/Citations:(.+)/m', $data->text(), $regs)) {
+                $result['citations'] = $regs[1];
+            }
+        }
+
         $this->info = $result;
         return $this->info;
     }

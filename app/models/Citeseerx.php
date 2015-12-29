@@ -108,10 +108,10 @@ class Citeseerx extends \Phalcon\Mvc\Model implements FileableInterface
     {
         return [
             'source_id' => '序列号',
-            'authors' => 'authors',
-            'venue' => 'venue',
-            'citations' => 'citations',
-            'abstract' => 'abstract',
+            'authors' => '作者',
+            'venue' => '出处',
+            'citations' => '引证',
+            'abstract' => '摘要',
         ];
     }
     public function getType()
