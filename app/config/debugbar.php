@@ -111,7 +111,7 @@ return array(
 
 	'collectors' => array(
 		'memory'          => true,  // Memory usage
-		'exceptions'      => true,  // Exception displayer
+		'exceptions'      => false,  // Exception displayer
 		'default_request' => false, // Regular or special Symfony request logger
 		'phalcon_request' => true,  // Only one can be enabled..
 		'session'         => true,  // Display session data in a separate tab

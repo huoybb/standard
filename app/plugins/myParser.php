@@ -93,17 +93,17 @@ abstract class myParser
     public static function getStatistics()
     {
         $result = [];
-//        dd(self::$modelType);
-        $className = 'Citeseerx';
-//        dd($className::count());
-//        dd(Citeseerx::count());
-        foreach(self::$modelType as $type => $className){
-            $result[]=[
-                'name'  =>  $className::getDatabaseName(),
-                'count' =>  $className::count(),
-                'type'  =>  $type,
+        $data = Fileable::query()
+            ->groupBy('fileable_type')
+            ->columns(['count(file_id) AS count','fileable_type AS type'])
+            ->execute();
+        foreach($data as $row){
+            $className = $row->type;
+            $result[] = [
+                'name' => $className::getDatabaseName(),
+                'count'=> $row->count,
+                'type' => myParser::getModelType($className)
             ];
-//            var_dump($result);
         }
         return $result;
     }
