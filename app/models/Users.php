@@ -134,20 +134,18 @@ class Users extends myModel
      */
     public function getMyTags()
     {
-        /** @var Redis $redis */
+        /** @var myRedis $redis */
         $redis = \Phalcon\Di::getDefault()->get('redis');
-        $key = 'standard:user-'.$this->id.':tags';
-        if(!$redis->exists($key)){
+        if(!$redis->isTagsExist()){
             $data = Tagmetas::query()
                 ->leftJoin('Tags','Tags.id = Tagmetas.tag_id')
                 ->where('Tagmetas.user_id = :user:',['user'=>$this->id])
                 ->orderBy('Tagmetas.updated_at DESC')
                 ->columns(['Tags.*','Tagmetas.*'])
                 ->execute();
-            $redis->set($key,json_encode($data));
+            $redis->setTags($data);
         }
-        return json_decode($redis->get($key));
-
+        return $redis->getTags();
     }
 
 }

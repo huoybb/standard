@@ -141,10 +141,7 @@ $di->set('dispatcher',function(){
  * 设置redis
  */
 $di->set("redis", function() {
-    $redis = new Redis();
-    $redis->connect('127.0.0.1', 6379);
-
-    return $redis;
+    return new myRedis();
 },true);
 
 $di->set("carbon",function(){

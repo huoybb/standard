@@ -131,11 +131,9 @@ trait taggableTrait
      */
     protected function deleteCacheTags()
     {
-        $user = \Phalcon\Di::getDefault()->get('auth');
-        /** @var Redis $redis */
+        /** @var myRedis $redis */
         $redis = \Phalcon\Di::getDefault()->get('redis');
-        $key = 'standard:user-'.$user->id.':tags';
-        $redis->delete($key);
+        $redis->deleteTags();
     }
 
 
