@@ -217,6 +217,14 @@ class Tags extends myModel
                 ->orderBy('Comments.updated_at DESC')
                 ->columns(['Files.*','Comments.*','Users.*']);
             return $query->execute();
+
+//            $taggables = Taggables::query()
+//                ->leftJoin('Tags','Tags.id = Taggables.tag_id')
+//                ->where('Tags.id = :tag:',['tag'=>$this->id])
+//                ->leftJoin('Taggables','T2.taggable_id = Taggables.taggable_id AND T2.taggable_type = Taggables.taggable_type','T2')
+//                ->execute();
+//            dd($taggables->toArray());
+
         });
     }
 
