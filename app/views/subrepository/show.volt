@@ -74,7 +74,18 @@
 {% endblock %}
 
 {% block sidebar %}
-
+    <div class="row">
+        <h2>分库统计</h2>
+        <ul>
+            {% for data in page.statistics %}
+                {% if data['name'] is page.repository.getDBName() %}
+                    <li>{{ data['name'] }} ({{ data['count'] }})</li>
+                {% else %}
+                    <li><a href="{{ url(['for':'subRepository','repository':data['type']]) }}">{{ data['name'] }}</a> ({{ data['count'] }})</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
     <div class="row">
         <h2>Archives</h2>
         <ul>
