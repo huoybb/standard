@@ -296,5 +296,18 @@ class Tags extends myModel
             'user_id'=>$user->id,
         ]);
     }
+    public function beforeDeleteRemoveCacheTags()
+    {
+        $this->deleteCacheTags();
+    }
+
+    protected function deleteCacheTags()
+    {
+        $user = \Phalcon\Di::getDefault()->get('auth');
+        /** @var Redis $redis */
+        $redis = \Phalcon\Di::getDefault()->get('redis');
+        $key = 'standard:user-'.$user->id.':tags';
+        $redis->delete($key);
+    }
 
 }

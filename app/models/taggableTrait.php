@@ -44,6 +44,8 @@ trait taggableTrait
     {
         $user = \Phalcon\Di::getDefault()->get('auth');
 
+        $this->deleteCacheTags();
+
         $taggables = $this->getTaggable($tag);
         foreach($taggables as $t){
             if($t->user_id == $user->id) return $this;//如果当前用户已经加过该taggable，则直接返回
@@ -64,7 +66,10 @@ trait taggableTrait
         if($taggables->count() == 0) $tag->increaseCount('taggableCount');
         return $this;
     }
+
+
     public function deleteTag(Taggables $taggable){
+        $this->deleteCacheTags();
         $tag = $taggable->tag();
         $taggable->delete();
 
@@ -80,6 +85,7 @@ trait taggableTrait
     }
     public function beforeDeleteForTaggables()
     {
+        $this->deleteCacheTags();
         $taggables = Taggables::query()
             ->where('Taggables.taggable_type = :type:',['type'=>get_class($this)])
             ->andWhere('Taggables.taggable_id = :id:',['id'=>$this->id])
@@ -118,6 +124,18 @@ trait taggableTrait
             if($tag <> null) $query=$query->andWhere('Tags.id = :tag:',['tag'=>$tag->id]);
             return $query->execute();
         });
+    }
+
+    /**
+     *删除redis中的缓冲标签
+     */
+    protected function deleteCacheTags()
+    {
+        $user = \Phalcon\Di::getDefault()->get('auth');
+        /** @var Redis $redis */
+        $redis = \Phalcon\Di::getDefault()->get('redis');
+        $key = 'standard:user-'.$user->id.':tags';
+        $redis->delete($key);
     }
 
 

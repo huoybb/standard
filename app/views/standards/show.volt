@@ -4,13 +4,13 @@
     <div class="row" id="nav">
         <nav>
             <ul class="pager">
+
                 <li class="previous"><a href="{{ url.get(['for':'standards.show','file':file.getPrevious().id]) }}"><span aria-hidden="true">&larr;</span> 上一个</a></li>
                 <li class="next"><a href="{{ url.get(['for':'standards.show','file':file.getNext().id]) }}">下一个 <span aria-hidden="true">&rarr;</span></a></li>
             </ul>
         </nav>
     </div>
 {% endblock %}
-
 {% block otherCommentList %}
     {% if file.getTaggableComments().count() %}
         <h2>在标签下的评论</h2>

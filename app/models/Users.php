@@ -128,16 +128,26 @@ class Users extends myModel
             'updated_at' => 'updated_at'
         );
     }
+
+    /**这个函数的执行时间会比较长，这个需要缓冲一下来加速
+     * @return mixed
+     */
     public function getMyTags()
     {
-        $user = \Phalcon\Di::getDefault()->get('auth');
-        return Tagmetas::query()
-            ->leftJoin('Tags','Tags.id = Tagmetas.tag_id')
-            ->where('Tagmetas.user_id = :user:',['user'=>$user->id])
-            ->orderBy('Tagmetas.updated_at DESC')
-            ->columns(['Tags.*','Tagmetas.*'])
-            ->execute();
-    }
+        /** @var Redis $redis */
+        $redis = \Phalcon\Di::getDefault()->get('redis');
+        $key = 'standard:user-'.$this->id.':tags';
+        if(!$redis->exists($key)){
+            $data = Tagmetas::query()
+                ->leftJoin('Tags','Tags.id = Tagmetas.tag_id')
+                ->where('Tagmetas.user_id = :user:',['user'=>$this->id])
+                ->orderBy('Tagmetas.updated_at DESC')
+                ->columns(['Tags.*','Tagmetas.*'])
+                ->execute();
+            $redis->set($key,json_encode($data));
+        }
+        return json_decode($redis->get($key));
 
+    }
 
 }

@@ -59,6 +59,7 @@
     {% endif %}
 {% endblock %}
 {% block content %}
+    {{ startMeasure('s1','正文列表加载') }}
     {{ form(url(['for':'standards.list.addTag']), "method": "post","id":"list-tag-form","class":'form-inline') }}
         <table class="table table-hover table-layout:fixed">
             <tr>
@@ -92,10 +93,17 @@
         </table>
     {% include "layouts/partial/fileList.commandButton.volt" %}
     {{ endform() }}
+    {{ stopMeasure('s1') }}
 {% endblock %}
 
 {% block comments %}
+    {{ startMeasure('s2','评论加载') }}
+    {{ startMeasure('s2-1','标签评论的加载') }}
     {% include 'layouts/partial/commentListForTag.volt' %}
+    {{ stopMeasure('s2-1') }}
+    {{ startMeasure('s2-2','本标签下评论加载') }}
+    {{ debug(mytag.getTaggedFileComments()) }}
+    {{ info('测试一下') }}
     {% if mytag.getTaggedFileComments().count() %}
         <h2>在本标签下的评论</h2>
         <ul>
@@ -114,10 +122,13 @@
             {% endfor %}
         </ul>
     {% endif %}
+    {{ stopMeasure('s2-2') }}
     {% include'layouts/partial/commentform.volt' %}
+    {{ stopMeasure('s2') }}
 {% endblock %}
 
 {% block sidebar %}
+    {{ startMeasure('s3','sidebar加载') }}
     <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/tag.js"></script>
     <div class="row">
         <div class="fileUpload" id="fileUpload">
@@ -135,4 +146,5 @@
         </ul>
     </div>
     {{ super() }}
+    {{ stopMeasure('s3') }}
 {% endblock %}
