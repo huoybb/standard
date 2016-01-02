@@ -33,7 +33,7 @@ class UsersController extends myController
     }
     public function logoutAction()
     {
-        $this->distroySession();
+        $this->destroySession();
         $this->redirectByRoute(['for'=>'login']);
     }
 
@@ -51,7 +51,7 @@ class UsersController extends myController
         }
     }
 
-    private function distroySession()
+    private function destroySession()
     {
         $this->auth->save(['remember_token'=>$this->security->getToken()]);
         $this->session->remove('auth');

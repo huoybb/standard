@@ -102,8 +102,8 @@ $di->set('cookies', function() {
 //
 $di->set('crypt', function() use($di) {
     $crypt = new \Phalcon\Crypt();
-//    $crypt->setMode(MCRYPT_MODE_CFB);
-    $crypt->setKey('myCryptKey');
+    //这里需要设置16位密码，或者24位、32位
+    $crypt->setKey('myCryptKey024025');
     return $crypt;
 },true);
 
