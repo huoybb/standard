@@ -201,30 +201,19 @@ class Tags extends myModel
     {
         /** @var myModel $this */
         return $this->make('taggedFileComments',function(){
-            $files = $this->getTaggedFiles();
-            $ids = [];
-            foreach($files as $f){
-                $ids[]=$f->files->id;
-            }
-            if(count($ids) == 0) return [];
-            $query = Comments::query()
-                ->leftJoin('Users','Users.id = Comments.user_id')
-                ->leftJoin('Taggables','commentable_type = "Taggables" AND commentable_id = Taggables.id')
-                ->leftJoin('Files','Taggables.taggable_type = "Files" AND Taggables.taggable_id = Files.id')
-                ->leftJoin('Tags','Taggables.tag_id = Tags.id')
-                ->Where('Tags.id = :tag:',['tag'=>$this->id])
-                ->inWhere('Files.id',$ids)
+            $user = \Phalcon\Di::getDefault()->get('auth');
+            $comments = Comments::query()
+                ->leftJoin('Taggables','Comments.commentable_type = "Taggables" AND Comments.commentable_id = t1.id','t1')
+                ->where('t1.tag_id = :tag:',['tag'=>$this->id])
+                ->leftJoin('Taggables','t1.taggable_type = t2.taggable_type AND t1.taggable_id = t2.taggable_id','t2')
+                ->andWhere('t2.user_id = :user:',['user'=>$user->id])
+                ->groupBy('Comments.id')
                 ->orderBy('Comments.updated_at DESC')
-                ->columns(['Files.*','Comments.*','Users.*']);
-            return $query->execute();
-
-//            $taggables = Taggables::query()
-//                ->leftJoin('Tags','Tags.id = Taggables.tag_id')
-//                ->where('Tags.id = :tag:',['tag'=>$this->id])
-//                ->leftJoin('Taggables','T2.taggable_id = Taggables.taggable_id AND T2.taggable_type = Taggables.taggable_type','T2')
-//                ->execute();
-//            dd($taggables->toArray());
-
+                ->leftJoin('Files','t1.taggable_type = "Files" AND t1.taggable_id = Files.id')
+                ->leftJoin('Users','Users.id = Comments.user_id')
+                ->columns(['Files.*','Comments.*','Users.*'])
+                ->execute();
+            return $comments;
         });
     }
 
