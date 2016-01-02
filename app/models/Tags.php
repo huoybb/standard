@@ -316,4 +316,13 @@ class Tags extends myModel
         $redis->deleteTags();
     }
 
+    public function updateFromPost($getPost)
+    {
+        $result = [];
+        foreach($getPost as $key=>$value){
+            if($value) $result[$key] = $value;//去除空的列，这个需要以后进一步分析，其实还有很多不合理的地方！
+        }
+        return $this->update($result);
+    }
+
 }
