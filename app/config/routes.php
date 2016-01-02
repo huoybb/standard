@@ -8,8 +8,8 @@ $router->removeExtraSlashes(true);
 $router->add('/page/{page:[0-9]+}','index::index')->setName('index');
 $router->add('/','index::index')->setName('home');
 
-$router->add('/search/{search:[^/]+}/page/{page:[0-9]+}','standards::search')->setName('standards.search');
 $router->add('/search/{search:[^/]+}','standards::search')->setName('standards.search.index');
+$router->add('/search/{search:[^/]+}/page/{page:[0-9]+}','standards::search')->setName('standards.search');
 $router->add('/search/{search:[^/]+}/{item:[0-9]+}','standards::showSearchItem')->setName('standards.showSearchItem');
 
 $router->addx('/standards/add','standards::add',['standardRules'])->setName('standards.add');

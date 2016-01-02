@@ -32,11 +32,28 @@ class myRedis
         return $this->redis->get($key);
     }
 
+    public function delete($key)
+    {
+        return $this->redis->delete($key);
+    }
+
+    public function increment($key, $value = 1) {
+        return $this->redis->incrBy($key,$value);
+    }
+    public function decrement($key, $value = 1) {
+        return $this->redis->decrBy($key,$value);
+    }
+
+    public function getPrefix() {
+        return 'standard:';
+    }
+
+
     //针对tags的缓冲函数
     protected function getTagsKey(Users $user = null)
     {
         if($user == null) $user = \Phalcon\Di::getDefault()->get('auth');
-        return 'standard:user-'.$user->id.':tags';
+        return $this->getPrefix().'user-'.$user->id.':tags';
     }
     public function isTagsExist(Users $user = null)
     {
@@ -52,7 +69,7 @@ class myRedis
     }
     public function deleteTags($user = null)
     {
-        $this->redis->delete($this->getTagsKey($user));
+        return $this->delete($this->getTagsKey($user));
     }
 
 

@@ -76,7 +76,8 @@ class myRouter extends Router{
     public function passThrouthMiddleWares(Request $request, Response $response,Dispatcher $dispatcher)
     {
         $route = $this->getMatchedRoute();
-        if(null == $route) die('url is invalid, their is no matched route for this url!');
+//        dd($request->getURI());
+        if(null == $route) die('url地址无效，找不到对应的路由设置！');
 
         $pattern = $route->getPattern();
 
