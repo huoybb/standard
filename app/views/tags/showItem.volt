@@ -21,7 +21,7 @@
 
 {% block otherCommentList %}
     {% if file.getTaggableComments(mytag).count() %}
-        <h2>在本标签下的评论</h2>
+        <h2>在标签@{{ mytag.name }}下的评论</h2>
         <ul>
             {% for comment in file.getTaggableComments(mytag) %}
                 <li>
