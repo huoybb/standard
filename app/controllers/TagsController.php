@@ -28,7 +28,7 @@ class TagsController extends myController
 
     public function editAction(Tags $tag)
     {
-        if ($this->request->isPost() && $tag->updateFromPost($this->request->getPost())) {
+        if ($this->request->isPost() && $tag->update($this->request->getPost())) {
             return $this->success();
         }
         $this->view->mytag = $tag;

@@ -177,6 +177,6 @@ class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
 
     public function getDBHomePageLink()
     {
-        return 'http://www.dtic.mil/dtic/';
+        return 'https://www.google.com/?gws_rd=cr&ei=NyKPVrqsBIGC0wSPy4WADw#newwindow=1&safe=strict&q=site:oai.dtic.mil%2Foai%2F';
     }
 }

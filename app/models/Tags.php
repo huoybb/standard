@@ -139,10 +139,10 @@ class Tags extends myModel
         });
     }
 
-    public function getTaggedFiles()
+    public function getTaggedFiles(Users $user = null)
     {
-        return $this->make('files',function(){
-            $user  = \Phalcon\Di::getDefault()->get('auth');
+        return $this->make('files',function() use($user){
+            if($user == null) $user  = \Phalcon\Di::getDefault()->get('auth');
             return Files::query()
                 ->rightJoin('Taggables','Taggables.taggable_id = Files.id AND Taggables.taggable_type="Files"')
                 ->where('Taggables.tag_id = :tag:',['tag'=>$this->id])
@@ -305,13 +305,14 @@ class Tags extends myModel
         $redis->deleteTags();
     }
 
-    public function updateFromPost($getPost)
+
+    public function getUsersLikeThisTag()
     {
-        $result = [];
-        foreach($getPost as $key=>$value){
-            if($value) $result[$key] = $value;//去除空的列，这个需要以后进一步分析，其实还有很多不合理的地方！
-        }
-        return $this->update($result);
+        return Users::query()
+            ->leftJoin('Tagmetas','meta.user_id = Users.id','meta')
+            ->where('meta.tag_id = :tag:',['tag'=>$this->id])
+            ->execute();
     }
+
 
 }

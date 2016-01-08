@@ -42,6 +42,14 @@ class UsersController extends myController
 
     }
 
+    public function showTagAction(Users $user,Tags $tag,$page =1)
+    {
+        $this->view->mytag = $tag;
+        $this->view->page = $this->getPaginator($tag->getTaggedFiles($user),25,$page);
+        $this->view->form = myForm::buildCommentForm($tag);//这个应该去掉
+    }
+
+
     private function registerSession(Users $user,$remember)
     {
         $this->session->set('auth',['id'=>$user->id,'name'=>$user->name]);

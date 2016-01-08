@@ -138,6 +138,14 @@
         </div>
     </div>
     <div class="row">
+        <h2>关注者</h2>
+        <ul>
+            {% for user in mytag.getUsersLikeThisTag() %}
+            <li><a href="{{ url(['for':'users.showTag','user':user.id,'tag':mytag.id]) }}">{{ user.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="row">
         <h2>Archives</h2>
         <ul>
             {% for data in mytag.getArchiveStatisticsByMonth() %}

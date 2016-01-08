@@ -14,8 +14,7 @@ class IsLoginValidator extends myValidation{
     {
         if($this->session->has('auth')) return true;
         if($this->cookies->has('auth')) {
-            $auth = $this->getCookie();
-            $user = Users::findByCookieAuth($auth);
+            $user = Users::findByCookieAuth($this->getCookie());
             if(!$user) return false;
             $this->flash->success('欢迎'.$user->name.'登录！你上次登录的时间是：'.$user->updated_at);
             $this->session->set('auth',['id'=>$user->id,'name'=>$user->name]);
@@ -40,7 +39,6 @@ class IsLoginValidator extends myValidation{
         }
         return $auth;
     }
-//这部分与usercontroller中的东西有重复
     public function setCookie(Users $user)
     {
         $token = $this->security->getToken();
