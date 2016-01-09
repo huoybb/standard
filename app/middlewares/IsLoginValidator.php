@@ -1,4 +1,6 @@
 <?php
+use Carbon\Carbon;
+
 /**
  * Created by PhpStorm.
  * User: ThinkPad
@@ -60,8 +62,8 @@ class IsLoginValidator extends myValidation{
     {
         $token = $this->security->getToken();
         $user->save(['remember_token'=>$token]);
-        setcookie('auth[email]',$this->crypt->encrypt($user->email),time() + 15 * 86400);
-        setcookie('auth[token]',$this->crypt->encrypt($token),time() + 15 * 86400);
+        setcookie('auth[email]',$this->crypt->encrypt($user->email), Carbon::now()->addDay(15)->timestamp);
+        setcookie('auth[token]',$this->crypt->encrypt($token),Carbon::now()->addDay(15)->timestamp);
     }
 
 } 
