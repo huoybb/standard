@@ -31,6 +31,23 @@ class IsLoginValidator extends myValidation{
         $this->excludedRoutes = ['login','standards.getWebData'];
     }
 
+
+    public function registerSession(Users $user,$remember)
+    {
+        $this->session->set('auth',['id'=>$user->id,'name'=>$user->name]);
+        if($remember == 'on'){
+            $this->setCookie($user);
+        }
+    }
+
+    public function destroySession()
+    {
+        $this->auth->save(['remember_token'=>$this->security->getToken()]);
+        $this->session->remove('auth');
+        $this->cookies->get('auth[email]')->delete();
+        $this->cookies->get('auth[token]')->delete();
+    }
+
     private function getCookie()
     {
         $auth = $this->cookies->get('auth')->getValue();
@@ -39,13 +56,12 @@ class IsLoginValidator extends myValidation{
         }
         return $auth;
     }
-    public function setCookie(Users $user)
+    private function setCookie(Users $user)
     {
         $token = $this->security->getToken();
         $user->save(['remember_token'=>$token]);
         setcookie('auth[email]',$this->crypt->encrypt($user->email),time() + 15 * 86400);
         setcookie('auth[token]',$this->crypt->encrypt($token),time() + 15 * 86400);
     }
-
 
 } 
