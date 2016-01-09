@@ -128,7 +128,7 @@ $di->set('flash',function(){
  */
 $di->set('router',function(){
     return include "routes.php";
-});
+},true);
 
 /*
  * 设置dispatch， 类似router binding，将model注入到controller中，替换路由参数
@@ -159,6 +159,18 @@ $di->set("myTools",function() use($config){
  */
 $di->set("allTags",function(){
     return new Tags();
+},true);
+
+/*
+ * 设置Event Manager
+ */
+
+$di->set('Event',function(){
+    $em = new \Phalcon\Events\Manager();
+    $em->attach('files:test',function($event,Files $file){
+        dd($file);
+    });
+    return $em;
 },true);
 
 /*

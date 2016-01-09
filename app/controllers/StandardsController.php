@@ -52,9 +52,16 @@ class StandardsController extends myController
 
     public function showAction(Files $file)
     {
-//        dd($this->session->auth);
-//        $cookie = $this->cookies->get('auth')->getValue();
-//        dd(Users::isLoginByCookie($cookie));
+
+//        $router = $this->router;
+//        $router->handle('/search/装备');
+//        dd($router->getMatchedRoute());  为什么单独测试可以呢？
+
+//        这块其实扩展一下，看看是否搞一个基于事件的机制出来，以便能够解耦
+
+//        $eventManager = $this->Event;
+//        $eventManager->fire('files:test',$file);
+//        dd($eventManager);
 
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
