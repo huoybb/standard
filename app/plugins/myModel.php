@@ -30,6 +30,7 @@ abstract class myModel extends Model{
 
         $this->updated_at = Carbon::now()->toDateTimeString();
         $this->getEventMethodsAndExecute('|beforeSave.+|');
+        return true;
     }
 
     public function afterFetch()

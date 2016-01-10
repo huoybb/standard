@@ -300,15 +300,16 @@ class Tags extends myModel
     }
     public function beforeDeleteRemoveCacheTags()
     {
-        $this->deleteCacheTags();
+        $event = \Phalcon\Di::getDefault()->get('Event');
+        $event->fire('tags.updateTag',$this);
     }
 
-    protected function deleteCacheTags()
-    {
-        /** @var myRedis $redis */
-        $redis = \Phalcon\Di::getDefault()->get('redis');
-        $redis->deleteTags();
-    }
+//    protected function deleteCacheTags()
+//    {
+//        /** @var myRedis $redis */
+//        $redis = \Phalcon\Di::getDefault()->get('redis');
+//        $redis->deleteTags();
+//    }
 
 
     public function getUsersLikeThisTag()
@@ -336,6 +337,14 @@ class Tags extends myModel
 
         return $page;
     }
+
+    public function beforeSave()
+    {
+        $event = \Phalcon\Di::getDefault()->get('Event');
+        $event->fire('tags:updateTag',$this);
+        return parent::beforeSave();
+    }
+
 
 
 }

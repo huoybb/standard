@@ -8,4 +8,11 @@ $em->attach('auth:login',function($event,Users $user,$data){
 $em->attach('auth:logout',function($event,$controller){
     (new IsLoginValidator())->destroySession();
 });
+$em->attach('tags:updateTag',function($event,Tags $tag){
+    $redis = \Phalcon\Di::getDefault()->get('redis');
+    $redis->deleteTags();
+    $meta = $tag->getTagmetaOrNew();
+    $meta->save();
+
+});
 return $em;
