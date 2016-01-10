@@ -10,8 +10,7 @@ class UsersController extends myController
             $user = Users::findByEmail($data['email']);
             if($user AND $this->security->checkHash($data['password'],$user->password)){
                 $this->flash->success('欢迎'.$user->name.'登录！你上次登录的时间是：'.$user->updated_at);
-                $remember = isset($data['remember'])?$data['remember']:'off';
-                (new IsLoginValidator())->registerSession($user,$remember);
+                $this->Event->fire('auth:login',$user,$data);
                 $this->redirectByRoute(['for'=>'home']);
             }else{
                 $this->flash->error('登录不成功，密码或者邮件地址有误！');
@@ -24,7 +23,7 @@ class UsersController extends myController
     }
     public function logoutAction()
     {
-        (new IsLoginValidator())->destroySession();
+        $this->Event->fire('auth:logout',$this);
         $this->redirectByRoute(['for'=>'login']);
     }
 

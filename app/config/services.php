@@ -166,11 +166,7 @@ $di->set("allTags",function(){
  */
 
 $di->set('Event',function(){
-    $em = new \Phalcon\Events\Manager();
-    $em->attach('files:test',function($event,Files $file){
-        dd($file);
-    });
-    return $em;
+    return include 'events.php';
 },true);
 
 /*
