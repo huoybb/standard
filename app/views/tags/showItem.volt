@@ -12,8 +12,8 @@
     <div class="row" id="nav">
         <nav>
             <ul class="pager">
-                <li class="previous"><a href="{{ url.get(['for':'tags.showItem','item':page.before,'tag':mytag.id]) }}"><span aria-hidden="true">&larr;</span> 上一个</a></li>
-                <li class="next"><a href="{{ url.get(['for':'tags.showItem','item':page.next,'tag':mytag.id]) }}">下一个 <span aria-hidden="true">&rarr;</span></a></li>
+                <li class="previous"><a href="{{ url.get(['for':'tags.showItem','file':page.before,'tag':mytag.id]) }}"><span aria-hidden="true">&larr;</span> 上一个</a></li>
+                <li class="next"><a href="{{ url.get(['for':'tags.showItem','file':page.next,'tag':mytag.id]) }}">下一个 <span aria-hidden="true">&rarr;</span></a></li>
             </ul>
         </nav>
     </div>

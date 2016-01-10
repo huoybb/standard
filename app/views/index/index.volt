@@ -49,7 +49,12 @@
                 <tr>
                     <td><input name="file_id[]" type="checkbox" value="{{ item.id }}" class="file_id"></td>
                     <td>{{item.id}}</td>
-                    <td><div class="titleCSS"><a title="{{ item.title }}" href="{{ url(['for':'standards.show','file':item.id]) }}">{{ item.title }}</a></div></td>
+                    <td><div class="titleCSS">
+                            {% if item.type %}
+                                <span class="btn-danger">{{ item.type }}</span>
+                            {% endif %}
+                            <a title="{{ item.title }}" href="{{ url(['for':'standards.show','file':item.id]) }}">{{ item.title }}</a>
+                        </div></td>
                     <td>{{ item.updated_at_website | date }}</td>
                     <td>{{ item.getHtml('attachmentCount') }}</td>
                     <td>{{ item.getHtml('linkCount') }}</td>

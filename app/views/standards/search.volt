@@ -42,6 +42,9 @@
                     <td>{{item.id}}</td>
                     <td>
                         <div class="titleCSS">
+                            {% if item.type %}
+                                <span class="btn-danger">{{ item.type }}</span>
+                            {% endif %}
                             <a title="{{ item.title }}" href="{{ url(['for':'standards.showSearchItem','search':search,'item':key+1+page.limit*(page.current-1)]) }}">{{ item.title }}</a>
                         </div>
                     </td>

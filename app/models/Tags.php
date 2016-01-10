@@ -149,7 +149,7 @@ class Tags extends myModel
                 ->andWhere('Taggables.user_id = :user:',['user'=>$user->id])
                 ->columns(['Files.*','Taggables.*'])
                 ->groupBy('Files.id')
-                ->orderBy('Taggables.created_at DESC')//按照生成的时间排序，如果按照更新的时间排序，则会出现不稳定的现象，这个问题在多人一同操作的时候可能会发生，需要避免的
+                ->orderBy('Taggables.updated_at DESC')//按照生成的时间排序，如果按照更新的时间排序，则会出现不稳定的现象，这个问题在多人一同操作的时候可能会发生，需要避免的
                 ->execute();
 
         });
@@ -196,6 +196,11 @@ class Tags extends myModel
         }
         return null;
     }
+    public function getFileID($ItemID)
+    {
+        return $this->getTaggedFiles()[$ItemID-1];
+    }
+
 
     public function getTaggedFileComments()
     {
@@ -312,6 +317,24 @@ class Tags extends myModel
             ->leftJoin('Tagmetas','meta.user_id = Users.id','meta')
             ->where('meta.tag_id = :tag:',['tag'=>$this->id])
             ->execute();
+    }
+
+    public function getShowItemPage($file)
+    {
+        $paginator = new Phalcon\Paginator\Adapter\Model([
+            'data'=> $this->getTaggedFiles(),
+            'limit'=> 1,
+            'page'=> $this->getItemID($file)
+        ]);
+        $page = $paginator->getPaginate();
+        //修正循环的问题
+        if($page->next == $page->current) $page->next = 1;
+        if($page->before == $page->current) $page->before = $page->last;
+
+        $page->next = $this->getTaggedFiles()[$page->next - 1]->files->id;
+        $page->before = $this->getTaggedFiles()[$page->before - 1]->files->id;
+
+        return $page;
     }
 
 

@@ -67,7 +67,7 @@
                 <th>#</th>
                 <th>名称</th>
                 <th>发布时间</th>
-                <th>打签时间</th>
+                <th>更新时间</th>
                 <th>附件</th>
                 <th>链接</th>
                 <th>评论</th>
@@ -79,7 +79,10 @@
                     <td>{{item.files.id}}</td>
                     <td>
                         <div class="titleCSS">
-                            <a title="{{ item.files.title }}" href="{{ url(['for':'tags.showItem','item':key+1+page.limit*(page.current-1),'tag':mytag.id]) }}">{{ item.files.title }}</a>
+                            {% if item.files.type %}
+                                <span class="btn-danger">{{ item.files.type }}</span>
+                            {% endif %}
+                            <a title="{{ item.files.title }}" href="{{ url(['for':'tags.showItem','file':item.files.id,'tag':mytag.id]) }}">{{ item.files.title }}</a>
                         </div>
                     </td>
                     <td>{{ item.files.updated_at_website | date }}</td>

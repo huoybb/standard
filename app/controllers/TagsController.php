@@ -59,18 +59,12 @@ class TagsController extends myController
         return $this->redirectByRoute(['for'=>'tags.show','tag'=>$tag->id]);
     }
 
-    public function showItemAction(Tags $tag,$item)
+    public function showItemAction(Tags $tag,Files $file)
     {
         $this->view->mytag = $tag;
-        $this->view->page = $this->getPaginator($tag->getTaggedFiles(),1,$item);
-        /** @var Files $file */
-        $file = $this->view->page->items[0]->files;
-//        dd($file->getTaggableComments());
-
+        $this->view->page = $tag->getShowItemPage($file);
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file->getTaggable($tag)->getFirst());
-
-
     }
     public function commentItemAction(Taggables $taggable)
     {
