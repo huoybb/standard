@@ -147,5 +147,11 @@ class Users extends myModel
         }
         return $redis->getTags();
     }
+    
+    public function has($object)
+    {
+        return $object->user_id == $this->id;
+    }
+    
 
 }
