@@ -69,8 +69,7 @@ class TagsController extends myController
     public function commentItemAction(Taggables $taggable)
     {
         $taggable->addComment($this->request->getPost());
-        $taggable->getTagged()->increaseCount('commentCount');
-        $taggable->tag()->save();//刷新一下时间戳updated_at
+        $this->Event->fire('taggables:addComment',$taggable);
         return 'success';
     }
 
