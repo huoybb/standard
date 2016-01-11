@@ -36,12 +36,15 @@ trait FileableInterfaceTrait
         }
 
         if($key == 'keywords'){
-            $result ='';
-            $words = explode(' ',$this->$key);
-            foreach($words as $word){
-                $result .='<span><a href="http://standard.zhaobing/search/'.$word.'">'.$word.'</a></span> ';
+            $delimiter = ' ';
+            if(static::class == 'Baiduxueshu') $delimiter = '/';
+            $result =[];
+            $words = explode($delimiter,$this->$key);
+            foreach($words as  $word){
+                $word = trim($word);
+                $result[] = '<span><a class="btn-link" href="http://standard.zhaobing/search/'.$word.'">'.$word.'</a></span>';
             }
-            return $result;
+            return implode(' ',$result);
         }
 
         if($key == 'Descriptors'){
