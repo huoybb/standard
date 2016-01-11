@@ -3,11 +3,6 @@
 class SubrepositoryController extends myController
 {
 
-    public function indexAction()
-    {
-
-    }
-
     public function showAction($repository,$page = 1)
     {
         $builder = $this->modelsManager->createBuilder()
@@ -35,8 +30,6 @@ class SubrepositoryController extends myController
         $this->view->page->month = $month;
         $this->view->page->repository = myParser::getModelBySourceId($repository);
     }
-
-
 
 }
 

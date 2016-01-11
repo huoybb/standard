@@ -22,21 +22,23 @@ abstract class myParser
     abstract public function Id2Url($source_id = null);
 
     static protected $parserType = [
-        'Periodical'=>'wanfangParser',
-        'Thesis'=>'wanfangThesisParser',
-        'Conference'=>'wanfangConferenceParser',
-        'DoDFile'=>'oai_dtic_mil_parser',
-        'EverySpec'=>'everySpecParser',
-        'Citeseerx'=>'citeseerxParser',
+        'Periodical'=>wanfangParser::class,
+        'Thesis'=>wanfangThesisParser::class,
+        'Conference'=>wanfangConferenceParser::class,
+        'DoDFile'=>oai_dtic_mil_parser::class,
+        'EverySpec'=>everySpecParser::class,
+        'Citeseerx'=>citeseerxParser::class,
+        'baiduxueshu'=>baiduxueshuParser::class
     ];
 
     static protected $modelType = [
-        'Periodical'=>'Wanfang',
-        'Thesis'=>'Wanfangthesis',
-        'Conference'=>'Wanfangconference',
-        'DoDFile'=>'OaiDticMil',
-        'EverySpec'=>'Everyspec',
-        'Citeseerx'=>'Citeseerx',
+        'Periodical'=>Wanfang::class,
+        'Thesis'=>Wanfangthesis::class,
+        'Conference'=>Wanfangconference::class,
+        'DoDFile'=>OaiDticMil::class,
+        'EverySpec'=>Everyspec::class,
+        'Citeseerx'=>Citeseerx::class,
+        'baiduxueshu'=>Baiduxueshu::class,
     ];
 
     /**

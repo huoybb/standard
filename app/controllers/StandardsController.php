@@ -31,11 +31,12 @@ class StandardsController extends myController
 
     public function getWebDataAction($type,$source_id,Files $file)
     {
-//        dd($type);
-//        dd($source_id);
-//        dd(myParser::getModelBySourceId($type,$source_id));
+//        $parser = myParser::getParser($type,$source_id);//获取Parser
+////        dd($parser);
+//        $data = $parser->parseInfo();//抽取数据
+//        dd($data);
+
         $model = myParser::getModelBySourceId($type,$source_id);
-//        dd($model);
         if($model)  return $this->redirectByRoute(['for'=>'standards.show','file'=>$model->getStandard()->id]);
 
         $file->addWebFile($source_id,$type);
