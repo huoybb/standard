@@ -14,7 +14,7 @@ class authEventsHandler
         (new IsLoginValidator())->registerSession($user,$remember);
     }
 
-    public function logout($event,$controller)
+    public function logout($event)
     {
         (new IsLoginValidator())->destroySession();
     }
