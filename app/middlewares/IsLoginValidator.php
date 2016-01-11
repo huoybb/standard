@@ -19,9 +19,9 @@ class IsLoginValidator extends myValidation{
             $user = Users::findByCookieAuth($this->getCookie());
             if(!$user) return false;
             $this->flash->success('欢迎'.$user->name.'登录！你上次登录的时间是：'.$user->updated_at);
-            $this->session->set('auth',['id'=>$user->id,'name'=>$user->name]);
-            //登录
-            $this->setCookie($user);
+
+            //利用cookie实现登录
+            $this->Event->fire('auth:login',$user,['remember'=>'on']);
             return true;
         }
         return false;
