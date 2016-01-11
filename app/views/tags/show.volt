@@ -86,7 +86,7 @@
                         </div>
                     </td>
                     <td>{{ item.files.updated_at_website | date }}</td>
-                    <td>{{ item.taggables.created_at.diffForHumans() }}</td>
+                    <td>{{ item.taggables.updated_at.diffForHumans() }}</td>
                     <td>{{ item.files.getHtml('attachmentCount') }}</td>
                     <td>{{ item.files.getHtml('linkCount') }}</td>
                     <td>{{ item.files.getHtml('commentCount') }}</td>
