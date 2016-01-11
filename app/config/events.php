@@ -11,8 +11,10 @@ $em->attach('auth:logout',function($event,$controller){
 $em->attach('tags:updateTag',function($event,Tags $tag){
     $redis = \Phalcon\Di::getDefault()->get('redis');
     $redis->deleteTags();
+
+
     $meta = $tag->getTagmetaOrNew();
-    $meta->save();
+    if($meta->id) $meta->save();
 
 });
 return $em;

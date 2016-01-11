@@ -301,7 +301,7 @@ class Tags extends myModel
     public function beforeDeleteRemoveCacheTags()
     {
         $event = \Phalcon\Di::getDefault()->get('Event');
-        $event->fire('tags.updateTag',$this);
+        $event->fire('tags:updateTag',$this);
     }
 
 //    protected function deleteCacheTags()
