@@ -9,12 +9,6 @@
  */
 class tagsEventsHandler
 {
-
-    public function deleteTagsCache()
-    {
-        $redis = \Phalcon\Di::getDefault()->get('redis');
-        $redis->deleteTags();
-    }
     public function updateMeta($event,Tags $tag)
     {
         $meta = $tag->getTagmetaOrNew();
