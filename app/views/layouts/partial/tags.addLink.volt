@@ -1,4 +1,4 @@
-{{ form(url(['for':'standards.addLink','file':file.id]), "method": "post","id":"addLink-form") }}
+{{ form(url(['for':'tags.addLink','tag':mytag.id]), "method": "post","id":"addLink-form") }}
 
 <!--content Form Input-->
 <div class="form-group">

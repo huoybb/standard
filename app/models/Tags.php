@@ -9,6 +9,7 @@ class Tags extends myModel
     use RelationshipTrait;
     use StatisticsTrait;
     use timeableTrait;
+    use LinkableTrait;
     /**
      *
      * @var integer
@@ -47,6 +48,11 @@ class Tags extends myModel
      * @var integer
      */
     public $attachmentCount;
+    /**
+     *
+     * @var integer
+     */
+    public $linkCount;
 
     public static function findOrNewByName($tagName)
     {
@@ -116,6 +122,7 @@ class Tags extends myModel
             'commentCount' => 'commentCount',
             'taggableCount' => 'taggableCount',
             'attachmentCount' => 'attachmentCount',
+            'linkCount' => 'linkCount',
         );
     }
 

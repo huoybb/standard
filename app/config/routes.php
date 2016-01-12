@@ -76,6 +76,10 @@ $router->add('/tags/{tag:[0-9]+}/item/{file:[0-9]+}','tags::showItem')->setName(
 $router->add('/tags/{tag:[0-9]+}/item/{taggable:[0-9]+}/delete','tags::deleteItem')->setName('tags.deleteItem');
 $router->add('/taggables/{taggable:[0-9]+}/addComment','tags::commentItem')->setName('taggables.addComment');
 
+$router->add('/tags/{tag:[0-9]+}/addLink','tags::addLink')->setName('tags.addLink');
+$router->add('/tags/{tag:[0-9]+}/links/{link:[0-9]+}/delete','tags::deleteLink')->setName('tags.deleteLink');
+$router->add('/tags/{tag:[0-9]+}/links','tags::showLinks')->setName('tags.showLinks');
+
 $router->add('/subRepository/{repository}','subrepository::show')->setName('subRepository');
 $router->add('/subRepository/{repository}/page/{page:[0-9]+}','subrepository::show')->setName('subRepository.page');
 

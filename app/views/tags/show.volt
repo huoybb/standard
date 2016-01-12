@@ -134,6 +134,15 @@
     {{ startMeasure('s3','sidebar加载') }}
     <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/tag.js"></script>
     <div class="row">
+        <h2>关注者</h2>
+        <ul>
+            {% for user in mytag.getUsersLikeThisTag() %}
+                <li><a href="{{ url(['for':'users.showTag','user':user.id,'tag':mytag.id]) }}">{{ user.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="row">
+        <h2>体会上传</h2>
         <div class="fileUpload" id="fileUpload">
             <form action="{{ url(['for':'tags.addAttachment','tag':mytag.id]) }}" id="my-awesome-dropzone">
                 心得体会上传:<br>文件拖拽到这里
@@ -141,13 +150,19 @@
         </div>
     </div>
     <div class="row">
-        <h2>关注者</h2>
+        <h2><a href="{{ url(['for':'tags.showLinks','tag':mytag.id]) }}">相关链接</a></h2>
+        {% include 'layouts/partial/tags.addLink.volt' %}
+        {% if mytag.linkCount %}
         <ul>
-            {% for user in mytag.getUsersLikeThisTag() %}
-            <li><a href="{{ url(['for':'users.showTag','user':user.id,'tag':mytag.id]) }}">{{ user.name }}</a></li>
+            {% for link in mytag.getLinks() %}
+                <li>
+                    <a href="{{ link.url }}">链接</a> by <a href="#">{{ link.user_id }}</a>
+                </li>
             {% endfor %}
         </ul>
+        {% endif %}
     </div>
+
     <div class="row">
         <h2>Archives</h2>
         <ul>

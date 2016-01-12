@@ -117,6 +117,25 @@ class TagsController extends myController
         return $this->failed();
     }
 
+    public function addLinkAction(Tags $tag)
+    {
+        $data = $this->request->getPost();
+        $tag->addLink($data['link']);
+        return $this->redirectByRoute(['for'=>'tags.show','tag'=>$tag->id]);
+    }
+    public function showLinksAction(Tags $tag)
+    {
+        $this->view->mytag = $tag;
+    }
+
+    public function deleteLinkAction(Tags $tag,Link $link)
+    {
+        $tag->deleteLink($link);
+        return $this->redirectBack();
+    }
+
+
+
 
 
 

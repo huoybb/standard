@@ -8,18 +8,18 @@
  */
 trait LinkableTrait
 {
-    public function addLink($url)
+    public function addLink($url,$user = null)
     {
         /** @var myModel $this */
         $link = new Link();
-        $user = \Phalcon\Di::getDefault()->get('auth');
+        $user = $user ?: \Phalcon\Di::getDefault()->get('auth');
         $link->save([
             'url'=>$url,
             'user_id'=>$user->id,
             'linkable_type'=>get_class($this),
             'linkable_id'=>$this->id
         ]);
-        $this->increaseCount('linkCount');
+        if(property_exists($this,'linkCount')) $this->increaseCount('linkCount');
         return $this;
     }
 
@@ -27,7 +27,7 @@ trait LinkableTrait
     {
         /** @var myModel $this */
         $link->delete();
-        $this->decreaseCount('linkCount');
+        if(property_exists($this,'linkCount')) $this->decreaseCount('linkCount');
         return $this;
     }
 
@@ -48,6 +48,4 @@ trait LinkableTrait
         $links = $this->getLinks();
         if($links->count()) $links->delete();
     }
-
-
 }
