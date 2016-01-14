@@ -275,6 +275,41 @@ class StandardsController extends myController
 //        dd($file->getRelationDescription($relation));
     }
 
+    public function downloadAttachmentAction()
+    {
+        //生成要下载的文件
+        if($this->request->isPost()){
+            $data = $this->request->getPost();
+            $files = Attachments::query()
+                ->inWhere('attachable_id',$data['file_id'])
+                ->andWhere('attachable_type =:type:',['type'=>'Files'])
+                ->execute();
+            $filename = 'temp/'.time().'.zip';
+            $this->session->set('filename',$filename);
+            $path = 'E:\php\standard\public/';
+            $zip = new ZipArchive();
+            if($zip->open($path.$filename,ZIPARCHIVE::CREATE) !== TRUE){
+                dd('无法生成ZIP文件，请检查是否具有写权限');
+            }
+            foreach($files as $file){
+                $zip->addFile($path.$file->url,$file->name);
+            }
+            $zip->close();
+            return $filename;
+        }
+        //下载生成的文件，并删除临时文件
+        $filename = $this->session->get('filename');
+        header ( "Cache-Control: max-age=0" );
+        header ( "Content-Description: File Transfer" );
+        header ( 'Content-disposition: attachment; filename=' . basename ( $filename ) ); // 文件名
+        header ( "Content-Type: application/zip" ); // zip格式的
+        header ( "Content-Transfer-Encoding: binary" ); // 告诉浏览器，这是二进制文件
+        header ( 'Content-Length: ' . filesize ( $filename ) ); // 告诉浏览器，文件大小
+        @readfile ( $filename );//输出文件;
+        unlink($filename);
+    }
+
+
 
 
 

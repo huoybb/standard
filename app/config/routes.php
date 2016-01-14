@@ -1,5 +1,4 @@
 <?php
-
 $router = new myRouter(false);
 
 $router->addMiddlewaresForEveryRoute(['IsLoginValidator']);
@@ -37,14 +36,16 @@ $router->add('/standards/{file:[0-9]+}/deleteTag/{taggable:[0-9]+}','standards::
 $router->add('/standards/{file:[0-9]+}/tags','standards::showTags')->setName('standards.showTags');
 $router->add('/standards/addTag2List','standards::addTag2List')->setName('standards.list.addTag');
 
-
+//标准的链接相关的操作
 $router->add('/standards/{file:[0-9]+}/addLink','standards::addLink')->setName('standards.addLink');
 $router->add('/standards/{file:[0-9]+}/Links','standards::showLinks')->setName('standards.showLinks');
 $router->add('/standards/{file:[0-9]+}/deleteLink/{link:[0-9]+}','standards::deleteLink')->setName('standards.deleteLink');
 
-$router->add('/standards/{file:[0-9]+}/addRevisionTo/{file2:[0-9]+}','standards::addRevisions')->setName('standards.addRevisionsTo');
+
+//针对文件列表的操作
 $router->add('/standards/combineRevisions','standards::combineRevisions')->setName('standards.combineRevisions');
 $router->add('/standards/deleteSelectedFiles','standards::deleteSelectedFiles')->setName('standards.deleteSelectedFiles');
+$router->add('/standards/downloadAttachments','standards::downloadAttachment')->setName('standards.downloadAttachment');
 
 $router->add('/standards/{file:[0-9]+}/relationship','standards::relationship')->setName('standards.relationship');
 $router->add('/standards/{file:[0-9]+}/getRelation/{relation}','standards::getRelation')->setName('standards.getRelation');
@@ -52,6 +53,7 @@ $router->add('/standards/{file:[0-9]+}/relationship/addReferenceTo/{file2:[0-9]+
 
 $router->add('/revisions/{rev:[0-9]+}','revisions::show')->setName('revisions.show');
 $router->add('/revisions/{rev:[0-9]+}/delete','revisions::delete')->setName('revisions.delete');
+$router->add('/standards/{file:[0-9]+}/addRevisionTo/{file2:[0-9]+}','standards::addRevisions')->setName('standards.addRevisionsTo');
 
 $router->add('/tags','tags::index')->setName('tags.index');
 $router->add('/tags/page/{page:[0-9]+}','tags::index')->setName('tags.index.page');
@@ -85,7 +87,6 @@ $router->add('/subRepository/{repository}/page/{page:[0-9]+}','subrepository::sh
 
 $router->add('/subRepository/{repository}/archive/{month:[-0-9]+}','subrepository::showArchive')->setName('subRepository.showArchive');
 $router->add('/subRepository/{repository}/archive/{month:[-0-9]+}/page/{page:[0-9]+}','subrepository::showArchive')->setName('subRepository.showArchive.page');
-
 
 $router->add('/login','Users::login')->setName('login');
 $router->add('/logout','Users::logout')->setName('logout');

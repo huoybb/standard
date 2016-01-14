@@ -89,6 +89,20 @@
         return false;
       };
     })(this));
+    $('#downloadAttachments').click((function(_this) {
+      return function() {
+        var url;
+        url = $('#downloadAttachments').attr('href');
+        if (!list.hasSelectedItem()) {
+          alert('请选择条目，不能空');
+          return false;
+        }
+        $.post(url, $('#list-tag-form').serialize(), function(data) {
+          return window.open(url);
+        });
+        return false;
+      };
+    })(this));
     return $('#deleteItems').click((function(_this) {
       return function() {
         var url;

@@ -45,6 +45,14 @@ $ ->
     $.post url,$('#list-tag-form').serialize(),(data)=>
       list.processReturnValue(data)
     return false;
+  $('#downloadAttachments').click =>
+    url = $('#downloadAttachments').attr('href')
+    if not list.hasSelectedItem()
+      alert '请选择条目，不能空'
+      return false
+    $.post url,$('#list-tag-form').serialize(),(data)=>
+      window.open(url)
+    return false;
   #  删除条目
   $('#deleteItems').click =>
     url = location.href + '/deleteTaggableItems'
