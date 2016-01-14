@@ -144,6 +144,13 @@ class Attachments extends myModel
         unlink($this->url);
     }
 
+    public function getAttachedObject()
+    {
+        $className = $this->attachable_type;
+        return new $className($this->attachable_id);
+    }
+
+
 
 
 }

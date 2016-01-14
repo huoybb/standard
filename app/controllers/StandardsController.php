@@ -283,6 +283,8 @@ class StandardsController extends myController
             $files = Attachments::query()
                 ->inWhere('attachable_id',$data['file_id'])
                 ->andWhere('attachable_type =:type:',['type'=>'Files'])
+                ->leftJoin('Files','file.id = Attachments.attachable_id','file')
+                ->columns(['Attachments.*','file.*'])
                 ->execute();
             $filename = 'temp/'.time().'.zip';
             $this->session->set('filename',$filename);
@@ -291,8 +293,9 @@ class StandardsController extends myController
             if($zip->open($path.$filename,ZIPARCHIVE::CREATE) !== TRUE){
                 dd('无法生成ZIP文件，请检查是否具有写权限');
             }
-            foreach($files as $file){
-                $zip->addFile($path.$file->url,$file->name);
+            foreach($files as $row){
+                $zip->addFile($path.$row->attachments->url,$row->file->title.'/'.$row->attachments->name);
+                $zip->addFromString($row->file->title.'/info.json',json_encode($row->file->toArray()));//@todo 将来用能够代表文档的数据形式来替代
             }
             $zip->close();
             return $filename;
