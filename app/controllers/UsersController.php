@@ -33,6 +33,5 @@ class UsersController extends myController
         $this->view->page = $this->getPaginator($tag->getTaggedFiles($user),25,$page);
         $this->view->form = myForm::buildCommentForm($tag);//这个应该去掉
     }
-
 }
 

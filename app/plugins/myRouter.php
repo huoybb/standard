@@ -76,8 +76,13 @@ class myRouter extends Router{
     public function passThrouthMiddleWares(Request $request, Response $response,Dispatcher $dispatcher)
     {
         $route = $this->getMatchedRoute();
-//        dd($request->getURI());
-        if(null == $route) die('url地址无效，找不到对应的路由设置！');
+        if(null == $route) {
+            $r = $this->getDI()->get('router');
+            $r->handle($request->getURI());
+            $route = $r->getMatchedRoute();
+            //为什么搜索“装备”会出现找不到路由的问题？估计与字符处理有关系
+            if(null == $route) die('url地址无效，找不到对应的路由设置！');
+        }
 
         $pattern = $route->getPattern();
 
