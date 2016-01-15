@@ -10,7 +10,8 @@ class taggablesEventsHandler
 {
     public function addComment($event,Taggables $taggable)
     {
-        $taggable->getTagged()->increaseCount('commentCount');
+        $tagged = $taggable->getTagged();
+        if(property_exists($tagged,'commentCount')) $tagged->increaseCount('commentCount');
         $taggable->tag()->save();//刷新一下时间戳updated_at
     }
 

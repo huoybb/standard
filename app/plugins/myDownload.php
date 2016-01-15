@@ -30,15 +30,31 @@ class myDownload
         return $filename;
     }
 
+    /** @todo 为什么文件打过一定数量，就会出现文件下不来的现象呢？这个威慑么呢？
+     * @param $filename
+     */
     public function getAndDeleteZipFile($filename)
     {
+        set_time_limit(0);//避免超时？
+        $file_size = filesize ( $filename );
         header ( "Cache-Control: max-age=0" );
         header ( "Content-Description: File Transfer" );
         header ( 'Content-disposition: attachment; filename=' . basename ( $filename ) ); // 文件名
         header ( "Content-Type: application/zip" ); // zip格式的
-        header ( "Content-Transfer-Encoding: binary" ); // 告诉浏览器，这是二进制文件
-        header ( 'Content-Length: ' . filesize ( $filename ) ); // 告诉浏览器，文件大小
-        @readfile ( $filename );//输出文件;这里遇到超大文件则会出现问题
-        unlink($filename);
+        header ( 'Content-Length: ' . $file_size ); // 告诉浏览器，文件大小
+//        header("X-Sendfile: $filename");
+
+//        $buffer=1024;
+//        $file_count=0;
+//
+//        $fp=fopen($filename,"r");
+//        while(!feof($fp) && $file_count<$file_size){
+//            $file_con=fread($fp,$buffer);
+//            $file_count+=$buffer;
+//            echo $file_con;
+//        }
+//        fclose($fp);
+        readfile ( $filename );//输出文件;这里遇到超大文件则会出现问题
+//        unlink($filename);
     }
 }
