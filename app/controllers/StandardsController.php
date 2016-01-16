@@ -289,6 +289,12 @@ class StandardsController extends myController
         $download->getAndDeleteZipFile($filename);
     }
 
+    public function downloadSingleAttachmentAction($file,Attachments $attachment)
+    {
+        (new myDownload())->downloadFile($attachment->url,$attachment->name);
+    }
+
+
     private function addDoDFile($accessNumber, Files $file)
     {
         $dod = OaiDticMil::findBySourceId($accessNumber);

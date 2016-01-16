@@ -35,26 +35,30 @@ class myDownload
      */
     public function getAndDeleteZipFile($filename)
     {
+        $this->downloadFile($filename);
+        unlink($filename);
+    }
+
+    public function downloadFile($filename,$showName = null)
+    {
         set_time_limit(0);//避免超时？
         $file_size = filesize ( $filename );
         header ( "Cache-Control: max-age=0" );
         header ( "Content-Description: File Transfer" );
-        header ( 'Content-disposition: attachment; filename=' . basename ( $filename ) ); // 文件名
+        if(null == $showName) $showName = basename ( $filename ) ;
+        header ( 'Content-disposition: attachment; filename=' . $showName ); // 文件名
         header ( "Content-Type: application/zip" ); // zip格式的
         header ( 'Content-Length: ' . $file_size ); // 告诉浏览器，文件大小
-//        header("X-Sendfile: $filename");
 
-//        $buffer=1024;
-//        $file_count=0;
-//
-//        $fp=fopen($filename,"r");
-//        while(!feof($fp) && $file_count<$file_size){
-//            $file_con=fread($fp,$buffer);
-//            $file_count+=$buffer;
-//            echo $file_con;
-//        }
-//        fclose($fp);
-        readfile ( $filename );//输出文件;这里遇到超大文件则会出现问题
-//        unlink($filename);
+        //下面的两条是下载大文件的关键所在
+        ob_clean();
+        ob_end_flush();
+
+        //下面的这种用法对比readfile好好很多
+        $handle = fopen($filename, "rb");
+        while (!feof($handle)) {
+            echo fread($handle, 1000);
+        }
     }
+
 }

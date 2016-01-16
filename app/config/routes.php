@@ -30,6 +30,7 @@ $router->add('/standards/{file:[0-9]+}/Attachments','standards::showAttachments'
 $router->add('/standards/{file:[0-9]+}/addAttachment','standards::addAttachment')->setName('standards.addAttachment');
 $router->add('/standards/{file:[0-9]+}/Attachments/{attachment:[0-9]+}/edit','standards::editAttachment')->setName('standards.editAttachment');
 $router->add('/standards/{file:[0-9]+}/Attachments/{attachment:[0-9]+}/delete','standards::deleteAttachment')->setName('standards.deleteAttachment');
+$router->add('/standards/{file:[0-9]+}/Attachments/{attachment:[0-9]+}/download','standards::downloadSingleAttachment')->setName('standards.downloadSingleAttachment');
 
 $router->add('/standards/{file:[0-9]+}/addTag','standards::addTag')->setName('standards.addTag');
 $router->add('/standards/{file:[0-9]+}/deleteTag/{taggable:[0-9]+}','standards::deleteTag')->setName('standards.deleteTag');

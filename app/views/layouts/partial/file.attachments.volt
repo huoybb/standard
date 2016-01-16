@@ -13,7 +13,7 @@
                 </tr>
                 <tr>
                     <td rowspan="2"><a href="#" title="修改归属" target="_blank">{{ attachment.id }}</a></td>
-                    <td><a href="{{ url.getBaseUri() }}{{ attachment.url }}" target="_blank">下载</a></td>
+                    <td><a href="{{ url(['for':'standards.downloadSingleAttachment','file':file.id,'attachment':attachment.id]) }}" target="_blank">下载</a></td>
                     <td>{{ attachment.name }}</td>
                     <td>{{ attachment.updated_at.diffForHumans() }}</td>
                     <td><a href="{{ attachment.getBaiduURL() }}" target="_blank">百度云</a></td>
