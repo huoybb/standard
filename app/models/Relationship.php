@@ -13,13 +13,13 @@ class Relationship extends myModel
      *
      * @var integer
      */
-    public $start_point;
+    public $start_id;
 
     /**
      *
      * @var integer
      */
-    public $end_point;
+    public $end_id;
 
     /**
      *
@@ -38,6 +38,18 @@ class Relationship extends myModel
      * @var string
      */
     public $updated_at;
+
+    /**
+     *
+     * @var string
+     */
+    public $start_type;
+
+    /**
+     *
+     * @var string
+     */
+    public $end_type;
 
     /**
      * Returns table name mapped in the model.
@@ -81,14 +93,14 @@ class Relationship extends myModel
     {
         return array(
             'id' => 'id',
-            'start_point' => 'start_point',
-            'end_point' => 'end_point',
+            'start_id' => 'start_id',
+            'end_id' => 'end_id',
             'type' => 'type',
             'created_at' => 'created_at',
-            'updated_at' => 'updated_at'
+            'updated_at' => 'updated_at',
+            'start_type' => 'start_type',
+            'end_type' => 'end_type'
         );
     }
-
-
 
 }

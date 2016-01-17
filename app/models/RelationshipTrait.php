@@ -18,8 +18,10 @@ trait RelationshipTrait
 
         $relation = new Relationship();
         $relation->save([
-            'start_point'=>$object->id,
-            'end_point'=>$this->id,
+            'start_id'=>$object->id,
+            'start_type'=>get_class($object),
+            'end_id'=>$this->id,
+            'end_type'=>get_class($this),
             'type'=>get_class($this)
         ]);
         if(property_exists($this,'relationCount')){
@@ -45,9 +47,10 @@ trait RelationshipTrait
     public function getRelationByObject(myModel $object)//获取与当前object的参考关系对象
     {
         return Relationship::query()
-            ->where('start_point = :start:',['start'=>$object->id])
-            ->andWhere('end_point = :end:',['end'=>$this->id])
-            ->andWhere('Relationship.type = :type:',['type'=>get_class($this)])
+            ->where('start_id = :start:',['start'=>$object->id])
+            ->andWhere('start_type = :start_type:',['start_type'=>get_class($this)])
+            ->andWhere('end_id = :end:',['end'=>$this->id])
+            ->andWhere('end_type = :end_type:',['end_type'=>get_class($this)])
             ->execute()->getFirst();
     }
 
@@ -100,8 +103,9 @@ trait RelationshipTrait
         return $this->make('ref1',function(){
             $className = get_class($this);
             return self::query()
-                ->leftJoin('Relationship','r2.start_point = '.$className.'.id AND r2.type = "'.$className.'"','r2')
-                ->where('r2.end_point = :end:',['end'=>$this->id])
+                ->leftJoin('Relationship','r2.start_id = '.$className.'.id AND r2.start_type = "'.$className.'"','r2')
+                ->where('r2.end_id = :id:',['id'=>$this->id])
+                ->andWhere('r2.end_type = :type:',['type'=>$className])
                 ->execute();
         });
     }
@@ -111,9 +115,9 @@ trait RelationshipTrait
         return $this->make('ref2',function(){
             $className = get_class($this);
             return self::query()
-                ->leftJoin('Relationship','r2.start_point = '.$className.'.id AND r2.type = "'.$className.'"','r2')
-                ->leftJoin('Relationship','r1.start_point = r2.end_point AND r1.type = r2.type','r1')
-                ->where('r1.end_point = :end:',['end'=>$this->id])
+                ->leftJoin('Relationship','r2.start_id = '.$className.'.id AND r2.start_type = "'.$className.'"','r2')
+                ->leftJoin('Relationship','r1.start_id = r2.end_id AND r1.start_type = r2.end_type','r1')
+                ->where('r1.end_id = :end:',['end'=>$this->id])
                 ->groupBy($className.'.id')
                 ->execute();
         });
@@ -124,8 +128,9 @@ trait RelationshipTrait
         return $this->make('cite1',function(){
             $className = get_class($this);
             return self::query()
-                ->leftJoin('Relationship','r2.end_point = '.$className.'.id AND r2.type = "'.$className.'"','r2')
-                ->where('r2.start_point = :start:',['start'=>$this->id])
+                ->leftJoin('Relationship','r2.end_id = '.$className.'.id AND r2.end_type = "'.$className.'"','r2')
+                ->where('r2.start_id = :id:',['id'=>$this->id])
+                ->andWhere('r2.start_type = :type:',['type'=>$className])
                 ->execute();
         });
     }
@@ -134,9 +139,9 @@ trait RelationshipTrait
         return $this->make('cite2',function(){
             $className = get_class($this);
             return self::query()
-                ->leftJoin('Relationship','r2.end_point = '.$className.'.id AND r2.type = "'.$className.'"','r2')
-                ->leftJoin('Relationship','r1.end_point = r2.start_point','r1')
-                ->where('r1.start_point = :start:',['start'=>$this->id])
+                ->leftJoin('Relationship','r2.end_id = '.$className.'.id AND r2.end_type = "'.$className.'"','r2')
+                ->leftJoin('Relationship','r1.end_id = r2.start_id AND r1.end_type = r2.start_type','r1')
+                ->where('r1.start_id = :start:',['start'=>$this->id])
                 ->groupBy($className.'.id')
                 ->execute();
         });
@@ -148,9 +153,9 @@ trait RelationshipTrait
         return $this->make('sameRef',function(){
             $className = get_class($this);
             return self::query()
-                ->leftJoin('Relationship','r2.end_point = '.$className.'.id AND r2.type = "'.$className.'"','r2')
-                ->leftJoin('Relationship','r1.start_point = r2.start_point AND r1.type = r2.type','r1')
-                ->where('r1.end_point = :end:',['end'=>$this->id])
+                ->leftJoin('Relationship','r2.end_id = '.$className.'.id AND r2.end_type = "'.$className.'"','r2')
+                ->leftJoin('Relationship','r1.start_id = r2.start_id AND r1.start_type = r2.start_type','r1')
+                ->where('r1.end_id = :end:',['end'=>$this->id])
                 ->andWhere($className.'.id != :id:',['id'=>$this->id])
                 ->groupBy($className.'.id')
                 ->execute();
@@ -161,9 +166,9 @@ trait RelationshipTrait
         return $this->make('sameCite',function(){
             $className = get_class($this);
             return self::query()
-                ->leftJoin('Relationship','r2.start_point = '.$className.'.id AND r2.type = "'.$className.'"','r2')
-                ->leftJoin('Relationship','r1.end_point = r2.end_point AND r1.type = r2.type','r1')
-                ->where('r1.start_point = :start:',['start'=>$this->id])
+                ->leftJoin('Relationship','r2.start_id = '.$className.'.id AND r2.start_type = "'.$className.'"','r2')
+                ->leftJoin('Relationship','r1.end_id = r2.end_id AND r1.end_type = r2.end_type','r1')
+                ->where('r1.start_id = :start:',['start'=>$this->id])
                 ->andWhere($className.'.id != :id:',['id'=>$this->id])
                 ->groupBy($className.'.id')
                 ->execute();

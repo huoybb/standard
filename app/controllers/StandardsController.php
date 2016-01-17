@@ -64,6 +64,8 @@ class StandardsController extends myController
 //        $eventManager->fire('files:test',$file);
 //        dd($eventManager);
 
+//        dd($file->getCitations());
+
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }
