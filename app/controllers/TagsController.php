@@ -134,6 +134,13 @@ class TagsController extends myController
         return $this->redirectBack();
     }
 
+    public function addReferenceAction(Tags $tag,Tags $tag2)
+    {
+        $tag->addReference($tag2);
+        return 'success';
+    }
+
+
 
 
 

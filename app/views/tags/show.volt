@@ -127,7 +127,11 @@
     {% endif %}
     {{ stopMeasure('s2-2') }}
     {% include'layouts/partial/commentform.volt' %}
+    {{ startMeasure('s2-4') }}
+    {% include 'layouts/partial/tag.citeRelation.volt' %}
+    {{ stopMeasure('s2-4') }}
     {{ stopMeasure('s2') }}
+
 {% endblock %}
 
 {% block sidebar %}
@@ -148,6 +152,10 @@
                 心得体会上传:<br>文件拖拽到这里
             </form>
         </div>
+    </div>
+    <div class="row">
+        <h2>增加参考标签</h2>
+        {% include 'layouts/partial/tag.addReference.volt' %}
     </div>
     <div class="row">
         <h2><a href="{{ url(['for':'tags.showLinks','tag':mytag.id]) }}">相关链接</a></h2>

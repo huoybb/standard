@@ -83,6 +83,8 @@ $router->add('/tags/{tag:[0-9]+}/addLink','tags::addLink')->setName('tags.addLin
 $router->add('/tags/{tag:[0-9]+}/links/{link:[0-9]+}/delete','tags::deleteLink')->setName('tags.deleteLink');
 $router->add('/tags/{tag:[0-9]+}/links','tags::showLinks')->setName('tags.showLinks');
 
+$router->add('/tags/{tag:[0-9]+}/relationship/addReferenceTo/{tag2:[0-9]+}','tags::addReference')->setName('tags.addReference');
+
 $router->add('/subRepository/{repository}','subrepository::show')->setName('subRepository');
 $router->add('/subRepository/{repository}/page/{page:[0-9]+}','subrepository::show')->setName('subRepository.page');
 

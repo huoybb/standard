@@ -49,7 +49,7 @@
                 <div class="col-md-2">
                     {{ startMeasure('s2','sidebar加载') }}
                     {% include 'layouts/partial/file.addLink.volt' %}
-                    {% include 'layouts/partial/addReference.volt' %}
+                    {% include 'layouts/partial/file.addReference.volt' %}
                     {% include 'layouts/partial/addRevisionFile.volt' %}
                     {{ startMeasure('s2-1','标签加载') }}
                     {% include 'layouts/partial/addTag.volt' %}
