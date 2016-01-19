@@ -9,10 +9,10 @@
 class myDownload
 {
 
-    public function createZipFile($data, $filename)
+    public function createZipFile(array $file_Ids, $filename)
     {
         $files = Attachments::query()
-            ->inWhere('attachable_id',$data['file_id'])
+            ->inWhere('attachable_id',$file_Ids)
             ->andWhere('attachable_type =:type:',['type'=>'Files'])
             ->leftJoin('Files','file.id = Attachments.attachable_id','file')
             ->columns(['Attachments.*','file.*'])
@@ -24,13 +24,22 @@ class myDownload
         }
         foreach($files as $row){
             $zip->addFile($path.$row->attachments->url,$row->file->title.'/'.$row->attachments->name);
-            $zip->addFromString($row->file->title.'/info.json',json_encode($row->file->toArray()));//@todo 将来用能够代表文档的数据形式来替代
+            $zip->addFromString($row->file->title.'/info.txt',$this->getFileInfo($row->file));//@todo 将来用能够代表文档的数据形式来替代
         }
         $zip->close();
         return $filename;
     }
 
-    /** @todo 为什么文件打过一定数量，就会出现文件下不来的现象呢？这个威慑么呢？
+    public function getFileInfo(Files $file)
+    {
+        $result = '';
+        $result .= '文档:'.$file->title.PHP_EOL;
+        $result .= '网址:'.$file->url.PHP_EOL;
+        return $result;
+    }
+
+
+    /*
      * @param $filename
      */
     public function getAndDeleteZipFile($filename)
@@ -47,7 +56,7 @@ class myDownload
         header ( "Content-Description: File Transfer" );
         if(null == $showName) $showName = basename ( $filename ) ;
         header ( 'Content-disposition: attachment; filename=' . $showName ); // 文件名
-        header ( "Content-Type: application/zip" ); // zip格式的
+        if (preg_match('/.zip$/m', $filename)) header ( "Content-Type: application/zip" ); // zip格式的
         header ( 'Content-Length: ' . $file_size ); // 告诉浏览器，文件大小
 
         //下面的两条是下载大文件的关键所在

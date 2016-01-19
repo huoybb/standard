@@ -284,16 +284,21 @@ class StandardsController extends myController
         if($this->request->isPost()){
             $filename = 'temp/'.time().'.zip';
             $this->session->set('filename',$filename);
-            return $download->createZipFile($this->request->getPost(),$filename);
+            return $download->createZipFile($this->request->getPost()['file_id'],$filename);
         }
         //下载生成的文件，并删除临时文件
         $filename = $this->session->get('filename');
+        $this->session->remove('filename');
         $download->getAndDeleteZipFile($filename);
     }
 
     public function downloadSingleAttachmentAction($file,Attachments $attachment)
     {
-        (new myDownload())->downloadFile($attachment->url,$attachment->name);
+        $download = new myDownload();
+        $file_ids = [$file];
+        $filename = 'temp/'.time().'.zip';
+        $download->createZipFile($file_ids,$filename);
+        $download->getAndDeleteZipFile($filename);
     }
 
 
