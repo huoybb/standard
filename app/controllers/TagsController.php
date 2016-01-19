@@ -140,6 +140,13 @@ class TagsController extends myController
         return 'success';
     }
 
+    public function getRelationAction(Tags $tag,$relation)
+    {
+        $this->view->mytag = $tag;
+        $this->view->relation = $relation;
+    }
+
+
 
 
 

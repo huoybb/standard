@@ -128,6 +128,7 @@
     {{ stopMeasure('s2-2') }}
     {% include'layouts/partial/commentform.volt' %}
     {{ startMeasure('s2-4') }}
+    <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/manipulateRelationMap.js"></script>
     {% include 'layouts/partial/tag.citeRelation.volt' %}
     {{ stopMeasure('s2-4') }}
     {{ stopMeasure('s2') }}

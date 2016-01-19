@@ -66,6 +66,7 @@ class StandardsController extends myController
 
 //        dd($file->getCitations());
 
+
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }

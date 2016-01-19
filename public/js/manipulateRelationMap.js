@@ -43,6 +43,9 @@
       item = this.format[key];
       file_id = $('.citeRelation').data('id');
       url = 'http://' + location.host + '/standards/' + file_id + '/getRelation/' + key;
+      if (/http:\/\/standard.zhaobing\/tags\/[0-9]+$/m.test(location.href)) {
+        url = location.href + '/getRelation/' + key;
+      }
       return $.get(url, (function(_this) {
         return function(data) {
           $('.refciteMap').attr('class', item.map);

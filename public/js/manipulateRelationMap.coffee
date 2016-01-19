@@ -38,6 +38,8 @@ class relationMap
     item = @format[key]
     file_id = $('.citeRelation').data('id');
     url = 'http://'+location.host+'/standards/'+file_id+'/getRelation/'+key
+    if (/http:\/\/standard.zhaobing\/tags\/[0-9]+$/m.test(location.href))
+      url = location.href + '/getRelation/'+key
     $.get url,(data)=>
       $('.refciteMap').attr('class',item.map)
       $('#markLine').attr('class',item.line)

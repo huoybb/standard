@@ -1,6 +1,6 @@
 <div class="hd">
-    {{ file.getRelationDescription(relation)['title'] }} ({{ file.getRelation(relation).count() }})
-    <span>{{ file.getRelationDescription(relation)['note'] }}</span>
+    {{ mytag.getRelationDescription(relation)['title'] }} ({{ mytag.getRelation(relation).count() }})
+    <span>{{ mytag.getRelationDescription(relation)['note'] }}</span>
 </div>
 {#<div class="year">#}
     {#<div class="year-list">#}
@@ -17,9 +17,9 @@
     {#</span>#}
 {#</div>#}
 <div class="paper-list">
-    {% for item in file.getRelation(relation) %}
+    {% for item in mytag.getRelation(relation) %}
         <div class="item">
-            {{ item.id }}:<a href="{{ url(['for':'standards.show','file':item.id]) }}" target="_blank">{{ item.title }}</a>
+            {{ item.id }}:<a href="{{ url(['for':'tags.show','tag':item.id]) }}" target="_blank">{{ item.name }}</a>
             {%  if item.commentCount %}
                 <span>评论({{ item.commentCount }})</span>
             {% endif %}
