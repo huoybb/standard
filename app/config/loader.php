@@ -13,5 +13,6 @@ $loader->registerDirs(
         $config->application->formDir,
         $config->application->middlewaresDir,
         $config->application->events,
+        $config->application->facades,
     )
 )->register();

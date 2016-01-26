@@ -69,6 +69,8 @@ class StandardsController extends myController
 //        $queue = new myRedisQueue();
 //        $queue->put(json_encode(['processVideo'=>4871]));
 
+//        dd(RedisFacade::getInstance());
+
 
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);

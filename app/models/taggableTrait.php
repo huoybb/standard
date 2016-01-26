@@ -42,7 +42,7 @@ trait taggableTrait
     
     public function addTag(Tags $tag)
     {
-        $user = \Phalcon\Di::getDefault()->get('auth');
+        $user = authFacade::getService();
 
         $this->deleteCacheTags();
 

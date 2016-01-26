@@ -52,7 +52,7 @@ class myRedis
     //针对tags的缓冲函数
     protected function getTagsKey(Users $user = null)
     {
-        if($user == null) $user = \Phalcon\Di::getDefault()->get('auth');
+        if($user == null) $user = authFacade::getService();
         return $this->getPrefix().'user-'.$user->id.':tags';
     }
     public function isTagsExist(Users $user = null)

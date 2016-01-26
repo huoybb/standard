@@ -353,8 +353,7 @@ class Tags extends myModel
 
     public function beforeSave()
     {
-        $event = \Phalcon\Di::getDefault()->get('Event');
-        $event->fire('tags:updateTag',$this);
+        eventFacade::fire('tags:updateTag',$this);
         return parent::beforeSave();
     }
 

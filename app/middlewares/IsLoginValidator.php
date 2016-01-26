@@ -46,13 +46,13 @@ class IsLoginValidator extends myValidation{
     {
         $this->auth->save(['remember_token'=>$this->security->getToken()]);
         $this->session->remove('auth');
-        $this->cookies->get('auth[email]')->delete();
-        $this->cookies->get('auth[token]')->delete();
+        cookieFacade::get('auth[email]')->delete();
+        cookieFacade::get('auth[token]')->delete();
     }
 
     private function getCookie()
     {
-        $auth = $this->cookies->get('auth')->getValue();
+        $auth = cookieFacade::get('auth')->getValue();
         foreach($auth as $key=>$value){
             $auth[$key]=$this->crypt->decrypt($value);
         }

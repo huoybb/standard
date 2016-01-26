@@ -28,7 +28,7 @@ class myRedisQueue extends Beanstalk
         $this->connect();
     }
     public function connect(){
-        $this->redis = new Redis();
+        $this->redis = new redisFacade();
         $this->redis->pconnect($this->host, $this->port);
     }
     public function put($data, $options=null){
