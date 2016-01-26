@@ -8,6 +8,11 @@ try {
      *加载composer
      */
     require '../vendor/autoload.php';
+    /*
+     * 获取环境设置变量
+     */
+    $dotEnv = new \Dotenv\Dotenv('../');
+    $dotEnv->load();
     /**
      * Read the configuration
      */

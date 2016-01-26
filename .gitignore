@@ -1,3 +1,4 @@
+/.env
 /Runtime/debugbar
 /app/cache
 /public/files

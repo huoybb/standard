@@ -2,12 +2,12 @@
 
 return new \Phalcon\Config(array(
     'database' => array(
-        'adapter'     => 'Mysql',
-        'host'        => 'localhost',
-        'username'    => 'root',
-        'password'    => '',
-        'dbname'      => 'standards',
-        'charset'     => 'utf8',
+        'adapter'     => $_ENV['Database_adapter'],
+        'host'        => $_ENV['Database_host'],
+        'username'    => $_ENV['Database_username'],
+        'password'    => $_ENV['Database_password'],
+        'dbname'      => $_ENV['Database_dbname'],
+        'charset'     => $_ENV['Database_charset'],
     ),
     'application' => array(
         'controllersDir' => __DIR__ . '/../../app/controllers/',
@@ -21,6 +21,5 @@ return new \Phalcon\Config(array(
         'events'         => __DIR__ . '/../../app/events/',
         'baseUri'        => '/',
     ),
-    'siteName' =>'我的文档库',
-
+    'siteName' =>$_ENV['SiteName'],
 ));
