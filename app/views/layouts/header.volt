@@ -28,7 +28,11 @@
                         <button type="submit" class="btn btn-default">查询</button>
                     </form>
                 </li>
-
+            </ul>
+            <ul class="nav navbar-nav">
+                {% if session.has('auth') %}
+                    <li><a href="{{ url(['for':'logout']) }}">logout</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>
