@@ -21,7 +21,7 @@ class IsLoginValidator extends myValidation{
             $this->flash->success('欢迎'.$user->name.'登录！你上次登录的时间是：'.$user->updated_at);
 
             //利用cookie实现登录
-            $this->Event->fire('auth:login',$user,['remember'=>'on']);
+            eventFacade::fire('auth:login',$user,['remember'=>'on']);
             return true;
         }
         return false;

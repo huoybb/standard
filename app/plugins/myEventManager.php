@@ -9,7 +9,11 @@
 class myEventManager extends \Phalcon\Events\Manager
 {
     // $this->listen('auth:login','authEventHandler::login');
-    public function listen($eventName,$handlerAction)
+    /**
+     * @param $eventName
+     * @param $handlerAction
+     */
+    public function listen($eventName, $handlerAction)
     {
         $this->attach($eventName,function($event,$object=null,$data=null) use($handlerAction){
             if (preg_match('/(.+)::(.+)/m', $handlerAction, $regs)) {
