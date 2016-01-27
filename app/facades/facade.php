@@ -9,13 +9,19 @@
 abstract class facade
 {
 
-    public static function getInstance()
+    /**
+     * Get the registered name of the component.
+     *
+     * @return string
+     * @throws \RuntimeException
+     */
+    public static function getFacadeAccessor()
     {
-        return null;
+        throw new RuntimeException('Facade does not implement getFacadeAccessor method.');
     }
     public static function getService()
     {
-        return \Phalcon\Di::getDefault()->get(static::getInstance());
+        return \Phalcon\Di::getDefault()->get(static::getFacadeAccessor());
     }
     public static function __callStatic($method, $args)
     {

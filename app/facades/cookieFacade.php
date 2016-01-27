@@ -8,7 +8,7 @@
  */
 class cookieFacade extends facade
 {
-    public static function getInstance()
+    public static function getFacadeAccessor()
     {
         return 'cookies';
     }

@@ -8,7 +8,7 @@
  */
 class sessionFacade extends facade
 {
-    public static function getInstance()
+    public static function getFacadeAccessor()
     {
         return 'session';
     }
