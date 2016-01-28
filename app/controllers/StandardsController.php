@@ -12,6 +12,7 @@ class StandardsController extends myController
         if ($this->request->isPost()) {
 //            dd($this->request->getPost());
             $file->save($this->request->getPost());
+            eventFacade::fire('standards:addFile',$file);
             return $this->redirectByRoute(['for'=>'index','page'=>1]);
         }
         $this->view->form = myForm::buildFormFromModel($file);
