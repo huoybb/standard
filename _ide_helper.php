@@ -6,24 +6,52 @@ namespace {
         /**
          * @return bool
          */
-        public static function isTagsExist()
-        {
-        }
+        public static function isTagsExist(){}
 
         /**
          * @param $data
          * @return bool
          */
-        public static function setTags($data)
-        {
-        }
+        public static function setTags($data){}
 
         /**
          * @return \Tags[]
          */
-        public static function getTags()
-        {
-        }
+        public static function getTags(){}
+
+        /**
+         * @param $key
+         * @return bool
+         */
+        public static function exist($key){}
+        /**
+         * @param $key
+         * @param $value
+         * @return bool
+         */
+        public static function set($key, $value){}
+        /**
+         * @param $key
+         * @return bool|string
+         */
+        public static function get($key){}
+
+        /**
+         * @param $key
+         */
+        public static function delete($key){}
+        /**
+         * @param $key
+         * @param int $value
+         * @return int
+         */
+        public static function increment($key, $value = 1){}
+        /**
+         * @param $key
+         * @param int $value
+         * @return int
+         */
+        public static function decrement($key, $value = 1){}
     }
 
     class eventFacade extends \facade

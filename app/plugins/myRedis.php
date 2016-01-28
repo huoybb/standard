@@ -18,28 +18,57 @@ class myRedis
         $this->redis = new Redis();
         $this->redis->connect('127.0.0.1', 6379);
     }
+
+    /**
+     * @param $key
+     * @return bool
+     */
     public function exist($key)
     {
         return $this->redis->exists($key);
     }
 
-    public function set($key,$value)
+    /**
+     * @param $key
+     * @param $value
+     * @return bool
+     */
+    public function set($key, $value)
     {
         return $this->redis->set($key,$value);
     }
+
+    /**
+     * @param $key
+     * @return bool|string
+     */
     public function get($key)
     {
         return $this->redis->get($key);
     }
 
+    /**
+     * @param $key
+     */
     public function delete($key)
     {
         return $this->redis->delete($key);
     }
 
+    /**
+     * @param $key
+     * @param int $value
+     * @return int
+     */
     public function increment($key, $value = 1) {
         return $this->redis->incrBy($key,$value);
     }
+
+    /**
+     * @param $key
+     * @param int $value
+     * @return int
+     */
     public function decrement($key, $value = 1) {
         return $this->redis->decrBy($key,$value);
     }

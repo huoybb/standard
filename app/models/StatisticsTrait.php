@@ -11,13 +11,20 @@ trait StatisticsTrait
     public function getStaticsByMonth($repo = null)
     {
         $className = static::class;
-        $query = $className::query()
-            ->columns(['count('.$className.'.id) AS num','DATE_FORMAT('.$className.'.created_at,"%Y-%m") As month'])
-            ->groupBy('month')
-            ->orderBy('month DESC');
-        if($repo) $query = $query->rightJoin($repo,'sub.file_id = '.$className.'.id','sub');
-        return $query
-            ->execute();
+        $repoName = $repo==null?'Files':$repo;
+        $key = 'standard:archives:'.$repoName;
+        if(!redisFacade::exist($key)){
+            $query = $className::query()
+                ->columns(['count('.$className.'.id) AS num','DATE_FORMAT('.$className.'.created_at,"%Y-%m") As month'])
+                ->groupBy('month')
+                ->orderBy('month DESC');
+            if($repo) $query = $query->rightJoin($repo,'sub.file_id = '.$className.'.id','sub');
+            $results =  $query
+                ->execute();
+            redisFacade::set($key,json_encode($results));
+        }
+        return json_decode(redisFacade::get($key));
+
     }
     public function getStaticsByDay()
     {
