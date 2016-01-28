@@ -90,6 +90,7 @@ class StandardsController extends myController
 
     public function deleteAction(Files $file)
     {
+        eventFacade::fire('standards:deleteFile',$file);
         if ($this->request->isPost()) {
             $file->delete();
             return $this->success();
@@ -260,6 +261,7 @@ class StandardsController extends myController
                 ->inWhere('id',$data['file_id'])
                 ->execute();
             $files->delete();
+            eventFacade::fire('standards:deleteSelectedFiles',$files);
             return 'success';
         }
         return 'failed';

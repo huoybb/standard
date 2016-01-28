@@ -56,6 +56,16 @@ class myRedis
     }
 
     /**
+     * @param $pattern
+     * @return array
+     */
+    public function keys($pattern)
+    {
+        return $this->redis->keys($pattern);
+    }
+    
+
+    /**
      * @param $key
      * @param int $value
      * @return int

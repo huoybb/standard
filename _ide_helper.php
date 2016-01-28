@@ -52,6 +52,11 @@ namespace {
          * @return int
          */
         public static function decrement($key, $value = 1){}
+        /**
+         * @param $pattern
+         * @return array
+         */
+        public static function keys($pattern){}
     }
 
     class eventFacade extends \facade

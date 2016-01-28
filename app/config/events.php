@@ -16,4 +16,12 @@ $em->attach('standards:addFile',function($event,$model){
     redisFacade::delete('standard:archives:Files');
 });
 
+$em->attach('standards:deleteFile',function($event,Files $file){
+    $model = $file->getFileable();
+    if($model) redisFacade::delete('standard:archives:'.get_class($model));
+    redisFacade::delete('standard:archives:Files');
+});
+$em->attach('standards:deleteSelectedFiles',function($event,$files){
+    redisFacade::delete(redisFacade::keys('standard:archives:*'));
+});
 return $em;
