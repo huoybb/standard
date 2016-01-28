@@ -82,7 +82,7 @@ class myRedis
     protected function getTagsKey(Users $user = null)
     {
         if($user == null) $user = authFacade::getService();
-        return $this->getPrefix().'user-'.$user->id.':tags';
+        return $this->getPrefix().'users:'.$user->id.':tags';
     }
     public function isTagsExist(Users $user = null)
     {
