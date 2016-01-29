@@ -134,16 +134,16 @@ class Users extends myModel
      */
     public function getMyTags()
     {
-        if(!redisFacade::isTagsExist()){
+        if(!RedisFacade::isTagsExist()){
             $data = Tagmetas::query()
                 ->leftJoin('Tags','Tags.id = Tagmetas.tag_id')
                 ->where('Tagmetas.user_id = :user:',['user'=>$this->id])
                 ->orderBy('Tagmetas.updated_at DESC')
                 ->columns(['Tags.*','Tagmetas.*'])
                 ->execute();
-            redisFacade::setTags($data);
+            RedisFacade::setTags($data);
         }
-        return redisFacade::getTags();
+        return RedisFacade::getTags();
     }
     
     public function has($object)

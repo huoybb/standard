@@ -12,7 +12,7 @@ class StandardsController extends myController
         if ($this->request->isPost()) {
 //            dd($this->request->getPost());
             $file->save($this->request->getPost());
-            eventFacade::fire('standards:addFile',$file);
+            EventFacade::fire('standards:addFile',$file);
             return $this->redirectByRoute(['for'=>'index','page'=>1]);
         }
         $this->view->form = myForm::buildFormFromModel($file);
@@ -90,7 +90,7 @@ class StandardsController extends myController
 
     public function deleteAction(Files $file)
     {
-        eventFacade::fire('standards:deleteFile',$file);
+        EventFacade::fire('standards:deleteFile',$file);
         if ($this->request->isPost()) {
             $file->delete();
             return $this->success();
@@ -261,7 +261,7 @@ class StandardsController extends myController
                 ->inWhere('id',$data['file_id'])
                 ->execute();
             $files->delete();
-            eventFacade::fire('standards:deleteSelectedFiles',$files);
+            EventFacade::fire('standards:deleteSelectedFiles',$files);
             return 'success';
         }
         return 'failed';

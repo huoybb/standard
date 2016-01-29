@@ -9,19 +9,19 @@ $em->listen('tags:updateTag',tagsEventsHandler::class.'::updateMeta');
 $em->attach('taggables',new taggablesEventsHandler());
 
 $em->attach('standards:addWebFile',function($event,\Phalcon\Mvc\Model $model){
-    redisFacade::delete('standard:archives:'.get_class($model));
-    redisFacade::delete('standard:archives:Files');
+    RedisFacade::delete('standard:archives:'.get_class($model));
+    RedisFacade::delete('standard:archives:Files');
 });
 $em->attach('standards:addFile',function($event,$model){
-    redisFacade::delete('standard:archives:Files');
+    RedisFacade::delete('standard:archives:Files');
 });
 
 $em->attach('standards:deleteFile',function($event,Files $file){
     $model = $file->getFileable();
-    if($model) redisFacade::delete('standard:archives:'.get_class($model));
-    redisFacade::delete('standard:archives:Files');
+    if($model) RedisFacade::delete('standard:archives:'.get_class($model));
+    RedisFacade::delete('standard:archives:Files');
 });
 $em->attach('standards:deleteSelectedFiles',function($event,$files){
-    redisFacade::delete(redisFacade::keys('standard:archives:*'));
+    RedisFacade::delete(RedisFacade::keys('standard:archives:*'));
 });
 return $em;

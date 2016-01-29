@@ -6,7 +6,7 @@
  * Date: 2016/1/26
  * Time: 23:24
  */
-class redisFacade extends facade
+class RedisFacade extends Facade
 {
     public static function getFacadeAccessor()
     {

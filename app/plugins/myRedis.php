@@ -91,7 +91,7 @@ class myRedis
     //针对tags的缓冲函数
     protected function getTagsKey(Users $user = null)
     {
-        if($user == null) $user = authFacade::getService();
+        if($user == null) $user = AuthFacade::getService();
         return $this->getPrefix().'users:'.$user->id.':tags';
     }
     public function isTagsExist(Users $user = null)

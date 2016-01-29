@@ -42,7 +42,7 @@ trait taggableTrait
     
     public function addTag(Tags $tag)
     {
-        $user = authFacade::getService();
+        $user = AuthFacade::getService();
 
         $this->deleteCacheTags();
 

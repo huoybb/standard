@@ -13,7 +13,7 @@ trait StatisticsTrait
         $className = static::class;
         $repoName = $repo==null?'Files':$repo;
         $key = 'standard:archives:'.$repoName;
-        if(!redisFacade::exist($key)){
+        if(!RedisFacade::exist($key)){
             $query = $className::query()
                 ->columns(['count('.$className.'.id) AS num','DATE_FORMAT('.$className.'.created_at,"%Y-%m") As month'])
                 ->groupBy('month')
@@ -21,9 +21,9 @@ trait StatisticsTrait
             if($repo) $query = $query->rightJoin($repo,'sub.file_id = '.$className.'.id','sub');
             $results =  $query
                 ->execute();
-            redisFacade::set($key,json_encode($results));
+            RedisFacade::set($key,json_encode($results));
         }
-        return json_decode(redisFacade::get($key));
+        return json_decode(RedisFacade::get($key));
 
     }
     public function getStaticsByDay()

@@ -6,7 +6,7 @@
  * Date: 2016/1/27
  * Time: 21:00
  */
-class sessionFacade extends facade
+class SessionFacade extends Facade
 {
     public static function getFacadeAccessor()
     {

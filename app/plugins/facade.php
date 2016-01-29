@@ -6,7 +6,7 @@
  * Date: 2016/1/26
  * Time: 23:13
  */
-abstract class facade
+abstract class Facade
 {
 
     /**

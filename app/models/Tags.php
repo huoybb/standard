@@ -353,7 +353,7 @@ class Tags extends myModel
 
     public function beforeSave()
     {
-        eventFacade::fire('tags:updateTag',$this);
+        EventFacade::fire('tags:updateTag',$this);
         return parent::beforeSave();
     }
 

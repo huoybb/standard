@@ -21,7 +21,7 @@ class IsLoginValidator extends myValidation{
             $this->flash->success('欢迎'.$user->name.'登录！你上次登录的时间是：'.$user->updated_at);
 
             //利用cookie实现登录
-            eventFacade::fire('auth:login',$user,['remember'=>'on']);
+            EventFacade::fire('auth:login',$user,['remember'=>'on']);
             return true;
         }
         return false;
@@ -46,13 +46,13 @@ class IsLoginValidator extends myValidation{
     {
         $this->auth->save(['remember_token'=>$this->security->getToken()]);
         $this->session->remove('auth');
-        cookieFacade::get('auth[email]')->delete();
-        cookieFacade::get('auth[token]')->delete();
+        CookieFacade::get('auth[email]')->delete();
+        CookieFacade::get('auth[token]')->delete();
     }
 
     private function getCookie()
     {
-        $auth = cookieFacade::get('auth')->getValue();
+        $auth = CookieFacade::get('auth')->getValue();
         foreach($auth as $key=>$value){
             $auth[$key]=$this->crypt->decrypt($value);
         }

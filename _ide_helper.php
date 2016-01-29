@@ -1,7 +1,7 @@
 <?php
 namespace {
     exit("This file should not be included, only analyzed by your IDE");
-    class redisFacade extends \facade
+    class redisFacade extends \Facade
     {
         /**
          * @return bool
@@ -59,7 +59,7 @@ namespace {
         public static function keys($pattern){}
     }
 
-    class eventFacade extends \facade
+    class eventFacade extends \Facade
     {
         /**
          * Fires an event in the events manager causing the active listeners to be notified about it
