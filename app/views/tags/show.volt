@@ -165,7 +165,7 @@
         <ul>
             {% for link in mytag.getLinks() %}
                 <li>
-                    <a href="{{ link.url }}">链接</a> by <a href="#">{{ link.user_id }}</a>
+                    <a href="{{ link.url }}">{{ link.getSiteName() }}</a> by <a href="#">{{ link.getuser().name }}</a>
                 </li>
             {% endfor %}
         </ul>

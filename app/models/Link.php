@@ -116,8 +116,14 @@ class Link extends myModel
         if(preg_match('%http://www.docin.com/%m', $url)) $siteName = '豆丁';
         if(preg_match('%http://www.cqvip.com/%m', $url)) $siteName = '维普';
         if(preg_match('%http://wenku.baidu.com/%m', $url)) $siteName = '百度文库';
+        if(preg_match('%http://baike.baidu.com/%m', $url)) $siteName = '百度百科';
         return $siteName;
     }
+    public function getUser()
+    {
+        return Users::findFirst($this->user_id);
+    }
+
 
 
 }

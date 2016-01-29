@@ -14,11 +14,11 @@ class IsLoginValidator extends myValidation{
 
     public function isValid($data = null)
     {
-        if($this->session->has('auth')) return true;
-        if($this->cookies->has('auth')) {
+        if(SessionFacade::has('auth')) return true;
+        if(CookieFacade::has('auth')) {
             $user = Users::findByCookieAuth($this->getCookie());
             if(!$user) return false;
-            $this->flash->success('欢迎'.$user->name.'登录！你上次登录的时间是：'.$user->updated_at);
+            FlashFacade::success('欢迎'.$user->name.'登录！你上次登录的时间是：'.$user->updated_at);
 
             //利用cookie实现登录
             EventFacade::fire('auth:login',$user,['remember'=>'on']);
@@ -36,7 +36,7 @@ class IsLoginValidator extends myValidation{
 
     public function registerSession(Users $user,$remember)
     {
-        $this->session->set('auth',['id'=>$user->id,'name'=>$user->name]);
+        SessionFacade::set('auth',['id'=>$user->id,'name'=>$user->name]);
         if($remember == 'on'){
             $this->setCookie($user);
         }
@@ -44,8 +44,8 @@ class IsLoginValidator extends myValidation{
 
     public function destroySession()
     {
-        $this->auth->save(['remember_token'=>$this->security->getToken()]);
-        $this->session->remove('auth');
+        AuthFacade::save(['remember_token'=>$this->security->getToken()]);
+        SessionFacade::remove('auth');
         CookieFacade::get('auth[email]')->delete();
         CookieFacade::get('auth[token]')->delete();
     }
@@ -54,16 +54,16 @@ class IsLoginValidator extends myValidation{
     {
         $auth = CookieFacade::get('auth')->getValue();
         foreach($auth as $key=>$value){
-            $auth[$key]=$this->crypt->decrypt($value);
+            $auth[$key]=CryptFacade::decrypt($value);
         }
         return $auth;
     }
     private function setCookie(Users $user)
     {
-        $token = $this->security->getToken();
+        $token = SecurityFacade::getToken();
         $user->save(['remember_token'=>$token]);
-        setcookie('auth[email]',$this->crypt->encrypt($user->email), Carbon::now()->addDay(15)->timestamp);
-        setcookie('auth[token]',$this->crypt->encrypt($token),Carbon::now()->addDay(15)->timestamp);
+        setcookie('auth[email]',CryptFacade::encrypt($user->email), Carbon::now()->addDay(15)->timestamp);
+        setcookie('auth[token]',CryptFacade::encrypt($token),Carbon::now()->addDay(15)->timestamp);
     }
 
 } 
