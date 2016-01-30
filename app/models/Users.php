@@ -130,18 +130,13 @@ class Users extends myModel
     }
 
     /**这个函数的执行时间会比较长，这个需要缓冲一下来加速
+     * 将数据库获取的时间用缓存的这种空间换时间的方式来
      * @return mixed
      */
     public function getMyTags()
     {
         if(!RedisFacade::isTagsExist()){
-            $data = Tagmetas::query()
-                ->leftJoin('Tags','Tags.id = Tagmetas.tag_id')
-                ->where('Tagmetas.user_id = :user:',['user'=>$this->id])
-                ->orderBy('Tagmetas.updated_at DESC')
-                ->columns(['Tags.*','Tagmetas.*'])
-                ->execute();
-            RedisFacade::setTags($data);
+            RedisFacade::setTags($this->getMyTagsFromDatabase());
         }
         return RedisFacade::getTags();
     }
@@ -150,6 +145,16 @@ class Users extends myModel
     {
         return $object->user_id == $this->id;
     }
-    
+
+    private function getMyTagsFromDatabase()
+    {
+        return Tagmetas::query()
+            ->leftJoin('Tags','Tags.id = Tagmetas.tag_id')
+            ->where('Tagmetas.user_id = :user:',['user'=>$this->id])
+            ->orderBy('Tagmetas.updated_at DESC')
+            ->columns(['Tags.*','Tagmetas.*'])
+            ->execute();
+    }
+
 
 }
