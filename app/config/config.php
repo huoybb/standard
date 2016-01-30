@@ -22,5 +22,5 @@ return new \Phalcon\Config(array(
         'facades'         => __DIR__ . '/../../app/facades/',
         'baseUri'        => '/',
     ),
-    'siteName' =>$_ENV['SiteName'],
+    'siteName' =>getenv('SiteName')?:$_ENV['SiteName'],
 ));
