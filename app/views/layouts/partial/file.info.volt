@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-2" align="right"><span><a href="{{ url(['for':'standards.showTags','file':file.id]) }}">我的标签</a></span>:</div>
             <div class="col-md-10">
-                {% for item in file.tags() %}
+                {% for item in file.myTags() %}
                     <span><a href="{{ url(['for':'tags.show','tag':item.id]) }}">{{ item.name }}</a></span>
                 {% endfor %}
             </div>
