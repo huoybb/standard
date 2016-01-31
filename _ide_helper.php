@@ -4,8 +4,7 @@ namespace {
     use Phalcon\Http\Response\Cookies;
 
     exit("This file should not be included, only analyzed by your IDE");
-    class RedisFacade extends \Facade
-    {
+    class RedisFacade extends \Facade{
         /**
          * @return bool
          */
@@ -62,8 +61,7 @@ namespace {
         public static function keys($pattern){}
     }
 
-    class EventFacade extends \Facade
-    {
+    class EventFacade extends \Facade{
         /**
          * Fires an event in the events manager causing the active listeners to be notified about it
          * <code>
@@ -79,8 +77,7 @@ namespace {
         public static function fire($eventType, $source, $data = null, $cancelable = true) {}
     }
 
-    class SessionFacade extends \Facade
-    {
+    class SessionFacade extends \Facade{
         /**
          * Gets a session variable from an application context
          * <code>
@@ -139,8 +136,7 @@ namespace {
         public static function destroy($removeData = false) {}
     }
 
-    class CookieFacade extends \Facade
-    {
+    class CookieFacade extends \Facade{
         /**
          * Sets a cookie to be sent at the end of the request
          * This method overrides any cookie set before with the same name
