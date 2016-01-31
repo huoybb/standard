@@ -96,5 +96,6 @@ $router->add('/login','Users::login')->setName('login');
 $router->add('/logout','Users::logout')->setName('logout');
 
 $router->add('/user/{user:[0-9]+}/tag/{tag:[0-9]+}','users::showTag')->setName('users.showTag');
+$router->add('/user/{user:[0-9]+}/tag/{tag:[0-9]+}/page/{page:[0-9]+}','users::showTag')->setName('users.showTag.page');
 
 return $router;

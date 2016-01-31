@@ -263,17 +263,15 @@ class Tags extends myModel
     }
     public function deleteByCurrentUser()
     {
-        $user = \Phalcon\Di::getDefault()->get('auth');
+        $user = AuthFacade::getService();
         $taggables = Taggables::query()
             ->where('tag_id = :tag:',['tag'=>$this->id])
             ->andWhere('user_id = :user:',['user'=>$user->id])
             ->execute();
         $taggables->delete();
-        $taggables = Taggables::query()
-            ->where('tag_id = :tag:',['tag'=>$this->id])
-            ->execute();
-
+//        dd($taggables);
         $meta = $this->getTagmetaOrNew();
+//        dd($meta);
         $meta->delete();
 
         if($taggables->count() == 0) $this->delete();
