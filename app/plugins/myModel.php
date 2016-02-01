@@ -57,13 +57,23 @@ abstract class myModel extends Model{
 
 
     protected $instance = [];
-    //增加缓存，避免重复查询，例如在files下索取comments、tags、revs等需要增加一个缓存来减少数据库的查询次数
+    //增加临时缓存，避免重复查询，例如在files下索取comments、tags、revs等需要增加一个缓存来减少数据库的查询次数
     public function make($object,Closure $closure)
     {
         if(!isset($this->instance[$object])){
             $this->instance[$object] = $closure();
         }
         return $this->instance[$object];
+    }
+
+    //增加缓存功能，利用redis来做缓存，对于大的数据可以采用这个来也许更加方便
+    public function cache($key,Closure $closure)
+    {
+        $key = 'standard:'.get_class($this).':model:'.$key;
+        if(!RedisFacade::exist($key)){
+            RedisFacade::set($key,json_encode($closure()));
+        }
+        return json_decode(RedisFacade::get($key));
     }
 
     static public function saveNew($data){
