@@ -31,7 +31,7 @@ class myForm
         return $form;
     }
 
-    public static function buildFormFromModel(myModel $model)
+    public static function buildFormFromModel(\Phalcon\Mvc\Model $model,array $extraFields = null)
     {
         if($model->id){
             $form = new Form($model);
@@ -52,7 +52,16 @@ class myForm
                 $fields[]=$column;
             };
         }
+        if(null <> $extraFields){
+            foreach($extraFields as $column){
+                if(in_array($column,$model->columnMap())) continue;
+                $form->add(new Text($column));
+                $fields[]=$column;
+            }
+        }
+
         $form->fields =$fields;
+
         if($model->id){
             $form->add(new Submit('修改'));
         }else{

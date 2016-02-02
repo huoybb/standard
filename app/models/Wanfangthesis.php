@@ -131,8 +131,8 @@ class Wanfangthesis extends \Phalcon\Mvc\Model implements FileableInterface
     {
         return array(
             'id' => 'id',
-            'source_id' => 'source_id',
             'title' => 'title',
+            'source_id' => 'source_id',
             'abstract' => 'abstract',
             'doi' => 'doi',
             'Personal_Author' => 'Personal_Author',

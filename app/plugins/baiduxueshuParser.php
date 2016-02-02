@@ -43,7 +43,7 @@ class baiduxueshuParser extends myParser
             'title'=>$this->info['title'],
             'url'=>$this->Id2Url($this->source_id),
         ];
-        if($this->info['出版源']) $result['updated_at_website'] = explode(',',$this->info['出版源'])[1];
+        if(isset($this->info['出版源'])) $result['updated_at_website'] = explode(',',$this->info['出版源'])[1];
         return $result;
     }
 }

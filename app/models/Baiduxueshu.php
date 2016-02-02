@@ -100,8 +100,8 @@ class Baiduxueshu extends \Phalcon\Mvc\Model implements FileableInterface
     {
         return array(
             'id' => 'id',
-            'source_id' => 'source_id',
             'title' => 'title',
+            'source_id' => 'source_id',
             'writer' => 'writer',
             'abstract' => 'abstract',
             'publisher' => 'publisher',
