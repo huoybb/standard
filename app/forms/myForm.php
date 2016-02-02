@@ -31,7 +31,7 @@ class myForm
         return $form;
     }
 
-    public static function buildFormFromModel(myModel $model)
+    public static function buildFormFromModel(\Phalcon\Mvc\Model $model)
     {
         if($model->id){
             $form = new Form($model);

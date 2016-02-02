@@ -129,8 +129,8 @@ class Wanfangconference extends \Phalcon\Mvc\Model implements FileableInterface
     {
         return array(
             'id' => 'id',
-            'source_id' => 'source_id',
             'title' => 'title',
+            'source_id' => 'source_id',
             'abstract' => 'abstract',
             'Personal_Author' => 'Personal_Author',
             'Corporate_Author' => 'Corporate_Author',

@@ -54,6 +54,19 @@ abstract class myParser
     }
 
     /**
+     * @param FileableInterface $model
+     * @param null $data
+     * @return myParser
+     */
+    public static function getParserFromModel(FileableInterface $model, $data = null){
+        $modelName = get_class($model);
+        $reverseModelType = array_flip(self::$modelType);
+        $object = new self::$parserType[$reverseModelType[$modelName]];
+        if($data <> null) $object->info = $data;
+        return $object;
+    }
+
+    /**
      * 如果source_id等于null，则返回新对象，否则就按照source_id查询对应的对象
      * @param $type
      * @return  \Phalcon\Mvc\Model|FileableInterface

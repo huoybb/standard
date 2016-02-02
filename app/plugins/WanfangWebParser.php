@@ -26,7 +26,7 @@ abstract class WanfangWebParser extends myParser
                 'title'=> $this->info['title'],
                 'url'=>$this->Id2Url(),
                 'updated_at_website'=>$this->info['publishDate'],
-                'standard_number'=>$this->info['wanfangId']
+                'standard_number'=>$this->info['source_id']
             ];
 
     }
