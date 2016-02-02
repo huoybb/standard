@@ -59,20 +59,6 @@ class StandardsController extends myController
 //        $router->handle('/search/装备');
 //        dd($router->getMatchedRoute());  为什么单独测试可以呢？
 
-//        这块其实扩展一下，看看是否搞一个基于事件的机制出来，以便能够解耦
-
-//        $eventManager = $this->Event;
-//        $eventManager->fire('files:test',$file);
-//        dd($eventManager);
-
-//        dd($file->getCitations());
-
-//        $queue = new myRedisQueue();
-//        $queue->put(json_encode(['processVideo'=>4871]));
-
-//        dd(RedisFacade::getInstance());
-
-
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }
@@ -80,12 +66,25 @@ class StandardsController extends myController
 
     public function editAction(Files $file)
     {
+        $fileable = $file->getFileable();
         if ($this->request->isPost()) {
+            $data = $this->request->getPost();
+//            dd($data);
+            if(isset($data['file_id'])){
+                $fileable->update($data);//更新fileable数据表
+                $file_data = myParser::getParserFromModel($fileable,$data)->getDataForFile();
+                $file_data['type'] = $data['doctype'];
+                $file->update($file_data);
+                return $this->success();
+            }
+
             $file->update($this->request->getPost());
             return $this->success();
         }
+
         $this->view->file = $file;
-        $this->view->form = myForm::buildFormFromModel($file);
+        if($fileable == null) $fileable = $file;
+        $this->view->form = myForm::buildFormFromModel($fileable,['doctype'=>$file->type]);
     }
 
     public function deleteAction(Files $file)

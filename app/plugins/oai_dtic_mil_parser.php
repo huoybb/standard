@@ -37,7 +37,7 @@ class oai_dtic_mil_parser extends myParser
             'title'=>$this->info['Title'],
             'url'=>$this->Id2Url($this->source_id),
             'updated_at_website'=>$this->info['Report_Date'],
-            'standard_number'=>$this->info['Accession_Number']
+            'standard_number'=>$this->info['source_id'],
         ];
     }
 

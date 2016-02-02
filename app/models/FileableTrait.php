@@ -9,7 +9,7 @@
 trait FileableTrait
 {
     /**
-     * @return FileableInterface
+     * @return FileableInterface | \Phalcon\Mvc\Model |null
      */
     public function getFileable()
     {

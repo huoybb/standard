@@ -19,7 +19,7 @@ $router->add('/standards/archive/{month:[-0-9]+}','standards::archive')->setName
 $router->add('/standards/archive/{month:[-0-9]+}/page/{page:[0-9]+}','standards::archive')->setName('standards.archive.page');
 
 $router->add('/standards/{file:[0-9]+}','standards::show')->setName('standards.show');
-$router->addx('/standards/{file:[0-9]+}/edit','standards::edit',['standardRules'])->setName('standards.edit');
+$router->add('/standards/{file:[0-9]+}/edit','standards::edit')->setName('standards.edit');
 $router->add('/standards/{file:[0-9]+}/delete','standards::delete')->setName('standards.delete');
 
 $router->addx('/standards/{file:[0-9]+}/addComment','standards::addComment',['commentRules'])->setName('standards.addComment');

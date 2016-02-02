@@ -86,9 +86,9 @@ class Everyspec extends \Phalcon\Mvc\Model implements FileableInterface
     {
         return array(
             'id' => 'id',
+            'title' => 'title',
             'source_id' => 'source_id',
             'standard_no' => 'standard_no',
-            'title' => 'title',
             'date' => 'date',
             'abstract' => 'abstract',
             'file_id' => 'file_id'

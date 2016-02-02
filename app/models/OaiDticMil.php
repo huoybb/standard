@@ -130,8 +130,8 @@ class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
     {
         return array(
             'id' => 'id',
-            'source_id' => 'source_id',
             'Title' => 'Title',
+            'source_id' => 'source_id',
             'Descriptive_Note' => 'Descriptive_Note',
             'Corporate_Author' => 'Corporate_Author',
             'Personal_Author' => 'Personal_Author',
