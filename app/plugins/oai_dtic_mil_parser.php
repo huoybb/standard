@@ -26,6 +26,7 @@ class oai_dtic_mil_parser extends myParser
             }
         });
         $result['source_id']=$source_id;
+        $result['title'] = $result['Title'];
         $this->info = $result;
         return $this->info;
     }
@@ -34,7 +35,7 @@ class oai_dtic_mil_parser extends myParser
     public function getDataForFile()
     {
         return [
-            'title'=>$this->info['Title'],
+            'title'=>$this->info['title'],
             'url'=>$this->Id2Url($this->source_id),
             'updated_at_website'=>$this->info['Report_Date'],
             'standard_number'=>$this->info['source_id'],

@@ -82,9 +82,13 @@ class StandardsController extends myController
             return $this->success();
         }
 
+        $extraData = ['doctype'=>$file->type];
+        if($fileable == null) {
+            $fileable = $file;
+            $extraData = null;
+        }
         $this->view->file = $file;
-        if($fileable == null) $fileable = $file;
-        $this->view->form = myForm::buildFormFromModel($fileable,['doctype'=>$file->type]);
+        $this->view->form = myForm::buildFormFromModel($fileable,$extraData);
     }
 
     public function deleteAction(Files $file)

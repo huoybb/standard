@@ -20,7 +20,7 @@ class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
      *
      * @var string
      */
-    public $Title;
+    public $title;
 
     /**
      *
@@ -130,7 +130,7 @@ class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
     {
         return array(
             'id' => 'id',
-            'Title' => 'Title',
+            'title' => 'title',
             'source_id' => 'source_id',
             'Descriptive_Note' => 'Descriptive_Note',
             'Corporate_Author' => 'Corporate_Author',
