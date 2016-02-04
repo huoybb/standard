@@ -373,4 +373,12 @@ namespace {
         public static function getAvailableModes() {}
     }
 
+    class myToolsFacade extends \Facade{
+        /**
+         * @param $search
+         * @return boolean
+         */
+        public static function isStandardNumber($search){}
+    }
+
 }

@@ -167,5 +167,15 @@ class myTools
         return $tmpstr;
     }
 
+    /**
+     * @param $search
+     * @return boolean
+     */
+    public function isStandardNumber($search)
+    {
+        return preg_match('/[a-zA-Z0-9-]+/m', $search);
+    }
+
+
 
 }
