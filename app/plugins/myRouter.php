@@ -78,10 +78,11 @@ class myRouter extends Router{
         $route = $this->getMatchedRoute();
         if(null == $route) {
             $r = $this->getDI()->get('router');
-            $r->handle($request->getURI());
+            $r->handle(urldecode($request->getURI()));
             $route = $r->getMatchedRoute();
             //为什么搜索“装备”会出现找不到路由的问题？估计与字符处理有关系
             if(null == $route) die('url地址无效，找不到对应的路由设置！');
+//            $dispatcher->setParams(array_merge($dispatcher->getParams(),$r->getParams()));//这个是一个补丁的做法
         }
 
         $pattern = $route->getPattern();
