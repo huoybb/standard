@@ -17,7 +17,7 @@ class TagsController extends myController
         $this->view->form = myForm::buildCommentForm($tag);
     }
 
-    public function showArchiveAction($month,Tags $tag,$page = 1)
+    public function showArchiveAction(Tags $tag,$month,$page = 1)
     {
         $this->view->mytag = $tag;
         $this->view->page = $this->getPaginator($tag->getTaggedFilesByMonth($month),25,$page);

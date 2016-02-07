@@ -2,6 +2,8 @@
 namespace {
 
     use Phalcon\Http\Response\Cookies;
+    use Phalcon\Mvc\Router\RouteInterface;
+    use Phalcon\Mvc\RouterInterface;
 
     exit("This file should not be included, only analyzed by your IDE");
     class RedisFacade extends \Facade{
@@ -379,6 +381,214 @@ namespace {
          * @return boolean
          */
         public static function isStandardNumber($search){}
+    }
+
+    class RouterFacade extends \Facade{
+        /**
+         * Handles routing information received from the rewrite engine
+         * <code>
+         * //Read the info from the rewrite engine
+         * $router->handle();
+         * //Manually passing an URL
+         * $router->handle('/posts/edit/1');
+         * </code>
+         *
+         * @param string $uri
+         */
+        public static function handle($uri = null) {}
+
+        /**
+         * Adds a route to the router without any HTTP constraint
+         * <code>
+         * use Phalcon\Mvc\Router;
+         * $router->add('/about', 'About::index');
+         * $router->add('/about', 'About::index', ['GET', 'POST']);
+         * $router->add('/about', 'About::index', ['GET', 'POST'], Router::POSITION_FIRST);
+         * </code>
+         *
+         * @param string $pattern
+         * @param mixed $paths
+         * @param mixed $httpMethods
+         * @param mixed $position
+         * @return \Phalcon\Mvc\Router\RouteInterface
+         */
+        public static function add($pattern, $paths = null, $httpMethods = null, $position = Router::POSITION_LAST) {}
+
+        /**
+         * 主要是增加了一个中间件的功能，利用short syntax来增加中间件，这样的好处是路由、中间件在一起，便于管理
+         * @param $pattern
+         * @param null $path
+         * @param array $middleware
+         * @return \Phalcon\Mvc\Router\Route
+         */
+        public static function addx($pattern,$path=null,array $middleware=[]) {}
+
+        /**
+         * Adds a route to the router that only match if the HTTP method is GET
+         *
+         * @param string $pattern
+         * @param mixed $paths
+         * @param mixed $position
+         * @return \Phalcon\Mvc\Router\RouteInterface
+         */
+        public static function addGet($pattern, $paths = null, $position = Router::POSITION_LAST) {}
+        /**
+         * Adds a route to the router that only match if the HTTP method is POST
+         *
+         * @param string $pattern
+         * @param mixed $paths
+         * @param mixed $position
+         * @return \Phalcon\Mvc\Router\RouteInterface
+         */
+        public static function addPost($pattern, $paths = null, $position = Router::POSITION_LAST) {}
+
+        /**
+         * Adds a route to the router that only match if the HTTP method is PUT
+         *
+         * @param string $pattern
+         * @param mixed $paths
+         * @param mixed $position
+         * @return \Phalcon\Mvc\Router\RouteInterface
+         */
+        public static function addPut($pattern, $paths = null, $position = Router::POSITION_LAST) {}
+
+        /**
+         * Adds a route to the router that only match if the HTTP method is PATCH
+         *
+         * @param string $pattern
+         * @param mixed $paths
+         * @param mixed $position
+         * @return \Phalcon\Mvc\Router\RouteInterface
+         */
+        public static function addPatch($pattern, $paths = null, $position = Router::POSITION_LAST) {}
+
+        /**
+         * Adds a route to the router that only match if the HTTP method is DELETE
+         *
+         * @param string $pattern
+         * @param mixed $paths
+         * @param mixed $position
+         * @return \Phalcon\Mvc\Router\RouteInterface
+         */
+        public static function addDelete($pattern, $paths = null, $position = Router::POSITION_LAST) {}
+
+        /**
+         * Add a route to the router that only match if the HTTP method is OPTIONS
+         *
+         * @param string $pattern
+         * @param mixed $paths
+         * @param mixed $position
+         * @return \Phalcon\Mvc\Router\RouteInterface
+         */
+        public static function addOptions($pattern, $paths = null, $position = Router::POSITION_LAST) {}
+
+        /**
+         * Adds a route to the router that only match if the HTTP method is HEAD
+         *
+         * @param string $pattern
+         * @param mixed $paths
+         * @param mixed $position
+         * @return \Phalcon\Mvc\Router\RouteInterface
+         */
+        public static function addHead($pattern, $paths = null, $position = Router::POSITION_LAST) {}
+        /**
+         * Set a group of paths to be returned when none of the defined routes are matched
+         *
+         * @param mixed $paths
+         * @return RouterInterface
+         */
+        public static function notFound($paths) {}
+
+        /**
+         * Removes all the pre-defined routes
+         */
+        public static function clear() {}
+
+        /**
+         * Returns the processed namespace name
+         *
+         * @return string
+         */
+        public static function getNamespaceName() {}
+
+        /**
+         * Returns the processed module name
+         *
+         * @return string
+         */
+        public static function getModuleName() {}
+
+        /**
+         * Returns the processed controller name
+         *
+         * @return string
+         */
+        public static function getControllerName() {}
+
+        /**
+         * Returns the processed action name
+         *
+         * @return string
+         */
+        public static function getActionName() {}
+
+        /**
+         * Returns the processed parameters
+         *
+         * @return array
+         */
+        public static function getParams() {}
+
+        /**
+         * Returns the route that matchs the handled URI
+         *
+         * @return \Phalcon\Mvc\Router\RouteInterface
+         */
+        public static function getMatchedRoute() {}
+
+        /**
+         * Returns the sub expressions in the regular expression matched
+         *
+         * @return array
+         */
+        public static function getMatches() {}
+
+        /**
+         * Checks if the router macthes any of the defined routes
+         *
+         * @return bool
+         */
+        public static function wasMatched() {}
+
+        /**
+         * Returns all the routes defined in the router
+         *
+         * @return RouteInterface[]
+         */
+        public static function getRoutes() {}
+
+        /**
+         * Returns a route object by its id
+         *
+         * @param mixed $id
+         * @return bool|\Phalcon\Mvc\Router\RouteInterface
+         */
+        public static function getRouteById($id) {}
+
+        /**
+         * Returns a route object by its name
+         *
+         * @param string $name
+         * @return bool|\Phalcon\Mvc\Router\RouteInterface
+         */
+        public static function getRouteByName($name) {}
+
+        /**
+         * Returns whether controller name should not be mangled
+         *
+         * @return bool
+         */
+        public static function isExactControllerName() {}
     }
 
 }

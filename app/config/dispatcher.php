@@ -5,7 +5,7 @@ $eventsManager->attach("dispatch:beforeDispatchLoop", function($event, \Phalcon\
     //模型注入的功能，这里可以很方便的进行 model binding,这里基本上实现了Laravel中的模型绑定的功能了
 //        dd($dispatcher);
 //-------------这块主要是修正错误，主要是中文的urlencode搞的，需要解码
-    $router = \Phalcon\Di::getDefault()->get('router');
+    $router = RouterFacade::getService();
     $route=$router->getMatchedRoute();
     if(null == $route) {
         $request = new \Phalcon\Http\Request();
