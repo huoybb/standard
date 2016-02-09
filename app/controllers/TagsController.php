@@ -59,7 +59,7 @@ class TagsController extends myController
         return $this->redirectByRoute(['for'=>'tags.show','tag'=>$tag->id]);
     }
 
-    public function showItemAction(Tags $tag,Files $file)
+    public function showItemAction(Tags $tag,FilesInterface $file)
     {
         $this->view->mytag = $tag;
         $this->view->page = $tag->getShowItemPage($file);

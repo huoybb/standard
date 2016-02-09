@@ -589,6 +589,21 @@ namespace {
          * @return bool
          */
         public static function isExactControllerName() {}
+
+        /**
+         * @param $key
+         * @param $provider
+         *
+         * @return null
+         */
+        public static function bindProvider($key, $provider){}
+
+        /**
+         * @param $key
+         *
+         * @return string
+         */
+        public static function getProvider($key){}
     }
 
 }

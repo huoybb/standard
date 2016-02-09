@@ -2,11 +2,13 @@
 use Phalcon\Mvc\Router;
 
 $router = new myRouter(false);
-$router->setUriSource(Router::URI_SOURCE_SERVER_REQUEST_URI);//这种形式对比$_GET('_url')的要稳定，这个函数没有urldecode()，需要手动执行
 
+$router->bindProvider(FilesInterface::class,Files::class);
+
+$router->setUriSource(Router::URI_SOURCE_SERVER_REQUEST_URI);//这种形式对比$_GET('_url')的要稳定，这个函数没有urldecode()，需要手动执行
+$router->removeExtraSlashes(true);
 $router->addMiddlewaresForEveryRoute(['IsLoginValidator']);
 
-$router->removeExtraSlashes(true);
 $router->add('/page/{page:[0-9]+}','index::index')->setName('index');
 $router->add('/','index::index')->setName('home');
 

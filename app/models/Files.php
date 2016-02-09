@@ -1,6 +1,6 @@
 <?php
 
-class Files extends myModel
+class Files extends myModel implements FilesInterface
 {
 
     use attachableTrait;

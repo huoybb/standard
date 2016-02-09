@@ -19,6 +19,8 @@ class myRouter extends Router{
 
     public $middlewaresForEveryRoute = [];
 
+    public $serviceProvider = [];
+
     /**
      * myRouter constructor.
      */
@@ -76,14 +78,7 @@ class myRouter extends Router{
     public function passThrouthMiddleWares(Request $request, Response $response,Dispatcher $dispatcher)
     {
         $route = $this->getMatchedRoute();
-        if(null == $route) {
-            $r = $this->getDI()->get('router');
-            $r->handle(urldecode($request->getURI()));
-            $route = $r->getMatchedRoute();
-            //为什么搜索“装备”会出现找不到路由的问题？估计与字符处理有关系
-            if(null == $route) die('url地址无效，找不到对应的路由设置！');
-//            $dispatcher->setParams(array_merge($dispatcher->getParams(),$r->getParams()));//这个是一个补丁的做法
-        }
+        if(null == $route) die('url地址无效，找不到对应的路由设置！');
 
         $pattern = $route->getPattern();
 
@@ -135,28 +130,25 @@ class myRouter extends Router{
         return true;
     }
 
-//    protected $validatorMap = [
-//        'Email'=>'Phalcon\Validation\Validator\Email',
-//        'Exclusionin'=>'Phalcon\Validation\Validator\Exclusionin',
-//        'Inclusionin'=>'Phalcon\Validation\Validator\Inclusionin',
-//        'Numericality'=>'Phalcon\Validation\Validator\Numericality',
-//        'PresenceOf'=>'Phalcon\Validation\Validator\PresenceOf',
-//        'Regex'=>'Phalcon\Validation\Validator\Regex',
-//        'StringLength'=>'Phalcon\Validation\Validator\StringLength',
-//        'Uniqueness'=>'Phalcon\Validation\Validator\Uniqueness',
-//        'Url'=>'Phalcon\Validation\Validator\Url',
-//        'compare'=>'compare',
-//        'default'=>'defaultValue'
-//    ];
-//
-//    private function getValidatorFromRules($rules)
-//    {
-//        $Validation = new myValidation();
-//        foreach($rules->rules as $field => $rule ){
-//            $className = $this->validatorMap[$rule['validator']];
-//            $message = $rule['message'];
-//            $Validation->add($field,new $className(['message'=>$message]));
-//        }
-//        return $Validation;
-//    }
+// ----------   提供绑定的功能，类似laravel中的service provider的功能----------
+
+    /**
+     * @param $key
+     * @param $provider
+     */
+    public function bindProvider($key, $provider)
+    {
+        $this->serviceProvider[$key]=$provider;
+    }
+
+    /**
+     * @param $key
+     * @return mixed
+     */
+    public function getProvider($key)
+    {
+        if(isset($this->serviceProvider[$key])) return $this->serviceProvider[$key];
+        return $key;
+    }
+
 } 
