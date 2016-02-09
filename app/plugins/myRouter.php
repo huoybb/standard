@@ -27,6 +27,10 @@ class myRouter extends Router{
     public function __construct($defaultRoutes = true)
     {
         parent::__construct($defaultRoutes);
+        //        ---------解决中文url不稳定的问题----------
+        $this->setUriSource(Router::URI_SOURCE_SERVER_REQUEST_URI);//这种形式对比$_GET('_url')的要稳定，这个函数没有urldecode()，需要手动执行
+        $_SERVER['REQUEST_URI'] = urldecode($_SERVER['REQUEST_URI']);
+        //        ---------解决中文url不稳定的问题----------
     }
 
     public function addMiddlewaresForEveryRoute(array $middleware=[])

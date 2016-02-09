@@ -13,4 +13,14 @@ class CookieFacade extends Facade
         return 'cookies';
     }
 
+    public static function remove($key){
+        return static::getService()->get($key)->delete();
+    }
+    public static function getCookie($key){
+        return json_decode(CryptFacade::decrypt(static::getService()->get($key)->getValue()));
+    }
+    public static function setCookie($key,$object,$duration){
+        return static::getService()->set($key,CryptFacade::encrypt(json_encode($object)),$duration);
+    }
+
 }

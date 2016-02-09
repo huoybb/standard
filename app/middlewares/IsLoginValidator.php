@@ -46,24 +46,18 @@ class IsLoginValidator extends myValidation{
     {
         AuthFacade::save(['remember_token'=>$this->security->getToken()]);
         SessionFacade::remove('auth');
-        CookieFacade::get('auth[email]')->delete();
-        CookieFacade::get('auth[token]')->delete();
+        CookieFacade::remove('auth');
     }
 
     private function getCookie()
     {
-        $auth = CookieFacade::get('auth')->getValue();
-        foreach($auth as $key=>$value){
-            $auth[$key]=CryptFacade::decrypt($value);
-        }
-        return $auth;
+        return (array)CookieFacade::getCookie('auth');
     }
     private function setCookie(Users $user)
     {
         $token = SecurityFacade::getToken();
         $user->save(['remember_token'=>$token]);
-        setcookie('auth[email]',CryptFacade::encrypt($user->email), Carbon::now()->addDay(15)->timestamp);
-        setcookie('auth[token]',CryptFacade::encrypt($token),Carbon::now()->addDay(15)->timestamp);
+        CookieFacade::setCookie('auth',['email'=>$user->email,'token'=>$token],Carbon::now()->addDay(15)->timestamp);
     }
 
 } 
