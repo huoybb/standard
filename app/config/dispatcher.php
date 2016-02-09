@@ -7,28 +7,26 @@ $eventsManager->attach("dispatch:beforeDispatchLoop", function($event, \Phalcon\
         $reflection = new ReflectionMethod($dispatcher->getControllerClass(), $dispatcher->getActiveMethod());
         $actionParams = [];
         foreach($reflection->getParameters() as $parameter){
+
+            $objectId = $dispatcher->getParam($parameter->name);
+            if(null == $objectId && $parameter->isDefaultValueAvailable()) $objectId = $parameter->getDefaultValue();
+
             if($parameter->getClass()){
                 $className = RouterFacade::getProvider($parameter->getClass()->name);
-                $objectId = $dispatcher->getParam($parameter->name);
-                if(null == $objectId && $parameter->isDefaultValueAvailable()) $objectId = $parameter->getDefaultValue();
 
                 if($objectId){
                     if(is_subclass_of($className,\Phalcon\Mvc\Model::class)){
                         /** @var \Phalcon\Mvc\Model $className */
                         $actionParams[$parameter->name] = $className::findFirst($objectId);
-
                     }else{
                         $actionParams[$parameter->name] = new $className($objectId);
                     }
+
                 }else{
                     $actionParams[$parameter->name] = new $className;
                 }
-
             }else{
-                $value = $dispatcher->getParam($parameter->name);
-                if(null == $value and $parameter->isDefaultValueAvailable()) $value = $parameter->getDefaultValue();
-
-                $actionParams[$parameter->name] = $value;
+                $actionParams[$parameter->name] = $objectId;
             }
         }
 
