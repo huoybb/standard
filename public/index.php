@@ -1,7 +1,9 @@
 <?php
-
 error_reporting(E_ALL);
+
+$_SERVER['REQUEST_URI'] = urldecode($_SERVER['REQUEST_URI']);
 function dd($x){ var_dump($x);die();}
+
 try {
 
     /*
@@ -39,7 +41,6 @@ try {
      * */
     $di['app'] = $application;
     (new Snowair\Debugbar\ServiceProvider('../app/config/debugbar.php'))->start();
-
     echo $application->handle()->getContent();
 
 } catch (\Exception $e) {

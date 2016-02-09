@@ -3,24 +3,8 @@
 $eventsManager = new \Phalcon\Events\Manager();
 $eventsManager->attach("dispatch:beforeDispatchLoop", function($event, \Phalcon\Mvc\Dispatcher $dispatcher){
     //模型注入的功能，这里可以很方便的进行 model binding,这里基本上实现了Laravel中的模型绑定的功能了
-//        dd($dispatcher);
-//-------------这块主要是修正错误，主要是中文的urlencode搞的，需要解码
-    $router = RouterFacade::getService();
-    $route=$router->getMatchedRoute();
-    if(null == $route) {
-        $request = new \Phalcon\Http\Request();
-        $router->handle(urldecode($request->getURI()));//这里需要特殊关注一下，也许将来在框架中能够得到修正
-        $route = $router->getMatchedRoute();
-        if(null == $route) die('url地址无效，找不到对应的路由设置！');
-
-        $dispatcher->setControllerName($router->getControllerName());
-        $dispatcher->setActionName($router->getActionName());
-        $dispatcher->setParams($router->getParams());
-    }
-//----------------bugfix 以上内容将来可能需要去掉-----------
     $controllerName = $dispatcher->getControllerClass();
     $actionName = $dispatcher->getActiveMethod();
-
     try{
         $reflection = new ReflectionMethod($controllerName,$actionName);
         $actionParams = [];
@@ -53,7 +37,7 @@ $eventsManager->attach("dispatch:beforeDispatchLoop", function($event, \Phalcon\
         }
 
         if(count($actionParams)){
-            $dispatcher->setParams(array_merge($dispatcher->getParams(),$actionParams));
+            $dispatcher->setParams($actionParams);
         }
 
 
