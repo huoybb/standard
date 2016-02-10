@@ -93,6 +93,9 @@ $router->add('/tags/{tag:[0-9]+}/getRelation/{relation}','tags::getRelation')->s
 $router->add('/subRepository/{repository}','subrepository::show')->setName('subRepository');
 $router->add('/subRepository/{repository}/page/{page:[0-9]+}','subrepository::show')->setName('subRepository.page');
 
+$router->add('/subRepository/{repository}/search/{search:[^/]+}','subrepository::search')->setName('subRepository.search');
+$router->add('/subRepository/{repository}/search/{search:[^/]+}/page/{page:[0-9]+}','subrepository::search')->setName('subRepository.search.page');
+
 $router->add('/subRepository/{repository}/archive/{month:[-0-9]+}','subrepository::showArchive')->setName('subRepository.showArchive');
 $router->add('/subRepository/{repository}/archive/{month:[-0-9]+}/page/{page:[0-9]+}','subrepository::showArchive')->setName('subRepository.showArchive.page');
 

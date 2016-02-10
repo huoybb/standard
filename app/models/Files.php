@@ -180,15 +180,17 @@ class Files extends myModel implements FilesInterface
      * @param $search
      * @return \Phalcon\Mvc\Model\Query\BuilderInterface
      */
-    static public function searchQuery($search)
+    static public function searchQuery($search,$fileable = null)
     {
+        $model = self::class;
         $bits = explode(' ',trim($search));
         $builder = (new self)->getModelsManager()->createBuilder()
-            ->from(self::class)
-            ->orderBy('id DESC')
-            ->where('title like :search:',['search'=>'%'.array_shift($bits).'%']);
+            ->from($model)
+            ->orderBy($model.'.id DESC')
+            ->where($model.'.title like :search:',['search'=>'%'.array_shift($bits).'%']);
+        if($fileable <> null) $builder->rightJoin($fileable,$fileable.'.file_id = '.$model.'.id');
         foreach($bits as $key=>$bit){
-            $builder->andWhere("title like :search{$key}:",["search{$key}"=>'%'.$bit.'%']);
+            $builder->andWhere($model.".title like :search{$key}:",["search{$key}"=>'%'.$bit.'%']);
         }
         return $builder;
     }

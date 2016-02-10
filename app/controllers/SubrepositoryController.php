@@ -31,5 +31,14 @@ class SubrepositoryController extends myController
         $this->view->page->repository = myParser::getModelBySourceId($repository);
     }
 
+    public function searchAction($repository,$search,$page =1)
+    {
+        $model = myParser::getModelName($repository);
+        if(!$model) dd('路径非法，不存在'.$repository.'类型的库');
+        $this->view->page = $this->getPaginatorByQueryBuilder(Files::searchQuery($search,$model),50,$page);
+        $this->view->search = $search;
+    }
+
+
 }
 

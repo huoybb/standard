@@ -111,6 +111,10 @@ class StandardsController extends myController
             $file = Files::findByStandardNumber($search);
             if($file) return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
         }
+//        if(myToolsFacade::isSubrepositorySearch($search)){
+//            list($type,$search) = myToolsFacade::getSubrepositorySearch($search);
+//            return $this->redirectByRoute(['for'=>'subRepository.search','repository'=>$type,'search'=>$search]);
+//        }
         $this->view->page = $this->getPaginatorByQueryBuilder(Files::searchQuery($search),50,$page);
         $this->view->search = $search;
     }
