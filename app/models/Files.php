@@ -154,14 +154,9 @@ class Files extends myModel implements FilesInterface
     {
         if(!$this->$key) return null;
         if($key == 'url'){
-            $siteName = '链接';
-            if(preg_match('%http://d.wanfangdata.com.cn/%m', $this->$key)) $siteName = '万方';
-            if(preg_match('%http://www.pv265.com/%m', $this->$key)) $siteName = 'PV265';
-            if(preg_match('%http://oai.dtic.mil/%m', $this->$key)) $siteName = 'OAI';
-            if(preg_match('%http://everyspec.com/%m', $this->$key)) $siteName = 'EverySpec';
+            $siteName = (new Link())->getSiteName($this->$key);
             return '<a href="'.$this->$key.'" target="_blank" >'.$siteName.'</a>';
         }
-
         return $this->$key;
     }
 

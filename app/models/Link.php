@@ -107,9 +107,10 @@ class Link extends myModel
     {
         if($url == null) $url = $this->url;
         $siteName = '链接';
-        if(preg_match('%http://d.wanfangdata.com.cn/%m', $url)) $siteName = '万方';
+        if(preg_match('%http://d.wanfangdata.com.cn/%m', $url)) $siteName = '万方数据';
         if(preg_match('%http://www.pv265.com/%m', $url)) $siteName = 'PV265';
         if(preg_match('%http://oai.dtic.mil/%m', $url)) $siteName = 'OAI';
+        if(preg_match('%http://everyspec.com/%m', $url)) $siteName = 'EverySpec';
         if(preg_match('%http://www.doc88.com/%m', $url)) $siteName = '道客巴巴';
         if(preg_match('%http://www.cnki.com.cn/%m', $url)) $siteName = '知网';
         if(preg_match('%http://xueshu.baidu.com/%m', $url)) $siteName = '百度学术';
@@ -117,6 +118,7 @@ class Link extends myModel
         if(preg_match('%http://www.cqvip.com/%m', $url)) $siteName = '维普';
         if(preg_match('%http://wenku.baidu.com/%m', $url)) $siteName = '百度文库';
         if(preg_match('%http://baike.baidu.com/%m', $url)) $siteName = '百度百科';
+        if(preg_match('%http://wiki.mbalib.com/%m', $url)) $siteName = 'MBA智库百科';
         return $siteName;
     }
     public function getUser()
