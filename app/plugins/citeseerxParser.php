@@ -42,10 +42,11 @@ class citeseerxParser extends myParser
 
     public function getDataForFile()
     {
+        $source_id = $this->source_id ?: $this->info['source_id'];
         $result = [
             'title'=>$this->info['title'],
-            'url'=>$this->Id2Url($this->source_id),
-            'standard_number'=>$this->source_id,
+            'url'=>$this->Id2Url($source_id),
+            'standard_number'=>$source_id,
         ];
 //        dd($result);
         return $result;

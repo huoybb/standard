@@ -21,10 +21,11 @@ abstract class WanfangWebParser extends myParser
 
     public function getDataForFile()
     {
+        $source_id = $this->source_id?:$this->info['source_id'];
         return
             [
                 'title'=> $this->info['title'],
-                'url'=>$this->Id2Url(),
+                'url'=>$this->Id2Url($source_id),
                 'updated_at_website'=>$this->info['publishDate'],
                 'standard_number'=>$this->info['source_id']
             ];
