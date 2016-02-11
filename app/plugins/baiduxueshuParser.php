@@ -32,9 +32,10 @@ class baiduxueshuParser extends myParser
         $this->info = $result;
         return $result;
     }
-    public function Id2Url($file_id = null)
+    public function Id2Url($source_id = null)
     {
-        return base64_decode($this->source_id);
+        $source_id = $source_id ?: $this->source_id;
+        return base64_decode($source_id);
     }
 
     public function getDataForFile()

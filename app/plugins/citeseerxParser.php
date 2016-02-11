@@ -54,7 +54,7 @@ class citeseerxParser extends myParser
 
     public function Id2Url($source_id = null)
     {
-        if($source_id == null) $source_id = $this->source_id;
+        $source_id = $source_id ?: $this->source_id;
         return 'http://citeseerx.ist.psu.edu/viewdoc/summary?doi='.$source_id;
     }
 }

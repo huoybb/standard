@@ -14,7 +14,7 @@ abstract class WanfangWebParser extends myParser
 
     public function Id2Url($source_id = null)
     {
-        if($source_id == null) $source_id = $this->source_id;
+        $source_id = $source_id ?: $this->source_id;
         if($this->url == null) dd('url是空的，请注意！');
         return $this->url.$source_id;
     }

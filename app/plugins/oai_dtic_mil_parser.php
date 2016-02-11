@@ -45,6 +45,7 @@ class oai_dtic_mil_parser extends myParser
 
     public function Id2Url($source_id = null)
     {
+        $source_id = $source_id ?:$this->source_id;
         return 'http://oai.dtic.mil/oai/oai?verb=getRecord&metadataPrefix=html&identifier='.$source_id;
     }
 }
