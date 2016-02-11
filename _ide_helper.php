@@ -606,4 +606,403 @@ namespace {
         public static function getProvider($key){}
     }
 
+    class RequestFacade extends \Facade{
+        /**
+         * Gets a variable from the $_REQUEST superglobal applying filters if needed.
+         * If no parameters are given the $_REQUEST superglobal is returned
+         * <code>
+         * //Returns value from $_REQUEST["user_email"] without sanitizing
+         * $userEmail = $request->get("user_email");
+         * //Returns value from $_REQUEST["user_email"] with sanitizing
+         * $userEmail = $request->get("user_email", "email");
+         * </code>
+         *
+         * @param string $name
+         * @param mixed $filters
+         * @param mixed $defaultValue
+         * @param bool $notAllowEmpty
+         * @param bool $noRecursive
+         * @return mixed
+         */
+        public static function get($name = null, $filters = null, $defaultValue = null, $notAllowEmpty = false, $noRecursive = false) {}
+
+        /**
+         * Gets a variable from the $_POST superglobal applying filters if needed
+         * If no parameters are given the $_POST superglobal is returned
+         * <code>
+         * //Returns value from $_POST["user_email"] without sanitizing
+         * $userEmail = $request->getPost("user_email");
+         * //Returns value from $_POST["user_email"] with sanitizing
+         * $userEmail = $request->getPost("user_email", "email");
+         * </code>
+         *
+         * @param string $name
+         * @param mixed $filters
+         * @param mixed $defaultValue
+         * @param bool $notAllowEmpty
+         * @param bool $noRecursive
+         * @return mixed
+         */
+        public static function getPost($name = null, $filters = null, $defaultValue = null, $notAllowEmpty = false, $noRecursive = false) {}
+
+        /**
+         * Gets a variable from put request
+         * <code>
+         * //Returns value from $_PUT["user_email"] without sanitizing
+         * $userEmail = $request->getPut("user_email");
+         * //Returns value from $_PUT["user_email"] with sanitizing
+         * $userEmail = $request->getPut("user_email", "email");
+         * </code>
+         *
+         * @param string $name
+         * @param mixed $filters
+         * @param mixed $defaultValue
+         * @param bool $notAllowEmpty
+         * @param bool $noRecursive
+         * @return mixed
+         */
+        public static function getPut($name = null, $filters = null, $defaultValue = null, $notAllowEmpty = false, $noRecursive = false) {}
+
+        /**
+         * Gets variable from $_GET superglobal applying filters if needed
+         * If no parameters are given the $_GET superglobal is returned
+         * <code>
+         * //Returns value from $_GET["id"] without sanitizing
+         * $id = $request->getQuery("id");
+         * //Returns value from $_GET["id"] with sanitizing
+         * $id = $request->getQuery("id", "int");
+         * //Returns value from $_GET["id"] with a default value
+         * $id = $request->getQuery("id", null, 150);
+         * </code>
+         *
+         * @param string $name
+         * @param mixed $filters
+         * @param mixed $defaultValue
+         * @param bool $notAllowEmpty
+         * @param bool $noRecursive
+         * @return mixed
+         */
+        public static function getQuery($name = null, $filters = null, $defaultValue = null, $notAllowEmpty = false, $noRecursive = false) {}
+
+        /**
+         * Gets variable from $_SERVER superglobal
+         *
+         * @param string $name
+         * @return string|null
+         */
+        public static function getServer($name) {}
+
+        /**
+         * Checks whether $_REQUEST superglobal has certain index
+         *
+         * @param string $name
+         * @return bool
+         */
+        public static function has($name) {}
+
+        /**
+         * Checks whether $_POST superglobal has certain index
+         *
+         * @param string $name
+         * @return bool
+         */
+        public static function hasPost($name) {}
+
+        /**
+         * Checks whether the PUT data has certain index
+         *
+         * @param string $name
+         * @return bool
+         */
+        public static function hasPut($name) {}
+
+        /**
+         * Checks whether $_GET superglobal has certain index
+         *
+         * @param string $name
+         * @return bool
+         */
+        public static function hasQuery($name) {}
+
+        /**
+         * Checks whether $_SERVER superglobal has certain index
+         *
+         * @param string $name
+         * @return bool
+         */
+        public static final function hasServer($name) {}
+
+        /**
+         * Gets HTTP header from request data
+         *
+         * @param string $header
+         * @return string
+         */
+        public static final function getHeader($header) {}
+
+        /**
+         * Gets HTTP schema (http/https)
+         *
+         * @return string
+         */
+        public static function getScheme() {}
+
+        /**
+         * Checks whether request has been made using ajax
+         *
+         * @return bool
+         */
+        public static function isAjax() {}
+
+        /**
+         * Checks whether request has been made using SOAP
+         *
+         * @return bool
+         */
+        public static function isSoapRequested() {}
+
+        /**
+         * Checks whether request has been made using any secure layer
+         *
+         * @return bool
+         */
+        public static function isSecureRequest() {}
+
+        /**
+         * Gets HTTP raw request body
+         *
+         * @return string
+         */
+        public static function getRawBody() {}
+
+        /**
+         * Gets decoded JSON HTTP raw request body
+         *
+         * @param bool $associative
+         * @return array|bool|\stdClass
+         */
+        public static function getJsonRawBody($associative = false) {}
+
+        /**
+         * Gets active server address IP
+         *
+         * @return string
+         */
+        public static function getServerAddress() {}
+
+        /**
+         * Gets active server name
+         *
+         * @return string
+         */
+        public static function getServerName() {}
+
+        /**
+         * Gets information about schema, host and port used by the request
+         *
+         * @return string
+         */
+        public static function getHttpHost() {}
+
+        /**
+         * Gets HTTP URI which request has been made
+         *
+         * @return string
+         */
+        public static final function getURI() {}
+
+        /**
+         * Gets most possible client IPv4 Address. This method search in _SERVER['REMOTE_ADDR'] and optionally in _SERVER['HTTP_X_FORWARDED_FOR']
+         *
+         * @param bool $trustForwardedHeader
+         * @return string|bool
+         */
+        public static function getClientAddress($trustForwardedHeader = false) {}
+
+        /**
+         * Gets HTTP method which request has been made
+         *
+         * @return string
+         */
+        public static final function getMethod() {}
+
+        /**
+         * Gets HTTP user agent used to made the request
+         *
+         * @return string
+         */
+        public static function getUserAgent() {}
+
+        /**
+         * Checks if a method is a valid HTTP method
+         *
+         * @param string $method
+         * @return bool
+         */
+        public static function isValidHttpMethod($method) {}
+
+        /**
+         * Check if HTTP method match any of the passed methods
+         * When strict is true it checks if validated methods are real HTTP methods
+         *
+         * @param mixed $methods
+         * @param bool $strict
+         * @return bool
+         */
+        public static function isMethod($methods, $strict = false) {}
+
+        /**
+         * Checks whether HTTP method is POST. if _SERVER["REQUEST_METHOD"]==="POST"
+         *
+         * @return bool
+         */
+        public static function isPost() {}
+
+        /**
+         * Checks whether HTTP method is GET. if _SERVER["REQUEST_METHOD"]==="GET"
+         *
+         * @return bool
+         */
+        public static function isGet() {}
+
+        /**
+         * Checks whether HTTP method is PUT. if _SERVER["REQUEST_METHOD"]==="PUT"
+         *
+         * @return bool
+         */
+        public static function isPut() {}
+
+        /**
+         * Checks whether HTTP method is PATCH. if _SERVER["REQUEST_METHOD"]==="PATCH"
+         *
+         * @return bool
+         */
+        public static function isPatch() {}
+
+        /**
+         * Checks whether HTTP method is HEAD. if _SERVER["REQUEST_METHOD"]==="HEAD"
+         *
+         * @return bool
+         */
+        public static function isHead() {}
+
+        /**
+         * Checks whether HTTP method is DELETE. if _SERVER["REQUEST_METHOD"]==="DELETE"
+         *
+         * @return bool
+         */
+        public static function isDelete() {}
+
+        /**
+         * Checks whether HTTP method is OPTIONS. if _SERVER["REQUEST_METHOD"]==="OPTIONS"
+         *
+         * @return bool
+         */
+        public static function isOptions() {}
+
+        /**
+         * Checks whether request include attached files
+         *
+         * @param bool $onlySuccessful
+         * @return long
+         */
+        public static function hasFiles($onlySuccessful = false) {}
+
+        /**
+         * Recursively counts file in an array of files
+         *
+         * @param mixed $data
+         * @param bool $onlySuccessful
+         * @return long
+         */
+        protected static final function hasFileHelper($data, $onlySuccessful) {}
+
+        /**
+         * Gets attached files as Phalcon\Http\Request\File instances
+         *
+         * @param bool $onlySuccessful
+         * @return File[]
+         */
+        public static function getUploadedFiles($onlySuccessful = false) {}
+
+
+
+        /**
+         * Returns the available headers in the request
+         *
+         * @return array
+         */
+        public static function getHeaders() {}
+
+        /**
+         * Gets web page that refers active request. ie: http://www.google.com
+         *
+         * @return string
+         */
+        public static function getHTTPReferer() {}
+
+        /**
+         * Gets content type which request has been made
+         *
+         * @return string|null
+         */
+        public static function getContentType() {}
+
+        /**
+         * Gets an array with mime/types and their quality accepted by the browser/client from _SERVER["HTTP_ACCEPT"]
+         *
+         * @return array
+         */
+        public static function getAcceptableContent() {}
+
+        /**
+         * Gets best mime/type accepted by the browser/client from _SERVER["HTTP_ACCEPT"]
+         *
+         * @return string
+         */
+        public static function getBestAccept() {}
+
+        /**
+         * Gets a charsets array and their quality accepted by the browser/client from _SERVER["HTTP_ACCEPT_CHARSET"]
+         *
+         * @return mixed
+         */
+        public static function getClientCharsets() {}
+
+        /**
+         * Gets best charset accepted by the browser/client from _SERVER["HTTP_ACCEPT_CHARSET"]
+         *
+         * @return string
+         */
+        public static function getBestCharset() {}
+
+        /**
+         * Gets languages array and their quality accepted by the browser/client from _SERVER["HTTP_ACCEPT_LANGUAGE"]
+         *
+         * @return array
+         */
+        public static function getLanguages() {}
+
+        /**
+         * Gets best language accepted by the browser/client from _SERVER["HTTP_ACCEPT_LANGUAGE"]
+         *
+         * @return string
+         */
+        public static function getBestLanguage() {}
+
+        /**
+         * Gets auth info accepted by the browser/client from $_SERVER['PHP_AUTH_USER']
+         *
+         * @return array|null
+         */
+        public static function getBasicAuth() {}
+
+        /**
+         * Gets auth info accepted by the browser/client from $_SERVER['PHP_AUTH_DIGEST']
+         *
+         * @return array
+         */
+        public static function getDigestAuth() {}
+    }
+
 }
