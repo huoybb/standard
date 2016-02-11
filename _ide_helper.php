@@ -1,9 +1,11 @@
 <?php
 namespace {
 
+    use Phalcon\Http\Response;
     use Phalcon\Http\Response\Cookies;
     use Phalcon\Mvc\Router\RouteInterface;
     use Phalcon\Mvc\RouterInterface;
+    use Phalcon\Mvc\Url;
 
     exit("This file should not be included, only analyzed by your IDE");
     class RedisFacade extends \Facade{
@@ -1003,6 +1005,342 @@ namespace {
          * @return array
          */
         public static function getDigestAuth() {}
+    }
+
+    class ResponseFacade extends \Facade{
+        /**
+         * Sets the HTTP response code
+         * <code>
+         * $response->setStatusCode(404, "Not Found");
+         * </code>
+         *
+         * @param int $code
+         * @param string $message
+         * @return Response
+         */
+        public static function setStatusCode($code, $message = null) {}
+
+        /**
+         * Returns the status code
+         * <code>
+         * print_r($response->getStatusCode());
+         * </code>
+         *
+         * @return array
+         */
+        public static function getStatusCode() {}
+
+        /**
+         * Sets a headers bag for the response externally
+         *
+         * @param mixed $headers
+         * @return Response
+         */
+        public static function setHeaders(\Phalcon\Http\Response\HeadersInterface $headers) {}
+
+        /**
+         * Returns headers set by the user
+         *
+         * @return \Phalcon\Http\Response\HeadersInterface
+         */
+        public static function getHeaders() {}
+
+        /**
+         * Sets a cookies bag for the response externally
+         *
+         * @param mixed $cookies
+         * @return Response
+         */
+        public static function setCookies(\Phalcon\Http\Response\CookiesInterface $cookies) {}
+
+        /**
+         * Returns coookies set by the user
+         *
+         * @return \Phalcon\Http\Response\CookiesInterface
+         */
+        public static function getCookies() {}
+
+        /**
+         * Overwrites a header in the response
+         * <code>
+         * $response->setHeader("Content-Type", "text/plain");
+         * </code>
+         *
+         * @param string $name
+         * @param string $value
+         * @return \Phalcon\Http\Response
+         */
+        public static function setHeader($name, $value) {}
+
+        /**
+         * Send a raw header to the response
+         * <code>
+         * $response->setRawHeader("HTTP/1.1 404 Not Found");
+         * </code>
+         *
+         * @param string $header
+         * @return Response
+         */
+        public static function setRawHeader($header) {}
+
+        /**
+         * Resets all the stablished headers
+         *
+         * @return Response
+         */
+        public static function resetHeaders() {}
+
+        /**
+         * Sets a Expires header to use HTTP cache
+         * <code>
+         * $this->response->setExpires(new DateTime());
+         * </code>
+         *
+         * @param mixed $datetime
+         * @return Response
+         */
+        public static function setExpires(\DateTime $datetime) {}
+
+        /**
+         * Sets Cache headers to use HTTP cache
+         * <code>
+         * $this->response->setCache(60);
+         * </code>
+         *
+         * @param int $minutes
+         * @return Response
+         */
+        public static function setCache($minutes) {}
+
+        /**
+         * Sends a Not-Modified response
+         *
+         * @return Response
+         */
+        public static function setNotModified() {}
+
+        /**
+         * Sets the response content-type mime, optionally the charset
+         * <code>
+         * $response->setContentType('application/pdf');
+         * $response->setContentType('text/plain', 'UTF-8');
+         * </code>
+         *
+         * @param string $contentType
+         * @param string $charset
+         * @return \Phalcon\Http\Response
+         */
+        public static function setContentType($contentType, $charset = null) {}
+
+        /**
+         * Set a custom ETag
+         * <code>
+         * $response->setEtag(md5(time()));
+         * </code>
+         *
+         * @param string $etag
+         * @return Response
+         */
+        public static function setEtag($etag) {}
+
+        /**
+         * Redirect by HTTP to another action or URL
+         * <code>
+         * //Using a string redirect (internal/external)
+         * $response->redirect("posts/index");
+         * $response->redirect("http://en.wikipedia.org", true);
+         * $response->redirect("http://www.example.com/new-location", true, 301);
+         * //Making a redirection based on a named route
+         * $response->redirect(array(
+         * "for" => "index-lang",
+         * "lang" => "jp",
+         * "controller" => "index"
+         * ));
+         * </code>
+         *
+         * @param string|array $location
+         * @param boolean $externalRedirect
+         * @param int $statusCode
+         * @return \Phalcon\Http\Response
+         */
+        public static function redirect($location = null, $externalRedirect = false, $statusCode = 302) {}
+
+        /**
+         * Sets HTTP response body
+         * <code>
+         * response->setContent("<h1>Hello!</h1>");
+         * </code>
+         *
+         * @param string $content
+         * @return Response
+         */
+        public static function setContent($content) {}
+
+        /**
+         * Sets HTTP response body. The parameter is automatically converted to JSON
+         * <code>
+         * $response->setJsonContent(array("status" => "OK"));
+         * </code>
+         *
+         * @param mixed $content
+         * @param int $jsonOptions
+         * @param mixed $depth
+         * @return \Phalcon\Http\Response
+         */
+        public static function setJsonContent($content, $jsonOptions = 0, $depth = 512) {}
+
+        /**
+         * Appends a string to the HTTP response body
+         *
+         * @param string $content
+         * @return \Phalcon\Http\Response
+         */
+        public static function appendContent($content) {}
+
+        /**
+         * Gets the HTTP response body
+         *
+         * @return string
+         */
+        public static function getContent() {}
+
+        /**
+         * Check if the response is already sent
+         *
+         * @return bool
+         */
+        public static function isSent() {}
+
+        /**
+         * Sends headers to the client
+         *
+         * @return Response
+         */
+        public static function sendHeaders() {}
+
+        /**
+         * Sends cookies to the client
+         *
+         * @return Response
+         */
+        public static function sendCookies() {}
+
+        /**
+         * Prints out HTTP response to the client
+         *
+         * @return Response
+         */
+        public static function send() {}
+
+        /**
+         * Sets an attached file to be sent at the end of the request
+         *
+         * @param string $filePath
+         * @param string $attachmentName
+         * @param mixed $attachment
+         * @return \Phalcon\Http\Response
+         */
+        public static function setFileToSend($filePath, $attachmentName = null, $attachment = true) {}
+    }
+
+    class UrlFacade extends \Facade{
+        /**
+         * Sets a prefix for all the URIs to be generated
+         * <code>
+         * $url->setBaseUri('/invo/');
+         * $url->setBaseUri('/invo/index.php/');
+         * </code>
+         *
+         * @param string $baseUri
+         * @return Url
+         */
+        public static function setBaseUri($baseUri) {}
+
+        /**
+         * Sets a prefix for all static URLs generated
+         * <code>
+         * $url->setStaticBaseUri('/invo/');
+         * </code>
+         *
+         * @param string $staticBaseUri
+         * @return Url
+         */
+        public static function setStaticBaseUri($staticBaseUri) {}
+
+        /**
+         * Returns the prefix for all the generated urls. By default /
+         *
+         * @return string
+         */
+        public static function getBaseUri() {}
+
+        /**
+         * Returns the prefix for all the generated static urls. By default /
+         *
+         * @return string
+         */
+        public static function getStaticBaseUri() {}
+
+        /**
+         * Sets a base path for all the generated paths
+         * <code>
+         * $url->setBasePath('/var/www/htdocs/');
+         * </code>
+         *
+         * @param string $basePath
+         * @return Url
+         */
+        public static function setBasePath($basePath) {}
+
+        /**
+         * Returns the base path
+         *
+         * @return string
+         */
+        public static function getBasePath() {}
+
+        /**
+         * Generates a URL
+         * <code>
+         * //Generate a URL appending the URI to the base URI
+         * echo $url->get('products/edit/1');
+         * //Generate a URL for a predefined route
+         * echo $url->get(array('for' => 'blog-post', 'title' => 'some-cool-stuff', 'year' => '2015'));
+         * // Generate a URL with GET arguments (/show/products?id=1&name=Carrots)
+         * echo $url->get('show/products', array('id' => 1, 'name' => 'Carrots'));
+         * // Generate an absolute URL by setting the third parameter as false.
+         * echo $url->get('https://phalconphp.com/', null, false);
+         * </code>
+         *
+         * @param mixed $uri
+         * @param mixed $args
+         * @param mixed $local
+         * @param mixed $baseUri
+         * @return string
+         */
+        public static function get($uri = null, $args = null, $local = null, $baseUri = null) {}
+
+        /**
+         * Generates a URL for a static resource
+         * <code>
+         * // Generate a URL for a static resource
+         * echo $url->getStatic("img/logo.png");
+         * // Generate a URL for a static predefined route
+         * echo $url->getStatic(array('for' => 'logo-cdn'));
+         * </code>
+         *
+         * @param mixed $uri
+         * @return string
+         */
+        public static function getStatic($uri = null) {}
+
+        /**
+         * Generates a local path
+         *
+         * @param string $path
+         * @return string
+         */
+        public static function path($path = null) {}
     }
 
 }
