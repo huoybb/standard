@@ -69,16 +69,12 @@ class StandardsController extends myController
         $fileable = $file->getFileable();
         if ($this->request->isPost()) {
             $data = $this->request->getPost();
-//            dd($data);
-            if(isset($data['file_id'])){
-                $fileable->update($data);//更新fileable数据表
-                $file_data = myParser::getParserFromModel($fileable,$data)->getDataForFile();
-                $file_data['type'] = $data['doctype'];
-                $file->update($file_data);
+            if(isset($data['file_id'])){ //如果是子库的信息，则应该包含file_id，并以此做判断
+                $fileable->update($data);//更新fileable数据表，即子库数据更新
+                $file->update(myParser::getParserFromModel($fileable,$data)->getDataForFile());//主库数据更新
                 return $this->success();
             }
-
-            $file->update($this->request->getPost());
+            $file->update($data);
             return $this->success();
         }
 

@@ -35,13 +35,14 @@ class everySpecParser extends myParser
     public function getDataForFile()
     {
 
+        $result = parent::getDataForFile();
         $source_id = $this->source_id?:$this->info['source_id'];
-        $result = [
-            'title'=>$this->info['standard_no'].','.$this->info['title'],
-            'url'=>$this->Id2Url($source_id),
-            'updated_at_website'=>$this->info['date'],
-
-        ];
+        $result = array_merge(
+            $result,
+            [
+                'title'=>$this->info['standard_no'].','.$this->info['title'],
+                'updated_at_website'=>$this->info['date'],
+            ]);
         if($this->info['standard_no']) $result['standard_number'] = $this->info['standard_no'];
         return $result;
     }

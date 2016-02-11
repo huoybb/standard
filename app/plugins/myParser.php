@@ -18,7 +18,16 @@ abstract class myParser
         $this->source_id = $source_id;
     }
     abstract public function parseInfo($source_id = null);
-    abstract public function getDataForFile();
+    public function getDataForFile(){
+        $source_id = $this->source_id?:$this->info['source_id'];
+        $result =
+        [
+            'title'=> $this->info['title'],
+            'url'=>$this->Id2Url($source_id)
+        ];
+        if(isset($this->info['doctype'])) $result['type'] = $this->info['doctype'];
+        return $result;
+    }
     abstract public function Id2Url($source_id = null);
 
     static protected $parserType = [

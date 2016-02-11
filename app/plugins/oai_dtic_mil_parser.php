@@ -34,13 +34,10 @@ class oai_dtic_mil_parser extends myParser
 
     public function getDataForFile()
     {
-        $source_id = $this->source_id?:$this->info['source_id'];
-        return [
-            'title'=>$this->info['title'],
-            'url'=>$this->Id2Url($source_id),
+        return array_merge(parent::getDataForFile(),[
             'updated_at_website'=>$this->info['Report_Date'],
             'standard_number'=>$this->info['source_id'],
-        ];
+        ]);
     }
 
     public function Id2Url($source_id = null)

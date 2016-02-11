@@ -40,11 +40,7 @@ class baiduxueshuParser extends myParser
 
     public function getDataForFile()
     {
-        $source_id = $this->source_id ?:$this->info['source_id'];
-        $result = [
-            'title'=>$this->info['title'],
-            'url'=>$this->Id2Url($source_id),
-        ];
+        $result = parent::getDataForFile();
         if(isset($this->info['出版源'])) $result['updated_at_website'] = explode(',',$this->info['出版源'])[1];
         return $result;
     }
