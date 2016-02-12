@@ -2,6 +2,7 @@
 
 /**
  * 主要充当接口文件以及对象生成器
+ * 这种形式与
  * Created by PhpStorm.
  * User: ThinkPad
  * Date: 2015/11/30
@@ -12,24 +13,6 @@ abstract class myParser
 {
     protected $source_id = null;//标识id
     protected $info = [];//保存parsed后的数据
-    function __construct($source_id = null)
-    {
-        $this->client = new Client();
-        $this->source_id = $source_id;
-    }
-    abstract public function parseInfo($source_id = null);
-    public function getDataForFile(){
-        $source_id = $this->source_id?:$this->info['source_id'];
-        $result =
-        [
-            'title'=> $this->info['title'],
-            'url'=>$this->Id2Url($source_id)
-        ];
-        if(isset($this->info['doctype'])) $result['type'] = $this->info['doctype'];
-        return $result;
-    }
-    abstract public function Id2Url($source_id = null);
-
     static protected $parserType = [
         'Periodical'=>wanfangParser::class,
         'Thesis'=>wanfangThesisParser::class,
@@ -49,6 +32,37 @@ abstract class myParser
         'Citeseerx'=>Citeseerx::class,
         'baiduxueshu'=>Baiduxueshu::class,
     ];
+    function __construct($source_id = null)
+    {
+        $this->client = new Client();
+        $this->source_id = $source_id;
+    }
+
+    /**针对各个某一个文档的解析
+     * @param null $source_id
+     * @return mixed
+     */
+    abstract public function parseInfo($source_id = null);
+
+    /**返回用于Files的数据，这里给出部分，继承对象可以复写部分数据
+     * @return array
+     */
+    public function getDataForFile(){
+        $source_id = $this->source_id?:$this->info['source_id'];
+        $result =
+        [
+            'title'=> $this->info['title'],
+            'url'=>$this->Id2Url($source_id)
+        ];
+        if(isset($this->info['doctype'])) $result['type'] = $this->info['doctype'];
+        return $result;
+    }
+
+    /**id与url转换的函数
+     * @param null $source_id
+     * @return mixed
+     */
+    abstract public function Id2Url($source_id = null);
 
     /**
      * @param $type
@@ -91,19 +105,33 @@ abstract class myParser
 
         return new $className();
     }
-    public static function getModel($type, $id = null)
+
+    /**
+     * @param $modelName
+     * @param null $id
+     * @return mixed
+     */
+    public static function getModel($modelName, $id = null)
     {
-        $className = $type;
+        $className = $modelName;
         if($id <> null) return $className::findFirst($id);
         return new $className();
     }
 
+    /**根据类型，获取模型名称
+     * @param $type
+     * @return mixed
+     */
     public static function getModelName($type)
     {
         if(!isset(self::$modelType[$type])) dd('不存在这个类型'.$type);
         return self::$modelType[$type];
     }
 
+    /**更具模型名称，获取类型
+     * @param $name
+     * @return int|string
+     */
     public static function getModelType($name)
     {
         foreach(self::$modelType as $key=>$value){
@@ -113,7 +141,9 @@ abstract class myParser
     }
 
 
-
+    /**获取分库的统计数字
+     * @return array
+     */
     public static function getStatistics()
     {
         $result = [];

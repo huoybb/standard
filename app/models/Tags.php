@@ -223,9 +223,8 @@ class Tags extends myModel
 
     public function getTaggedFileComments()
     {
-        /** @var myModel $this */
         return $this->make('taggedFileComments',function(){
-            $user = \Phalcon\Di::getDefault()->get('auth');
+            $user = AuthFacade::getService();
             $comments = Comments::query()
                 ->leftJoin('Taggables','Comments.commentable_type = "Taggables" AND Comments.commentable_id = t1.id','t1')
                 ->where('t1.tag_id = :tag:',['tag'=>$this->id])
