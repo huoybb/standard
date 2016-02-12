@@ -35,8 +35,8 @@
                     <td><a href="{{ url(['for':'tags.show','tag':item.id]) }}">{{ item.name }}</a></td>
                     <td>{{item.tagCounts()}}</td>
                     <td>{{ item.updated_at.diffForHumans() }}</td>
-                    <td><span><a href="#" ><div align="center">修改</div></a></span></td>
-                    <td><span><a href="#" ><div align="center">删除</div></a></span></td>
+                    <td><span><a href="{{ url(['for':'tags.edit','tag':item.id]) }}" ><div align="center">修改</div></a></span></td>
+                    <td><span><a href="{{ url(['for':'tags.delete','tag':item.id]) }}" ><div align="center">删除</div></a></span></td>
                 </tr>
             {% endfor %}
         </table>
