@@ -58,6 +58,11 @@ class Tags extends myModel
      * @var integer
      */
     public $relationCount;
+    /**
+     *
+     * @var string
+     */
+    public $keywords;
 
     public static function findOrNewByName($tagName)
     {
@@ -129,6 +134,7 @@ class Tags extends myModel
             'attachmentCount' => 'attachmentCount',
             'linkCount' => 'linkCount',
             'relationCount' => 'relationCount',
+            'keywords' => 'keywords',
         );
     }
 

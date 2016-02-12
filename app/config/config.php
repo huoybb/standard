@@ -6,7 +6,7 @@ return new \Phalcon\Config(array(
         'host'        => getenv('Database_host') ?: 'localhost',
         'username'    => getenv('Database_username') ?: 'root',
         'password'    => getenv('Database_password') ?: '',
-        'dbname'      => getenv('Database_dbname') ?: 'standard',
+        'dbname'      => getenv('Database_dbname') ?: 'standards',
         'charset'     => getenv('Database_charset') ?: 'utf8',
     ),
     'application' => array(
