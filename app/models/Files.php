@@ -13,7 +13,7 @@ class Files extends myModel implements FilesInterface
     use countForRootClassTrait;
     use RelationshipTrait;
     use StatisticsTrait;
-    use timeableTrait;
+    use dateRangeTrait;
     /**
      *
      * @var integer

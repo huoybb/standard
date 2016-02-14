@@ -249,6 +249,21 @@ namespace {
     class AuthFacade extends \Facade {
 
         public static function save(array $params = []){}
+        /**
+         * @param Files $file
+         * @return bool
+         */
+        public static function wantToRead(Files $file){}
+        /**
+         * @param Files $file
+         * @return bool
+         */
+        public static function reading(Files $file){}
+        /**
+         * @param Files $file
+         * @return bool
+         */
+        public static function done(Files $file){}
     }
 
     class SecurityFacade extends \Facade{

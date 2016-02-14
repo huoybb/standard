@@ -7,7 +7,7 @@
  * Time: 13:30
  */
 use Carbon\Carbon;
-trait timeableTrait
+trait dateRangeTrait
 {
     public function getResultsBetween(Carbon $startTime, Carbon $endTime)
     {
@@ -15,8 +15,7 @@ trait timeableTrait
         /** @var myModel $this */
         return $this->getModelsManager()->createBuilder()
             ->from($className)
-            ->where('created_at > :start:',['start'=>$startTime->toDateTimeString()])
-            ->andWhere('created_at < :end:',['end'=>$endTime->toDateTimeString()])
+            ->where('created_at BETWEEN :start: AND :end:',['start'=>$startTime->toDateTimeString(),'end'=>$endTime->toDateTimeString()])
             ->orderBy('created_at DESC');
     }
 }

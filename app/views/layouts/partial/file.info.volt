@@ -44,6 +44,14 @@
             <span><a href="{{ url(['for':'standards.delete','file':file.id]) }}">删除</a></span>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-2" align="right"><span>阅读记录</span>:</div>
+        <div class="col-md-10">
+            <span><a href="{{ url(['for':'reading.want','file':file.id]) }}">想读</a></span>
+            <span><a href="{{ url(['for':'reading.reading','file':file.id]) }}">在读</a></span>
+            <span><a href="{{ url(['for':'reading.done','file':file.id]) }}">读过</a></span>
+        </div>
+    </div>
     {% if file.tags().count() %}
         <div class="row">
             <div class="col-md-2" align="right"><span><a href="{{ url(['for':'standards.showTags','file':file.id]) }}">成员标签</a></span>:</div>
