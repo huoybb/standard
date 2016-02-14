@@ -12,7 +12,7 @@
             <th>附件</th>
             <th>链接</th>
             <th>评论</th>
-            <th>想读</th>
+            <th>读过</th>
             <th colspan="2"><div align="center">操作</div></th>
         </tr>
         {% for key,item in files %}
@@ -32,8 +32,8 @@
                 <td>{{ item.f.getHtml('linkCount') }}</td>
                 <td>{{ item.f.getHtml('commentCount') }}</td>
                 <td>{{ item.r.created_at }}</td>
+                <td><span><a href="#" ><div align="center">想读</div></a></span></td>
                 <td><span><a href="#" ><div align="center">在读</div></a></span></td>
-                <td><span><a href="#" ><div align="center">读过</div></a></span></td>
             </tr>
         {% endfor %}
     </table>
