@@ -19,6 +19,12 @@ class ReadingController extends myController
         return $this->failed();
     }
 
+    public function wantlistAction()
+    {
+        $this->view->files = AuthFacade::getReadingList('want');
+    }
+
+
 
 
 

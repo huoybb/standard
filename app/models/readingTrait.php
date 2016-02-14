@@ -145,4 +145,24 @@ trait readingTrait
 
     }
 
+
+    /**
+     * @param string $status
+     * @return \Phalcon\Mvc\Model\ResultsetInterface
+     */
+    public function getReadingList($status)
+    {
+        /** @var myModel $this */
+        return $this->getModelsManager()->createBuilder()
+            ->from(['r'=>'Reading'])
+            ->leftJoin('Files','file_id = f.id','f')
+            ->where('user_id = :user:',['user'=>AuthFacade::getService()->id])
+            ->andWhere('r.status = :status:',['status'=>$status])
+            ->groupBy('r.file_id')
+            ->orderBy('r.created_at DESC')
+            ->columns(['r.*','f.*'])
+            ->getQuery()->execute();
+    }
+
+
 }

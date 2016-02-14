@@ -264,6 +264,11 @@ namespace {
          * @return bool
          */
         public static function done(Files $file){}
+        /**
+         * @param string $status
+         * @return \Phalcon\Mvc\Model\ResultsetInterface
+         */
+        public static function getReadingList($status){}
     }
 
     class SecurityFacade extends \Facade{

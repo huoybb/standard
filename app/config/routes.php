@@ -111,4 +111,8 @@ $router->add('/reading/file/{file:[0-9]+}/want','reading::want')->setName('readi
 $router->add('/reading/file/{file:[0-9]+}/reading','reading::reading')->setName('reading.reading');
 $router->add('/reading/file/{file:[0-9]+}/done','reading::done')->setName('reading.done');
 
+$router->add('/want','reading::wantlist')->setName('reading.wantlist');
+$router->add('/reading','reading::readinglist')->setName('reading.readinglist');
+$router->add('/done','reading::donelist')->setName('reading.donelist');
+
 return $router;

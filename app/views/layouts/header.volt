@@ -12,7 +12,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
 
-                {% for key,value in ['standards/add':'新增','tags':'标签'] %}
+                {% for key,value in ['standards/add':'新增','tags':'标签','want':'想读','reading':'在读','done':'读过'] %}
                 <li><a href="{{ url.getBaseUri() }}{{key}}">{{value}}</a></li>
                 {% endfor %}
 
