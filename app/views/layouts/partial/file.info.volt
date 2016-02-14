@@ -45,7 +45,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-2" align="right"><span>阅读记录</span>:</div>
+        <div class="col-md-2" align="right"><span><a href="{{ url(['for':'standards.readinglog','file':file.id]) }}">阅读记录</a></span>:</div>
         <div class="col-md-10">
                 <span class="readingStatus">{{ auth.getReadingStatusFor(file) }}</span>
                 <span><a class="reading" href="{{ url(['for':'reading.want','file':file.id]) }}">想读</a></span>

@@ -63,6 +63,11 @@ class StandardsController extends myController
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }
+    public function readinglogAction(Files $file)
+    {
+        dd($file);
+    }
+
 
 
     public function editAction(Files $file)

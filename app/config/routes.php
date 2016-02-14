@@ -26,6 +26,8 @@ $router->add('/standards/{file:[0-9]+}','standards::show')->setName('standards.s
 $router->addx('/standards/{file:[0-9]+}/edit','standards::edit',[standardRules::class])->setName('standards.edit');
 $router->add('/standards/{file:[0-9]+}/delete','standards::delete')->setName('standards.delete');
 
+$router->add('/standards/{file:[0-9]+}/readinglog','standards::readinglog')->setName('standards.readinglog');
+
 $router->addx('/standards/{file:[0-9]+}/addComment','standards::addComment',[commentRules::class])->setName('standards.addComment');
 $router->addx('/standards/{file:[0-9]+}/comments/{comment:[0-9]+}/edit','standards::editComment',[commentRules::class])->setName('standards.editComment');
 $router->add('/standards/{file:[0-9]+}/comments/{comment:[0-9]+}/delete','standards::deleteComment')->setName('standards.deleteComment');
