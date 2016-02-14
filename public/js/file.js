@@ -94,6 +94,17 @@
       });
       return false;
     });
+    $('.reading').click(function() {
+      var url;
+      url = $(this).attr('href');
+      console.log(url);
+      $.post(url, function(data) {
+        if (data === 'success') {
+          return location.reload();
+        }
+      });
+      return false;
+    });
     $('#expand').click(function() {
       $("#expand").parents('div.abstract').hide();
       $("#collaps").parents('div.abstract').show();

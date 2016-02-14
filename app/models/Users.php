@@ -241,6 +241,19 @@ class Users extends myModel
 
     }
 
+    public function getReadingStatusFor(Files $file)
+    {
+        $status = $this->getLastReadingStatusOf($file);
+        $result = [
+            'null'=>'未读',
+            'want'=>'想读',
+            'reading'=>'在读',
+            'done'=>'读过'
+        ];
+        return $result[$status];
+    }
+
+
 
 
     private function getReadingTimesFor(Files $file,$newStatus)

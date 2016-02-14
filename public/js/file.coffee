@@ -72,6 +72,13 @@ $ ->
         console.log '添加成功'
         location.reload()
     return false
+  #阅读记录
+  $('.reading').click ->
+    url = $(this).attr('href')
+    console.log(url)
+    $.post url,(data)->
+      if data is 'success' then location.reload()
+    return false
 
   #切换摘要的显示
   $('#expand').click ->
@@ -82,5 +89,7 @@ $ ->
     $("#expand").parents('div.abstract').show()
     $("#collaps").parents('div.abstract').hide()
     return false
+
+
 
 

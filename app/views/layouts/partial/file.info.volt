@@ -47,9 +47,10 @@
     <div class="row">
         <div class="col-md-2" align="right"><span>阅读记录</span>:</div>
         <div class="col-md-10">
-            <span><a href="{{ url(['for':'reading.want','file':file.id]) }}">想读</a></span>
-            <span><a href="{{ url(['for':'reading.reading','file':file.id]) }}">在读</a></span>
-            <span><a href="{{ url(['for':'reading.done','file':file.id]) }}">读过</a></span>
+                <span class="readingStatus">{{ auth.getReadingStatusFor(file) }}</span>
+                <span><a class="reading" href="{{ url(['for':'reading.want','file':file.id]) }}">想读</a></span>
+                <span><a class="reading" href="{{ url(['for':'reading.reading','file':file.id]) }}">在读</a></span>
+                <span><a class="reading" href="{{ url(['for':'reading.done','file':file.id]) }}">读过</a></span>
         </div>
     </div>
     {% if file.tags().count() %}

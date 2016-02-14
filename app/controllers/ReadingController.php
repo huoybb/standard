@@ -1,19 +1,22 @@
 <?php
 
-class ReadingController extends \Phalcon\Mvc\Controller
+class ReadingController extends myController
 {
 
     public function wantAction(Files $file)
     {
-        dd(AuthFacade::wantToRead($file));
+        if(AuthFacade::wantToRead($file)) return $this->success();
+        return $this->failed();
     }
     public function readingAction(Files $file)
     {
-        dd(AuthFacade::reading($file));
+        if(AuthFacade::reading($file)) return $this->success();
+        return $this->failed();
     }
     public function doneAction(Files $file)
     {
-        dd(AuthFacade::done($file));
+        if(AuthFacade::done($file)) return $this->success();
+        return $this->failed();
     }
 
 
