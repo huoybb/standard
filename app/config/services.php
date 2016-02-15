@@ -144,13 +144,6 @@ $di->set("redis", function() {
     return new myRedis();
 },true);
 
-$di->set('cache',function(){
-    $frontCache = new Phalcon\Cache\Frontend\Igbinary();
-
-    $redis = new myRedis();
-    $cache = new Phalcon\Cache\Backend\Redis($frontCache,['redis'=>$redis]);
-    return $cache;
-},true);
 
 $di->set("carbon",function(){
     return new \Carbon\Carbon();
