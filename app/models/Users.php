@@ -154,6 +154,11 @@ class Users extends myModel
      */
     public function getMyTags()
     {
+//        $key = 'standard:users:'.AuthFacade::getService()->id.':tags';
+//        return $this->cache($key,function(){
+//            return $this->getMyTagsFromDatabase();
+//        });
+
         if(!RedisFacade::isTagsExist()){
             RedisFacade::setTags($this->getMyTagsFromDatabase());
         }

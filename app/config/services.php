@@ -145,15 +145,10 @@ $di->set("redis", function() {
 },true);
 
 $di->set('cache',function(){
-    $frontCache = new Phalcon\Cache\Frontend\Data(array(
-        "lifetime" => 172800
-    ));
-    $cache = new Phalcon\Cache\Backend\Redis($frontCache,[
-        'host' => 'localhost',
-        'port' => 6379,
-        'auth' => 'foobared',
-        'persistent' => false,
-    ]);
+    $frontCache = new Phalcon\Cache\Frontend\Igbinary();
+
+    $redis = new myRedis();
+    $cache = new Phalcon\Cache\Backend\Redis($frontCache,['redis'=>$redis]);
     return $cache;
 },true);
 

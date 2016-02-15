@@ -1436,4 +1436,20 @@ namespace {
         public static function path($path = null) {}
     }
 
+
+// ---------针对Igbinary模块函数的stub提示--------
+    /**
+     * @param mixed $object
+     * @return string
+     */
+    function igbinary_serialize($object){}
+
+    /**
+     * @param string $encodedObject
+     * @return mixed
+     */
+    function igbinary_unserialize($encodedObject){}
+
+
+
 }

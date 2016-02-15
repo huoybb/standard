@@ -33,6 +33,8 @@ trait readingTrait
             'done_count'=>$this->done_count+1,
         ]);
         $this->save(['want_count'=>$this->want_count+1]);
+
+        $this->removeCache([$lastStatus,'want']);
         return true;
     }
 
@@ -56,6 +58,7 @@ trait readingTrait
         ]);
         if($lastStatus == 'want') $this->save(['want_count'=>$this->want_count-1]);
         $this->save(['reading_count'=>$this->reading_count+1]);
+        $this->removeCache([$lastStatus,'reading']);
 
         return true;
     }
@@ -84,6 +87,8 @@ trait readingTrait
                 'done_count'=>$this->done_count+1
             ]);
         }
+        $this->removeCache([$lastStatus,'done']);
+
         return true;
 
     }
@@ -98,6 +103,27 @@ trait readingTrait
             'done'=>'读过'
         ];
         return $result[$status];
+    }
+
+    /**
+     * @param string $status
+     * @return \Phalcon\Mvc\Model\ResultsetInterface
+     */
+    public function getReadingList($status,$isActive = true)
+    {
+        $key = 'standard:users:'.AuthFacade::getService()->id.':reading:'.$status;
+        /** @var myModel $this */
+        return $this->cache($key,function()use($status,$isActive){
+            return $this->getModelsManager()->createBuilder()
+                ->from(['r'=>'Reading'])
+                ->leftJoin('Files','file_id = f.id','f')
+                ->where('user_id = :user:',['user'=>AuthFacade::getService()->id])
+                ->andWhere('r.status = :status:',['status'=>$status])
+                ->andWhere('r.isActive = :isActive:',['isActive'=>$isActive])
+                ->orderBy('r.created_at DESC')
+                ->columns(['r.*','f.*'])
+                ->getQuery()->execute();
+        });
     }
 
 
@@ -173,22 +199,18 @@ trait readingTrait
     }
 
 
+
     /**
-     * @param string $status
-     * @return \Phalcon\Mvc\Model\ResultsetInterface
+     * 清楚缓存的函数
+     * @param array $keys
+     * @return bool
      */
-    public function getReadingList($status,$isActive = true)
-    {
-        /** @var myModel $this */
-        return $this->getModelsManager()->createBuilder()
-            ->from(['r'=>'Reading'])
-            ->leftJoin('Files','file_id = f.id','f')
-            ->where('user_id = :user:',['user'=>AuthFacade::getService()->id])
-            ->andWhere('r.status = :status:',['status'=>$status])
-            ->andWhere('r.isActive = :isActive:',['isActive'=>$isActive])
-            ->orderBy('r.created_at DESC')
-            ->columns(['r.*','f.*'])
-            ->getQuery()->execute();
+    private function removeCache(array $keys){
+        foreach($keys as $key){
+            $cacheKey = 'standard:users:'.AuthFacade::getService()->id.':reading:'.$key;
+            RedisFacade::delete($cacheKey);
+        }
+        return true;
     }
 
 

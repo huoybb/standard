@@ -66,14 +66,13 @@ abstract class myModel extends Model{
         return $this->instance[$object];
     }
 
-    //增加缓存功能，利用redis来做缓存，对于大的数据可以采用这个来也许更加方便
+    //增加缓存功能，利用redis来做缓存，对于大的数据可以采用这个来也许更加方便,需要注意，这里用的压缩算法是igbinary，不是很常见的
     public function cache($key,Closure $closure)
     {
-        $key = 'standard:'.get_class($this).':model:'.$key;
         if(!RedisFacade::exist($key)){
-            RedisFacade::set($key,json_encode($closure()));
+            RedisFacade::set($key,igbinary_serialize($closure()));
         }
-        return json_decode(RedisFacade::get($key));
+        return igbinary_unserialize(RedisFacade::get($key));
     }
 
     static public function saveNew($data){
