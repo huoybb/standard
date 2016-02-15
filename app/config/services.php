@@ -144,6 +144,19 @@ $di->set("redis", function() {
     return new myRedis();
 },true);
 
+$di->set('cache',function(){
+    $frontCache = new Phalcon\Cache\Frontend\Data(array(
+        "lifetime" => 172800
+    ));
+    $cache = new Phalcon\Cache\Backend\Redis($frontCache,[
+        'host' => 'localhost',
+        'port' => 6379,
+        'auth' => 'foobared',
+        'persistent' => false,
+    ]);
+    return $cache;
+},true);
+
 $di->set("carbon",function(){
     return new \Carbon\Carbon();
 },true);

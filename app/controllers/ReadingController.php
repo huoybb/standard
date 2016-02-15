@@ -21,7 +21,8 @@ class ReadingController extends myController
 
     public function wantlistAction()
     {
-        $this->view->files = AuthFacade::getReadingList('want');
+//        dd(AuthFacade::getReadingList('want'));
+        $this->view->files = AuthFacade::getReadingList('want') ;
     }
 
     public function readinglistAction()

@@ -152,6 +152,7 @@ trait readingTrait
      */
     public function getReadingList($status)
     {
+
         /** @var myModel $this */
         return $this->getModelsManager()->createBuilder()
             ->from(['r'=>'Reading'])
