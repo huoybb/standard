@@ -37,8 +37,8 @@ try {
      *
      * 设置phalcon debugbar，需要下面两行
      * */
-//    $di['app'] = $application;
-//    (new Snowair\Debugbar\ServiceProvider('../app/config/debugbar.php'))->start();
+    $di['app'] = $application;
+    (new Snowair\Debugbar\ServiceProvider('../app/config/debugbar.php'))->start();
 
     echo $application->handle()->getContent();
 

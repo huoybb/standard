@@ -111,7 +111,7 @@ trait readingTrait
      */
     public function getReadingList($status,$isActive = true)
     {
-        $key = 'standard:users:'.AuthFacade::getID().':reading:'.$status;
+        $key = $this->getReadingKey($status);
         /** @var myModel $this */
         return $this->cache($key,function()use($status,$isActive){
             return $this->getModelsManager()->createBuilder()
@@ -196,8 +196,6 @@ trait readingTrait
         if($lastReading) $lastReading->save(['isActive'=>false]);
     }
 
-
-
     /**
      * 清楚缓存的函数
      * @param array $keys
@@ -205,10 +203,14 @@ trait readingTrait
      */
     private function removeCache(array $keys){
         foreach($keys as $key){
-            $cacheKey = 'standard:users:'.AuthFacade::getService()->id.':reading:'.$key;
+            $cacheKey = $this->getReadingKey($key);
             RedisFacade::delete($cacheKey);
         }
         return true;
+    }
+
+    private function getReadingKey($key){
+        return 'standard:users:'.AuthFacade::getID().':reading:'.$key;
     }
 
 
