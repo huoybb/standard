@@ -32,7 +32,7 @@ class ReadingController extends myController
 
     public function donelistAction()
     {
-        $this->view->files = AuthFacade::getReadingList('done');
+        $this->view->files = AuthFacade::getReadingList('done',false);
     }
 
 

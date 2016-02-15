@@ -24,7 +24,7 @@
                         {% if item.f.type %}
                             <span class="btn-danger">{{ item.f.type }}</span>
                         {% endif %}
-                        <a title="{{ item.f.title }}" href="#">{{ item.f.title }}</a>
+                        <a title="{{ item.f.title }}" href="{{ url(['for':'standards.show','file':item.f.id]) }}">{{ item.f.title }}</a>
                     </div>
                 </td>
                 <td>{{ item.f.updated_at_website | date }}</td>

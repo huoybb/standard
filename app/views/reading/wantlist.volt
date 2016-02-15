@@ -24,16 +24,14 @@
                         {% if item.f.type %}
                             <span class="btn-danger">{{ item.f.type }}</span>
                         {% endif %}
-                        <a title="{{ item.f.title }}" href="#">{{ item.f.title }}</a>
+                        <a title="{{ item.f.title }}" href="{{ url(['for':'standards.show','file':item.f.id]) }}">{{ item.f.title }}</a>
                     </div>
                 </td>
                 <td>{{ item.f.updated_at_website | date }}</td>
-                <td>{{ item.f.attachmentCount }}</td>
-                <td>{{ item.f.linkCount }}</td>
-                <td>{{ item.f.commentCount }}</td>
-                <td>
-                    {{ item.r.created_at }}
-                </td>
+                <td>{{ item.f.getHtml('attachmentCount') }}</td>
+                <td>{{ item.f.getHtml('linkCount') }}</td>
+                <td>{{ item.f.getHtml('commentCount') }}</td>
+                <td>{{ item.r.created_at }}</td>
                 <td><span><a href="#" ><div align="center">在读</div></a></span></td>
                 <td><span><a href="#" ><div align="center">读过</div></a></span></td>
             </tr>

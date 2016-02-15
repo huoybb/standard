@@ -45,6 +45,11 @@ class Reading extends myModel
      */
     public $updated_at;
 
+    /*
+     * @var bool
+     */
+    public $isActive;
+
     /**
      * Allows to query a set of records that match the specified conditions
      *
@@ -92,7 +97,8 @@ class Reading extends myModel
             'status' => 'status',
             'times' => 'times',
             'created_at' => 'created_at',
-            'updated_at' => 'updated_at'
+            'updated_at' => 'updated_at',
+            'isActive' => 'isActive',
         );
     }
 

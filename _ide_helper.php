@@ -338,9 +338,10 @@ namespace {
         public static function done(Files $file){}
         /**
          * @param string $status
+         * @param string $isActive
          * @return \Phalcon\Mvc\Model\ResultsetInterface
          */
-        public static function getReadingList($status){}
+        public static function getReadingList($status,$isActive = true){}
     }
 
     class SecurityFacade extends \Facade{
