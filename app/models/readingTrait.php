@@ -111,13 +111,13 @@ trait readingTrait
      */
     public function getReadingList($status,$isActive = true)
     {
-        $key = 'standard:users:'.AuthFacade::getService()->id.':reading:'.$status;
+        $key = 'standard:users:'.AuthFacade::getID().':reading:'.$status;
         /** @var myModel $this */
         return $this->cache($key,function()use($status,$isActive){
             return $this->getModelsManager()->createBuilder()
                 ->from(['r'=>'Reading'])
                 ->leftJoin('Files','file_id = f.id','f')
-                ->where('user_id = :user:',['user'=>AuthFacade::getService()->id])
+                ->where('user_id = :user:',['user'=>AuthFacade::getID()])
                 ->andWhere('r.status = :status:',['status'=>$status])
                 ->andWhere('r.isActive = :isActive:',['isActive'=>$isActive])
                 ->orderBy('r.created_at DESC')
@@ -125,8 +125,6 @@ trait readingTrait
                 ->getQuery()->execute();
         });
     }
-
-
 
 
     private function getReadingTimesFor(Files $file,$newStatus)

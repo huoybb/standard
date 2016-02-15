@@ -12,5 +12,7 @@ class AuthFacade extends Facade
     {
         return 'auth';
     }
-
+    public static function getID(){
+        return static::getService()->id;
+    }
 }

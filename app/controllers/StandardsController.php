@@ -56,10 +56,6 @@ class StandardsController extends myController
     public function showAction(Files $file)
     {
 
-//        $router = $this->router;
-//        $router->handle('/search/装备');
-//        dd($router->getMatchedRoute());  为什么单独测试可以呢？
-
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }
