@@ -61,10 +61,8 @@ class StandardsController extends myController
     }
     public function readinglogAction(Files $file)
     {
-        dd($file);
+        $this->view->records = $file->getReadingLog();
     }
-
-
 
     public function editAction(Files $file)
     {

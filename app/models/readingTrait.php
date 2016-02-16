@@ -80,7 +80,7 @@ trait readingTrait
             'times'=>$this->getReadingTimesFor($file,'done'),
             'isActive'=>false,
         ]);
-        if($lastStatus <> null) {
+        if($lastStatus <> 'null') {
             $property = $lastStatus.'_count';
             $this->save([
                 $property=>$this->$property-1,

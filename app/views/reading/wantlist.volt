@@ -31,7 +31,7 @@
                 <td>{{ item.f.getHtml('attachmentCount') }}</td>
                 <td>{{ item.f.getHtml('linkCount') }}</td>
                 <td>{{ item.f.getHtml('commentCount') }}</td>
-                <td>{{ item.r.created_at }}</td>
+                <td>{{ item.r.created_at.diffForHumans() }}</td>
                 <td><span><a href="#" ><div align="center">在读</div></a></span></td>
                 <td><span><a href="#" ><div align="center">读过</div></a></span></td>
             </tr>

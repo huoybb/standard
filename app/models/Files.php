@@ -201,4 +201,21 @@ class Files extends myModel implements FilesInterface
             ->execute()
             ->getFirst();
     }
+
+    public function getReadingLog()
+    {
+        $logs = $this->getModelsManager()->createBuilder()
+            ->from(['r'=>'Reading'])
+            ->where('r.file_id = :file:',['file'=>$this->id])
+            ->andWhere('r.user_id =:user:',['user'=>AuthFacade::getID()])
+            ->orderBy('r.created_at ASC')
+            ->getQuery()->execute();
+        $records = [];
+        $times = 1;
+        foreach($logs as $log){
+            if($times != $log->times) $times = $log->times;
+            $records[$times][$log->status] = $log;
+        }
+        return $records;
+    }
 }
