@@ -3,32 +3,27 @@
 class SubrepositoryController extends myController
 {
 
-    public function showAction($repository,$page = 1)
+    public function showAction(SubRepository $repository, $page = 1)
     {
-        $builder = $this->modelsManager->createBuilder()
-            ->from('Files')
-            ->rightJoin(myParser::getModelName($repository),'sub.file_id = Files.id','sub')
-            ->orderBy('Files.id DESC')
-            ->columns(['Files.*','sub.*']);
-        $this->view->page = $this->getPaginatorByQueryBuilder($builder,25,$page);
+        $this->view->page = $this->getPaginatorByQueryBuilder($repository->getAllQueryBuilder(),25,$page);
         $this->view->page->statistics = myParser::getStatistics();
-        $this->view->page->repository = myParser::getModelBySourceId($repository);
+        $this->view->page->repository = myParser::getModelBySourceId($repository->getSubName());
+    }
+    public function showNoAttachmentAction(SubRepository $repository, $page = 1)
+    {
+        $this->view->page = $this->getPaginatorByQueryBuilder($repository->getAllNeedsAttachments(),25,$page);
+        $this->view->page->statistics = myParser::getStatistics();
+        $this->view->page->repository = myParser::getModelBySourceId($repository->getSubName());
     }
 
-    public function showArchiveAction($repository,$month,$page = 1)
-    {
-        list($startTime,$endTime) = myTools::getBetweenTimes($month);
 
-        $builder = $this->modelsManager->createBuilder()
-            ->from('Files')
-            ->rightJoin(myParser::getModelName($repository),'sub.file_id = Files.id','sub')
-            ->where('created_at > :start:',['start'=>$startTime->toDateTimeString()])
-            ->andWhere('created_at < :end:',['end'=>$endTime->toDateTimeString()])
-            ->orderBy('Files.id DESC')
-            ->columns(['Files.*','sub.*']);
-        $this->view->page = $this->getPaginatorByQueryBuilder($builder,25,$page);
+
+    public function showArchiveAction(SubRepository $repository, $month, $page = 1)
+    {
+
+        $this->view->page = $this->getPaginatorByQueryBuilder($repository->getArchiveQueryBuilder($month),25,$page);
         $this->view->page->month = $month;
-        $this->view->page->repository = myParser::getModelBySourceId($repository);
+        $this->view->page->repository = myParser::getModelBySourceId($repository->getSubName());
     }
 
     public function searchAction($repository,$search,$page =1)

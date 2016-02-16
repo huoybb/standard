@@ -101,6 +101,9 @@ $router->add('/subRepository/{repository}/search/{search:[^/]+}/page/{page:[0-9]
 $router->add('/subRepository/{repository}/archive/{month:[-0-9]+}','subrepository::showArchive')->setName('subRepository.showArchive');
 $router->add('/subRepository/{repository}/archive/{month:[-0-9]+}/page/{page:[0-9]+}','subrepository::showArchive')->setName('subRepository.showArchive.page');
 
+$router->add('/subRepository/{repository}/showNoAttachment','subrepository::showNoAttachment')->setName('subRepository.showNoAttachment');
+$router->add('/subRepository/{repository}/showNoAttachment/page/{page:[0-9]+}','subrepository::showNoAttachment')->setName('subRepository.showNoAttachment.page');
+
 $router->add('/login','Users::login')->setName('login');
 $router->add('/logout','Users::logout')->setName('logout');
 

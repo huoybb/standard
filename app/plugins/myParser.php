@@ -96,7 +96,7 @@ abstract class myParser
      */
     public static function getModelBySourceId($type, $source_id = null)
     {
-//        dd($type.' '.$source_id);
+//        dd($type);
         if(!isset(self::$modelType[$type])) dd('不存在这个类型'.$type);
         $className = self::$modelType[$type];
 //        dd($className);

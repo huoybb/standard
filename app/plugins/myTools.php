@@ -61,6 +61,10 @@ class myTools
         return $bytes;
     }
 
+    /**
+     * @param $month
+     * @return Carbon[]
+     */
     public static function getBetweenTimes($month)
     {
         $startTime = new Carbon();
