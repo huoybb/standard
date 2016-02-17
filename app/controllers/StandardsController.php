@@ -102,7 +102,7 @@ class StandardsController extends myController
 
     public function searchAction($search,$page = 1)
     {
-//        $this->view->page = $this->getPaginator($file->search($search),50,$page);
+        if(RouterFacade::getMatchedRoute()->getName() == 'standards.search.index') EventFacade::fire('search:main',$this,$search);
         if(myToolsFacade::isStandardNumber($search)) {
             $file = Files::findByStandardNumber($search);
             if($file) return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);

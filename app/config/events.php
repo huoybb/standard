@@ -1,7 +1,8 @@
 <?php
 $em = new myEventManager();
 
-$em->attach('auth',new authEventsHandler());
+//$em->attach('auth',new authEventsHandler());
+$em->register('auth',[authEventsHandler::class]);
 
 $em->listen('tags:updateTag',cacheEventsHandler::class.'::deleteTagsCache');
 $em->listen('tags:updateTag',tagsEventsHandler::class.'::updateMeta');
@@ -24,4 +25,6 @@ $em->attach('standards:deleteFile',function($event,Files $file){
 $em->attach('standards:deleteSelectedFiles',function($event,$files){
     RedisFacade::delete(RedisFacade::keys('standard:archives:*'));
 });
+
+$em->register('search',[searchEventHandler::class]);
 return $em;

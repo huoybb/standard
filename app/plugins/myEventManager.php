@@ -24,5 +24,12 @@ class myEventManager extends \Phalcon\Events\Manager
             }
         });
     }
+    public function register($eventNamePlus,array $handlerClassArray)
+    {
+            foreach($handlerClassArray as $handler){
+                $this->attach($eventNamePlus,new $handler);
+            }
+    }
+
 
 }

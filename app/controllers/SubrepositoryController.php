@@ -28,6 +28,8 @@ class SubrepositoryController extends myController
 
     public function searchAction($repository,$search,$page =1)
     {
+        if(RouterFacade::getMatchedRoute()->getName() == 'subRepository.search')
+            EventFacade::fire('search:sub',$this,['search'=>$search,'repository'=>$repository]);
         $model = myParser::getModelName($repository);
         if(!$model) dd('路径非法，不存在'.$repository.'类型的库');
         $this->view->page = $this->getPaginatorByQueryBuilder(Files::searchQuery($search,$model),50,$page);
