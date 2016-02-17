@@ -70,14 +70,7 @@
 {% block sidebar %}
 
     {{ startMeasure('s2-1','分库加载') }}
-    <div class="row">
-        <h2>分库统计</h2>
-        <ul>
-            {% for data in page.statistics %}
-                <li><a href="{{ url(['for':'subRepository','repository':data['type']]) }}">{{ data['name'] }}</a> ({{ data['count'] }})</li>
-            {% endfor %}
-        </ul>
-    </div>
+    {% include "layouts/partial/subrepository.statistics.volt" %}
     {{ stopMeasure('s2-1') }}
     {{ startMeasure('s2-2','archive加载') }}
     <div class="row">
