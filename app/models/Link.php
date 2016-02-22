@@ -119,6 +119,8 @@ class Link extends myModel
         if(preg_match('%http://wenku.baidu.com/%m', $url)) $siteName = '百度文库';
         if(preg_match('%http://baike.baidu.com/%m', $url)) $siteName = '百度百科';
         if(preg_match('%http://wiki.mbalib.com/%m', $url)) $siteName = 'MBA智库百科';
+        if(preg_match('%http://dn382/ZF1.5/book/%m', $url)) $siteName = '我的图书';
+        if(preg_match('%http://standard.zhaobing/%m', $url)) $siteName = '我的文档';
         return $siteName;
     }
     public function getUser()

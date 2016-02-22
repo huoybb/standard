@@ -10,37 +10,19 @@ class StandardsController extends myController
     public function addAction(Files $file)
     {
         if ($this->request->isPost()) {
-//            dd($this->request->getPost());
-            $file->save($this->request->getPost());
-            EventFacade::fire('standards:addFile',$file);
+            Files::addFile($this->request->getPost());
             return $this->redirectByRoute(['for'=>'index','page'=>1]);
         }
         $this->view->form = myForm::buildFormFromModel($file);
     }
 
-    public function addDoDAction(Files $file)
+    public function getWebDataAction($type,$source_id)
     {
-//        dd($this->request->getPost());
-        if($this->request->isPost()){
-            $file_id = $this->request->getPost()['file_id'];
-            return $this->addDoDFile($file_id,$file);
-        }
-        dd('非法路径，不允许直接访问该地址');
-
-    }
-
-
-    public function getWebDataAction($type,$source_id,Files $file)
-    {
-//        $parser = myParser::getParser($type,$source_id);//获取Parser
-////        dd($parser);
-//        $data = $parser->parseInfo();//抽取数据
-//        dd($data);
 
         $model = myParser::getModelBySourceId($type,$source_id);
         if($model)  return $this->redirectByRoute(['for'=>'standards.show','file'=>$model->getStandard()->id]);
 
-        $file->addWebFile($source_id,$type);
+        $file = Files::addWebFile($source_id,$type);
         return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
     }
 
@@ -311,20 +293,6 @@ class StandardsController extends myController
         $filename = 'temp/'.time().'.zip';
         $download->createZipFile($file_ids,$filename);
         $download->getAndDeleteZipFile($filename);
-    }
-
-
-    private function addDoDFile($accessNumber, Files $file)
-    {
-        $dod = OaiDticMil::findBySourceId($accessNumber);
-        if($dod) return  $this->redirectByRoute(['for'=>'standards.show','file'=>$dod->getStandard()->id]);
-        $file->addWebFile($accessNumber,'DoDFile');
-        return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
-    }
-
-    private function isStandardNumber($search)
-    {
-        return preg_match('/[a-zA-Z0-9-]+/m', $search);
     }
 
 }

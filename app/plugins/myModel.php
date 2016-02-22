@@ -87,7 +87,8 @@ abstract class myModel extends Model{
 
     static public function saveNew($data){
         $instance = new static();
-        return $instance->save($data);
+        $instance->save($data);
+        return $instance;
     }
 
     private function getEventMethodsAndExecute($format){

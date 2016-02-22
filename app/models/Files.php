@@ -218,4 +218,9 @@ class Files extends myModel implements FilesInterface
         }
         return $records;
     }
+    public static function addFile($data){
+        $file = parent::saveNew($data);
+        EventFacade::fire('standards:addFile',$file);
+        return $file;
+    }
 }

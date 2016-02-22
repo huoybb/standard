@@ -16,7 +16,6 @@ $router->add('/search/{search:[^/]+}/page/{page:[0-9]+}','standards::search')->s
 $router->add('/search/{search:[^/]+}/{item:[0-9]+}','standards::showSearchItem')->setName('standards.showSearchItem');
 
 $router->addx('/standards/add','standards::add',[standardRules::class])->setName('standards.add');
-$router->add('/standards/addDoD','standards::addDoD')->setName('standards.addDoD');
 $router->add('/standards/addWebData/{type}/{source_id}','standards::getWebData')->setName('standards.getWebData');
 
 $router->add('/standards/archive/{month:[-0-9]+}','standards::archive')->setName('standards.archive');
