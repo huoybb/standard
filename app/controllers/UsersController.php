@@ -8,8 +8,8 @@ class UsersController extends myController
         if($this->request->isPost()){
             $data = $this->request->getPost();
             $user = Users::findByEmail($data['email']);
-            if($user AND $this->security->checkHash($data['password'],$user->password)){
-                $this->flash->success('欢迎'.$user->name.'登录！你上次登录的时间是：'.$user->updated_at);
+            if($user AND SecurityFacade::checkHash($data['password'],$user->password)){
+                FlashFacade::success('欢迎'.$user->name.'登录！你上次登录的时间是：'.$user->updated_at);
                 EventFacade::fire('auth:login',$user,$data);
                 $this->redirectByRoute(['for'=>'home']);
             }else{
@@ -17,7 +17,7 @@ class UsersController extends myController
             }
         }
 
-        if($this->session->has('auth')) $this->redirectByRoute(['for'=>'home']);
+        if(SessionFacade::has('auth')) $this->redirectByRoute(['for'=>'home']);
 
         $this->view->form = myForm::buildLoginForm();
     }

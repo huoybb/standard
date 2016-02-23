@@ -3,10 +3,6 @@
 class StandardsController extends myController
 {
 
-    public function indexAction()
-    {
-
-    }
     public function addAction(Files $file)
     {
         if ($this->request->isPost()) {
@@ -26,18 +22,15 @@ class StandardsController extends myController
         return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
     }
 
-    public function archiveAction($month,$page = 1,Files $file)
+    public function archiveAction($month,$page = 1)
     {
-
-        list($startTime,$endTime) = myTools::getBetweenTimes($month);
-        $this->view->page = $this->getPaginatorByQueryBuilder($file->getResultsBetween($startTime,$endTime),25,$page);
+        $this->view->page = $this->getPaginatorByQueryBuilder(Files::getResultsQueryForMonth($month),25,$page);
         $this->view->page->statistics = myParser::getStatistics();
         $this->view->page->month = $month;
     }
 
     public function showAction(Files $file)
     {
-
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }
@@ -220,9 +213,6 @@ class StandardsController extends myController
         }
         return 'failed';
     }
-
-
-
 
     public function addRevisionsAction(Files $file,Files $file2)
     {

@@ -223,4 +223,10 @@ class Files extends myModel implements FilesInterface
         EventFacade::fire('standards:addFile',$file);
         return $file;
     }
+
+    public static function getResultsQueryForMonth($month){
+        list($startTime,$endTime) = myTools::getBetweenTimes($month);
+        $file = new static;
+        return $file->getResultsBetween($startTime,$endTime);
+    }
 }
