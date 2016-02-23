@@ -284,21 +284,13 @@ class Tags extends myModel
     }
 
 
-    /**这个函数将来在PHP7中能够更加简化
-     * 针对不同的登录用户，显示当前登录用户的标签
-     * @return mixed
-     */
-    public function getAllTags()
+
+    public static function getAllTags()
     {
-        return $this->make('allTags',function(){
-            $user = \Phalcon\Di::getDefault()->get('auth');
-            return Tags::query()
-                ->leftJoin('Taggables','Taggables.tag_id = Tags.id')
-                ->where('Taggables.user_id = :user:',['user'=>$user->id])
-                ->groupBy('Tags.id')
-                ->orderBy('Tags.updated_at DESC')
-                ->execute();
-        });
+        $tags = Tags::query()
+            ->orderBy('updated_at DESC')
+            ->execute();
+        return $tags;
     }
 
     public function getTagmetaOrNew()
