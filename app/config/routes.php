@@ -108,6 +108,7 @@ $router->add('/logout','Users::logout')->setName('logout');
 
 $router->add('/user/{user:[0-9]+}/tag/{tag:[0-9]+}','users::showTag')->setName('users.showTag');
 $router->add('/user/{user:[0-9]+}/tag/{tag:[0-9]+}/page/{page:[0-9]+}','users::showTag')->setName('users.showTag.page');
+$router->add('/user/createNewUser','users::createNewUser')->setName('users.createNewUser');
 
 $router->add('/reading/file/{file:[0-9]+}/want','reading::want')->setName('reading.want');
 $router->add('/reading/file/{file:[0-9]+}/reading','reading::reading')->setName('reading.reading');

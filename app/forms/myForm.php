@@ -80,4 +80,15 @@ class myForm
         $form->add(new \Phalcon\Forms\Element\Submit('Login'));
         return $form;
     }
+
+    public static function buildCreateNewUserForm()
+    {
+        $form = new \Phalcon\Forms\Form();
+        $form->add(new \Phalcon\Forms\Element\Text('name'));
+        $form->add(new \Phalcon\Forms\Element\Text('email'));
+        $form->add(new \Phalcon\Forms\Element\Select('role',['管理员'=>'管理员','超级用户'=>'超级用户','用户'=>'用户']));
+        $form->add(new \Phalcon\Forms\Element\Password('password'));
+        $form->add(new \Phalcon\Forms\Element\Submit('创建'));
+        return $form;
+    }
 }

@@ -27,6 +27,20 @@ class UsersController extends myController
         $this->redirectByRoute(['for'=>'login']);
     }
 
+    public function createNewUserAction()
+    {
+        if($this->request->isPost()){
+            $data = $this->request->getPost();
+            $user = Users::findByEmail($data['email']);
+            if(!$user){
+                Users::createNewUser($data);
+                return $this->redirectByRoute(['for'=>'home']);
+            }
+        }
+        $this->view->form = myForm::buildCreateNewUserForm();
+    }
+
+
     public function showTagAction(Users $user,Tags $tag,$page =1)
     {
         $this->view->mytag = $tag;

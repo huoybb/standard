@@ -28,7 +28,11 @@ class Users extends myModel
      * @var string
      */
     public $password;
-
+    /**
+     *
+     * @var string
+     */
+    public $role;
     /**
      *
      * @var string
@@ -94,6 +98,16 @@ class Users extends myModel
             ->execute()->getFirst();
     }
 
+    public static function createNewUser(array $data)
+    {
+        return static::saveNew([
+            'name'=>$data['name'],
+            'email'=>$data['email'],
+            'password'=>SecurityFacade::hash($data['password']),
+            'role'=>$data['role']
+        ]);
+    }
+
     /**
      * Returns table name mapped in the model.
      *
@@ -139,6 +153,7 @@ class Users extends myModel
             'name' => 'name',
             'email' => 'email',
             'password' => 'password',
+            'role' => 'role',
             'remember_token' => 'remember_token',
             'created_at' => 'created_at',
             'updated_at' => 'updated_at',
