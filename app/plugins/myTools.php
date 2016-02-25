@@ -20,6 +20,15 @@ class myTools
         return $this->WebName;
     }
 
+    public function getLayoutLinkArray()
+    {
+        $want = AuthFacade::getReadingList('want')->count();
+        $reading = AuthFacade::getReadingList('reading')->count();
+        $done = AuthFacade::getReadingList('done',false)->count();
+        return ['standards/add'=>'新增','tags'=>'标签','want'=>"想读({$want})",'reading'=>"在读({$reading})",'done'=>"读过({$done})"];
+    }
+
+
     public static function formatDate($time)
     {
         if($time == null) return null;
