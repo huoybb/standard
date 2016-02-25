@@ -1,7 +1,5 @@
 <?php
 error_reporting(E_ALL);
-
-function dd($x){ var_dump($x);die();}
 try {
 
     /*

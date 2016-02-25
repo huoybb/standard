@@ -82,7 +82,13 @@ class Files extends myModel implements FilesInterface
      */
     public $relationCount;
 
-
+    public static function getAllQueryBuilder()
+    {
+        $builder = ModelsManager::createBuilder()
+            ->from('Files')
+            ->orderBy('id DESC');
+        return $builder;
+    }
 
     /**
      * Initialize method for model.

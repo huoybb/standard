@@ -11,6 +11,14 @@ use Phalcon\Security;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 
 /**
+ * helper function dd:die dump
+ */
+if(!function_exists('dd')){
+    function dd($x){
+        var_dump($x);die();
+    }
+}
+/**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
  */
 $di = new FactoryDefault();
@@ -175,5 +183,5 @@ $di->set('Event',function(){
  * 权限管理的设置需要找时间看看怎么做的！
  */
 $di->set('auth',function() use($di){
-    return Users::findFirst($di->get('session')->get('auth')['id']);
+    return Users::findFirst(SessionFacade::getID());
 },true);

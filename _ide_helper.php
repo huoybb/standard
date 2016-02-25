@@ -1364,6 +1364,16 @@ namespace {
         public static function path($path = null) {}
     }
 
+    class ModelsManager extends \Facade{
+        /**
+         * Creates a Phalcon\Mvc\Model\Query\Builder
+         *
+         * @param mixed $params
+         * @return \Phalcon\Mvc\Model\Query\BuilderInterface
+         */
+        public static function createBuilder($params = null) {}
+    }
+
 
 // ---------针对Igbinary模块函数的stub提示--------
     /**
