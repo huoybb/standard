@@ -64,12 +64,10 @@ class StandardsController extends myController
 
     public function deleteAction(Files $file)
     {
-        EventFacade::fire('standards:deleteFile',$file);
         if ($this->request->isPost()) {
             $file->delete();
             return $this->success();
         }
-//        dd($file);
         $file->delete();
         return $this->redirectByRoute(['for'=>'home']);
     }

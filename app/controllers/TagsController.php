@@ -66,7 +66,6 @@ class TagsController extends myController
     public function commentItemAction(Taggables $taggable)
     {
         $taggable->addComment($this->request->getPost());
-        $this->Event->fire('taggables:addComment',$taggable);
         return 'success';
     }
 

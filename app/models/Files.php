@@ -235,4 +235,14 @@ class Files extends myModel implements FilesInterface
         $file = new static;
         return $file->getResultsBetween($startTime,$endTime);
     }
+
+    /**
+     * @return bool
+     */
+    public function delete()
+    {
+        EventFacade::fire('standards:deleteFile',$this);
+        return parent::delete();
+    }
+
 }

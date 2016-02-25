@@ -16,7 +16,7 @@ trait commentableTrait
     /**
      * 获取该模型的所有评论
      * 这个其实也可以变成一个通用的方法落实在myModel中的
-     * @return null|\Phalcon\Mvc\Model\ResultsetInterface
+     * @return null|Phalcon\Mvc\Model\Resultset\Complex
      */
     public function comments()
     {
@@ -57,6 +57,11 @@ trait commentableTrait
             $meta = $this->getTagmetaOrNew();
             $meta->save();
         }
+
+        //领域事件的触发
+        $eventName = strtolower(get_class($this)).':addComment';
+        EventFacade::fire($eventName,$this);
+
         return $this;
     }
 
@@ -81,7 +86,11 @@ trait commentableTrait
     public function beforeDeleteForComments()
     {
         $comments = $this->comments();
-        if($comments) $comments->delete();
+        if($comments){
+            foreach($comments as $c){
+                $c->comments->delete();
+            }
+        }
         return $this;
     }
 
