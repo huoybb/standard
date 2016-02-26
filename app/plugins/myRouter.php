@@ -105,11 +105,10 @@ class myRouter extends Router{
             }
         }
 
-        //@todo 如果是get方式的如何过滤呢？应该如何设置才是正常的呢？例如get方式的search的过滤，单独处理？也许吧？
-        if($this->hasMatchedMiddleWares($pattern) and $request->isPost()){
+        if($this->hasMatchedMiddleWares($pattern)){
             $middleWares = $this->getMiddleWares($pattern);
             foreach($middleWares as $validator){
-                $data = $request->getPost();
+                if($request->isPost()) $data = $request->getPost();
 //                dd($validator);
                 if(preg_match('|[^:]+:[^:]+|',$validator)){
                     list($validator,$data) = explode(':',$validator);
