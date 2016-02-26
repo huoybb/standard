@@ -13,7 +13,7 @@ class SessionFacade extends Facade
         return 'session';
     }
     public static function getID(){
-        return static::getService()->id;
+        return static::getService()->get('auth')['id'];
     }
 
 }

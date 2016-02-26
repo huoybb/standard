@@ -22,9 +22,15 @@ class myTools
 
     public function getLayoutLinkArray()
     {
-        $want = AuthFacade::getReadingList('want')->count();
-        $reading = AuthFacade::getReadingList('reading')->count();
-        $done = AuthFacade::getReadingList('done',false)->count();
+        if(SessionFacade::getID()) {
+            list($want, $reading, $done) = [
+                AuthFacade::getReadingList('want')->count(),
+                AuthFacade::getReadingList('reading')->count(),
+                AuthFacade::getReadingList('done', false)->count(),
+            ];
+        }else{
+            list($want, $reading, $done) = [0,0,0];
+        }
         return ['standards/add'=>'新增','tags'=>'标签','want'=>"想读({$want})",'reading'=>"在读({$reading})",'done'=>"读过({$done})"];
     }
 
