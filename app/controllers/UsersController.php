@@ -5,19 +5,22 @@ class UsersController extends myController
 
     public function loginAction()
     {
+        if(SessionFacade::has('auth')) {
+            FlashFacade::error('您已经登录过了，如果想要重新登录，请先退出登录状态！logout！');
+            return $this->redirectByRoute(['for'=>'home']);
+        }
+
         if($this->request->isPost()){
             $data = $this->request->getPost();
             $user = Users::findByEmail($data['email']);
             if($user AND SecurityFacade::checkHash($data['password'],$user->password)){
                 FlashFacade::success('欢迎'.$user->name.'登录！你上次登录的时间是：'.$user->updated_at);
                 EventFacade::fire('auth:login',$user,$data);
-                $this->redirectByRoute(['for'=>'home']);
+                return $this->redirectByRoute(['for'=>'home']);
             }else{
                 $this->flash->error('登录不成功，密码或者邮件地址有误！');
             }
         }
-
-        if(SessionFacade::has('auth')) $this->redirectByRoute(['for'=>'home']);
 
         $this->view->form = myForm::buildLoginForm();
     }

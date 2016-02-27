@@ -10,7 +10,7 @@ use Carbon\Carbon;
  * 这里都是采用硬编码的方式，需要转换为phalcon的编码形式，包括变量的获取，转移地址设置等
  */
 
-class IsLoginValidator extends myValidation{
+class isLoggedin extends myValidation{
 
     public function isValid($data = null)
     {
