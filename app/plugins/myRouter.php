@@ -116,6 +116,7 @@ class myRouter extends Router{
                 }
 
                 if(preg_match('|.*Rules$|',$validator)){
+                    if(!$request->isPost()) continue;//避免出现get下的错误
                     $rules = new $validator();
                     $validator = (new myValidation())->take($rules);
                 }else{
