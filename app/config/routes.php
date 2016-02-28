@@ -111,6 +111,7 @@ $router->add('/user/{user:[0-9]+}/tag/{tag:[0-9]+}/page/{page:[0-9]+}','users::s
 $router->addx('/user/createNewUser','users::createNewUser',[isAdministrator::class])->setName('users.createNewUser');
 
 $router->add('/notification','Users::readNotification')->setName('users.readNotification');
+$router->add('/notification/done/{notification:[0-9]+}','Users::doneNotification')->setName('users.readNotification.done');
 
 
 $router->add('/reading/file/{file:[0-9]+}/want','reading::want')->setName('reading.want');

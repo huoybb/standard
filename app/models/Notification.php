@@ -106,4 +106,17 @@ class Notification extends myModel
         );
     }
 
+    public function getActivity()
+    {
+        return Activity::findFirst($this->activity_id);
+    }
+    
+    public function isDone()
+    {
+        return !$this->status;
+    }
+    
+
+
+
 }
