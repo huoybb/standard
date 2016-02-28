@@ -7,6 +7,10 @@ $em->register('auth',[authEventsHandler::class]);
 $em->listen('tags:updateTag',cacheEventsHandler::class.'::deleteTagsCache');
 $em->listen('tags:updateTag',tagsEventsHandler::class.'::updateMeta');
 
+$em->attach('tags:addComment',function($event,Tags $tag,Comments $comment){
+    Subscriber::notify($tag, Activity::addComment($tag,$comment,AuthFacade::getService()));
+});
+
 $em->attach('taggables',new taggablesEventsHandler());
 
 $em->attach('standards:addWebFile',function($event,\Phalcon\Mvc\Model $model){

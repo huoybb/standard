@@ -60,7 +60,7 @@ trait commentableTrait
 
         //领域事件的触发
         $eventName = strtolower(get_class($this)).':addComment';
-        EventFacade::fire($eventName,$this);
+        EventFacade::fire($eventName,$this,$comment);
 
         return $this;
     }

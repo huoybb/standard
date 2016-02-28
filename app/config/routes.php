@@ -110,6 +110,9 @@ $router->add('/user/{user:[0-9]+}/tag/{tag:[0-9]+}','users::showTag')->setName('
 $router->add('/user/{user:[0-9]+}/tag/{tag:[0-9]+}/page/{page:[0-9]+}','users::showTag')->setName('users.showTag.page');
 $router->addx('/user/createNewUser','users::createNewUser',[isAdministrator::class])->setName('users.createNewUser');
 
+$router->add('/notification','Users::readNotification')->setName('users.readNotification');
+
+
 $router->add('/reading/file/{file:[0-9]+}/want','reading::want')->setName('reading.want');
 $router->add('/reading/file/{file:[0-9]+}/reading','reading::reading')->setName('reading.reading');
 $router->add('/reading/file/{file:[0-9]+}/done','reading::done')->setName('reading.done');

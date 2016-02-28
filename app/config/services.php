@@ -183,5 +183,5 @@ $di->set('Event',function(){
  * 权限管理的设置需要找时间看看怎么做的！
  */
 $di->set('auth',function() use($di){
-    return Users::findFirst(SessionFacade::getID());
+    return Users::findFirst(SessionFacade::getAuthID());
 },true);

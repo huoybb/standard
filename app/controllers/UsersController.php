@@ -51,5 +51,11 @@ class UsersController extends myController
         $this->view->form = myForm::buildCommentForm($tag);//这个应该去掉
         $this->view->user = $user;
     }
+
+    public function readNotificationAction()
+    {
+        $this->view->notifications =Notification::getNotificationsForUser(AuthFacade::getService());
+    }
+
 }
 

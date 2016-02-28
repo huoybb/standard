@@ -22,7 +22,7 @@ class myTools
 
     public function getLayoutLinkArray()
     {
-        if(SessionFacade::getID()) {
+        if(SessionFacade::hasAuth()) {
             list($want, $reading, $done) = [
                 AuthFacade::getReadingList('want')->count(),
                 AuthFacade::getReadingList('reading')->count(),
@@ -31,7 +31,14 @@ class myTools
         }else{
             list($want, $reading, $done) = [0,0,0];
         }
-        return ['standards/add'=>'新增','tags'=>'标签','want'=>"想读({$want})",'reading'=>"在读({$reading})",'done'=>"读过({$done})"];
+        $notification = Notification::getNotificationsForUser(AuthFacade::getService())->count();
+        return [
+            'standards/add'=>'新增',
+            'tags'=>'标签','want'=>"想读({$want})",
+            'reading'=>"在读({$reading})",
+            'done'=>"读过({$done})",
+            'notification'=>"通知({$notification})"
+        ];
     }
 
 
