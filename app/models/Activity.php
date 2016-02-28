@@ -98,5 +98,16 @@ class Activity extends myModel
             'updated_at' => 'updated_at'
         );
     }
+    public function getTag()
+    {
+        return Tags::findFirst($this->tag_id);
+    }
+
+    public function getUser()
+    {
+        return Users::findFirst($this->user_id);
+    }
+
+
 
 }

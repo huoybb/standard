@@ -34,8 +34,7 @@ class UsersController extends myController
     {
         if($this->request->isPost()){
             $data = $this->request->getPost();
-            $user = Users::findByEmail($data['email']);
-            if(!$user){
+            if(!(Users::findByEmail($data['email']))){
                 Users::createNewUser($data);
                 return $this->redirectByRoute(['for'=>'home']);
             }
