@@ -39,21 +39,21 @@ class Notification extends myModel
      */
     public $status;
 
+    /**
+     * @param Users $user
+     * @return Phalcon\Mvc\Model\Resultset\Complex
+     */
     public static function getNotificationsForUser(Users $user)
     {
-        if(!SessionFacade::has('NotificationCache'.$user->id))
-            SessionFacade::set('NotificationCache'.$user->id,
-            ModelsManager::createBuilder()
-                ->from(['notify'=>Notification::class])
-                ->leftJoin(Activity::class,'act.id = notify.activity_id','act')
-                ->leftJoin(Users::class,'act.user_id = user.id','user')
-                ->leftJoin(Tags::class,'tag.id = act.tag_id','tag')
-                ->where('notify.user_id = :user:',['user'=>$user->id])
-                ->andWhere('status = :status:',['status'=>false])
-                ->columns(['act.*','notify.*','user.*','tag.*'])
-                ->getQuery()->execute());
-
-        return SessionFacade::get('NotificationCache'.$user->id);
+        return ModelsManager::createBuilder()
+            ->from(['notify'=>Notification::class])
+            ->leftJoin(Activity::class,'act.id = notify.activity_id','act')
+            ->leftJoin(Users::class,'act.user_id = user.id','user')
+            ->leftJoin(Tags::class,'tag.id = act.tag_id','tag')
+            ->where('notify.user_id = :user:',['user'=>$user->id])
+            ->andWhere('status = :status:',['status'=>false])
+            ->columns(['act.*','notify.*','user.*','tag.*'])
+            ->getQuery()->execute();
     }
 
     /**
@@ -115,6 +115,12 @@ class Notification extends myModel
     {
         return !$this->status;
     }
+
+    public function getTagID()
+    {
+        return $this->getActivity()->tag_id;
+    }
+
     
 
 

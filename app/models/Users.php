@@ -195,4 +195,15 @@ class Users extends myModel
             ->execute();
     }
 
+
+    /**
+     * @return Phalcon\Mvc\Model\Resultset\Complex
+     */
+    public function getNotifications(){
+        return $this->make(
+            'notifications',function(){
+            return Notification::getNotificationsForUser($this);
+        });
+    }
+
 }

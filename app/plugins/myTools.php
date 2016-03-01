@@ -31,7 +31,7 @@ class myTools
         }else{
             list($want, $reading, $done) = [0,0,0];
         }
-        $notification = Notification::getNotificationsForUser(AuthFacade::getService())->count();
+        $notification = AuthFacade::getNotifications()->count();
         return [
             'standards/add'=>'新增',
             'tags'=>'标签','want'=>"想读({$want})",

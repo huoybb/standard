@@ -53,15 +53,12 @@ class UsersController extends myController
 
     public function readNotificationAction()
     {
-        $this->view->notifications =Notification::getNotificationsForUser(AuthFacade::getService());
+        $this->view->notifications =AuthFacade::getNotifications();
     }
     public function doneNotificationAction(Notification $notification)
     {
         $notification->save(['status'=>true]);
-        SessionFacade::remove('NotificationCache'.AuthFacade::getID());
-        return $this->redirectByRoute(['for'=>'tags.show','tag'=>$notification->getActivity()->tag_id]);
+        return $this->redirectByRoute(['for'=>'tags.show','tag'=>$notification->getTagID()]);
     }
-
-
 }
 

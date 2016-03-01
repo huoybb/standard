@@ -270,6 +270,12 @@ namespace {
          * @return \Phalcon\Mvc\Model\ResultsetInterface
          */
         public static function getReadingList($status,$isActive = true){}
+
+        /**
+         *获取当前用户的通知项目
+         * @return \Phalcon\Mvc\Model\Resultset\Complex
+         */
+        public static function getNotifications(){}
     }
 
     class SecurityFacade extends \Facade{
