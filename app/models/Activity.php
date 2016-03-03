@@ -108,6 +108,14 @@ class Activity extends myModel
         return Users::findFirst($this->user_id);
     }
 
+    public function showDoing()
+    {
+        $doing = (array)json_decode($this->doing);
+        if($doing['type'] == 'addComment') return '评论';
+        return $this->doing;
+    }
+
+
 
 
 }

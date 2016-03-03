@@ -206,4 +206,58 @@ class Users extends myModel
         });
     }
 
+    /**获取当前用户的未读通知项目
+     * @return Phalcon\Mvc\Model\Resultset\Complex
+     */
+    public function getUnreadNotifications()
+    {
+        return $this->make('unreadNotifications',function(){
+            return Notification::getUnreadNotificationsForUser($this);
+        });
+    }
+
+
+    /**
+     * @param Tags $tag
+     * @return boolean
+     */
+    public function isSubscribedTo(Tags $tag)
+    {
+        return Subscriber::query()
+            ->where('user_id = :user:',['user'=>$this->id])
+            ->andWhere('tag_id = :tag:',['tag'=>$tag->id])
+            ->execute()->count();
+    }
+
+    /**
+     * @param Tags $tag
+     * @return Users
+     */
+    public function subscribe(Tags $tag)
+    {
+        if(!$this->isSubscribedTo($tag)) {
+            Subscriber::saveNew(['user_id'=>$this->id,'tag_id'=>$tag->id]);
+        }
+        return $this;
+    }
+
+    /**
+     * @param Tags $tag
+     * @return Users
+     */
+    public function unsubscribe(Tags $tag)
+    {
+        if($this->isSubscribedTo($tag)){
+            $rows = Subscriber::query()
+                ->where('user_id = :user:',['user'=>$this->id])
+                ->andWhere('tag_id = :tag:',['tag'=>$tag->id])
+                ->execute();
+            $rows->delete();
+        }
+        return $this;
+    }
+
+
+
+
 }

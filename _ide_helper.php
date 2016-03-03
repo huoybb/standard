@@ -276,6 +276,29 @@ namespace {
          * @return \Phalcon\Mvc\Model\Resultset\Complex
          */
         public static function getNotifications(){}
+
+        /**获取当前用户的未读通知项目
+         * @return Phalcon\Mvc\Model\Resultset\Complex
+         */
+        public static function getUnreadNotifications(){}
+
+        /**
+         * @param Tags $tag
+         * @return boolean
+         */
+        public static function isSubscribedTo(Tags $tag){}
+
+        /**
+         * @param Tags $tag
+         * @return Users
+         */
+        public static function subscribe(Tags $tag){}
+
+        /**
+         * @param Tags $tag
+         * @return Users
+         */
+        public static function unsubscribe(Tags $tag){}
     }
 
     class SecurityFacade extends \Facade{

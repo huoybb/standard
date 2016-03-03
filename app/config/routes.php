@@ -80,6 +80,9 @@ $router->add('/tags/{tag:[0-9]+}/addComment','tags::addComment')->setName('tags.
 $router->add('/tags/{tag:[0-9]+}/comments/{comment:[0-9]+}/edit','tags::editComment')->setName('tags.editComment');
 $router->add('/tags/{tag:[0-9]+}/comments/{comment:[0-9]+}/delete','tags::deleteComment')->setName('tags.deleteComment');
 
+$router->add('/tags/{tag:[0-9]+}/subscribe','tags::subscribe')->setName('tags.subscribe');
+$router->add('/tags/{tag:[0-9]+}/unsubscribe','tags::unsubscribe')->setName('tags.unsubscribe');
+
 $router->add('/tags/{tag:[0-9]+}/item/{file:[0-9]+}','tags::showItem')->setName('tags.showItem');
 $router->add('/tags/{tag:[0-9]+}/item/{taggable:[0-9]+}/delete','tags::deleteItem')->setName('tags.deleteItem');
 $router->add('/taggables/{taggable:[0-9]+}/addComment','tags::commentItem')->setName('taggables.addComment');

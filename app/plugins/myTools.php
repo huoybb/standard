@@ -31,13 +31,13 @@ class myTools
         }else{
             list($want, $reading, $done) = [0,0,0];
         }
-        $notification = AuthFacade::getNotifications()->count();
+        $unreadNotification = AuthFacade::getUnreadNotifications()->count();
         return [
             'standards/add'=>'新增',
             'tags'=>'标签','want'=>"想读({$want})",
             'reading'=>"在读({$reading})",
             'done'=>"读过({$done})",
-            'notification'=>"通知({$notification})"
+            'notification'=>"通知({$unreadNotification})"
         ];
     }
 

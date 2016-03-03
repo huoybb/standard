@@ -20,7 +20,13 @@
     <P>操作：
         <a href="{{ url(['for':'tags.edit','tag':mytag.id]) }}">修改</a>
         {% if not mytag.attachmentCount %}<a href="{{ url(['for':'tags.delete','tag':mytag.id]) }}">删除</a>{% endif %}
+        {% if not auth.isSubscribedTo(mytag) %}
+            <a href="{{ url(['for':'tags.subscribe','tag':mytag.id]) }}">关注</a>
+        {% else %}
+            <a href="{{ url(['for':'tags.unsubscribe','tag':mytag.id]) }}">取消关注</a>
+        {% endif %}
     </P>
+
     {% if mytag.attachmentCount %}
         <h2><a href="{{ url(['for':'tags.showAttachments','tag':mytag.id]) }}">学习笔记</a></h2>
         {% for attachment in mytag.attachments() %}

@@ -53,7 +53,7 @@ class UsersController extends myController
 
     public function readNotificationAction()
     {
-        $this->view->notifications =AuthFacade::getNotifications();
+        $this->view->notifications = AuthFacade::getNotifications();
     }
     public function doneNotificationAction(Notification $notification)
     {

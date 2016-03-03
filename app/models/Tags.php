@@ -243,6 +243,7 @@ class Tags extends myModel
 
     public function addFileList(array $file_ids)
     {
+        if(count($file_ids) == 0) return null;
         $files = Files::query()
             ->inWhere('id',$file_ids)
             ->execute();

@@ -142,10 +142,21 @@ class TagsController extends myController
         $this->view->relation = $relation;
     }
 
+    public function subscribeAction(Tags $tag)
+    {
+        if(!AuthFacade::isSubscribedTo($tag)){
+            AuthFacade::subscribe($tag);
+        }
+        return $this->redirectByRoute(['for'=>'tags.show','tag'=>$tag->id]);
+    }
 
-
-
-
+    public function unsubscribeAction(Tags $tag)
+    {
+        if(AuthFacade::isSubscribedTo($tag)){
+            AuthFacade::unsubscribe($tag);
+        }
+        return $this->redirectByRoute(['for'=>'tags.show','tag'=>$tag->id]);
+    }
 
 
 
