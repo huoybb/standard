@@ -58,7 +58,12 @@ class UsersController extends myController
     public function doneNotificationAction(Notification $notification)
     {
         $notification->save(['status'=>true]);
-        return $this->redirectByRoute(['for'=>'tags.show','tag'=>$notification->getTagID()]);
+        if($notification->getActivity()->object_type == 'Tags'){
+            return $this->redirectByRoute(['for'=>'tags.show','tag'=>$notification->getTagID()]);
+        }
+        if($notification->getActivity()->object_type == 'Files'){
+            return $this->redirectByRoute(['for'=>'standards.show','file'=>$notification->getTagID()]);
+        }
     }
 }
 

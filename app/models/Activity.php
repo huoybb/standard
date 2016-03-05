@@ -45,7 +45,7 @@ class Activity extends myModel
      */
     public $updated_at;
 
-    public static function addComment(Tags $object, Comments $comment, Users $user)
+    public static function addComment(myModel $object, Comments $comment, Users $user)
     {
         $activity = new static;
         $activity->user_id = $user->id;

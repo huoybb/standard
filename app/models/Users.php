@@ -227,7 +227,7 @@ class Users extends myModel
             ->where('user_id = :user:',['user'=>$this->id])
             ->andWhere('object_id = :id:',['id'=>$object->id])
             ->andWhere('object_type = :type:',['type'=>get_class($object)])
-            ->execute()->count();
+            ->execute()->count() > 0;
     }
 
     /**
@@ -246,13 +246,13 @@ class Users extends myModel
      * @param myModel $object
      * @return Users
      */
-    public function unsubscribe(Tags $object)
+    public function unsubscribe(myModel $object)
     {
         if($this->isSubscribedTo($object)){
             $rows = Subscriber::query()
                 ->where('user_id = :user:',['user'=>$this->id])
-                ->andWhere('ojbect_id = :id:',['id'=>$object->id])
-                ->andWhere('ojbect_type = :type:',['type'=>get_class($object)])
+                ->andWhere('object_id = :id:',['id'=>$object->id])
+                ->andWhere('object_type = :type:',['type'=>get_class($object)])
                 ->execute();
             $rows->delete();
         }

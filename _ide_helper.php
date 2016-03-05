@@ -283,22 +283,22 @@ namespace {
         public static function getUnreadNotifications(){}
 
         /**
-         * @param Tags $tag
+         * @param \myModel $object
          * @return boolean
          */
-        public static function isSubscribedTo(Tags $tag){}
+        public static function isSubscribedTo(\myModel $object){}
 
         /**
-         * @param Tags $tag
+         * @param \myModel $$object
          * @return Users
          */
-        public static function subscribe(Tags $tag){}
+        public static function subscribe(\myModel $object){}
 
         /**
-         * @param Tags $tag
+         * @param \myModel $$object
          * @return Users
          */
-        public static function unsubscribe(Tags $tag){}
+        public static function unsubscribe(\myModel $object){}
     }
 
     class SecurityFacade extends \Facade{

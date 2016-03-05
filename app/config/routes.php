@@ -80,8 +80,7 @@ $router->add('/tags/{tag:[0-9]+}/addComment','tags::addComment')->setName('tags.
 $router->add('/tags/{tag:[0-9]+}/comments/{comment:[0-9]+}/edit','tags::editComment')->setName('tags.editComment');
 $router->add('/tags/{tag:[0-9]+}/comments/{comment:[0-9]+}/delete','tags::deleteComment')->setName('tags.deleteComment');
 
-$router->add('/tags/{tag:[0-9]+}/subscribe','tags::subscribe')->setName('tags.subscribe');
-$router->add('/tags/{tag:[0-9]+}/unsubscribe','tags::unsubscribe')->setName('tags.unsubscribe');
+
 
 $router->add('/tags/{tag:[0-9]+}/item/{file:[0-9]+}','tags::showItem')->setName('tags.showItem');
 $router->add('/tags/{tag:[0-9]+}/item/{taggable:[0-9]+}/delete','tags::deleteItem')->setName('tags.deleteItem');
@@ -113,9 +112,14 @@ $router->add('/user/{user:[0-9]+}/tag/{tag:[0-9]+}','users::showTag')->setName('
 $router->add('/user/{user:[0-9]+}/tag/{tag:[0-9]+}/page/{page:[0-9]+}','users::showTag')->setName('users.showTag.page');
 $router->addx('/user/createNewUser','users::createNewUser',[isAdministrator::class])->setName('users.createNewUser');
 
+//订阅和通知
+$router->add('/tags/{tag:[0-9]+}/subscribe','tags::subscribe')->setName('tags.subscribe');
+$router->add('/tags/{tag:[0-9]+}/unsubscribe','tags::unsubscribe')->setName('tags.unsubscribe');
 $router->add('/notification','Users::readNotification')->setName('users.readNotification');
 $router->add('/notification/done/{notification:[0-9]+}','Users::doneNotification')->setName('users.readNotification.done');
 
+$router->add('/standards/{file:[0-9]+}/subscribe','standards::subscribe')->setName('standards.subscribe');
+$router->add('/standards/{file:[0-9]+}/unsubscribe','standards::unsubscribe')->setName('standards.unsubscribe');
 
 $router->add('/reading/file/{file:[0-9]+}/want','reading::want')->setName('reading.want');
 $router->add('/reading/file/{file:[0-9]+}/reading','reading::reading')->setName('reading.reading');

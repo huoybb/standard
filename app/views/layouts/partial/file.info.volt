@@ -42,6 +42,12 @@
         <div class="col-md-10">
             <span><a href="{{ url(['for':'standards.edit','file':file.id]) }}">修改</a></span>
             <span><a href="{{ url(['for':'standards.delete','file':file.id]) }}">删除</a></span>
+
+            {% if not auth.isSubscribedTo(file) %}
+                <a href="{{ url(['for':'standards.subscribe','file':file.id]) }}">关注</a>
+            {% else %}
+                <a href="{{ url(['for':'standards.unsubscribe','file':file.id]) }}">取消关注</a>
+            {% endif %}
         </div>
     </div>
     <div class="row">

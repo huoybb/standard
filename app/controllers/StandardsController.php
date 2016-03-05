@@ -31,6 +31,7 @@ class StandardsController extends myController
 
     public function showAction(Files $file)
     {
+//        dd(AuthFacade::isSubscribedTo($file));
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }
@@ -282,5 +283,22 @@ class StandardsController extends myController
         $download->createZipFile($file_ids,$filename);
         $download->getAndDeleteZipFile($filename);
     }
+
+    public function subscribeAction(Files $file)
+    {
+        if(!AuthFacade::isSubscribedTo($file)){
+            AuthFacade::subscribe($file);
+        }
+        return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
+    }
+    public function unsubscribeAction(Files $file)
+    {
+        if(AuthFacade::isSubscribedTo($file)){
+            AuthFacade::unsubscribe($file);
+        }
+        return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
+    }
+
+
 
 }

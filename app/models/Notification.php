@@ -136,7 +136,7 @@ class Notification extends myModel
 
     public function getTagID()
     {
-        return $this->getActivity()->tag_id;
+        return $this->getActivity()->object_id;
     }
 
     
