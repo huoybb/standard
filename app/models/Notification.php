@@ -66,11 +66,12 @@ class Notification extends myModel
             ->from(['notify' => Notification::class])
             ->leftJoin(Activity::class, 'act.id = notify.activity_id', 'act')
             ->leftJoin(Users::class, 'act.user_id = user.id', 'user')
-            ->leftJoin(Tags::class, 'tag.id = act.tag_id', 'tag')
+            ->leftJoin(Tags::class, 'tag.id = act.object_id AND act.object_type ="Tags"', 'tag')
+            ->leftJoin(Files::class, 'file.id = act.object_id AND act.object_type ="Files"', 'file')
             ->where('notify.user_id = :user:', ['user' => $user->id])
             ->orderBy('notify.id DESC')
 //            ->andWhere('status = :status:',['status'=>false])
-            ->columns(['act.*', 'notify.*', 'user.*', 'tag.*']);
+            ->columns(['act.*', 'notify.*', 'user.*', 'tag.*','file.*']);
     }
 
     /**

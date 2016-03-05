@@ -19,7 +19,12 @@ class Subscriber extends myModel
      *
      * @var integer
      */
-    public $tag_id;
+    public $object_id;
+    /**
+     *
+     * @var string
+     */
+    public $object_type;
 
     /**
      *
@@ -35,13 +40,14 @@ class Subscriber extends myModel
 
     /**
      * 通知主题tag下发生了什么事件activity
-     * @param Tags $tag
+     * @param Tags $object
      * @param Activity $activity
      */
-    public static function notify(Tags $tag, Activity $activity)
+    public static function notify(myModel $object, Activity $activity)
     {
         $subscribers = Subscriber::query()
-            ->where('tag_id = :tag:',['tag'=>$tag->id])
+            ->where('object_id = :id:',['id'=>$object->id])
+            ->andWhere('object_type =:type:',['type'=>get_class($object)])
             ->execute();
         foreach($subscribers as $subscriber){
             $data = [
@@ -49,6 +55,7 @@ class Subscriber extends myModel
                 'user_id'=>$subscriber->user_id,
                 'status'=>false,
             ];
+            if($subscriber->user_id == AuthFacade::getID()) $data['status']=true;
             Notification::saveNew($data);
         }
     }
@@ -96,7 +103,8 @@ class Subscriber extends myModel
         return array(
             'id' => 'id',
             'user_id' => 'user_id',
-            'tag_id' => 'tag_id',
+            'object_id' => 'object_id',
+            'object_type' => 'object_type',
             'created_at' => 'created_at',
             'updated_at' => 'updated_at'
         );

@@ -218,39 +218,41 @@ class Users extends myModel
 
 
     /**
-     * @param Tags $tag
+     * @param myModel $object
      * @return boolean
      */
-    public function isSubscribedTo(Tags $tag)
+    public function isSubscribedTo(myModel $object)
     {
         return Subscriber::query()
             ->where('user_id = :user:',['user'=>$this->id])
-            ->andWhere('tag_id = :tag:',['tag'=>$tag->id])
+            ->andWhere('object_id = :id:',['id'=>$object->id])
+            ->andWhere('object_type = :type:',['type'=>get_class($object)])
             ->execute()->count();
     }
 
     /**
-     * @param Tags $tag
+     * @param myModel $object
      * @return Users
      */
-    public function subscribe(Tags $tag)
+    public function subscribe(myModel $object)
     {
-        if(!$this->isSubscribedTo($tag)) {
-            Subscriber::saveNew(['user_id'=>$this->id,'tag_id'=>$tag->id]);
+        if(!$this->isSubscribedTo($object)) {
+            Subscriber::saveNew(['user_id'=>$this->id,'object_id'=>$object->id,'object_type'=>get_class($object)]);
         }
         return $this;
     }
 
     /**
-     * @param Tags $tag
+     * @param myModel $object
      * @return Users
      */
-    public function unsubscribe(Tags $tag)
+    public function unsubscribe(Tags $object)
     {
-        if($this->isSubscribedTo($tag)){
+        if($this->isSubscribedTo($object)){
             $rows = Subscriber::query()
                 ->where('user_id = :user:',['user'=>$this->id])
-                ->andWhere('tag_id = :tag:',['tag'=>$tag->id])
+                ->andWhere('ojbect_id = :id:',['id'=>$object->id])
+                ->andWhere('ojbect_type = :type:',['type'=>get_class($object)])
                 ->execute();
             $rows->delete();
         }

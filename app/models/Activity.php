@@ -19,7 +19,13 @@ class Activity extends myModel
      *
      * @var integer
      */
-    public $tag_id;
+    public $object_id;
+
+    /**
+     *
+     * @var string
+     */
+    public $object_type;
 
     /**
      *
@@ -39,11 +45,12 @@ class Activity extends myModel
      */
     public $updated_at;
 
-    public static function addComment(Tags $tag, Comments $comment, Users $user)
+    public static function addComment(Tags $object, Comments $comment, Users $user)
     {
         $activity = new static;
         $activity->user_id = $user->id;
-        $activity->tag_id = $tag->id;
+        $activity->object_id = $object->id;
+        $activity->object_type = get_class($object);
         $activity->doing = json_encode(['type'=>'addComment','comment_id'=>$comment->id]);
         $activity->save();
         return $activity;
@@ -92,7 +99,8 @@ class Activity extends myModel
         return array(
             'id' => 'id',
             'user_id' => 'user_id',
-            'tag_id' => 'tag_id',
+            'object_id' => 'object_id',
+            'object_type' => 'object_type',
             'doing' => 'doing',
             'created_at' => 'created_at',
             'updated_at' => 'updated_at'

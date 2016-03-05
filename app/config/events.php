@@ -8,11 +8,15 @@ $em->listen('tags:updateTag',cacheEventsHandler::class.'::deleteTagsCache');
 $em->listen('tags:updateTag',tagsEventsHandler::class.'::updateMeta');
 
 $em->attach('tags:addComment',function($event,Tags $tag,Comments $comment){
+
     Subscriber::notify($tag, Activity::addComment($tag,$comment,AuthFacade::getService()));
 });
 
 $em->attach('taggables',new taggablesEventsHandler());
 
+$em->attach('files:addComment',function($event,Files $file,Comments $comment){
+
+});
 $em->attach('standards:addWebFile',function($event,\Phalcon\Mvc\Model $model){
     RedisFacade::delete('standard:archives:'.get_class($model));
     RedisFacade::delete('standard:archives:Files');
