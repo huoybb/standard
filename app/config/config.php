@@ -18,7 +18,7 @@ return new \Phalcon\Config(array(
         'cacheDir'       => __DIR__ . '/../../app/cache/',
         'formDir'        => __DIR__ . '/../../app/forms/',
         'middlewaresDir' => __DIR__ . '/../../app/middlewares/',
-        'events'         => __DIR__ . '/../../app/events/',
+        'handlers'         => __DIR__ . '/../../app/handlers/',
         'facades'         => __DIR__ . '/../../app/facades/',
         'baseUri'        => '/',
     ),

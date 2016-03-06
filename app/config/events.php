@@ -1,33 +1,32 @@
 <?php
-$em = new myEventManager();
+$eventManager = new myEventManager();
 
 //$em->attach('auth',new authEventsHandler());
-$em->register('auth',[authEventsHandler::class]);
+$eventManager->register('auth',[authEventsHandler::class]);
 
-$em->listen('tags:updateTag',cacheEventsHandler::class.'::deleteTagsCache');
-$em->listen('tags:updateTag',tagsEventsHandler::class.'::updateMeta');
+$eventManager->listen('tags:updateTag',cacheEventsHandler::class.'::deleteTagsCache');
+$eventManager->listen('tags:updateTag',tagsEventsHandler::class.'::updateMeta');
 
-$em->listen('tags:addComment',activityHandler::class.'::addComment');
-$em->listen('files:addComment',activityHandler::class.'::addComment');
+$eventManager->listen('tags:addComment',activityHandler::class.'::addComment');
+$eventManager->listen('files:addComment',activityHandler::class.'::addComment');
 
-$em->attach('taggables',new taggablesEventsHandler());
+$eventManager->attach('taggables',new taggablesEventsHandler());
 
-$em->attach('standards:addWebFile',function($event,\Phalcon\Mvc\Model $model){
+$eventManager->attach('standards:addWebFile',function($event, \Phalcon\Mvc\Model $model){
     RedisFacade::delete('standard:archives:'.get_class($model));
     RedisFacade::delete('standard:archives:Files');
 });
-$em->attach('standards:addFile',function($event,$model){
+$eventManager->attach('standards:addFile',function($event, $model){
     RedisFacade::delete('standard:archives:Files');
 });
 
-$em->attach('standards:deleteFile',function($event,Files $file){
+$eventManager->attach('standards:deleteFile',function($event, Files $file){
     $model = $file->getFileable();
     if($model) RedisFacade::delete('standard:archives:'.get_class($model));
     RedisFacade::delete('standard:archives:Files');
 });
-$em->attach('standards:deleteSelectedFiles',function($event,$files){
+$eventManager->attach('standards:deleteSelectedFiles',function($event, $files){
     RedisFacade::delete(RedisFacade::keys('standard:archives:*'));
 });
-
-$em->register('search',[searchEventHandler::class]);
-return $em;
+$eventManager->register('search',[searchEventHandler::class]);
+return $eventManager;
