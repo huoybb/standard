@@ -1,8 +1,11 @@
 <?php
 $eventManager = new myEventManager();
 
-//$em->attach('auth',new authEventsHandler());
-$eventManager->register('auth',[authEventsHandler::class]);
+$eventManager->listen('auth:login',authEventsHandler::class.'::login');
+$eventManager->listen('auth:logout',authEventsHandler::class.'::logout');
+
+$eventManager->listen('search:main',searchEventHandler::class.'::main');
+$eventManager->listen('search:sub',searchEventHandler::class.'::sub');
 
 $eventManager->listen('tags:updateTag',cacheEventsHandler::class.'::deleteTagsCache');
 $eventManager->listen('tags:updateTag',tagsEventsHandler::class.'::updateMeta');
@@ -10,23 +13,12 @@ $eventManager->listen('tags:updateTag',tagsEventsHandler::class.'::updateMeta');
 $eventManager->listen('tags:addComment',activityHandler::class.'::addComment');
 $eventManager->listen('files:addComment',activityHandler::class.'::addComment');
 
-$eventManager->attach('taggables',new taggablesEventsHandler());
+$eventManager->listen('taggables:addComment',taggablesEventsHandler::class.'::addComment');
 
-$eventManager->attach('standards:addWebFile',function($event, \Phalcon\Mvc\Model $model){
-    RedisFacade::delete('standard:archives:'.get_class($model));
-    RedisFacade::delete('standard:archives:Files');
-});
-$eventManager->attach('standards:addFile',function($event, $model){
-    RedisFacade::delete('standard:archives:Files');
-});
+$eventManager->listen('standards:addWebFile',standardHandler::class.'::addWebFile');
+$eventManager->listen('standards:addFile',standardHandler::class.'::addFile');
 
-$eventManager->attach('standards:deleteFile',function($event, Files $file){
-    $model = $file->getFileable();
-    if($model) RedisFacade::delete('standard:archives:'.get_class($model));
-    RedisFacade::delete('standard:archives:Files');
-});
-$eventManager->attach('standards:deleteSelectedFiles',function($event, $files){
-    RedisFacade::delete(RedisFacade::keys('standard:archives:*'));
-});
-$eventManager->register('search',[searchEventHandler::class]);
+$eventManager->listen('standards:deleteFile',standardHandler::class.'::deleteFile');
+$eventManager->listen('standards:deleteSelectedFiles',standardHandler::class.'::deleteSelectedFiles');
+
 return $eventManager;
