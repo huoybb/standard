@@ -13,6 +13,12 @@ $eventManager->listen('tags:updateTag',tagsEventsHandler::class.'::updateMeta');
 $eventManager->listen('tags:addComment',activityHandler::class.'::addComment');
 $eventManager->listen('files:addComment',activityHandler::class.'::addComment');
 
+$eventManager->listen('tags:addAttachment',activityHandler::class.'::addAttachment');
+$eventManager->listen('files:addAttachment',activityHandler::class.'::addAttachment');
+
+$eventManager->listen('tags:deleteAttachment',activityHandler::class.'::deleteAttachment');
+$eventManager->listen('files:deleteAttachment',activityHandler::class.'::deleteAttachment');
+
 $eventManager->listen('taggables:addComment',taggablesEventsHandler::class.'::addComment');
 
 $eventManager->listen('standards:addWebFile',standardHandler::class.'::addWebFile');

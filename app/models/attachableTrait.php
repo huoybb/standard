@@ -28,29 +28,32 @@ trait attachableTrait
     {
         /** @var myModel $this */
         $attachment->delete();
-        $this->decreaseCount('attachmentCount');
+
+        EventFacade::fire(strtolower(get_class($this)).':deleteAttachment',$this);
         return $this;
     }
 
     public function uploadAndStoreAttachment(\Phalcon\Http\Request $request)
     {
-        $user = \Phalcon\Di::getDefault()->get('auth');
         /** @var myModel $this */
+
+        $files = [];
         foreach($request->getUploadedFiles() as $f){
             $data = [];
             $data['name'] = $f->getName();
             $data['url']=myTools::storeAttachment($f);
-            $data['user_id'] = $user->id;
+            $data['user_id'] = AuthFacade::getID();
             $data['attachable_id'] = $this->id;
             $data['attachable_type'] = get_class($this);
-            (new Attachments())->save($data);
-            
-            $this->increaseCount('attachmentCount');
+
+            $attachment = (new Attachments());
+            $attachment->save($data);
+
+            $files[] = $attachment;
         }
-        if(is_a($this,'Tags')){
-            $meta = $this->getTagmetaOrNew();
-            $meta->save();
-        }
+
+        EventFacade::fire(strtolower(get_class($this)).':addAttachment',$this,$files);
+
         return $this;
     }
 

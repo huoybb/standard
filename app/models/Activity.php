@@ -56,6 +56,16 @@ class Activity extends myModel
         return $activity;
     }
 
+    public static function addAttachment(myModel $object, Attachments $attachment, Users $user){
+        $activity = new static;
+        $activity->user_id = $user->id;
+        $activity->object_id = $object->id;
+        $activity->object_type = get_class($object);
+        $activity->doing = json_encode(['type'=>'addAttachment','attachment_id'=>$attachment->id]);
+        $activity->save();
+        return $activity;
+    }
+
     /**
      * Returns table name mapped in the model.
      *
