@@ -47,7 +47,6 @@ $router->add('/standards/{file:[0-9]+}/addLink','standards::addLink')->setName('
 $router->add('/standards/{file:[0-9]+}/Links','standards::showLinks')->setName('standards.showLinks');
 $router->add('/standards/{file:[0-9]+}/deleteLink/{link:[0-9]+}','standards::deleteLink')->setName('standards.deleteLink');
 
-
 //针对文件列表的操作
 $router->add('/standards/combineRevisions','standards::combineRevisions')->setName('standards.combineRevisions');
 $router->add('/standards/deleteSelectedFiles','standards::deleteSelectedFiles')->setName('standards.deleteSelectedFiles');
@@ -79,8 +78,6 @@ $router->add('/tags/{tag:[0-9]+}/deleteTaggableItems','tags::deleteTaggableItems
 $router->add('/tags/{tag:[0-9]+}/addComment','tags::addComment')->setName('tags.addComment');
 $router->add('/tags/{tag:[0-9]+}/comments/{comment:[0-9]+}/edit','tags::editComment')->setName('tags.editComment');
 $router->add('/tags/{tag:[0-9]+}/comments/{comment:[0-9]+}/delete','tags::deleteComment')->setName('tags.deleteComment');
-
-
 
 $router->add('/tags/{tag:[0-9]+}/item/{file:[0-9]+}','tags::showItem')->setName('tags.showItem');
 $router->add('/tags/{tag:[0-9]+}/item/{taggable:[0-9]+}/delete','tags::deleteItem')->setName('tags.deleteItem');

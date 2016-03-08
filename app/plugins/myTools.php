@@ -17,6 +17,7 @@ class myTools
     }
     public function getSiteName()
     {
+        if(SessionFacade::hasAuth()) return AuthFacade::getService()->name.'的文档库';
         return $this->WebName;
     }
 
