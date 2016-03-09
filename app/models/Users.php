@@ -5,6 +5,7 @@ class Users extends myModel
 {
 
     use readingTrait;
+    use subsribeTrait;
     /**
      *
      * @var integer
@@ -196,68 +197,7 @@ class Users extends myModel
     }
 
 
-    /**
-     * @return Phalcon\Mvc\Model\Resultset\Complex
-     */
-    public function getNotifications(){
-        return $this->make(
-            'notifications',function(){
-            return Notification::getNotificationsForUser($this);
-        });
-    }
 
-    /**获取当前用户的未读通知项目
-     * @return Phalcon\Mvc\Model\Resultset\Complex
-     */
-    public function getUnreadNotifications()
-    {
-        return $this->make('unreadNotifications',function(){
-            return Notification::getUnreadNotificationsForUser($this);
-        });
-    }
-
-
-    /**
-     * @param myModel $object
-     * @return boolean
-     */
-    public function isSubscribedTo(myModel $object)
-    {
-        return Subscriber::query()
-            ->where('user_id = :user:',['user'=>$this->id])
-            ->andWhere('object_id = :id:',['id'=>$object->id])
-            ->andWhere('object_type = :type:',['type'=>get_class($object)])
-            ->execute()->count() > 0;
-    }
-
-    /**
-     * @param myModel $object
-     * @return Users
-     */
-    public function subscribe(myModel $object)
-    {
-        if(!$this->isSubscribedTo($object)) {
-            Subscriber::saveNew(['user_id'=>$this->id,'object_id'=>$object->id,'object_type'=>get_class($object)]);
-        }
-        return $this;
-    }
-
-    /**
-     * @param myModel $object
-     * @return Users
-     */
-    public function unsubscribe(myModel $object)
-    {
-        if($this->isSubscribedTo($object)){
-            $rows = Subscriber::query()
-                ->where('user_id = :user:',['user'=>$this->id])
-                ->andWhere('object_id = :id:',['id'=>$object->id])
-                ->andWhere('object_type = :type:',['type'=>get_class($object)])
-                ->execute();
-            $rows->delete();
-        }
-        return $this;
-    }
 
 
 

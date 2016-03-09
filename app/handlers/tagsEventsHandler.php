@@ -14,4 +14,10 @@ class tagsEventsHandler
         $meta = $tag->getTagmetaOrNew();
         if($meta->id) $meta->save();
     }
+
+    public function addFileList($event, Tags $tag, $fileIds)
+    {
+        Subscriber::notify($tag,Activity::addFileList($tag,$fileIds,AuthFacade::getService()));
+    }
+
 }

@@ -66,6 +66,16 @@ class Activity extends myModel
         return $activity;
     }
 
+    public static function addFileList(myModel $model,array $fileIds,Users $user){
+        $activity = new static;
+        $activity->user_id = $user->id;
+        $activity->object_id = $model->id;
+        $activity->object_type = get_class($model);
+        $activity->doing = json_encode(['type'=>'addFileList','fileIds'=>$fileIds]);
+        $activity->save();
+        return $activity;
+    }
+
     /**
      * Returns table name mapped in the model.
      *

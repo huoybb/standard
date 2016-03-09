@@ -13,6 +13,8 @@ $eventManager->listen('tags:updateTag',tagsEventsHandler::class.'::updateMeta');
 $eventManager->listen('tags:addComment',activityHandler::class.'::addComment');
 $eventManager->listen('files:addComment',activityHandler::class.'::addComment');
 
+$eventManager->listen('tags:addFileList',tagsEventsHandler::class.'::addFileList');
+
 $eventManager->listen('tags:addAttachment',activityHandler::class.'::addAttachment');
 $eventManager->listen('files:addAttachment',activityHandler::class.'::addAttachment');
 

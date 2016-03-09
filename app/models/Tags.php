@@ -251,6 +251,7 @@ class Tags extends myModel
             /** @var Files $file */
             $file->addTag($this);
         }
+        EventFacade::fire('tags:addFileList',$this,$file_ids);
         return $this;
     }
 
