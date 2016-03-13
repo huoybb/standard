@@ -169,12 +169,12 @@ class Files extends myModel implements FilesInterface
     public function search($search)
     {
         $bits = explode(' ',trim($search));
-        $results = $this->query()->orderBy('id')->where('title like :search:',['search'=>'%'.array_shift($bits).'%']);
+        $query = $this->query()->orderBy('id')->where('title like :search:',['search'=>'%'.array_shift($bits).'%']);
 
         foreach($bits as $key => $bit){
-            $results->andWhere("title like :search{$key}:",["search{$key}"=>'%'.$bit.'%']);
+            $query->andWhere("title like :search{$key}:",["search{$key}"=>'%'.$bit.'%']);
         }
-        return $results->execute();
+        return $query->execute();
     }
 
     /**这种形式能够在取出部分的时候速度比较快！
