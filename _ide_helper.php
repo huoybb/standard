@@ -8,23 +8,27 @@ namespace {
     use Phalcon\Mvc\Url;
 
     exit("This file should not be included, only analyzed by your IDE");
-    class RedisFacade extends \Facade{
+    class TagsCacheFacade extends \Facade{
         /**
          * @return bool
          */
-        public static function isTagsExist(){}
-
+        public static function isTagsExist(Users $user = null){}
         /**
          * @param $data
          * @return bool
          */
-        public static function setTags($data){}
-
+        public static function setTags($tags,$user = null){}
         /**
          * @return \Tags[]
          */
-        public static function getTags(){}
+        public static function getTags($user = null){}
+        /**
+         * @return bool
+         */
+        public static function deleteTags($user = null){}
 
+    }
+    class RedisFacade extends \Facade{
         /**
          * @param $key
          * @return bool

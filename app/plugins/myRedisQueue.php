@@ -10,6 +10,7 @@ use Phalcon\Queue\Beanstalk;
 class myRedisQueue extends Beanstalk
 {
     /**
+     * @todo 没有完成，值得后续继续跟进，看看怎么实现队列
      *
      * @var Redis
      */

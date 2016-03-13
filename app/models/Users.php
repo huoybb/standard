@@ -175,10 +175,10 @@ class Users extends myModel
 //            return $this->getMyTagsFromDatabase();
 //        });
 
-        if(!RedisFacade::isTagsExist()){
-            RedisFacade::setTags($this->getMyTagsFromDatabase());
+        if(!TagsCacheFacade::isTagsExist()){
+            TagsCacheFacade::setTags($this->getMyTagsFromDatabase());
         }
-        return RedisFacade::getTags();
+        return TagsCacheFacade::getTags();
     }
     
     public function has($object)

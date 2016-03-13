@@ -131,9 +131,7 @@ trait taggableTrait
      */
     protected function deleteCacheTags()
     {
-        /** @var myRedis $redis */
-        $redis = \Phalcon\Di::getDefault()->get('redis');
-        $redis->deleteTags();
+        TagsCacheFacade::deleteTags();
     }
 
 

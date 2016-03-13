@@ -152,6 +152,10 @@ $di->set("redis", function() {
     return new myRedis();
 },true);
 
+$di->set('tagsCache',function(){
+    return new TagsCache();
+});
+
 
 $di->set("carbon",function(){
     return new \Carbon\Carbon();
