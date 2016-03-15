@@ -17,7 +17,7 @@ class isAdministrator extends myValidation{
 
     public function initialize()
     {
-        $this->redirectUrl = 'http://standard.zhaobing/';
+        $this->redirectUrl = UrlFacade::get(['for'=>'home']);
     }
 
 }

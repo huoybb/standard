@@ -45,33 +45,33 @@ class Activity extends myModel
      */
     public $updated_at;
 
-    public static function addComment(myModel $object, Comments $comment, Users $user)
+    public static function addComment(myModel $subject, Comments $comment, Users $user)
+    {
+        return self::prepareActivity($subject,$user, json_encode(['type' => 'addComment', 'comment_id' => $comment->id]));
+    }
+
+    public static function addAttachment(myModel $subject, Attachments $attachment, Users $user){
+        return self::prepareActivity($subject,$user, json_encode(['type'=>'addAttachment','attachment_id'=>$attachment->id]));
+    }
+
+    public static function addFileList(myModel $subject, array $fileIds, Users $user){
+        return self::prepareActivity($subject,$user, json_encode(['type'=>'addFileList','fileIds'=>$fileIds]));
+    }
+
+
+    /**
+     * @param myModel $subject //在那个主题下，tag或者file下？或者说领域下
+     * @param Users $user  //谁来做的活动？
+     * @param $doing   //干了什么事
+     * @return static
+     */
+    public static function prepareActivity(myModel $subject, Users $user, $doing )
     {
         $activity = new static;
         $activity->user_id = $user->id;
-        $activity->object_id = $object->id;
-        $activity->object_type = get_class($object);
-        $activity->doing = json_encode(['type'=>'addComment','comment_id'=>$comment->id]);
-        $activity->save();
-        return $activity;
-    }
-
-    public static function addAttachment(myModel $object, Attachments $attachment, Users $user){
-        $activity = new static;
-        $activity->user_id = $user->id;
-        $activity->object_id = $object->id;
-        $activity->object_type = get_class($object);
-        $activity->doing = json_encode(['type'=>'addAttachment','attachment_id'=>$attachment->id]);
-        $activity->save();
-        return $activity;
-    }
-
-    public static function addFileList(myModel $model,array $fileIds,Users $user){
-        $activity = new static;
-        $activity->user_id = $user->id;
-        $activity->object_id = $model->id;
-        $activity->object_type = get_class($model);
-        $activity->doing = json_encode(['type'=>'addFileList','fileIds'=>$fileIds]);
+        $activity->object_id = $subject->id;
+        $activity->object_type = get_class($subject);
+        $activity->doing = $doing;
         $activity->save();
         return $activity;
     }
