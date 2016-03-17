@@ -5,5 +5,15 @@ namespace Helper;
 
 class Functional extends \Codeception\Module
 {
+    public function checkIsAdmin()
+    {
+       return  \AuthFacade::getID() == 2;
+    }
+    public function test()
+    {
+        return true;
+    }
+
+
 
 }

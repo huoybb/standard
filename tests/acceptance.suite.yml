@@ -10,3 +10,4 @@ modules:
         - PhpBrowser:
             url: http://standard.zhaobing
         - \Helper\Acceptance
+        - Db
