@@ -15,6 +15,8 @@ class Files extends myModel implements FilesInterface
     use StatisticsTrait;
     use DateTimeRangeTrait;
     use ReadingTraitForFile;
+    use SubsribeTraitForObject;
+
     /**
      *
      * @var integer

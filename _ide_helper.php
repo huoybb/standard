@@ -287,10 +287,27 @@ namespace {
         public static function getUnreadNotifications(){}
 
         /**
+         * @param Notification $notification
+         * @return bool
+         */
+        public static function readNotification(Notification $notification){}
+
+        /**
+         * @param Notification $notification
+         * @return string
+         */
+        public static function getNotificationObjectType(Notification $notification){}
+
+        /**
          * @param \myModel $object
          * @return boolean
          */
         public static function isSubscribedTo(\myModel $object){}
+
+        /**
+         * @return Subscriber[]
+         */
+        public static function getSubscribedObjects(){}
 
         /**
          * @param \myModel $$object

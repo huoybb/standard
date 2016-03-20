@@ -14,13 +14,11 @@ trait ReadingTraitForUser
      */
     public function wantToRead(Files $file)
     {
-        /** @var Users $this */
-
         $lastStatus = $this->getLastReadingStatusOf($file);
         if($lastStatus == 'want') return false;
 
         $this->makeLastReadingInactive($file);
-
+        
         Reading::saveNew([
             'file_id'=>$file->id,
             'user_id'=>$this->id,

@@ -21,9 +21,9 @@
         <a href="{{ url(['for':'tags.edit','tag':mytag.id]) }}">修改</a>
         {% if not mytag.attachmentCount %}<a href="{{ url(['for':'tags.delete','tag':mytag.id]) }}">删除</a>{% endif %}
         {% if not auth.isSubscribedTo(mytag) %}
-            <a href="{{ url(['for':'tags.subscribe','tag':mytag.id]) }}">关注</a>
+            <a href="{{ url(['for':'tags.subscribe','tag':mytag.id]) }}">订阅</a>
         {% else %}
-            <a href="{{ url(['for':'tags.unsubscribe','tag':mytag.id]) }}">取消关注</a>
+            <a href="{{ url(['for':'tags.unsubscribe','tag':mytag.id]) }}">取消订阅</a>
         {% endif %}
     </P>
 
@@ -144,8 +144,18 @@
 {% block sidebar %}
     {{ startMeasure('s3','sidebar加载') }}
     <script language="JavaScript" type="text/javascript" src="{{ url.getBaseUri() }}js/tag.js"></script>
+    {% if  mytag.getSubscribers().count() %}
     <div class="row">
-        <h2>关注者</h2>
+        <h2>订阅者</h2>
+        <ul>
+            {% for subUser in mytag.getSubscribers() %}
+            <li>{{ subUser.name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    <div class="row">
+        <h2>贡献者</h2>
         <ul>
             {% for user in mytag.getUsersLikeThisTag() %}
                 <li><a href="{{ url(['for':'users.showTag','user':user.id,'tag':mytag.id]) }}">{{ user.name }}</a></li>

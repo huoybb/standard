@@ -6,7 +6,7 @@
  * Date: 2016/3/9
  * Time: 22:44
  */
-trait subsribeTrait
+trait SubsribeTraitForUser
 {
     /**
      * @return Phalcon\Mvc\Model\Resultset\Complex
@@ -32,6 +32,36 @@ trait subsribeTrait
         });
     }
 
+    /**
+     * @param Notification $notification
+     * @return bool
+     */
+    public function readNotification(Notification $notification)
+    {
+        return $notification->save(['status'=>true]);
+    }
+
+    /**
+     * @param Notification $notification
+     * @return string
+     */
+    public function getNotificationObjectType(Notification $notification)
+    {
+        return $notification->getActivity()->object_type;
+    }
+    
+
+
+    /**
+     * @return Subscriber[]
+     * @todo 需要进一步的完善，看看是否直接将file和tag查询出来，避免后续的查询每一个object
+     */
+    public function getSubscribedObjects()
+    {
+        return Subscriber::query()
+            ->where('user_id = :user:',['user'=>$this->id])
+            ->execute();
+    }
 
     /**
      * @param myModel $object

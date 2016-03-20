@@ -10,6 +10,7 @@ class Tags extends myModel
     use StatisticsTrait;
     use DateTimeRangeTrait;
     use LinkableTrait;
+    use SubsribeTraitForObject;
     /**
      *
      * @var integer
