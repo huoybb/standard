@@ -5,3 +5,4 @@
 /vendor
 /.idea/workspace.xml
 tests/_output/*
+tests/_data/standards.sql
