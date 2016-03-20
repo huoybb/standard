@@ -6,7 +6,7 @@
  * Date: 2016/2/14
  * Time: 19:57
  */
-trait readingTrait
+trait ReadingTraitForUser
 {
     /**
      * @param Files $file

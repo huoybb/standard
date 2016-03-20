@@ -4,7 +4,7 @@
 class Users extends myModel
 {
 
-    use readingTrait;
+    use ReadingTraitForUser;
     use subsribeTrait;
     /**
      *
