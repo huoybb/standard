@@ -1,8 +1,10 @@
 <?php
 namespace {
 
+    use Phalcon\Http\Request;
     use Phalcon\Http\Response;
     use Phalcon\Http\Response\Cookies;
+    use Phalcon\Mvc\Dispatcher;
     use Phalcon\Mvc\Router\RouteInterface;
     use Phalcon\Mvc\RouterInterface;
     use Phalcon\Mvc\Url;
@@ -677,6 +679,20 @@ namespace {
          * @return string
          */
         public static function getProvider($key){}
+
+        /**中间件的过滤，针对当前路由，有哪些中间件适用，看看是否能够通过所有中间件
+         * 这里还有类似Auth这类中间件也需要一个处理，除了几个路由外都需要进行验证，否则就进行url的redirect
+         * @param Request $request
+         * @param Response $response
+         * @return bool
+         */
+        public static function executeMiddleWareChecking(Request $request, Response $response,Dispatcher $dispatcher){}
+
+        /**将router中参数，按照controller的中Action的类型参数进行绑定
+         * @param Dispatcher $dispatcher
+         * @return bool
+         */
+        public static function executeModelBinding(Dispatcher $dispatcher){}
     }
 
     class RequestFacade extends \Facade{

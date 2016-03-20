@@ -1,6 +1,6 @@
 <?php
 
-use Phalcon\Forms\Form;
+use Carbon\Carbon;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\Dispatcher;
 
@@ -8,20 +8,10 @@ use Phalcon\Mvc\Dispatcher;
  * @property Users auth
  * @property Redis redis
  * @property myRouter router
- * @property \Carbon\Carbon carbon
+ * @property Carbon carbon
  */
 abstract class myController extends Controller
 {
-
-    /**中间件的处理
-     * @param Dispatcher $dispatcher
-     * @return mixed
-     */
-    public function beforeExecuteRoute(Dispatcher $dispatcher) {
-
-        //验证类的通过，通过所有中间件的验证，否则转到中间件指定的页面，默认页面为上一个页面
-        return $this->router->passThrouthMiddleWares($this->request,$this->response,$dispatcher);
-    }
 
 
     /**根据路由数组来转到相应的地址

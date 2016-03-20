@@ -41,52 +41,34 @@ class myRouter extends Router{
     /**
      * 主要是增加了一个中间件的功能，利用short syntax来增加中间件，这样的好处是路由、中间件在一起，便于管理
      * @param $pattern
-     * @param null $path
+     * @param string $path
      * @param array $middleware
      * @return \Phalcon\Mvc\Router\Route
      */
-    public function addx($pattern,$path=null,array $middleware=[])//给路由添加中间件
+    public function addx($pattern,$path,array $middleware=[])//给路由添加中间件
     {
         $this->middlewares[$pattern]=$middleware;
         return $this->add($pattern,$path);
     }
 
-    /**判断是否存在对应的中间件
-     * @param $pattern
-     * @return bool
-     */
-    public function hasMatchedMiddleWares($pattern)
-    {
-        return isset($this->middlewares[$pattern]);
-    }
 
-    /**获得指定的中间件字符串
-     * @param $pattern
-     * @return array
-     *
-     * 未来可以设想将中间件参数的问题在这类利用正则的方式来匹配出来，
-     * 以便更多的表达用一个中间件来表示，但可以进行切换，以便提高中间件的重用性！
-     *
-     */
-    public function getMiddleWares($pattern)
-    {
-        return $this->middlewares[$pattern];
-    }
-
-    /**中间件的过滤，针对当前路由，有哪些中间件适用，看看是否能够通过所有中间件
-     * 这里还有类似Auth这类中间件也需要一个处理，除了几个路由外都需要进行验证，否则就进行url的redirect
+    /**中间件过滤检查：
+     * 1、识别出适用所有路由的中间件，
+     * 2、允许设置排除的几个典型路由的检查，特别是针对所有路由都适用的中间件，对login等几个路由应该可以排除
+     * 3、针对当前路由，识别有哪些中间件适用；
+     * 4、如果没有通过中间件的检查，则根据中间件提供的redirectUrl进行路由跳转
      * @param Request $request
      * @param Response $response
      * @return bool
      */
-    public function passThrouthMiddleWares(Request $request, Response $response,Dispatcher $dispatcher)
+    public function executeMiddleWareChecking(Request $request, Response $response, Dispatcher $dispatcher)
     {
         $route = $this->getMatchedRoute();
         if(null == $route) die('url地址无效，找不到对应的路由设置！');
 
         $pattern = $route->getPattern();
 
-        //对每个路由都进行验证的中间件！ @todo 如果是get方式的话，目标对象如何获取呢？当前用户是否拥有该资源？
+        //对每个路由都进行验证的中间件！
         foreach($this->middlewaresForEveryRoute as $validator){
             $data = null;
             if(preg_match('|.*:.*|',$validator)) {//此处设置了可以带中间件参数
@@ -134,7 +116,44 @@ class myRouter extends Router{
         return true;
     }
 
-// ----------   提供绑定的功能，类似laravel中的service provider的功能----------
+    /**将router中参数，按照controller的中Action的类型参数进行绑定
+     * @param Dispatcher $dispatcher
+     */
+    public function executeModelBinding(Dispatcher $dispatcher)
+    {
+        $reflection = new ReflectionMethod($dispatcher->getControllerClass(), $dispatcher->getActiveMethod());
+        $actionParams = [];
+        foreach($reflection->getParameters() as $parameter){
+
+            $objectId = $dispatcher->getParam($parameter->name);
+            if(null == $objectId && $parameter->isDefaultValueAvailable()) $objectId = $parameter->getDefaultValue();
+
+            if($parameter->getClass()){
+                $className = $this->getProvider($parameter->getClass()->name);
+
+                if($objectId){
+                    if(is_subclass_of($className,\Phalcon\Mvc\Model::class)){
+                        /** @var \Phalcon\Mvc\Model $className */
+                        $actionParams[$parameter->name] = $className::findFirst($objectId);
+                    }else{
+                        $actionParams[$parameter->name] = new $className($objectId);
+                    }
+
+                }else{
+                    $actionParams[$parameter->name] = new $className;
+                }
+            }else{
+                $actionParams[$parameter->name] = $objectId;
+            }
+        }
+
+        if(count($actionParams)){
+            $dispatcher->setParams($actionParams);
+        }
+    }
+
+
+// ----------   提供接口绑定, 从interface 到class的绑定----------
 
     /**
      * @param $key
@@ -153,6 +172,27 @@ class myRouter extends Router{
     {
         if(isset($this->serviceProvider[$key])) return $this->serviceProvider[$key];
         return $key;
+    }
+//--------------helper functions for Middleware-----------------------------------------
+
+    /**判断是否存在对应的中间件
+     * @param $pattern
+     * @return bool
+     */
+    private function hasMatchedMiddleWares($pattern)
+    {
+        return isset($this->middlewares[$pattern]);
+    }
+
+    /**获得指定的中间件字符串
+     * @param $pattern
+     * @return array
+     *
+     *
+     */
+    private function getMiddleWares($pattern)
+    {
+        return $this->middlewares[$pattern];
     }
 
 } 
