@@ -12,7 +12,7 @@ trait LinkableTrait
     {
         /** @var myModel $this */
         $link = new Link();
-        $user = $user ?: \Phalcon\Di::getDefault()->get('auth');
+        $user = $user ?: AuthFacade::getService();
         $link->save([
             'url'=>$url,
             'user_id'=>$user->id,

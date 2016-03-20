@@ -114,7 +114,7 @@ trait readingTrait
         $key = $this->getReadingKey($status);
         /** @var myModel $this */
         return $this->cache($key,function()use($status,$isActive){
-            return $this->getModelsManager()->createBuilder()
+            return ModelsManager::createBuilder()
                 ->from(['r'=>'Reading'])
                 ->leftJoin('Files','file_id = f.id','f')
                 ->where('user_id = :user:',['user'=>AuthFacade::getID()])

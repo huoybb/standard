@@ -8,7 +8,7 @@ class Tags extends myModel
     use countForRootClassTrait;
     use RelationshipTrait;
     use StatisticsTrait;
-    use dateRangeTrait;
+    use DateTimeRangeTrait;
     use LinkableTrait;
     /**
      *

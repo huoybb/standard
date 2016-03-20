@@ -13,7 +13,7 @@ class Files extends myModel implements FilesInterface
     use countForRootClassTrait;
     use RelationshipTrait;
     use StatisticsTrait;
-    use dateRangeTrait;
+    use DateTimeRangeTrait;
     /**
      *
      * @var integer
@@ -228,12 +228,13 @@ class Files extends myModel implements FilesInterface
         $file = parent::saveNew($data);
         EventFacade::fire('standards:addFile',$file);
         return $file;
+
     }
 
     public static function getResultsQueryForMonth($month){
         list($startTime,$endTime) = myTools::getBetweenTimes($month);
         $file = new static;
-        return $file->getResultsBetween($startTime,$endTime);
+        return $file->getResultsQueryBetween($startTime,$endTime);
     }
 
     /**

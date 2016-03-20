@@ -3,7 +3,7 @@
 class TagsController extends myController
 {
 
-    public function indexAction($page = 1)
+    public function indexAction($page = 1,Tags $tag)
     {
         $this->view->page = $this->getPaginator(Tags::getAllTags(),25,$page);
     }

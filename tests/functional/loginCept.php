@@ -13,4 +13,3 @@ $I->checkIsAdmin();
 $I->test();
 
 $I->seeInDatabase('users',['email'=>'zhaobing024@gmail.com']);
-$I->seeInDatabase('notification',['user_id'=>1,'activity_id'=>95]);
