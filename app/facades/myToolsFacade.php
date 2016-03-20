@@ -6,7 +6,7 @@
  * Date: 2016/2/4
  * Time: 9:20
  */
-class myToolsFacade extends Facade
+class myToolsFacade extends myFacade
 {
     public static function getFacadeAccessor(){
         return 'myTools';

@@ -6,7 +6,7 @@
  * Date: 2016/2/11
  * Time: 20:39
  */
-class ResponseFacade extends Facade
+class ResponseFacade extends myFacade
 {
     public static function getFacadeAccessor(){
         return 'response';

@@ -7,7 +7,6 @@ use Carbon\Carbon;
  * Date: 2015/8/13
  * Time: 18:59
  *
- * 这里都是采用硬编码的方式，需要转换为phalcon的编码形式，包括变量的获取，转移地址设置等
  */
 
 class isLoggedin extends myValidation{

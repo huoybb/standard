@@ -10,7 +10,7 @@ namespace {
     use Phalcon\Mvc\Url;
 
     exit("This file should not be included, only analyzed by your IDE");
-    class TagsCacheFacade extends \Facade{
+    class TagsCacheFacade extends \myFacade{
         /**
          * @return bool
          */
@@ -30,7 +30,7 @@ namespace {
         public static function deleteTags($user = null){}
 
     }
-    class RedisFacade extends \Facade{
+    class RedisFacade extends \myFacade{
         /**
          * @param $key
          * @return bool
@@ -71,7 +71,7 @@ namespace {
         public static function keys($pattern){}
     }
 
-    class EventFacade extends \Facade{
+    class EventFacade extends \myFacade{
         /**
          * Fires an event in the events manager causing the active listeners to be notified about it
          * <code>
@@ -87,7 +87,7 @@ namespace {
         public static function fire($eventType, $source, $data = null, $cancelable = true) {}
     }
 
-    class SessionFacade extends \Facade{
+    class SessionFacade extends \myFacade{
         /**
          * Gets a session variable from an application context
          * <code>
@@ -146,7 +146,7 @@ namespace {
         public static function destroy($removeData = false) {}
     }
 
-    class CookieFacade extends \Facade{
+    class CookieFacade extends \myFacade{
         /**
          * Sets a cookie to be sent at the end of the request
          * This method overrides any cookie set before with the same name
@@ -205,7 +205,7 @@ namespace {
 
     }
 
-    class FlashFacade extends \Facade{
+    class FlashFacade extends \myFacade{
         /**
          * Shows a HTML error message
          * <code>
@@ -252,7 +252,7 @@ namespace {
 
     }
 
-    class AuthFacade extends \Facade {
+    class AuthFacade extends \myFacade {
 
         public static function save(array $params = []){}
         /**
@@ -324,7 +324,7 @@ namespace {
         public static function unsubscribe(\myModel $object){}
     }
 
-    class SecurityFacade extends \Facade{
+    class SecurityFacade extends \myFacade{
         /**
          * Creates a password hash using bcrypt with a pseudo random salt
          *
@@ -390,7 +390,7 @@ namespace {
         public static function destroyToken() {}
     }
 
-    class CryptFacade extends \Facade{
+    class CryptFacade extends \myFacade{
         /**
          * Encrypts a text
          * <code>
@@ -450,7 +450,7 @@ namespace {
         public static function getAvailableModes() {}
     }
 
-    class myToolsFacade extends \Facade{
+    class myToolsFacade extends \myFacade{
         /**
          * @param $search
          * @return boolean
@@ -458,7 +458,7 @@ namespace {
         public static function isStandardNumber($search){}
     }
 
-    class RouterFacade extends \Facade{
+    class RouterFacade extends \myFacade{
         /**
          * Handles routing information received from the rewrite engine
          * <code>
@@ -695,7 +695,7 @@ namespace {
         public static function executeModelBinding(Dispatcher $dispatcher){}
     }
 
-    class RequestFacade extends \Facade{
+    class RequestFacade extends \myFacade{
         /**
          * Gets a variable from the $_REQUEST superglobal applying filters if needed.
          * If no parameters are given the $_REQUEST superglobal is returned
@@ -1094,7 +1094,7 @@ namespace {
         public static function getDigestAuth() {}
     }
 
-    class ResponseFacade extends \Facade{
+    class ResponseFacade extends \myFacade{
         /**
          * Sets the HTTP response code
          * <code>
@@ -1330,7 +1330,7 @@ namespace {
         public static function setFileToSend($filePath, $attachmentName = null, $attachment = true) {}
     }
 
-    class UrlFacade extends \Facade{
+    class UrlFacade extends \myFacade{
         /**
          * Sets a prefix for all the URIs to be generated
          * <code>
@@ -1430,7 +1430,7 @@ namespace {
         public static function path($path = null) {}
     }
 
-    class ModelsManager extends \Facade{
+    class ModelsManager extends \myFacade{
         /**
          * Creates a Phalcon\Mvc\Model\Query\Builder
          *

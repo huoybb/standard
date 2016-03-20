@@ -6,7 +6,7 @@
  * Date: 2016/1/29
  * Time: 21:53
  */
-class FlashFacade extends Facade
+class FlashFacade extends myFacade
 {
     public static function getFacadeAccessor()
     {

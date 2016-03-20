@@ -6,7 +6,7 @@
  * Date: 2016/3/13
  * Time: 16:29
  */
-class TagsCacheFacade extends Facade
+class TagsCacheFacade extends myFacade
 {
     public static function getFacadeAccessor()
     {
