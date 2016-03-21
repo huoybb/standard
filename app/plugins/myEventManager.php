@@ -5,6 +5,7 @@
  * User: ThinkPad
  * Date: 2016/1/11
  * Time: 20:20
+ * 提供一个全局的事件处理管理器
  */
 class myEventManager extends \Phalcon\Events\Manager
 {

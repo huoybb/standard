@@ -3,6 +3,7 @@ use Carbon\Carbon;
 
 /**
  * 这个对象将常见的一些工具集成在这个对象中
+ * 有一些直接在volt中变成函数
  * Created by PhpStorm.
  * User: ThinkPad
  * Date: 2015/8/29

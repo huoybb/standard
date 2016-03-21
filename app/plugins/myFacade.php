@@ -5,6 +5,7 @@
  * User: ThinkPad
  * Date: 2016/1/26
  * Time: 23:13
+ * 从laravel中将Facade模式借鉴过来，实现基本的Facade功能
  */
 abstract class myFacade
 {
