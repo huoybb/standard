@@ -7,12 +7,12 @@ use Phalcon\Mvc\Router;
 /**
  * Created by PhpStorm.
  * User: ThinkPad
- * Date: 2015/7/19
+ * Date: 2015/3/21
  * Time: 9:30
  * 核心功能如下：
  * 1、中间件的实现
  * 2、模型绑定，model binding的实现，可以在action函数中指定绑定的类型，类似laravel 5.2 提供的一样
- * 3、模型绑定基础上，实现借口绑定
+ * 3、模型绑定基础上，实现接口绑定
  */
 
 class myRouter extends Router{
