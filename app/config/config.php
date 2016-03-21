@@ -20,7 +20,6 @@ return new \Phalcon\Config(array(
         'middlewaresDir' => __DIR__ . '/../../app/middlewares/',
         'handlers'         => __DIR__ . '/../../app/handlers/',
         'facades'         => __DIR__ . '/../../app/facades/',
-        'webParsers'         => __DIR__ . '/../../app/webParsers/',
         'baseUri'        => '/',
     ),
     'siteName' =>getenv('SiteName')?:(isset($_ENV['SiteName'])?$_ENV['SiteName']:null),

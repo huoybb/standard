@@ -14,6 +14,5 @@ $loader->registerDirs(
         $config->application->middlewaresDir,
         $config->application->handlers,
         $config->application->facades,
-        $config->application->webParsers,
     )
 )->register();
