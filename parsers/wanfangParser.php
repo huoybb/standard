@@ -1,4 +1,5 @@
 <?php
+namespace webParser;
 
 /**
  * Created by PhpStorm.

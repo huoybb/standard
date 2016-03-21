@@ -1,33 +1,34 @@
 <?php
+namespace webParser;
 
 /**
  * Created by PhpStorm.
  * User: ThinkPad
- * Date: 2015/11/27
- * Time: 14:44
+ * Date: 2015/11/28
+ * Time: 11:49
  */
 use Goutte\Client;
-class wanfangThesisParser extends WanfangWebParser
+class wanfangConferenceParser extends WanfangWebParser
 {
     protected $format = [
         'title'=>'title',
         'abstract'=>'abstract',
-        'doi'=>'doi',
         '作者'=>'Personal_Author',
-        '学科专业'=>'major',
-        '授予学位'=>'degree',
-        '学位授予单位'=>'school',
-        '导师姓名'=>'supervisor',
-        '学位年度'=>'year',
+        '作者单位'=>'Corporate_Author',
+        '母体文献'=>'parent_literature',
+        '会议名称'=>'conference_title',
+        '会议时间'=>'conference_date',
+        '会议地点'=>'conference_place',
+        '主办单位'=>'host_unit',
         '在线出版日期'=>'publishDate',
         '关键词'=>'keywords',
     ];
-    protected $url = 'http://d.wanfangdata.com.cn/Thesis/';
-    protected $patchKeys = ['关键词','导师姓名'];
+    protected $url = 'http://d.wanfangdata.com.cn/Conference/';
+    protected $patchKeys = ['关键词'];
 
     protected function patchValue($key, $value, $row)
     {
-        if($key == '关键词' OR $key =='导师姓名') {
+        if($key == '关键词') {
             $links = [];
             $row->filter('.text a')->each(function($link) use (&$links){
                 $links[] =$link->text();

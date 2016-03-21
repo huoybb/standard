@@ -9,18 +9,19 @@
  * Time: 19:53
  */
 use Goutte\Client;
+
 abstract class myParser
 {
     protected $source_id = null;//标识id
     protected $info = [];//保存parsed后的数据
     static protected $parserType = [
-        'Periodical'=>wanfangParser::class,
-        'Thesis'=>wanfangThesisParser::class,
-        'Conference'=>wanfangConferenceParser::class,
-        'DoDFile'=>oai_dtic_mil_parser::class,
-        'EverySpec'=>everySpecParser::class,
-        'Citeseerx'=>citeseerxParser::class,
-        'baiduxueshu'=>baiduxueshuParser::class
+        'Periodical'=>webParser\wanfangParser::class,
+        'Thesis'=>webParser\wanfangThesisParser::class,
+        'Conference'=>webParser\wanfangConferenceParser::class,
+        'DoDFile'=>webParser\oai_dtic_mil_parser::class,
+        'EverySpec'=>webParser\everySpecParser::class,
+        'Citeseerx'=>webParser\citeseerxParser::class,
+        'baiduxueshu'=>webParser\baiduxueshuParser::class
     ];
 
     static protected $modelType = [
