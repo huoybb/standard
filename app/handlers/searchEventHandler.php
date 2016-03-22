@@ -10,25 +10,27 @@ class searchEventHandler
 {
     public function main($event,\Phalcon\Mvc\Controller $controller,$search)
     {
+        $lastSearch = Searchlog::getLastSearch(AuthFacade::getService());
+        if(null <> $lastSearch AND $lastSearch->keywords == $search) return $lastSearch->update();
+
         $data = [
-            'user'=>AuthFacade::getID(),
-            'action'=>'search',
-            'paras'=>$search,
+            'user_id'=>AuthFacade::getID(),
+            'keywords'=>$search,
             'extra'=>'in main database'
         ];
-        //处理data，保存到log中
-//        dd($data);
+        Searchlog::saveNew($data);
+
     }
     public function sub($event,\Phalcon\Mvc\Controller $controller,array $data)
     {
+        $lastSearch = Searchlog::getLastSearch(AuthFacade::getService());
+        if($lastSearch->keywords == $data['search']) return $lastSearch->update();
         $data = [
-            'user'=>AuthFacade::getID(),
-            'action'=>'search',
-            'paras'=>$data['search'],
+            'user_id'=>AuthFacade::getID(),
+            'keywords'=>$data['search'],
             'extra'=>"in {$data['repository']} sub database"
         ];
-        //处理data，保存到log中
-//        dd($data);
+        Searchlog::saveNew($data);
     }
 
 }

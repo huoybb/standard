@@ -76,7 +76,7 @@ class StandardsController extends myController
 
     public function searchAction($search,$page = 1)
     {
-        if(RouterFacade::getMatchedRoute()->getName() == 'standards.search.index') EventFacade::fire('search:main',$this,$search);
+        EventFacade::fire('search:main',$this,$search);
         if(myToolsFacade::isStandardNumber($search)) {
             $file = Files::findByStandardNumber($search);
             if($file) return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
@@ -91,6 +91,7 @@ class StandardsController extends myController
 
     public function showSearchItemAction($search,$item)
     {
+        EventFacade::fire('search:main',$this,$search);
         $this->view->page = $this->getPaginatorByQueryBuilder(Files::searchQuery($search),1,$item);
         $this->view->file = $this->view->page->items[0];
         $this->view->form = myForm::buildCommentForm($this->view->file);
