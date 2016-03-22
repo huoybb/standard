@@ -94,5 +94,12 @@ class Revisions extends myModel
         });
     }
 
+    public function deleteCurrentAndGetRemain()
+    {
+        $parent_id = $this->parent_id;
+        $this->delete();
+        return Revisions::findFirst(['parent_id = :id:','bind'=>['id'=>$parent_id]]);
+    }
+
 
 }
