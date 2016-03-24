@@ -15,7 +15,7 @@ class UsersController extends myController
             $user = Users::findByEmail($data['email']);
             if($user AND SecurityFacade::checkHash($data['password'],$user->password)){
                 FlashFacade::success('欢迎'.$user->name.'登录！你上次登录的时间是：'.$user->updated_at);
-                EventFacade::fire('auth:login',$user,$data);
+                EventFacade::trigger(new loginEvent($user,$data));
                 return $this->redirectByRoute(['for'=>'home']);
             }else{
                 $this->flash->error('登录不成功，密码或者邮件地址有误！');
@@ -26,7 +26,7 @@ class UsersController extends myController
     }
     public function logoutAction()
     {
-        EventFacade::fire('auth:logout',$this);
+        EventFacade::trigger(new logoutEvent(AuthFacade::getService()));
         $this->redirectByRoute(['for'=>'login']);
     }
 

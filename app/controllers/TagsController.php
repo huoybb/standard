@@ -35,7 +35,8 @@ class TagsController extends myController
     public function addCommentAction(Tags $tag)
     {
         if ($this->request->isPost()) {
-            $tag->addComment($this->request->getPost());
+            $comment = $tag->addComment($this->request->getPost());
+            EventFacade::trigger(new addCommentEvent($tag,$comment));
             return $this->redirectByRoute(['for'=>'tags.show','tag'=>$tag->id]);
         }
     }
@@ -56,7 +57,7 @@ class TagsController extends myController
         return $this->redirectByRoute(['for'=>'tags.show','tag'=>$tag->id]);
     }
 
-    public function showItemAction(Tags $tag,FilesInterface $file)
+    public function showItemAction(Tags $tag,Files $file)
     {
         $this->view->mytag = $tag;
         $this->view->page = $tag->getShowItemPage($file);
@@ -65,7 +66,9 @@ class TagsController extends myController
     }
     public function commentItemAction(Taggables $taggable)
     {
-        $taggable->addComment($this->request->getPost());
+        $comment = $taggable->addComment($this->request->getPost());
+        EventFacade::trigger(new addCommentEvent($taggable,$comment));
+
         return 'success';
     }
 
@@ -87,7 +90,8 @@ class TagsController extends myController
     public function addAttachmentAction(Tags $tag)
     {
         if ($this->request->hasFiles() == true) {
-            $tag->uploadAndStoreAttachment($this->request);
+            $files = $tag->uploadAndStoreAttachment($this->request);
+            EventFacade::trigger(new addAttachmentEvent($tag,$files));
             return $this->success();
         }else{
             return $this->failed();
@@ -157,5 +161,4 @@ class TagsController extends myController
         }
         return $this->redirectByRoute(['for'=>'tags.show','tag'=>$tag->id]);
     }
-
 }

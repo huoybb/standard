@@ -25,11 +25,28 @@ class myEventManager extends \Phalcon\Events\Manager
             }
         });
     }
-    public function register($eventNamePlus,array $handlerClassArray)
+    public function register($eventDomain, array $handlerClassArray)
     {
             foreach($handlerClassArray as $handler){
-                $this->attach($eventNamePlus,new $handler);
+                $this->attach($eventDomain,new $handler);
             }
+    }
+
+    /**
+     * @param $event
+     */
+    public function trigger($event)
+    {
+        $eventName = $this->getEventName($event);
+        $this->fire($eventName,$event);
+    }
+
+    
+//    ---------------helper functions ---------------------
+
+    private function getEventName($event)
+    {
+        return \Phalcon\Di::getDefault()->get('config')->application->eventPrefix.':'.get_class($event);
     }
 
 

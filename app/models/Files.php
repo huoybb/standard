@@ -213,7 +213,7 @@ class Files extends myModel implements FilesInterface
 
     public static function addFile($data){
         $file = parent::saveNew($data);
-        EventFacade::fire('standards:addFile',$file);
+        EventFacade::trigger(new addFileEvent($file));
         return $file;
 
     }
@@ -229,7 +229,7 @@ class Files extends myModel implements FilesInterface
      */
     public function delete()
     {
-        EventFacade::fire('standards:deleteFile',$this);
+        EventFacade::trigger(new deleteFileEvent($this));
         return parent::delete();
     }
 

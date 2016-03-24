@@ -72,19 +72,11 @@ namespace {
     }
 
     class EventFacade extends \myFacade{
+
         /**
-         * Fires an event in the events manager causing the active listeners to be notified about it
-         * <code>
-         * $eventsManager->fire('db', $connection);
-         * </code>
-         *
-         * @param string $eventType
-         * @param object $source
-         * @param mixed $data
-         * @param boolean $cancelable
-         * @return mixed
+         * @param $event
          */
-        public static function fire($eventType, $source, $data = null, $cancelable = true) {}
+        public static function trigger($event){}
     }
 
     class SessionFacade extends \myFacade{

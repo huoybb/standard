@@ -63,7 +63,7 @@ trait FileableTrait
         $model = myParser::getModelBySourceId($type);//获取模型
         $model->save($data);//保存模型数据
 
-        EventFacade::fire('standards:addWebFile',$model);
+        EventFacade::trigger(new addWebFileEvent($model));
 
         $file->saveFileable($model);//保存关联对象数据
         return $file;

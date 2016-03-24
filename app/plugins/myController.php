@@ -68,5 +68,5 @@ abstract class myController extends Controller
         echo 'failed';
         return $this->view->disable();
     }
-
+    
 }

@@ -28,8 +28,7 @@ trait attachableTrait
     {
         /** @var myModel $this */
         $attachment->delete();
-
-        EventFacade::fire(strtolower(get_class($this)).':deleteAttachment',$this);
+        if(method_exists($this,'decreaseCount')) $this->decreaseCount('attachmentCount');
         return $this;
     }
 
@@ -52,9 +51,15 @@ trait attachableTrait
             $files[] = $attachment;
         }
 
-        EventFacade::fire(strtolower(get_class($this)).':addAttachment',$this,$files);
+        if(method_exists($this,'increaseCount')) $this->increaseCount('attachmentCount',count($files));
 
-        return $this;
+
+        if(is_a($this,'Tags')){
+            /** @var Tags $this */
+            $this->updateTagMeta();
+        }
+
+        return $files;
     }
 
     public function beforeDeleteForAttachments()

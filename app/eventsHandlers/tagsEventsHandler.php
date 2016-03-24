@@ -9,15 +9,15 @@
  */
 class tagsEventsHandler
 {
-    public function updateMeta($event,Tags $tag)
+
+    public function updateTagEvent($e, updateTagEvent $event)
     {
+        $tag = $event->tag;
         $meta = $tag->getTagmetaOrNew();
         if($meta->id) $meta->save();
     }
 
-    public function addFileList($event, Tags $tag, $fileIds)
-    {
-        Subscriber::notify($tag,Activity::addFileList($tag,$fileIds,AuthFacade::getService()));
-    }
 
+    
+    
 }

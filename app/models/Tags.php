@@ -252,7 +252,8 @@ class Tags extends myModel
             /** @var Files $file */
             $file->addTag($this);
         }
-        EventFacade::fire('tags:addFileList',$this,$file_ids);
+//        EventFacade::fire('tags:addFileList',$this,$file_ids);
+        EventFacade::trigger(new addFilelistToTagEvent($file_ids,$this));
         return $this;
     }
 
@@ -317,7 +318,7 @@ class Tags extends myModel
 
     public function beforeDeleteRemoveCacheTags()
     {
-        EventFacade::fire('tags:updateTag',$this);
+        EventFacade::trigger(new updateTagEvent($this));
     }
 
 //    protected function deleteCacheTags()
@@ -356,7 +357,7 @@ class Tags extends myModel
 
     public function beforeSave()
     {
-        EventFacade::fire('tags:updateTag',$this);
+        EventFacade::trigger(new updateTagEvent($this));
         return parent::beforeSave();
     }
 

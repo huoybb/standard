@@ -57,12 +57,7 @@ trait commentableTrait
             $meta = $this->getTagmetaOrNew();
             $meta->save();
         }
-
-        //领域事件的触发
-        $eventName = strtolower(get_class($this)).':addComment';
-        EventFacade::fire($eventName,$this,$comment);
-
-        return $this;
+        return $comment;
     }
 
     public function deleteComment(Comments $comment)

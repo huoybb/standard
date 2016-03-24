@@ -76,7 +76,7 @@ class StandardsController extends myController
 
     public function searchAction($search,$page = 1)
     {
-        EventFacade::fire('search:main',$this,$search);
+        EventFacade::trigger(new searchEvent($search,AuthFacade::getService()));
         if(myToolsFacade::isStandardNumber($search)) {
             $file = Files::findByStandardNumber($search);
             if($file) return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
@@ -91,7 +91,7 @@ class StandardsController extends myController
 
     public function showSearchItemAction($search,$item)
     {
-        EventFacade::fire('search:main',$this,$search);
+        EventFacade::trigger(new searchEvent($search,AuthFacade::getService()));
         $this->view->page = $this->getPaginatorByQueryBuilder(Files::searchQuery($search),1,$item);
         $this->view->file = $this->view->page->items[0];
         $this->view->form = myForm::buildCommentForm($this->view->file);
@@ -103,7 +103,8 @@ class StandardsController extends myController
     public function addCommentAction(Files $file)
     {
         if ($this->request->isPost()) {
-            $file->addComment($this->request->getPost());
+            $comment = $file->addComment($this->request->getPost());
+            EventFacade::trigger(new addCommentEvent($file,$comment));
             return $this->success();
         }
         dd('添加评论出错啦！');
@@ -141,7 +142,8 @@ class StandardsController extends myController
     public function addAttachmentAction(Files $file)
     {
         if ($this->request->hasFiles() == true) {
-            $file->uploadAndStoreAttachment($this->request);
+            $files = $file->uploadAndStoreAttachment($this->request);
+            EventFacade::trigger(new addAttachmentEvent($file,$files));
             return $this->success();
         }else{
             return $this->failed();
@@ -236,7 +238,7 @@ class StandardsController extends myController
                 ->inWhere('id',$data['file_id'])
                 ->execute();
             $files->delete();
-            EventFacade::fire('standards:deleteSelectedFiles',$files);
+            EventFacade::trigger(new deleteSelectedFilesEvent($files));
             return 'success';
         }
         return 'failed';

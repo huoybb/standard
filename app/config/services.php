@@ -189,3 +189,5 @@ $di->set('Event',function(){
 $di->set('auth',function() use($di){
     return Users::findFirst(SessionFacade::getAuthID());
 },true);
+
+$di->set('config',$config,true);
