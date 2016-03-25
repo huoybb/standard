@@ -1,6 +1,6 @@
 <?php
 
-use Phalcon\DI\FactoryDefault;
+use Phalcon\Di\FactoryDefault;
 use Phalcon\Http\Response\Cookies;
 use Phalcon\Mvc\Router;
 use Phalcon\Mvc\View;

@@ -154,7 +154,7 @@ class Notification extends myModel
 
     public static function sendMail(Users $user,Activity $activity)
     {
-        $config = Di::getDefault()->get('config')->mailConfig->toArray();
+        $config = ConfigFacade::getService()->mailConfig->toArray();
         $mailer = new \Phalcon\Ext\Mailer\Manager($config);
 
         $message = $mailer->createMessage()
@@ -166,7 +166,5 @@ class Notification extends myModel
 //        $message->bcc('example_bcc@gmail.com');
         $message->send();
     }
-
-
-
+    
 }

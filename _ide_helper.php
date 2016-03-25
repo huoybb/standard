@@ -70,6 +70,13 @@ namespace {
          */
         public static function keys($pattern){}
     }
+    class ConfigFacade extends \myFacade
+    {
+        /**
+         * @return array
+         */
+        public static function toArray(){}
+    }
 
     class EventFacade extends \myFacade{
 
