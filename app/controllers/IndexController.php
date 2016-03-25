@@ -1,6 +1,8 @@
 <?php
 
 
+use Phalcon\Di;
+
 class IndexController extends myController
 {
 

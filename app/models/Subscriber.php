@@ -40,24 +40,33 @@ class Subscriber extends myModel
 
     /**
      * 通知主题tag下发生了什么事件activity
+     * @todo 将来是否需要将这个也变成一个事件的方式来播放呢，以便更能方便功能的扩展？
      * @param Tags $object
      * @param Activity $activity
      */
     public static function notify(myModel $object, Activity $activity)
     {
-        $subscribers = Subscriber::query()
+        $subscribers = Subscriber::getAllSubscribersFor($object);
+        foreach($subscribers as $subscriber){
+            $user = $subscriber->getUser();
+
+            Notification::sendNotification($user,$activity);
+
+            //邮件通知，
+            Notification::sendMail($user,$activity);
+        }
+    }
+
+    /**
+     * @param myModel $object
+     * @return Subscriber[]
+     */
+    private static function getAllSubscribersFor(myModel $object)
+    {
+        return Subscriber::query()
             ->where('object_id = :id:',['id'=>$object->id])
             ->andWhere('object_type =:type:',['type'=>get_class($object)])
             ->execute();
-        foreach($subscribers as $subscriber){
-            $data = [
-                'activity_id'=>$activity->id,
-                'user_id'=>$subscriber->user_id,
-                'status'=>false,
-            ];
-            if($subscriber->user_id == AuthFacade::getID()) $data['status']=true;
-            Notification::saveNew($data);
-        }
     }
 
     /**
@@ -109,5 +118,14 @@ class Subscriber extends myModel
             'updated_at' => 'updated_at'
         );
     }
+
+    /**
+     * @return Users
+     */
+    public function getUser()
+    {
+        return Users::findFirst($this->user_id);
+    }
+
 
 }

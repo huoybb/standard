@@ -1,5 +1,7 @@
 <?php
 
+use Phalcon\Di;
+
 class Notification extends myModel
 {
 
@@ -74,6 +76,17 @@ class Notification extends myModel
             ->columns(['act.*', 'notify.*', 'user.*', 'tag.*','file.*']);
     }
 
+    public static function sendNotification(Users $user, $activity)
+    {
+        $data = [
+            'activity_id'=>$activity->id,
+            'user_id'=>$user->id,
+            'status'=>false,
+        ];
+        if($user->id == AuthFacade::getID()) $data['status']=true;
+        Notification::saveNew($data);
+    }
+
     /**
      * Returns table name mapped in the model.
      *
@@ -139,7 +152,20 @@ class Notification extends myModel
         return $this->getActivity()->object_id;
     }
 
-    
+    public static function sendMail(Users $user,Activity $activity)
+    {
+        $config = Di::getDefault()->get('config')->mailConfig->toArray();
+        $mailer = new \Phalcon\Ext\Mailer\Manager($config);
+
+        $message = $mailer->createMessage()
+            ->to($user->email,$user->name)
+            ->subject("你关注的主题:{$activity->object_type}-{$activity->object_id},有更新")
+            ->content($activity->doing);
+
+        $message->cc('zhaobing024@gmail.com','赵兵');
+//        $message->bcc('example_bcc@gmail.com');
+        $message->send();
+    }
 
 
 

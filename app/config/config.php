@@ -25,4 +25,16 @@ return new \Phalcon\Config(array(
         'eventPrefix'    => 'my',
     ),
     'siteName' =>getenv('SiteName')?:(isset($_ENV['SiteName'])?$_ENV['SiteName']:null),
+    'mailConfig' => [
+        'driver'     => 'smtp',
+        'host'       => 'smtp.qq.com',
+        'port'       => 465,
+        'encryption' => 'ssl',
+        'username'   => getenv('Mail_username'),
+        'password'   => getenv('Mail_password'),
+        'from'       => [
+            'email' => '251726459@qq.com',
+            'name'  => '赵兵'
+        ]
+    ],
 ));
