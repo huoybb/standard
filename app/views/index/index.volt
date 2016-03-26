@@ -81,9 +81,11 @@
             {% endfor %}
         </ul>
     </div>
+
     {{ stopMeasure('s2-2') }}
     {{ startMeasure('s2-3','标签加载') }}
     {% include "layouts/partial/allTagList.volt" %}
     {{ stopMeasure('s2-3') }}
+    {% include "layouts/partial/searchKeywords.volt" %}
 {% endblock %}
 

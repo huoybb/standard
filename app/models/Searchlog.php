@@ -101,4 +101,21 @@ class Searchlog extends myModel
         );
     }
 
+    public static function getLast5Searched()
+    {
+        return static::query()
+            ->orderBy('created_at DESC')
+            ->limit(5)
+            ->execute();
+    }
+    public static function getMostSearched(){
+        return static::query()
+            ->groupBy('keywords')
+            ->columns(['keywords','count(*) AS num'])
+            ->orderBy('num DESC')
+            ->limit(5)
+            ->execute();
+    }
+
+
 }
