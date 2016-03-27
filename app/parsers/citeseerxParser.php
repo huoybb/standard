@@ -13,7 +13,7 @@ class citeseerxParser extends myParser
     public function parseInfo($source_id = null)
     {
 
-        $crawler = $this->client->request('get',$this->Id2Url());
+        $crawler = $this->client->request('get',$this->Id2Url($source_id));
 
         $result = ['source_id'=>$this->source_id];
         $result['title'] = $crawler->filter('h2')->text();

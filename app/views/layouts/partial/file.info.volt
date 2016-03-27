@@ -40,6 +40,7 @@
     <div class="row">
         <div class="col-md-2" align="right"><span>操作</span>:</div>
         <div class="col-md-10">
+            <span><a href="{{ url(['for':'standards.updateFromWeb','file':file.id]) }}">更新</a></span>
             <span><a href="{{ url(['for':'standards.edit','file':file.id]) }}">修改</a></span>
             <span><a href="{{ url(['for':'standards.delete','file':file.id]) }}">删除</a></span>
 

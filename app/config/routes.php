@@ -24,6 +24,7 @@ $router->add('/standards/archive/{month:[-0-9]+}/page/{page:[0-9]+}','standards:
 $router->add('/standards/{file:[0-9]+}','standards::show')->setName('standards.show');
 $router->addx('/standards/{file:[0-9]+}/edit','standards::edit',[standardRules::class])->setName('standards.edit');
 $router->add('/standards/{file:[0-9]+}/delete','standards::delete')->setName('standards.delete');
+$router->add('/standards/{file:[0-9]+}/updateFromWeb','standards::updateFromWeb')->setName('standards.updateFromWeb');
 
 $router->add('/standards/{file:[0-9]+}/readinglog','standards::readinglog')->setName('standards.readinglog');
 

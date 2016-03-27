@@ -39,6 +39,48 @@ abstract class myParser
         $this->source_id = $source_id;
     }
 
+    /**
+     * 根据url，抓取网络上的文档信息，并保存到库中
+     * @param $source_id
+     * @param $type
+     * @return FileableTrait|myModel
+     */
+    public static function grabWebInfoToFile($source_id, $type)
+    {
+        $parser = myParser::getParser($type,$source_id);//获取Parser
+        $data = $parser->parseInfo();//抽取数据
+
+        /** @var myModel|FileableTrait $file */
+        $file = new Files();
+        $file->save($parser->getDataForFile());//保存file对象
+
+        $data['file_id'] = $file->id;//补充数据，添加file_id
+        $model = myParser::getModelBySourceId($type);//获取模型
+        $model->save($data);//保存模型数据
+
+        EventFacade::trigger(new addWebFileEvent($model));
+
+        $file->saveFileable($model);//保存关联对象数据
+        return $file;
+    }
+
+    /**
+     * 从网上更新数据库的信息
+     * @param Files $file
+     * @return Files
+     */
+    public static function updateFromWeb(Files $file)
+    {
+        $model = $file->getFileable();
+        $parser = static::getParserFromModel($model);
+        $data = $parser->parseInfo($model->source_id);
+
+        $file->update($parser->getDataForFile());
+        $data['file_id'] = $file->id;//补充数据，添加file_id
+        $model->update($data);
+        return $file;
+    }
+
     /**针对各个某一个文档的解析
      * @param null $source_id
      * @return mixed
@@ -162,4 +204,6 @@ abstract class myParser
         }
         return $result;
     }
+
+
 }

@@ -49,27 +49,7 @@ trait FileableTrait
         return $this;
     }
 
-
-    public static function addWebFile($source_id,$type)
-    {
-        $parser = myParser::getParser($type,$source_id);//获取Parser
-        $data = $parser->parseInfo();//抽取数据
-
-        /** @var myModel|FileableTrait $file */
-        $file = new static;
-        $file->save($parser->getDataForFile());//保存file对象
-
-        $data['file_id'] = $file->id;//补充数据，添加file_id
-        $model = myParser::getModelBySourceId($type);//获取模型
-        $model->save($data);//保存模型数据
-
-        EventFacade::trigger(new addWebFileEvent($model));
-
-        $file->saveFileable($model);//保存关联对象数据
-        return $file;
-    }
-
-    private function saveFileable($fileableObject)
+    public function saveFileable($fileableObject)
     {
         return (new Fileable())->save([
             'file_id'=>$this->id,

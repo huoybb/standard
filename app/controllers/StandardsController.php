@@ -18,10 +18,16 @@ class StandardsController extends myController
         $model = myParser::getModelBySourceId($type,$source_id);
         if($model)  return $this->redirectByRoute(['for'=>'standards.show','file'=>$model->getStandard()->id]);
 
-        $file = Files::addWebFile($source_id,$type);
+        $file = myParser::grabWebInfoToFile($source_id,$type);
         return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
     }
 
+    public function updateFromWebAction(Files $file)
+    {
+        myParser::updateFromWeb($file);
+        return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
+    }
+    
     public function archiveAction($month,$page = 1)
     {
         $this->view->page = $this->getPaginatorByQueryBuilder(Files::getResultsQueryForMonth($month),25,$page);
