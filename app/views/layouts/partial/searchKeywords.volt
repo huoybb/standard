@@ -1,16 +1,16 @@
 <div class="row">
     <h2>最近搜索</h2>
-    <ul>
+    <div>
         {% for search in page.lastSearchedWords %}
-        <li><a href="{{ url(['for':'standards.search.index','search':search.keywords]) }}">{{ search.keywords }}</a></li>
+        <span><a href="{{ url(['for':'standards.search.index','search':search.keywords]) }}">{{ search.keywords }}</a></span>
         {% endfor %}
-    </ul>
+    </div>
 </div>
 <div class="row">
     <h2>最多搜索</h2>
-    <ul>
+    <div>
         {% for search in page.mostSearchedWords %}
-            <li><a href="{{ url(['for':'standards.search.index','search':search.keywords]) }}">{{ search.keywords }}</a>({{ search.num }})</li>
+            <span><a href="{{ url(['for':'standards.search.index','search':search.keywords]) }}">{{ search.keywords }}</a>({{ search.num }})</span>
         {% endfor %}
-    </ul>
+    </div>
 </div>

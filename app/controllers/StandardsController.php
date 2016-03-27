@@ -32,6 +32,7 @@ class StandardsController extends myController
     public function showAction(Files $file)
     {
 //        dd(AuthFacade::isSubscribedTo($file));
+//        $this->view->cache(true);
         $this->view->file = $file;
         $this->view->form = myForm::buildCommentForm($file);
     }

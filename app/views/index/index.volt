@@ -1,20 +1,16 @@
 {% extends 'fileList.volt' %}
-
 {% block title %}
     我的文档库-首页
 {% endblock %}
 {% block listTitle %}
-    {{ startMeasure('s1-1','标题') }}
     <h1>
             文档汇总<span class="badge">{{ page.total_items }}</span>
     </h1>
-    {{ stopMeasure('s1-1') }}
 {% endblock %}
 {% block listInfo %}
     <p>文档列表显示如下：</p>
 {% endblock %}
 {% block nav %}
-    {{ startMeasure('s1-2','导航条') }}
     <div><span class="label label-primary">共计{{ page.total_items }}条标准</span>--<span class="label label-primary">第{{ page.current }}页/总{{ page.total_pages }}页</span></div>
     {% if page.total_items > page.limit %}
         <nav>
@@ -28,11 +24,8 @@
             </ul>
         </nav>
     {% endif %}
-    {{ stopMeasure('s1-2') }}
 {% endblock %}
-
 {% block content %}
-    {{ startMeasure('s1-3','标准列表') }}
     {{ form(url(['for':'standards.list.addTag']), "method": "post","id":"list-tag-form","class":'form-inline') }}
         <table class="table table-hover table-layout:fixed">
             <tr>
@@ -65,14 +58,12 @@
         </table>
     {% include "layouts/partial/fileList.commandButton.volt" %}
     {{ endform() }}
-    {{ stopMeasure('s1-3') }}
 {% endblock %}
 {% block sidebar %}
 
-    {{ startMeasure('s2-1','分库加载') }}
+    {#{% cache('sidebar') %}#}
+    {% include "layouts/partial/searchKeywords.volt" %}
     {% include "layouts/partial/subrepository.statistics.volt" %}
-    {{ stopMeasure('s2-1') }}
-    {{ startMeasure('s2-2','archive加载') }}
     <div class="row">
         <h2>Archives</h2>
         <ul>
@@ -81,11 +72,8 @@
             {% endfor %}
         </ul>
     </div>
-
-    {{ stopMeasure('s2-2') }}
-    {{ startMeasure('s2-3','标签加载') }}
     {% include "layouts/partial/allTagList.volt" %}
-    {{ stopMeasure('s2-3') }}
-    {% include "layouts/partial/searchKeywords.volt" %}
+    {#{% endcache %}#}
+
 {% endblock %}
 

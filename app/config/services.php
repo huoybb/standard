@@ -9,6 +9,8 @@ use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Security;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
+use Phalcon\Cache\Frontend\Output as FrontOutput;
+
 
 /**
  * helper function dd:die dump
@@ -70,6 +72,27 @@ $di->set('db', function () use ($config) {
     ));
 });
 
+$di->set('viewCache',function(){
+    // Create an Output frontend. Cache the files for 2 days
+    $frontCache = new FrontOutput(
+        array(
+            "lifetime" => 172800
+        )
+    );
+
+//    这里的主要问题是开启后，性能会突然变得非常慢，这个需要找出原因，还有就是与debugbar有冲突，会出现问题，需要解决
+// Create the component that will cache from the "Output" to a "File" backend
+// Set the cache file directory - it's important to keep the "/" at the end of
+// the value for the folder
+    $cache = new Phalcon\Cache\Backend\Redis($frontCache, array(
+        'host' => 'localhost',
+        'port' => 6379,
+//            'auth' => 'foobared',
+        'persistent' => false,
+//            'statsKey' => 'standard:',
+    ));
+    return $cache;
+});
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
  */
