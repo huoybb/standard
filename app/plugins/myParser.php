@@ -187,7 +187,7 @@ abstract class myParser
     /**获取分库的统计数字
      * @return array
      */
-    public static function getStatistics()
+    public  static function getStatistics()
     {
         $result = [];
         $data = Fileable::query()

@@ -11,6 +11,7 @@
         </div>
         {% if session.has('auth') %}
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            {{ startMeasure('s1-1','布局链接数组') }}
             <ul class="nav navbar-nav">
 
                 {% for key,value in myTools.getLayoutLinkArray() %}
@@ -18,6 +19,7 @@
                 {% endfor %}
 
             </ul>
+            {{ stopMeasure('s1-1') }}
 
             <ul class="nav navbar-nav navbar-right">
                 <li>

@@ -6,7 +6,7 @@
 <div class="row">
     <h2>分库统计</h2>
     <ul>
-        {% for data in page.statistics %}
+        {% for data in myTools.getStatistics() %}
             {% if isset(page.repository) and data['name'] is page.repository.getDBName() %}
                 <li>{{ data['name'] }} ({{ data['count'] }})
                     {{ showExtraLink(data) }}

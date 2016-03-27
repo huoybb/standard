@@ -12,8 +12,5 @@ class IndexController extends myController
     {
 
         $this->view->page = $this->getPaginatorByQueryBuilder(Files::getAllQueryBuilder(),25,$page);
-        $this->view->page->statistics = myParser::getStatistics();
-        $this->view->page->lastSearchedWords = Searchlog::getLast5Searched();
-        $this->view->page->mostSearchedWords = Searchlog::getMostSearched();
     }
 }

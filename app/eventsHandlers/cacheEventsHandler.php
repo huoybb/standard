@@ -11,7 +11,8 @@ class cacheEventsHandler
 
     public function updateTagEvent($e, updateTagEvent $event)
     {
-        TagsCacheFacade::deleteTags();
+        $key = 'standard:users:'.AuthFacade::getID().':tags';
+        RedisFacade::delete($key);
     }
     public function addWebFileEvent($e, addWebFileEvent $event)
     {
@@ -34,7 +35,17 @@ class cacheEventsHandler
     {
         RedisFacade::delete(RedisFacade::keys('standard:archives:*'));
     }
+    public function searchEvent($e,searchEvent $event){
+        RedisFacade::delete(RedisFacade::keys('standard:search:*'));
+    }
+    public function getWebDataEvent($e,getWebDataEvent $event)
+    {
+        RedisFacade::delete('standard:subrepository:statistics');
+    }
+    public function fileableDeleteEvent($e,fileableDeleteEvent $event)
+    {
+        RedisFacade::delete('standard:subrepository:statistics');
+    }
 
-    
 
 }

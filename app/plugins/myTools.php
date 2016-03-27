@@ -11,6 +11,7 @@ use Carbon\Carbon;
  */
 class myTools
 {
+    use myRedisCacheableTrait;
     private $WebName = '';
     public function setSiteName($webName)
     {
@@ -204,6 +205,20 @@ class myTools
         return preg_match('/[a-zA-Z0-9-]+/m', $search);
     }
 
+    public function getLast5SearchedWords()
+    {
+        $key = 'standard:search:last5';
+        return $this->cache($key,Searchlog::getLast5Searched());
+    }
+    public function getMostSearchedWords()
+    {
+        $key = 'standard:search:mostSearched5';
+        return $this->cache($key,Searchlog::getMostSearched());
+    }
 
-
+    public function getStatistics()
+    {
+        $key = 'standard:subrepository:statistics';
+        return $this->cache($key,myParser::getStatistics());
+    }
 }

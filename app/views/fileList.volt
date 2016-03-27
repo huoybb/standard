@@ -35,6 +35,7 @@
             {{ startMeasure('s2-3','sidebar加载') }}
             <div class="col-md-2">
                 {% block sidebar %}
+                    {% include"layouts/partial/searchKeywords.volt" %}
                     {% include "layouts/partial/allTagList.volt" %}
                 {% endblock %}
             </div>

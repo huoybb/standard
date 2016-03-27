@@ -98,6 +98,13 @@ trait FileableInterfaceTrait
         return (new Files())->getStaticsByMonth($this->getClassName());
     }
 
+    public function delete()
+    {
+        EventFacade::trigger(new fileableDeleteEvent($this));
+        parent::delete();
+    }
+
+
 
 
 }

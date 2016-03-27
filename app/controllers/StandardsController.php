@@ -19,6 +19,7 @@ class StandardsController extends myController
         if($model)  return $this->redirectByRoute(['for'=>'standards.show','file'=>$model->getStandard()->id]);
 
         $file = myParser::grabWebInfoToFile($source_id,$type);
+        EventFacade::trigger(new getWebDataEvent($type,$source_id));
         return $this->redirectByRoute(['for'=>'standards.show','file'=>$file->id]);
     }
 

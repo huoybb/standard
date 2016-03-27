@@ -102,7 +102,23 @@ trait ReadingTraitForUser
         ];
         return $result[$status];
     }
-
+    /**
+     * @param $status
+     * @param $isActive
+     * @return mixed
+     */
+    public function getReadingListFromDatabase($status, $isActive)
+    {
+        return ModelsManager::createBuilder()
+            ->from(['r'=>'Reading'])
+            ->leftJoin('Files','file_id = f.id','f')
+            ->where('user_id = :user:',['user'=>AuthFacade::getID()])
+            ->andWhere('r.status = :status:',['status'=>$status])
+            ->andWhere('r.isActive = :isActive:',['isActive'=>$isActive])
+            ->orderBy('r.created_at DESC')
+            ->columns(['r.*','f.*'])
+            ->getQuery()->execute();
+    }
     /**
      * @param string $status
      * @return \Phalcon\Mvc\Model\ResultsetInterface
@@ -110,19 +126,10 @@ trait ReadingTraitForUser
     public function getReadingList($status,$isActive = true)
     {
         $key = $this->getReadingKey($status);
-        /** @var myModel $this */
-        return $this->cache($key,function()use($status,$isActive){
-            return ModelsManager::createBuilder()
-                ->from(['r'=>'Reading'])
-                ->leftJoin('Files','file_id = f.id','f')
-                ->where('user_id = :user:',['user'=>AuthFacade::getID()])
-                ->andWhere('r.status = :status:',['status'=>$status])
-                ->andWhere('r.isActive = :isActive:',['isActive'=>$isActive])
-                ->orderBy('r.created_at DESC')
-                ->columns(['r.*','f.*'])
-                ->getQuery()->execute();
-        });
+        return $this->cache($key,$this->getReadingListFromDatabase($status,$isActive));
     }
+
+
 
 
     private function getReadingTimesFor(Files $file,$newStatus)

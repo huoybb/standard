@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Phalcon\Mvc\Model;
 
 abstract class myModel extends Model{
+    use myRedisCacheableTrait;
 
 
     abstract public function columnMap();//增加一个强制项要求，这个也许不是一个好主意！！
@@ -67,23 +68,6 @@ abstract class myModel extends Model{
     }
 
     //增加缓存功能，利用redis来做缓存，对于大的数据可以采用这个来也许更加方便,需要注意，这里用的压缩算法是igbinary，不是很常见的
-    public function cache($key,Closure $closure,$encodeMethod = 'igbinary')
-    {
-        $encode = [
-            'igbinary'=>[
-                'encode'=>'igbinary_serialize',
-                'decode'=>'igbinary_unserialize',
-            ],
-            'json'=>[
-                'encode'=>'json_encode',
-                'decode'=>'json_decode',
-            ],
-        ];
-        if(!RedisFacade::exist($key)){
-            RedisFacade::set($key,$encode[$encodeMethod]['encode']($closure()));
-        }
-        return $encode[$encodeMethod]['decode'](RedisFacade::get($key));
-    }
 
     static public function saveNew($data){
         $instance = new static();

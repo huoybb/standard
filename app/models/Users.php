@@ -170,15 +170,8 @@ class Users extends myModel
      */
     public function getMyTags()
     {
-//        $key = 'standard:users:'.AuthFacade::getService()->id.':tags';
-//        return $this->cache($key,function(){
-//            return $this->getMyTagsFromDatabase();
-//        });
-
-        if(!TagsCacheFacade::isTagsExist()){
-            TagsCacheFacade::setTags($this->getMyTagsFromDatabase());
-        }
-        return TagsCacheFacade::getTags();
+        $key = 'standard:users:'.AuthFacade::getID().':tags';
+        return $this->cache($key,$this->getMyTagsFromDatabase(),'json');
     }
     
     public function has($object)
