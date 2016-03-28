@@ -154,17 +154,12 @@ class Notification extends myModel
 
     public static function sendMail(Users $user,Activity $activity)
     {
-        $config = ConfigFacade::getService()->mailConfig->toArray();
-        $mailer = new \Phalcon\Ext\Mailer\Manager($config);
-
-        $message = $mailer->createMessage()
-            ->to($user->email,$user->name)
-            ->subject("你关注的主题:{$activity->object_type}-{$activity->object_id},有更新")
-            ->content($activity->doing);
-
-        $message->cc('zhaobing024@gmail.com','赵兵');
-//        $message->bcc('example_bcc@gmail.com');
-        $message->send();
+        if(myTools::isOnline()){
+            $mailer = new myMailer();
+            $mailer->sendMail($user,$activity);
+        }else{
+            var_dump('没有联网');
+        }
     }
     
 }

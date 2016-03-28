@@ -13,6 +13,12 @@ class myTools
 {
     use myRedisCacheableTrait;
     private $WebName = '';
+
+    public static function isOnline()
+    {
+        return @fopen("http://www.baidu.com/", "r");//判断是否连上网
+    }
+
     public function setSiteName($webName)
     {
         $this->WebName = $webName;
