@@ -77,18 +77,18 @@ class Users extends myModel
      */
     public static function findByEmail($email)
     {
-        return static ::query()
-            ->where('email = :email:',['email'=>$email])
+        return static::query()
+            ->where('email = :email:', ['email' => $email])
             ->execute()->getFirst();
     }
 
     public static function isLoginByCookie(array $cookie)
     {
         $rows = static::query()
-            ->where('email = :email:',['email'=>$cookie['email']])
-            ->andWhere('remember_token = :token:',['token'=>$cookie['token']])
+            ->where('email = :email:', ['email' => $cookie['email']])
+            ->andWhere('remember_token = :token:', ['token' => $cookie['token']])
             ->execute();
-        return $rows->count() > 0 ;
+        return $rows->count() > 0;
     }
 
     /**
@@ -98,18 +98,18 @@ class Users extends myModel
     public static function findByCookieAuth(array $cookie)
     {
         return static::query()
-            ->where('email = :email:',['email'=>$cookie['email']])
-            ->andWhere('remember_token = :token:',['token'=>$cookie['token']])
+            ->where('email = :email:', ['email' => $cookie['email']])
+            ->andWhere('remember_token = :token:', ['token' => $cookie['token']])
             ->execute()->getFirst();
     }
 
     public static function createNewUser(array $data)
     {
         return static::saveNew([
-            'name'=>$data['name'],
-            'email'=>$data['email'],
-            'password'=>SecurityFacade::hash($data['password']),
-            'role'=>$data['role']
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => SecurityFacade::hash($data['password']),
+            'role' => $data['role']
         ]);
     }
 
@@ -175,10 +175,10 @@ class Users extends myModel
      */
     public function getMyTags()
     {
-        $key = 'standard:users:'.AuthFacade::getID().':tags';
-        return $this->cache($key,$this->getMyTagsFromDatabase(),'json');
+        $key = 'standard:users:' . AuthFacade::getID() . ':tags';
+        return $this->cache($key, $this->getMyTagsFromDatabase(), 'json');
     }
-    
+
     public function has($object)
     {
         return $object->user_id == $this->id;
@@ -187,17 +187,39 @@ class Users extends myModel
     private function getMyTagsFromDatabase()
     {
         return Tagmetas::query()
-            ->leftJoin('Tags','Tags.id = Tagmetas.tag_id')
-            ->where('Tagmetas.user_id = :user:',['user'=>$this->id])
+            ->leftJoin('Tags', 'Tags.id = Tagmetas.tag_id')
+            ->where('Tagmetas.user_id = :user:', ['user' => $this->id])
             ->orderBy('Tagmetas.updated_at DESC')
-            ->columns(['Tags.*','Tagmetas.*'])
+            ->columns(['Tags.*', 'Tagmetas.*'])
             ->execute();
     }
 
+    public function savePasswordAndCleanToken($password)
+    {
+        return $this->save([
+            'password' => SecurityFacade::hash($password),
+            'accountStatus' => '正常',
+            'remember_token' => null
+        ]);
+    }
 
+    public static function getUserFromResetPasswordToken($token)
+    {
+        $token = CryptFacade::decryptBase64($token);
+        if (!preg_match('!([0-9]+)::(.+)!', $token, $matches)) {
 
-
-
-
-
+            dd('你申请的密码重置链接有问题！');
+        }
+        $user_id = $matches[1];
+        $token = $matches[2];
+        /** @var Users $user */
+        $user = Users::query()
+            ->where('id = :id:', ['id' => $user_id])
+            ->andWhere('remember_token = :token:', ['token' => $token])
+            ->execute()->getFirst();
+        if (!$user) {
+            dd('你打开的错误的链接，没有用户要密码重置！');
+        }
+        return $user;
+    }
 }

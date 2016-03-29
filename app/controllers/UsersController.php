@@ -14,6 +14,10 @@ class UsersController extends myController
             $data = $this->request->getPost();
             $user = Users::findByEmail($data['email']);
             if($user AND SecurityFacade::checkHash($data['password'],$user->password)){
+                if($user->accountStatus != '正常'){
+                    FlashFacade::error('你的帐户目前不正常，不能正常登录，请联系系统管理员');
+                    return $this->redirectByRoute(['for'=>'login']);
+                }
                 FlashFacade::success('欢迎'.$user->name.'登录！你上次登录的时间是：'.$user->updated_at);
                 EventFacade::trigger(new loginEvent($user,$data));
                 return $this->redirectByRoute(['for'=>'home']);
@@ -92,38 +96,23 @@ class UsersController extends myController
 
     public function resetPasswordAction($token)
     {
-        $token = CryptFacade::decryptBase64($token);
-        if(!preg_match('!([0-9]+)::(.+)!', $token, $matches)) {
-            
-            dd('你申请的密码重置链接有问题！');
-        }
-        $user_id = $matches[1];
-        $token = $matches[2];
-        /** @var Users $user */
-        $user = Users::query()
-            ->where('id = :id:', ['id' => $user_id])
-            ->andWhere('remember_token = :token:', ['token' => $token])
-            ->execute()->getFirst();
-        if (!$user) {
-            dd('你打开的错误的链接，没有用户要密码重置！');
-        }
+        $user = Users::getUserFromResetPasswordToken($token);
+
         if($this->request->isPost()){
 
             if(SessionFacade::get('tempAuth') != $user->id) {
                 dd('非法进入，请退出');
             }
             $data = $this->request->getPost();
+            SessionFacade::remove('tempAuth');
             if($data['password1'] == $data['password2']){
-                $user->save([
-                    'password'=>SecurityFacade::hash($data['password1']),
-                    'accountStatus'=>'正常',
-                    'remember_token'=>null
-                ]);
-                SessionFacade::remove('tempAuth');
+                $user->savePasswordAndCleanToken($data['password1']);
+                FlashFacade::success('密码设置成功，请登录！');
                 return $this->redirectByRoute(['for'=>'login']);
             }
+            FlashFacade::error('两次密码输入不一致');
         }
-        SessionFacade::set('tempAuth',$user->id);
+        SessionFacade::set('tempAuth',$user->id);//@todo 将来变成防止破解的一个token，忘记叫什么名字啦
         $this->view->form = myForm::buildResetPasswordForm();
     }
     public function userRequestResetPasswordAction()
@@ -141,10 +130,5 @@ class UsersController extends myController
         }
         $this->view->form = myForm::buildUserRequestResetPasswordForm();
     }
-
-
-
-
-
 }
 
