@@ -86,6 +86,7 @@ class myForm
         $form->add(new \Phalcon\Forms\Element\Password('password1'));
         $form->add(new \Phalcon\Forms\Element\Password('password2'));
         $form->add(new \Phalcon\Forms\Element\Submit('reset'));
+        $form->add(new \Phalcon\Forms\Element\Hidden('csrf',['name'=>SecurityFacade::getTokenKey(),'value'=>SecurityFacade::getToken()]));
         return $form;
     }
 

@@ -218,7 +218,7 @@ class Users extends myModel
             ->andWhere('remember_token = :token:', ['token' => $token])
             ->execute()->getFirst();
         if (!$user) {
-            dd('你打开的错误的链接，没有用户要密码重置！');
+            dd('你打开的链接有错误，没有用户要密码重置！或者token失效了，请重新申请！');
         }
         return $user;
     }

@@ -32,6 +32,7 @@
                             {{ form.render('reset',['class':"btn btn-primary"]) }}
                         </div>
                     </div>
+                    {{ form.render('csrf') }}
 
                     {{ endform() }}
                 </div>

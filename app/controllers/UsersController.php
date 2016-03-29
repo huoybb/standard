@@ -99,12 +99,11 @@ class UsersController extends myController
         $user = Users::getUserFromResetPasswordToken($token);
 
         if($this->request->isPost()){
-
-            if(SessionFacade::get('tempAuth') != $user->id) {
-                dd('非法进入，请退出');
-            }
             $data = $this->request->getPost();
-            SessionFacade::remove('tempAuth');
+            if(!$this->security->checkToken()){
+                FlashFacade::error('非法侵入');
+                return $this->redirectByRoute(['for'=>'login']);
+            }
             if($data['password1'] == $data['password2']){
                 $user->savePasswordAndCleanToken($data['password1']);
                 FlashFacade::success('密码设置成功，请登录！');
@@ -112,7 +111,6 @@ class UsersController extends myController
             }
             FlashFacade::error('两次密码输入不一致');
         }
-        SessionFacade::set('tempAuth',$user->id);//@todo 将来变成防止破解的一个token，忘记叫什么名字啦
         $this->view->form = myForm::buildResetPasswordForm();
     }
     public function userRequestResetPasswordAction()
