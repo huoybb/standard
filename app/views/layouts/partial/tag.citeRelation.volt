@@ -1,5 +1,5 @@
 {% if mytag.hasRelations() %}
-    <h2>引文系统</h2>
+    <h2><a href="{{ url(['for':'tags.references','tag':mytag.id]) }}">引文系统</a></h2>
     <div class="citeRelation clear" data-id="{{ mytag.id }}" style="display: block;">
         <div class="refciteMap">
             <div class="map-item cite cite1">

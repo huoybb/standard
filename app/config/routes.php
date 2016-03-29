@@ -90,6 +90,9 @@ $router->add('/tags/{tag:[0-9]+}/links','tags::showLinks')->setName('tags.showLi
 
 $router->add('/tags/{tag:[0-9]+}/relationship/addReferenceTo/{tag2:[0-9]+}','tags::addReference')->setName('tags.addReference');
 $router->add('/tags/{tag:[0-9]+}/getRelation/{relation}','tags::getRelation')->setName('tags.getRelation');
+$router->add('/tags/{tag:[0-9]+}/references','tags::references')->setName('tags.references');
+$router->add('/tags/{tag:[0-9]+}/deleteReference/{reference:[0-9]+}','tags::deleteReference')->setName('tags.deleteReference');
+
 
 $router->add('/subRepository/{repository}','subrepository::show')->setName('subRepository');
 $router->add('/subRepository/{repository}/page/{page:[0-9]+}','subrepository::show')->setName('subRepository.page');

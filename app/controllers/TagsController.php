@@ -145,6 +145,25 @@ class TagsController extends myController
         $this->view->mytag = $tag;
         $this->view->relation = $relation;
     }
+    public function referencesAction(Tags $tag)
+    {
+        $this->view->references = $tag->getReferences();
+        $this->view->mytag = $tag;
+    }
+
+    public function deleteReferenceAction(Tags $tag,Tags $reference)
+    {
+        $relation = Relationship::query()
+            ->where('start_id = :start_id:',['start_id'=>$reference->id])
+            ->andWhere('start_type = :start_type:',['start_type'=>get_class($reference)])
+            ->andWhere('end_id = :end_id:',['end_id'=>$tag->id])
+            ->andWhere('end_type = :end_type:',['end_type'=>get_class($tag)])
+            ->execute();
+        $relation->delete();
+        return $this->redirectByRoute(['for'=>'tags.references','tag'=>$tag->id]);
+    }
+
+
 
     public function subscribeAction(Tags $tag)
     {
