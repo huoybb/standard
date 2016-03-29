@@ -30,17 +30,7 @@ class UsersController extends myController
         $this->redirectByRoute(['for'=>'login']);
     }
 
-    public function createNewUserAction()
-    {
-        if($this->request->isPost()){
-            $data = $this->request->getPost();
-            if(!(Users::findByEmail($data['email']))){
-                Users::createNewUser($data);
-                return $this->redirectByRoute(['for'=>'home']);
-            }
-        }
-        $this->view->form = myForm::buildCreateNewUserForm();
-    }
+
 
 
     public function showTagAction(Users $user,Tags $tag,$page =1)
@@ -59,7 +49,7 @@ class UsersController extends myController
     {
         AuthFacade::readNotification($notification);
         $ObjectType = AuthFacade::getNotificationObjectType($notification);
-        
+
         if($ObjectType == 'Tags'){
             return $this->redirectByRoute(['for'=>'tags.show','tag'=>$notification->getTagID()]);
         }
@@ -67,5 +57,94 @@ class UsersController extends myController
             return $this->redirectByRoute(['for'=>'standards.show','file'=>$notification->getTagID()]);
         }
     }
+
+    public function createNewUserAction()
+    {
+        if($this->request->isPost()){
+            $data = $this->request->getPost();
+            if(!(Users::findByEmail($data['email']))){
+                Users::createNewUser($data);
+                return $this->redirectByRoute(['for'=>'users.manageUsers']);
+            }
+            FlashFacade::warning('邮件地址有重复，请重新填写');
+        }
+        $this->view->form = myForm::buildCreateNewUserForm();
+    }
+    public function manageUsersAction()
+    {
+        $this->view->users = Users::find();
+    }
+    public function deleteUserAction(Users $user)
+    {
+        if($user->role == '用户') {
+            $user->delete();
+            //@todo 决策：是否需要将这个用户的信息都删除，比如评论、上传的附件等？还是仅仅将账户信息锁死就可以啦？
+        }
+        return $this->redirectByRoute(['for'=>'users.manageUsers']);
+    }
+    public function sendPasswordResetEmailAction(Users $user)
+    {
+        if($user->role == '用户'){
+            (new myMailer())->sendResetPasswordMail($user);
+        }
+        return $this->redirectByRoute(['for'=>'users.manageUsers']);
+    }
+
+    public function resetPasswordAction($token)
+    {
+        $token = CryptFacade::decryptBase64($token);
+        if(!preg_match('!([0-9]+)::(.+)!', $token, $matches)) {
+            
+            dd('你申请的密码重置链接有问题！');
+        }
+        $user_id = $matches[1];
+        $token = $matches[2];
+        /** @var Users $user */
+        $user = Users::query()
+            ->where('id = :id:', ['id' => $user_id])
+            ->andWhere('remember_token = :token:', ['token' => $token])
+            ->execute()->getFirst();
+        if (!$user) {
+            dd('你打开的错误的链接，没有用户要密码重置！');
+        }
+        if($this->request->isPost()){
+
+            if(SessionFacade::get('tempAuth') != $user->id) {
+                dd('非法进入，请退出');
+            }
+            $data = $this->request->getPost();
+            if($data['password1'] == $data['password2']){
+                $user->save([
+                    'password'=>SecurityFacade::hash($data['password1']),
+                    'accountStatus'=>'正常',
+                    'remember_token'=>null
+                ]);
+                SessionFacade::remove('tempAuth');
+                return $this->redirectByRoute(['for'=>'login']);
+            }
+        }
+        SessionFacade::set('tempAuth',$user->id);
+        $this->view->form = myForm::buildResetPasswordForm();
+    }
+    public function userRequestResetPasswordAction()
+    {
+        if($this->request->isPost()){
+            $data = $this->request->getPost();
+            //@todo 确保邮件地址是正确的 ，并且数据库中存在这个邮件；
+            $user = Users::findFirst(['email = :email:','bind'=>['email'=>$data['email']]]);
+            if(!$user) {
+                dd("邮件地址:{$data['email']},不存在");
+            }
+            (new myMailer())->sendResetPasswordMail($user);
+            FlashFacade::success('邮件发送成功，请查收邮件并点击链接！');
+            $this->redirectByRoute(['for'=>'login']);
+        }
+        $this->view->form = myForm::buildUserRequestResetPasswordForm();
+    }
+
+
+
+
+
 }
 

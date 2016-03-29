@@ -29,6 +29,11 @@ class isLoggedin extends myValidation{
     public function initialize()
     {
         $this->redirectUrl = UrlFacade::get(['for'=>'login']);
-        $this->excludedRoutes = ['login','standards.getWebData'];
+        $this->excludedRoutes = [
+            'login',
+            'standards.getWebData',
+            'users.resetPassword',
+            'users.userRequestResetPassword'
+        ];
     }
 } 

@@ -66,6 +66,10 @@ class Users extends myModel
      * @var int
      */
     public $done_count;
+    /*
+     * @var string
+     */
+    public $accountStatus;
 
     /**
      * @param $email
@@ -161,6 +165,7 @@ class Users extends myModel
             'want_count' => 'want_count',
             'reading_count' => 'reading_count',
             'done_count' => 'done_count',
+            'accountStatus' => 'accountStatus',
         );
     }
 

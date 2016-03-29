@@ -81,6 +81,14 @@ class myForm
         return $form;
     }
 
+    public static function buildResetPasswordForm(){
+        $form = new \Phalcon\Forms\Form();
+        $form->add(new \Phalcon\Forms\Element\Password('password1'));
+        $form->add(new \Phalcon\Forms\Element\Password('password2'));
+        $form->add(new \Phalcon\Forms\Element\Submit('reset'));
+        return $form;
+    }
+
     public static function buildCreateNewUserForm()
     {
         $form = new \Phalcon\Forms\Form();
@@ -89,6 +97,14 @@ class myForm
         $form->add(new \Phalcon\Forms\Element\Select('role',['用户'=>'用户','超级用户'=>'超级用户','管理员'=>'管理员']));
         $form->add(new \Phalcon\Forms\Element\Password('password'));
         $form->add(new \Phalcon\Forms\Element\Submit('创建'));
+        return $form;
+    }
+
+    public static function buildUserRequestResetPasswordForm()
+    {
+        $form = new \Phalcon\Forms\Form();
+        $form->add(new \Phalcon\Forms\Element\Text('email'));
+        $form->add(new \Phalcon\Forms\Element\Submit('提交'));
         return $form;
     }
 }

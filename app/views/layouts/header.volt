@@ -33,8 +33,9 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav">
-                {% if session.has('auth') %}
-                    <li><a href="{{ url(['for':'logout']) }}">logout</a></li>
+                <li><a href="{{ url(['for':'logout']) }}">logout</a></li>
+                {% if auth.role is '管理员' %}
+                <li><a href="{{ url(['for':'users.manageUsers']) }}">用户管理</a></li>
                 {% endif %}
             </ul>
         </div>

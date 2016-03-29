@@ -108,7 +108,14 @@ $router->add('/logout','Users::logout')->setName('logout');
 
 $router->add('/user/{user:[0-9]+}/tag/{tag:[0-9]+}','users::showTag')->setName('users.showTag');
 $router->add('/user/{user:[0-9]+}/tag/{tag:[0-9]+}/page/{page:[0-9]+}','users::showTag')->setName('users.showTag.page');
+
+$router->addx('/user/manageUsers','users::manageUsers',[isAdministrator::class])->setName('users.manageUsers');
 $router->addx('/user/createNewUser','users::createNewUser',[isAdministrator::class])->setName('users.createNewUser');
+$router->addx('/user/{user:[0-9]+}/delete','users::deleteUser',[isAdministrator::class])->setName('users.deleteUser');
+
+$router->addx('/user/{user:[0-9]+}/sendPassWordResetEmail','users::sendPasswordResetEmail',[isAdministrator::class])->setName('users.sendPasswordResetEmail');
+$router->add('/user/resetPassword/{token:.+}','users::resetPassword')->setName('users.resetPassword');
+$router->add('/user/userRequestResetPassword','users::userRequestResetPassword')->setName('users.userRequestResetPassword');
 
 //订阅和通知
 $router->add('/tags/{tag:[0-9]+}/subscribe','tags::subscribe')->setName('tags.subscribe');

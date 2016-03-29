@@ -39,7 +39,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 {{ form.render('Login',['class':"btn btn-primary"]) }}
-                                <a class="btn btn-link" href="#">Forgot Your Password?</a>
+                                <a class="btn btn-link" href="{{ url(['for':'users.userRequestResetPassword']) }}">Forgot Your Password?</a>
                             </div>
                         </div>
                     {{ endform() }}
