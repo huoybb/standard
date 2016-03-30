@@ -98,6 +98,11 @@ class UsersController extends myController
     {
         $user = Users::getUserFromResetPasswordToken($token);
 
+        if($user->updated_at < \Carbon\Carbon::now()->addDay(-1)){
+            FlashFacade::error('token已经过期，请重新申请密码重置');
+            return $this->redirectByRoute(['for'=>'login']);
+        }
+
         if($this->request->isPost()){
             $data = $this->request->getPost();
             if(!$this->security->checkToken()){

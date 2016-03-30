@@ -215,6 +215,7 @@ class Users extends myModel
         if (!$user) {
             dd('你打开的链接有错误，没有用户要密码重置！或者token失效了，请重新申请！');
         }
+        
         return $user;
     }
 }
