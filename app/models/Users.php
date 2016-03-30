@@ -205,13 +205,8 @@ class Users extends myModel
 
     public static function getUserFromResetPasswordToken($token)
     {
-        $token = CryptFacade::decryptBase64($token);
-        if (!preg_match('!([0-9]+)::(.+)!', $token, $matches)) {
-
-            dd('你申请的密码重置链接有问题！');
-        }
-        $user_id = $matches[1];
-        $token = $matches[2];
+        
+        list($user_id,$token) = myTools::getUrlDecodedTokenAndUserID($token);
         /** @var Users $user */
         $user = Users::query()
             ->where('id = :id:', ['id' => $user_id])

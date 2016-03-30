@@ -38,7 +38,7 @@ class myMailer
             'accountStatus'=>'密码修订中'
         ]);
 
-        $urlToken = CryptFacade::encryptBase64($user->id.'::'.$token);
+        $urlToken = myTools::getUrlEncodedToken($token,$user);
         $url = 'http://standard.zhaobing'.UrlFacade::get(['for'=>'users.resetPassword','token'=>$urlToken]);
         $message = $this->mailer->createMessage()
             ->to($user->email,$user->name)

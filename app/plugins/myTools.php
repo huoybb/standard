@@ -19,6 +19,23 @@ class myTools
         return @fopen("http://www.baidu.com/", "r");//判断是否连上网
     }
 
+    public static function getUrlEncodedToken($token, $user)
+    {
+        return CryptFacade::encryptBase64($user->id.'::'.$token);
+    }
+
+    public static function getUrlDecodedTokenAndUserID($token)
+    {
+        $token = CryptFacade::decryptBase64($token);
+        if (!preg_match('!([0-9]+)::(.+)!', $token, $matches)) {
+
+            dd('Token格式有问题！');
+        }
+        $user_id = $matches[1];
+        $token = $matches[2];
+        return [$user_id,$token];
+    }
+
     public function setSiteName($webName)
     {
         $this->WebName = $webName;
