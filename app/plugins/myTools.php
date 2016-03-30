@@ -18,15 +18,16 @@ class myTools
     {
         return @fopen("http://www.baidu.com/", "r");//判断是否连上网
     }
+    
 
     public static function getUrlEncodedToken($token, $user)
     {
-        return CryptFacade::encryptBase64($user->id.'::'.$token);
+        return CryptFacade::urlsafe_b64encode($user->id.'::'.$token);
     }
 
     public static function getUrlDecodedTokenAndUserID($token)
     {
-        $token = CryptFacade::decryptBase64($token);
+        $token = CryptFacade::urlsafe_b64decode($token);
         if (!preg_match('!([0-9]+)::(.+)!', $token, $matches)) {
 
             dd('Token格式有问题！');
