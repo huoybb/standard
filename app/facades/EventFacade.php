@@ -10,6 +10,6 @@ class EventFacade extends myFacade
 {
     public static function getFacadeAccessor()
     {
-        return 'Event';
+        return 'eventManager';
     }
 }
