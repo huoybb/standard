@@ -28,9 +28,9 @@
                     </div>
                 </td>
                 <td>{{ item.f.updated_at_website | date }}</td>
-                <td>{{ item.f.getHtml('attachmentCount') }}</td>
-                <td>{{ item.f.getHtml('linkCount') }}</td>
-                <td>{{ item.f.getHtml('commentCount') }}</td>
+                <td>{{ item.f.present().get('attachmentCount') }}</td>
+                <td>{{ item.f.present().get('linkCount') }}</td>
+                <td>{{ item.f.present().get('commentCount') }}</td>
                 <td>{{ item.r.created_at.diffForHumans() }}</td>
                 <td><span><a href="#" ><div align="center">想读</div></a></span></td>
                 <td><span><a href="#" ><div align="center">在读</div></a></span></td>

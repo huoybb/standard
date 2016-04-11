@@ -21,7 +21,7 @@
             <div class="container">
                 {% block breadcrumb %}{% endblock %}
                 <p>{{ flash.output() }}</p>
-                <h1>{{ file.getFileType() }}:<a href="{{ url(['for':'standards.show','file':file.id]) }}">{{ file.title }}</a></h1>
+                <h1><a href="{{ url(['for':'standards.show','file':file.id]) }}">{{ file.present().title }}</a></h1>
                 <div class="col-md-10">
                     {{ startMeasure('s1','正文加载') }}
                     {{ startMeasure('s1-1','加载文件信息') }}

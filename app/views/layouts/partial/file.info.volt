@@ -1,10 +1,10 @@
 <div id="info">
     {% if file.getFileable() %}
 
-        {% for key,value in file.getFileable().format() if file.getFileable().getHtml(key) %}
+        {% for key,value in file.getFileable().format() if file.present().get(key) %}
             <div class="row">
                 <div class="col-md-2" align="right"><span>{{value}}</span>:</div>
-                <div class="col-md-10">{{ file.getFileable().getHtml(key) }}</div>
+                <div class="col-md-10">{{ file.present().get(key) }}</div>
             </div>
         {% endfor %}
     {% endif %}
@@ -21,7 +21,7 @@
     <div class="row">
         <div class="col-md-2" align="right"><span><a href="{{ url(['for':'standards.showLinks','file':file.id]) }}">相关链接</a></span>:</div>
         <div class="col-md-10">
-            <span>{{ file.getHtml('url') }}</span>
+            <span>{{ file.present().get('url') }}</span>
             {% for link in file.getLinks() %}
                 <span><a href="{{ link.url }}" target="_blank">{{ link.getSiteName() }}</a></span>
             {% endfor %}
@@ -29,10 +29,10 @@
     </div>
 
     {% set format = ['updated_at_website':'更新时间'] %}
-    {% for key,value in format if file.getHtml(key) %}
+    {% for key,value in format if file.present().get(key) %}
         <div class="row">
             <div class="col-md-2" align="right"><span>{{value}}</span>:</div>
-            <div class="col-md-10"><span>{{ file.getHtml(key) }}</span></div>
+            <div class="col-md-10"><span>{{ file.present().get(key) }}</span></div>
         </div>
     {% endfor %}
 

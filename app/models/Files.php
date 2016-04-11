@@ -16,6 +16,7 @@ class Files extends myModel implements FilesInterface
     use DateTimeRangeTrait;
     use ReadingTraitForFile;
     use SubsribeTraitForObject;
+    use myPresenterTrait;
 
     /**
      *
@@ -159,15 +160,15 @@ class Files extends myModel implements FilesInterface
         );
     }
 
-    public function getHtml($key)
-    {
-        if(!$this->$key) return null;
-        if($key == 'url'){
-            $siteName = (new Link())->getSiteName($this->$key);
-            return '<a href="'.$this->$key.'" target="_blank" >'.$siteName.'</a>';
-        }
-        return $this->$key;
-    }
+//    public function getHtml($key)
+//    {
+//        if(!$this->$key) return null;
+//        if($key == 'url'){
+//            $siteName = (new Link())->getSiteName($this->$key);
+//            return '<a href="'.$this->$key.'" target="_blank" >'.$siteName.'</a>';
+//        }
+//        return $this->$key;
+//    }
 
     public function search($search)
     {

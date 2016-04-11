@@ -4,6 +4,7 @@ class Wanfangthesis extends \Phalcon\Mvc\Model implements FileableInterface
 {
 
     use FileableInterfaceTrait;
+    use myPresenterTrait;
     /**
      *
      * @var integer

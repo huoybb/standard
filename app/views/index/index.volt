@@ -49,9 +49,9 @@
                             <a title="{{ item.title }}" href="{{ url(['for':'standards.show','file':item.id]) }}">{{ item.title }}</a>
                         </div></td>
                     <td>{{ item.updated_at_website | date }}</td>
-                    <td>{{ item.getHtml('attachmentCount') }}</td>
-                    <td>{{ item.getHtml('linkCount') }}</td>
-                    <td>{{ item.getHtml('commentCount') }}</td>
+                    <td>{{ item.present().get('attachmentCount') }}</td>
+                    <td>{{ item.present().get('linkCount') }}</td>
+                    <td>{{ item.present().get('commentCount') }}</td>
                     <td><span><a href="{{ url(['for':'standards.edit','file':item.id]) }}" ><div align="center">修改</div></a></span></td>
                 </tr>
             {% endfor %}

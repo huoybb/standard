@@ -93,9 +93,9 @@
                     </td>
                     <td>{{ item.files.updated_at_website | date }}</td>
                     <td>{{ item.taggables.updated_at.diffForHumans() }}</td>
-                    <td>{{ item.files.getHtml('attachmentCount') }}</td>
-                    <td>{{ item.files.getHtml('linkCount') }}</td>
-                    <td>{{ item.files.getHtml('commentCount') }}</td>
+                    <td>{{ item.files.present().get('attachmentCount') }}</td>
+                    <td>{{ item.files.present().get('linkCount') }}</td>
+                    <td>{{ item.files.present().get('commentCount') }}</td>
                     <td><span><a href="{{ url(['for':'tags.deleteItem','taggable':item.taggables.id,'tag':mytag.id]) }}" ><div align="center">删除</div></a></span></td>
                 </tr>
             {% endfor %}

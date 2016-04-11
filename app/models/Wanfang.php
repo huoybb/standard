@@ -4,6 +4,7 @@ class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
 {
 
     use FileableInterfaceTrait;
+    use myPresenterTrait;
 
     /**
      *
