@@ -15,7 +15,11 @@
             <ul class="nav navbar-nav">
 
                 {% for key,value in myTools.getLayoutLinkArray() %}
-                <li><a href="{{ url.getBaseUri() }}{{key}}">{{value}}</a></li>
+                        <li
+                            {% if router.getMatchedRoute().getName() == key %}
+                                class="active"
+                            {% endif %}
+                        ><a href="{{ url(['for':key]) }}">{{value}}</a></li>
                 {% endfor %}
 
             </ul>

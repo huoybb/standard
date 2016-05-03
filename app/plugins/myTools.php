@@ -60,11 +60,12 @@ class myTools
         }
         $unreadNotification = AuthFacade::getUnreadNotifications()->count();
         return [
-            'standards/add'=>'新增',
-            'tags'=>'标签','want'=>"想读({$want})",
-            'reading'=>"在读({$reading})",
-            'done'=>"读过({$done})",
-            'notification'=>"通知({$unreadNotification})"
+            'standards.add'=>'新增',
+            'tags.index'=>'标签',
+            'reading.wantlist'=>"想读({$want})",
+            'reading.readinglist'=>"在读({$reading})",
+            'reading.donelist'=>"读过({$done})",
+            'users.readNotification'=>"通知({$unreadNotification})"
         ];
     }
 
