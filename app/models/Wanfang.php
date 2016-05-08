@@ -83,6 +83,14 @@ class Wanfang extends \Phalcon\Mvc\Model implements FileableInterface
      */
     public $file_id;
 
+    public static function getByJournal($journal)
+    {
+        return static::query()
+            ->where('Journal = :journal:',['journal'=>$journal])
+            ->orderBy('yearMonthNumber DESC')
+            ->execute();
+    }
+
     /**
      * Returns table name mapped in the model.
      *

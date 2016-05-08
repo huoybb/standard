@@ -61,6 +61,9 @@ $router->add('/revisions/{rev:[0-9]+}','revisions::show')->setName('revisions.sh
 $router->add('/revisions/{rev:[0-9]+}/delete','revisions::delete')->setName('revisions.delete');
 $router->add('/standards/{file:[0-9]+}/addRevisionTo/{file2:[0-9]+}','standards::addRevisions')->setName('standards.addRevisionsTo');
 
+$router->add('/journals/{journal}','journals::show')->setName('journals.show');
+$router->add('/journals/{journal}/page/{page:[0-9]+}','journals::show')->setName('journals.show.page');
+
 $router->add('/tags','tags::index')->setName('tags.index');
 $router->add('/tags/page/{page:[0-9]+}','tags::index')->setName('tags.index.page');
 $router->add('/tags/{tag:[0-9]+}','tags::show')->setName('tags.show');

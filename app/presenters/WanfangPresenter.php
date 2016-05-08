@@ -12,4 +12,10 @@ class WanfangPresenter extends myPresenter
     {
         return '万方期刊：'.$this->entity->title;
     }
+    public function Journal()
+    {
+        $url = UrlFacade::get(['for'=>'journals.show','journal'=>$this->entity->Journal]);
+        return "<a href='{$url}'>{$this->entity->Journal}</a>";
+    }
+    
 }
