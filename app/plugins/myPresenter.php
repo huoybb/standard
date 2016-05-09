@@ -28,14 +28,18 @@ abstract class myPresenter
             if($this->entity->$property)  return $this->entity->$property;
             return null;
         }
-
-        if(method_exists($this->entity,'getFileable') && $this->entity->getFileable()){
-            return $this->entity->getFileable()->present()->$property;
-        }
+        
     }
+
+    /**
+     * 将一些共用的属性用条件语句的形式来实现；
+     * 其他的属性按照presenter的形式来实现
+     * @param $key
+     * @return string
+     */
     public function get($key)
     {
-        if($key == 'abstract' OR $key == 'Abstract'){
+        if($key == 'abstract'){
             if($this->$key == null) return null;
             $maxLength = 200;//最大显示长度
 

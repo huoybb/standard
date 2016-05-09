@@ -63,7 +63,7 @@ class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
      *
      * @var string
      */
-    public $Abstract;
+    public $abstract;
 
     /**
      *
@@ -139,7 +139,7 @@ class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
             'PDF_Url' => 'PDF_Url',
             'Report_Date' => 'Report_Date',
             'Pagination_or_Media_Count' => 'Pagination_or_Media_Count',
-            'Abstract' => 'Abstract',
+            'Abstract' => 'abstract',
             'Descriptors' => 'Descriptors',
             'Subject_Categories' => 'Subject_Categories',
             'Distribution_Statement' => 'Distribution_Statement',
@@ -155,7 +155,7 @@ class OaiDticMil extends \Phalcon\Mvc\Model implements FileableInterface
             'Corporate_Author'=>'单位',
             'Personal_Author'=>'作者',
             'Pagination_or_Media_Count'=>'页数',
-            'Abstract'=>'摘要',
+            'abstract'=>'摘要',
             'Descriptors'=>'描述分类',
             'Subject_Categories'=>'主题分类'
         ];

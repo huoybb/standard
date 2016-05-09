@@ -1,10 +1,9 @@
 <div id="info">
     {% if file.getFileable() %}
-
-        {% for key,value in file.getFileable().format() if file.present().get(key) %}
+        {% for key,value in file.getFileable().format() if file.getFileable().present().get(key) %}
             <div class="row">
                 <div class="col-md-2" align="right"><span>{{value}}</span>:</div>
-                <div class="col-md-10">{{ file.present().get(key) }}</div>
+                <div class="col-md-10">{{ file.getFileable().present().get(key) }}</div>
             </div>
         {% endfor %}
     {% endif %}
