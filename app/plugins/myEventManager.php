@@ -28,7 +28,14 @@ class myEventManager extends \Phalcon\Events\Manager
     public function register($eventDomain, array $handlerClassArray)
     {
             foreach($handlerClassArray as $handler){
-                $this->attach($eventDomain,new $handler);
+//                $this->attach($eventDomain,new $handler);
+                $this->attach($eventDomain,function($e,$eventObject)use($handler){
+                    $actionName = 'when'.get_class($eventObject);
+                    $handler = new $handler();
+                    if(method_exists($handler,$actionName)){
+                        $handler->$actionName($eventObject);
+                    }
+                });
             }
     }
 

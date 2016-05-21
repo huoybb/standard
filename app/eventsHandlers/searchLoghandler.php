@@ -8,7 +8,7 @@
  */
 class searchLoghandler
 {
-    public function searchEvent($e,searchEvent $event)
+    public function whensearchEvent(searchEvent $event)
     {
         $lastSearch = Searchlog::getLastSearch($event->user);
         if(null <> $lastSearch AND $lastSearch->keywords == $event->keywords) return $lastSearch->update();

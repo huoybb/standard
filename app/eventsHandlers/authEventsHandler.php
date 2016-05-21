@@ -9,7 +9,7 @@ use Carbon\Carbon;
  */
 class authEventsHandler
 {
-    public function loginEvent($e,loginEvent $event)
+    public function whenloginEvent(loginEvent $event)
     {
         $user = $event->user;
         $data = $event->data;
@@ -22,7 +22,7 @@ class authEventsHandler
         }
     }
 
-    public function logoutEvent($e,logoutEvent $event)
+    public function whenlogoutEvent(logoutEvent $event)
     {
         $event->user->save(['remember_token'=>SecurityFacade::getToken()]);//避免cookie的盗用
         SessionFacade::remove('auth');

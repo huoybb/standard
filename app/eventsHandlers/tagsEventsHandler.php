@@ -10,7 +10,7 @@
 class tagsEventsHandler
 {
 
-    public function updateTagEvent($e, updateTagEvent $event)
+    public function whenupdateTagEvent(updateTagEvent $event)
     {
         $tag = $event->tag;
         $meta = $tag->getTagmetaOrNew();

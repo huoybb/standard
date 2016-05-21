@@ -9,40 +9,40 @@
 class cacheEventsHandler
 {
 
-    public function updateTagEvent($e, updateTagEvent $event)
+    public function whenupdateTagEvent(updateTagEvent $event)
     {
         $key = 'standard:users:'.AuthFacade::getID().':tags';
         RedisFacade::delete($key);
     }
-    public function addWebFileEvent($e, addWebFileEvent $event)
+    public function whenaddWebFileEvent(addWebFileEvent $event)
     {
         RedisFacade::delete('standard:archives:'.get_class($event->model));
         RedisFacade::delete('standard:archives:Files');
     }
-    public function addFileEvent($e,addFileEvent $event)
+    public function whenaddFileEvent(addFileEvent $event)
     {
         RedisFacade::delete('standard:archives:Files');
     }
     
-    public function deleteFileEvent($e,deleteFileEvent $event)
+    public function whendeleteFileEvent(deleteFileEvent $event)
     {
         $file = $event->file;
         $model = $file->getFileable();
         if($model) RedisFacade::delete('standard:archives:'.get_class($model));
         RedisFacade::delete('standard:archives:Files');
     }
-    public function deleteSelectedFilesEvent($e,deleteSelectedFilesEvent $event)
+    public function whendeleteSelectedFilesEvent(deleteSelectedFilesEvent $event)
     {
         RedisFacade::delete(RedisFacade::keys('standard:archives:*'));
     }
-    public function searchEvent($e,searchEvent $event){
+    public function whensearchEvent(searchEvent $event){
         RedisFacade::delete(RedisFacade::keys('standard:search:*'));
     }
-    public function getWebDataEvent($e,getWebDataEvent $event)
+    public function whengetWebDataEvent(getWebDataEvent $event)
     {
         RedisFacade::delete('standard:subrepository:statistics');
     }
-    public function fileableDeleteEvent($e,fileableDeleteEvent $event)
+    public function whenfileableDeleteEvent(fileableDeleteEvent $event)
     {
         RedisFacade::delete('standard:subrepository:statistics');
     }

@@ -8,20 +8,20 @@
  */
 class notificationHandler
 {
-    public function addCommentEvent($e,addCommentEvent $event)
+    public function whenaddCommentEvent(addCommentEvent $event)
     {
         $activity = Activity::addComment($event->object, $event->comment, AuthFacade::getService());
         Subscriber::notify($event->object, $activity);
     }
 
-    public function addAttachmentEvent($e,addAttachmentEvent $event)
+    public function whenaddAttachmentEvent(addAttachmentEvent $event)
     {
         foreach($event->files as $attachment){
             Subscriber::notify($$event->object,Activity::addAttachment($event->object,$attachment,AuthFacade::getService()));
         }
     }
 
-    public function addFilelistToTagEvent($e, addFilelistToTagEvent $event)
+    public function whenaddFilelistToTagEvent(addFilelistToTagEvent $event)
     {
         $fileIds = $event->file_ids;
         $tag = $event->tag;

@@ -8,7 +8,7 @@
  */
 class taggablesEventsHandler
 {
-    public function addCommentEvent($e,addCommentEvent $event)
+    public function whenaddCommentEvent(addCommentEvent $event)
     {
         $object = $event->object;
         if(is_subclass_of($object,Taggables::class)){
