@@ -246,4 +246,19 @@ class myTools
         $key = 'standard:subrepository:statistics';
         return $this->cache($key,myParser::getStatistics());
     }
+
+    public function buildSearchFilteredUrl($name)
+    {
+        $url = UrlFacade::get(['for'=>'standards.search.index','search'=>RouterFacade::getParams()['search']]);
+        $filter = [];
+        foreach(RequestFacade::get() as $key => $value){
+            if($key != '_url'){
+                $filter[$key]=$value;
+            }
+        }
+        $filter['journal']=$name;
+        $url .='?'. http_build_query($filter);
+        return $url;
+    }
+
 }

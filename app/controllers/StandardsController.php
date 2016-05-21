@@ -85,6 +85,7 @@ class StandardsController extends myController
 
     public function searchAction($search,$page = 1)
     {
+        
         EventFacade::trigger(new searchEvent($search,AuthFacade::getService()));
         if(myToolsFacade::isStandardNumber($search)) {
             $file = Files::findByStandardNumber($search);
@@ -94,8 +95,10 @@ class StandardsController extends myController
 //            list($type,$search) = myToolsFacade::getSubrepositorySearch($search);
 //            return $this->redirectByRoute(['for'=>'subRepository.search','repository'=>$type,'search'=>$search]);
 //        }
-        $this->view->page = $this->getPaginatorByQueryBuilder(Files::searchQuery($search),50,$page);
+        $this->view->page = $this->getPaginatorByQueryBuilder(Files::searchQueryWithFilter($search),50,$page);
         $this->view->search = $search;
+        $this->view->JournalsCounts = Files::searchQueryWithJournal($search);
+//        dd($this->view->JournalsCounts->toArray());
     }
 
     public function showSearchItemAction($search,$item)

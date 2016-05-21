@@ -59,3 +59,15 @@
     {% include "layouts/partial/fileList.commandButton.volt" %}
     {{ endform() }}
 {% endblock %}
+
+{% block sidebar %}
+    {{ super() }}
+    <div class="row">
+        <h2>相关期刊</h2>
+        <ul>
+            {% for Journal in JournalsCounts %}
+                <li><a href="{{ myTools.buildSearchFilteredUrl(Journal.type) }}">{{ Journal.type }}</a>({{ Journal.num }})</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

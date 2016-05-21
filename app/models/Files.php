@@ -205,9 +205,13 @@ class Files extends myModel implements FilesInterface
         
         return $builder->innerJoin(Fileable::class,'fileable.file_id = Files.id','fileable')
             ->groupBy('Wanfang.Journal')
+            ->orderBy('Wanfang.Journal')
             ->columns(['Wanfang.Journal AS type','count(fileable.fileable_id) AS num'])
             ->innerJoin(Wanfang::class,'Wanfang.id = fileable.fileable_id AND fileable.fileable_type = "Wanfang"')
             ->getQuery()->execute();
+    }
+    public static function searchQueryWithFilter($search){
+        return (new FileFilter(RequestFacade::getService()))->apply(static::searchQuery($search));
     }
 
     /**
