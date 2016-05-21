@@ -11,14 +11,14 @@ class FilesPresenter extends myPresenter
     /**
      * @return string
      */
-    public function title()
+    public function repository()
     {
         $subRepo = $this->entity->getfileable();
         if($subRepo){
-            return $subRepo->present()->title;
+            return $subRepo->present()->repository;
         }
 
-        return '标准：'.$this->entity->title;
+        return '标准：';
     }
     public function url()
     {

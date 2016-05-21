@@ -8,9 +8,9 @@
  */
 class WanfangPresenter extends myPresenter
 {
-    public function title()
+    public function repository()
     {
-        return '万方期刊：'.$this->entity->title;
+        return '万方期刊：';
     }
     public function Journal()
     {

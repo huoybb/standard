@@ -8,8 +8,8 @@
  */
 class WanfangthesisPresenter extends myPresenter
 {
-    public function title()
+    public function repository()
     {
-        return '万方论文：'.$this->entity->title;
+        return '万方论文：';
     }
 }

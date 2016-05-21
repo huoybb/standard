@@ -8,9 +8,9 @@
  */
 class BaiduxueshuPresenter extends myPresenter
 {
-    public function title()
+    public function repository()
     {
-        return '百度学术：'.$this->entity->title;
+        return '百度学术：';
     }
 
 }

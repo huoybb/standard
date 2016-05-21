@@ -54,7 +54,7 @@
     <orderEntry type="module-library">
       <library name="PHP">
         <CLASSES>
-          <root url="file://C:/phalcon-devtools/ide/2.0.10" />
+          <root url="file://C:/phalcon-devtools/ide/stubs/Phalcon" />
           <root url="file://$MODULE_DIR$/vendor/codeception/codeception" />
           <root url="file://$MODULE_DIR$/vendor/composer" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/instantiator" />
@@ -102,7 +102,7 @@
           <root url="file://$MODULE_DIR$/vendor/vlucas/phpdotenv" />
         </CLASSES>
         <SOURCES>
-          <root url="file://C:/phalcon-devtools/ide/2.0.10" />
+          <root url="file://C:/phalcon-devtools/ide/stubs/Phalcon" />
           <root url="file://$MODULE_DIR$/vendor/codeception/codeception" />
           <root url="file://$MODULE_DIR$/vendor/composer" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/instantiator" />

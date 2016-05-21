@@ -8,8 +8,8 @@
  */
 class OaiDticMilPresenter extends myPresenter
 {
-    public function title()
+    public function repository()
     {
-        return 'DTIC：'.$this->entity->title;
+        return 'DTIC：';
     }
 }

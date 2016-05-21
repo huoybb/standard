@@ -8,9 +8,9 @@
  */
 class CiteseerxPresenter extends myPresenter
 {
-    public function title()
+    public function repository()
     {
-        return 'CiteSeerx：'.$this->entity->title;
+        return 'CiteSeerx：';
     }
 
 }

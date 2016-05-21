@@ -8,8 +8,8 @@
  */
 class EveryspecPresenter extends myPresenter
 {
-    public function title()
+    public function repository()
     {
-        return 'Everyspec：'.$this->entity->title;
+        return 'Everyspec：';
     }
 }
