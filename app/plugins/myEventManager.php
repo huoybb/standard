@@ -56,5 +56,11 @@ class myEventManager extends \Phalcon\Events\Manager
         return \Phalcon\Di::getDefault()->get('config')->application->eventPrefix.':'.get_class($event);
     }
 
+    public function getAllEvents()
+    {
+        return $this->_events;
+    }
+
+
 
 }

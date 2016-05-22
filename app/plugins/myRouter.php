@@ -85,7 +85,10 @@ class myRouter extends Router{
     public function executeMiddleWareChecking(Request $request, Response $response, Dispatcher $dispatcher)
     {
         $route = $this->getMatchedRoute();
-        if(null == $route) die('url地址无效，找不到对应的路由设置！');
+//        if(null == $route) throw new Dispatcher\Exception('11url地址无效，找不到对应的路由设置！');
+        if(null == $route) {
+            return true;//直接返回，后续可由notfound 处理 404 问题
+        }
 
         $pattern = $route->getPattern();
         //对每个路由都进行验证的中间件！

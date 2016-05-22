@@ -6,6 +6,7 @@ $router = new myRouter(false);
 $router->bindProvider(FilesInterface::class,Files::class);
 
 $router->removeExtraSlashes(true);
+$router->notFound('index::route404');
 $router->addMiddlewaresForEveryRoute([isLoggedin::class]);
 
 $router->add('/page/{page:[0-9]+}','index::index')->setName('index');

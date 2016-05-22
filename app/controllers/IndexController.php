@@ -13,4 +13,9 @@ class IndexController extends myController
 
         $this->view->page = $this->getPaginatorByQueryBuilder(Files::getAllQueryBuilder(),25,$page);
     }
+    public function route404Action()
+    {
+        dd('没有找到该路由挨打三分 ');
+    }
+
 }

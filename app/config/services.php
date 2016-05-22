@@ -201,7 +201,7 @@ $di->set("allTags",function(){
  * 设置Event Manager
  */
 
-$di->set('eventManager',function(){
+$di->set('eventsManager',function(){
     return include 'events.php';
 },true);
 

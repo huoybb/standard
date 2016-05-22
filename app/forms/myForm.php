@@ -40,10 +40,10 @@ class myForm
         }
 
         $fields =[];
-        foreach($model->columnMap() as $column){
-            $metaDataTypes = $model->getModelsMetaData()->getDataTypes($model);
+        $metaDataTypes = $model->getModelsMetaData()->getDataTypes($model);
+        foreach($metaDataTypes as $column=>$dataType){
             if(!in_array($column,['created_at','updated_at','id','password','remember_token'])){
-                if($metaDataTypes[$column] <> 6){
+                if($dataType <> 6){
                     $form->add(new Text($column));
                 }else{
                     $form->add(new TextArea($column));
@@ -55,7 +55,7 @@ class myForm
         if(null <> $extraFields){
             foreach($extraFields as $column=>$value){
                 $model->$column = $value;
-                if(in_array($column,$model->columnMap())) continue;
+                if(in_array($column,$metaDataTypes)) continue;
                 $form->add(new Text($column));
                 $fields[]=$column;
             }
