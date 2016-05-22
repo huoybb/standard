@@ -56,11 +56,8 @@ $di->set('view', function () use ($config) {
         '.phtml' => 'Phalcon\Mvc\View\Engine\Php'
     ));
 
-    $view->setVar('errors',[]);
-    if(SessionFacade::has('lastErrors')){
-        $view->setVar('errors',SessionFacade::pluck('lastErrors'));
-    }
-
+    //设置错误变量
+    $view->setVar('errors',SessionFacade::pluck('lastErrors'));//默认值为null，除非之前设置过
 
     return $view;
 }, true);

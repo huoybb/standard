@@ -19,4 +19,14 @@ class SessionFacade extends myFacade
         return static::has('auth');
     }
 
+    /**获取并清除session中的数据，简化原来的get长命令
+     * @param $name
+     * @return mixed
+     */
+    public static function pluck($name)
+    {
+        return static::get($name,null,true);
+    }
+
+
 }

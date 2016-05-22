@@ -143,6 +143,12 @@ namespace {
          * @return bool
          */
         public static function destroy($removeData = false) {}
+
+        /**获取并清除session中的数据，简化原来的get长命令
+         * @param $name
+         * @return mixed
+         */
+        public static function pluck($name){}
     }
 
     class CookieFacade extends \myFacade{
