@@ -9,6 +9,6 @@
 class commentRules extends myValidationRules
 {
     public $rules = [
-        'content'=>['validator'=>'PresenceOf','message'=>'标准标题不能为空！']
+        'content'=>['validator'=>'PresenceOf','message'=>'请填写评论的内容！']
     ];
 }

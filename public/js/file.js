@@ -8,20 +8,6 @@
     });
     reStr = 'http:\/\/' + location.host + '\/standards\/([0-9]+)';
     regex = new RegExp(reStr, "mg");
-    $("#comment-form").submit(function() {
-      var url;
-      url = $(this).attr('action');
-      if ($('#content').val() === '') {
-        console.log('内容不能为空');
-        return false;
-      }
-      $.post(url, $(this).serialize(), function(data) {
-        if (data === 'success') {
-          return location.reload();
-        }
-      });
-      return false;
-    });
     $('a.delete').click(function() {
       var url;
       url = $(this).attr('href');

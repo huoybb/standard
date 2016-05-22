@@ -56,6 +56,12 @@ $di->set('view', function () use ($config) {
         '.phtml' => 'Phalcon\Mvc\View\Engine\Php'
     ));
 
+    $view->setVar('errors',[]);
+    if(SessionFacade::has('lastErrors')){
+        $view->setVar('errors',SessionFacade::pluck('lastErrors'));
+    }
+
+
     return $view;
 }, true);
 

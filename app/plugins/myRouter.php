@@ -131,7 +131,6 @@ class myRouter extends Router{
 
                 if(!$validator->isValid($data)){
                     $url = $validator->getRedirectedUrl();
-//                    dd($url);
                     $response->redirect($url,true);
                     return false;
                 }

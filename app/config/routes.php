@@ -32,7 +32,6 @@ $router->add('/standards/{file:[0-9]+}/updateFromWeb','standards::updateFromWeb'
 $router->add('/standards/{file:[0-9]+}/readinglog','standards::readinglog')->setName('standards.readinglog');
 
 $router->post('/standards/{file:[0-9]+}/addComment','standards::addComment',[commentRules::class])->setName('standards.addComment');
-$router->get('/standards/{file:[0-9]+}/addComment','standards::addComment')->setName('standards.addComment');
 $router->post('/standards/{file:[0-9]+}/comments/{comment:[0-9]+}/edit','standards::editComment',[commentRules::class])->setName('standards.editComment');
 $router->get('/standards/{file:[0-9]+}/comments/{comment:[0-9]+}/edit','standards::editComment')->setName('standards.editComment');
 $router->add('/standards/{file:[0-9]+}/comments/{comment:[0-9]+}/delete','standards::deleteComment')->setName('standards.deleteComment');

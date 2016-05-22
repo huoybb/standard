@@ -42,9 +42,8 @@ class myValidation extends Validation{
     {
         $messages = $this->validate($data);
         if(count($messages)){
-            foreach($messages as $message){
-                $this->flash->error($message->getMessage());
-            }
+            $this->flash->notice('出现错误！');
+            SessionFacade::set('lastErrors',$messages);
             return false;
         }else{
             return true;

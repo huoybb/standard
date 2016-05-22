@@ -114,12 +114,9 @@ class StandardsController extends myController
 
     public function addCommentAction(Files $file)
     {
-        if ($this->request->isPost()) {
-            $comment = $file->addComment($this->request->getPost());
-            EventFacade::trigger(new addCommentEvent($file,$comment));
-            return $this->success();
-        }
-        dd('添加评论出错啦！');
+        $comment = $file->addComment($this->request->getPost());
+        EventFacade::trigger(new addCommentEvent($file,$comment));
+        return $this->redirectBack();
     }
     public function editCommentAction(Files $file,Comments $comment)
     {

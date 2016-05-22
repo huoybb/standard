@@ -7,15 +7,15 @@ $ ->
   regex = new RegExp(reStr, "mg");
 
   #发布评论
-  $("#comment-form").submit ->
-    url = $(this).attr('action')
-    if $('#content').val() is ''
-      console.log '内容不能为空'
-      return false
-    $.post url,$(this).serialize(),(data)->
-      if data is 'success'
-        location.reload()
-    return false
+#  $("#comment-form").submit ->
+#    url = $(this).attr('action')
+#    if $('#content').val() is ''
+#      console.log '内容不能为空'
+#      return false
+#    $.post url,$(this).serialize(),(data)->
+#      if data is 'success'
+#        location.reload()
+#    return false
   #删除评论
   $('a.delete').click ->
     url = $(this).attr('href')
