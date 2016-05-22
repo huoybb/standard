@@ -43,7 +43,7 @@ class myValidation extends Validation{
         $messages = $this->validate($data);
         if(count($messages)){
             $this->flash->notice('出现错误！');
-            SessionFacade::set('lastErrors',$messages);
+            SessionFacade::set('lastErrors',$messages);//常出现多个需要验证的中间件的时候，此处设置的错误信息会被覆盖掉，怎么处理？
             return false;
         }else{
             return true;

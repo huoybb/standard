@@ -13,7 +13,7 @@ use Phalcon\Validation\Validator\PresenceOf;
  */
 class myForm
 {
-    public static function buildCommentForm(myModel $entity = null,Comments $comment = null){
+    public static function buildCommentForm(commentableInterface $entity = null,Comments $comment = null){
         if ($comment == null) {
             $form = new Form();
             $form->add(new Submit('Add Comment'));

@@ -8,6 +8,7 @@ class SubrepositoryController extends myController
         $this->view->page = $this->getPaginatorByQueryBuilder($repository->getAllQueryBuilder(),25,$page);
         $this->view->page->statistics = myParser::getStatistics();
         $this->view->page->repository = myParser::getModelBySourceId($repository->getSubName());
+
     }
     public function showNoAttachmentAction(SubRepository $repository, $page = 1)
     {

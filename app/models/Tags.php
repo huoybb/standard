@@ -1,6 +1,6 @@
 <?php
 
-class Tags extends myModel
+class Tags extends myModel implements commentableInterface
 {
 
     use commentableTrait;

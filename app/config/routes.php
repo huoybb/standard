@@ -83,7 +83,7 @@ $router->add('/tags/{tag:[0-9]+}/archives/{month:[-0-9]+}','tags::showArchive')-
 
 $router->add('/tags/{tag:[0-9]+}/deleteTaggableItems','tags::deleteTaggableItems')->setName('tags.deleteTaggableItems');
 
-$router->add('/tags/{tag:[0-9]+}/addComment','tags::addComment')->setName('tags.addComment');
+$router->post('/tags/{tag:[0-9]+}/addComment','tags::addComment',[commentRules::class])->setName('tags.addComment');
 $router->add('/tags/{tag:[0-9]+}/comments/{comment:[0-9]+}/edit','tags::editComment')->setName('tags.editComment');
 $router->add('/tags/{tag:[0-9]+}/comments/{comment:[0-9]+}/delete','tags::deleteComment')->setName('tags.deleteComment');
 

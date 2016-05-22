@@ -71,11 +71,14 @@ trait commentableTrait
     {
         /** @var myModel $this */
         $modelName = strtolower(get_class($this));
-        $modelNameSingleForm = substr_replace($modelName,'',-1);
+        $modelNameSingleForm = $modelName;
+        if(preg_match('|.*s|',$modelName)){
+            $modelNameSingleForm = substr_replace($modelName,'',-1);
+        }
         //修正file-standard的关系
         if($modelName == 'files') $modelName = 'standards';
 //        dd($modelName.' - '.$modelNameSingleForm);
-        return $this->getDI()->get('url')->get(['for'=>$modelName.'.addComment',$modelNameSingleForm=>$this->id]);
+        return UrlFacade::get(['for'=>$modelName.'.addComment',$modelNameSingleForm=>$this->id]);
     }
 
     public function beforeDeleteForComments()

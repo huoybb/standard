@@ -28,5 +28,4 @@ class SessionFacade extends myFacade
         return static::get($name,null,true);
     }
 
-
 }
