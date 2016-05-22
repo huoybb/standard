@@ -69,7 +69,7 @@ class TagsController extends myController
         $comment = $taggable->addComment($this->request->getPost());
         EventFacade::trigger(new addCommentEvent($taggable,$comment));
 
-        return 'success';
+        return $this->redirectBack();
     }
 
 

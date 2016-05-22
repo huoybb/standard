@@ -1,6 +1,6 @@
 <?php
 
-class Taggables extends myModel
+class Taggables extends myModel implements commentableInterface
 {
 
     use commentableTrait;
