@@ -4,6 +4,11 @@
     <div class="form-group">
         <label for="content">请在下面框中输入你的评论：</label>
         {{ form.render('content',['rows':6,'class':'form-control']) }}
+        {% if errors %}
+            {% for message in errors.filter('content') %}
+                <div class="alert alert-danger">{{ message.getMessage() }}</div>
+            {% endfor %}
+        {% endif %}
 
     </div>
     <!--Comment Form Submit Button-->

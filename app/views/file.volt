@@ -21,9 +21,6 @@
             <div class="container">
                 {% block breadcrumb %}{% endblock %}
                 <p>{{ flash.output() }}</p>
-                {% for message in errors %}
-                    <p class="alert alert-danger">{{ message.getField() }}:{{ message.getMessage() }}</p>
-                {% endfor %}
 
                 <h1>{{ file.present().repository }}<a href="{{ url(['for':'standards.show','file':file.id]) }}">{{ file.present().title }}</a></h1>
                 <div class="col-md-10">
