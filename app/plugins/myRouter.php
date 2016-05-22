@@ -51,9 +51,26 @@ class myRouter extends Router{
      */
     public function addx($pattern,$path,array $middleware=[])//给路由添加中间件
     {
-        $this->middlewares[$pattern]=$middleware;
-        return $this->add($pattern,$path);
+        if(count($middleware)){
+            $this->middlewares['POST'][$pattern]=$middleware;
+            $this->middlewares['GET'][$pattern]=$middleware;
+        }
+        return $this->add($pattern,$path,['POST','GET']);
     }
+
+    //后续，中间件应该能够识别出是针对post的还是针对get的
+    public function post($pattern,$path,array $middleware=[])
+    {
+        if(count($middleware)) $this->middlewares['POST'][$pattern] = $middleware;
+        return $this->add($pattern,$path,['POST']);
+    }
+    public function get($pattern,$path,array $middleware=[])
+    {
+        if(count($middleware)) $this->middlewares['GET'][$pattern] = $middleware;
+        return $this->add($pattern,$path,['GET']);
+    }
+
+
 
 
     /**中间件过滤检查：
@@ -71,7 +88,6 @@ class myRouter extends Router{
         if(null == $route) die('url地址无效，找不到对应的路由设置！');
 
         $pattern = $route->getPattern();
-
         //对每个路由都进行验证的中间件！
         foreach($this->middlewaresForEveryRoute as $validator){
             $data = null;
@@ -93,6 +109,7 @@ class myRouter extends Router{
 
         if($this->hasMatchedMiddleWares($pattern)){
             $middleWares = $this->getMiddleWares($pattern);
+            $data = null;
             foreach($middleWares as $validator){
                 if($request->isPost()) $data = $request->getPost();
 //                dd($validator);
@@ -102,7 +119,7 @@ class myRouter extends Router{
                 }
 
                 if(preg_match('|.*Rules$|',$validator)){
-                    if(!$request->isPost()) continue;//避免出现get下的错误
+//                    if(!$request->isPost()) continue;  //这一条已经通过明确httpMethod来避免了
                     $rules = new $validator();
                     $validator = (new myValidation())->take($rules);
                 }else{
@@ -185,7 +202,9 @@ class myRouter extends Router{
      */
     private function hasMatchedMiddleWares($pattern)
     {
-        return isset($this->middlewares[$pattern]);
+        $httpMethod = $this->getMatchedRoute()->getHttpMethods()[0];
+        $middlewares = $this->middlewares;//会抛出错误需要以后关注
+        return isset($middlewares[$httpMethod][$pattern]);
     }
 
     /**获得指定的中间件字符串
@@ -196,7 +215,10 @@ class myRouter extends Router{
      */
     private function getMiddleWares($pattern)
     {
-        return $this->middlewares[$pattern];
+
+        $httpMethod = $this->getMatchedRoute()->getHttpMethods()[0];
+        $middlewares = $this->middlewares;//会抛出错误需要以后关注
+        return $middlewares[$httpMethod][$pattern];
     }
 
 } 

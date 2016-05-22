@@ -15,21 +15,25 @@ $router->add('/search/{search:[^/]+}','standards::search')->setName('standards.s
 $router->add('/search/{search:[^/]+}/page/{page:[0-9]+}','standards::search')->setName('standards.search');
 $router->add('/search/{search:[^/]+}/{item:[0-9]+}','standards::showSearchItem')->setName('standards.showSearchItem');
 
-$router->addx('/standards/add','standards::add',[standardRules::class])->setName('standards.add');
+$router->post('/standards/add','standards::add',[standardRules::class])->setName('standards.add');
+$router->get('/standards/add','standards::add')->setName('standards.add');
 $router->add('/standards/addWebData/{type}/{source_id}','standards::getWebData')->setName('standards.getWebData');
 
 $router->add('/standards/archive/{month:[-0-9]+}','standards::archive')->setName('standards.archive');
 $router->add('/standards/archive/{month:[-0-9]+}/page/{page:[0-9]+}','standards::archive')->setName('standards.archive.page');
 
 $router->add('/standards/{file:[0-9]+}','standards::show')->setName('standards.show');
-$router->addx('/standards/{file:[0-9]+}/edit','standards::edit',[standardRules::class])->setName('standards.edit');
+$router->post('/standards/{file:[0-9]+}/edit','standards::edit',[standardRules::class])->setName('standards.edit');
+$router->get('/standards/{file:[0-9]+}/edit','standards::edit')->setName('standards.edit');
 $router->add('/standards/{file:[0-9]+}/delete','standards::delete')->setName('standards.delete');
 $router->add('/standards/{file:[0-9]+}/updateFromWeb','standards::updateFromWeb')->setName('standards.updateFromWeb');
 
 $router->add('/standards/{file:[0-9]+}/readinglog','standards::readinglog')->setName('standards.readinglog');
 
-$router->addx('/standards/{file:[0-9]+}/addComment','standards::addComment',[commentRules::class])->setName('standards.addComment');
-$router->addx('/standards/{file:[0-9]+}/comments/{comment:[0-9]+}/edit','standards::editComment',[commentRules::class])->setName('standards.editComment');
+$router->post('/standards/{file:[0-9]+}/addComment','standards::addComment',[commentRules::class])->setName('standards.addComment');
+$router->get('/standards/{file:[0-9]+}/addComment','standards::addComment')->setName('standards.addComment');
+$router->post('/standards/{file:[0-9]+}/comments/{comment:[0-9]+}/edit','standards::editComment',[commentRules::class])->setName('standards.editComment');
+$router->get('/standards/{file:[0-9]+}/comments/{comment:[0-9]+}/edit','standards::editComment')->setName('standards.editComment');
 $router->add('/standards/{file:[0-9]+}/comments/{comment:[0-9]+}/delete','standards::deleteComment')->setName('standards.deleteComment');
 
 $router->add('/standards/{file:[0-9]+}/Attachments','standards::showAttachments')->setName('standards.showAttachments');
