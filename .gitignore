@@ -1,8 +1,6 @@
 /.env
-/Runtime/debugbar
-/app/cache
-/public/files
-/vendor
-/.idea
-tests/_output/*
-tests/_data/standards.sql
+/Runtime/debugbar/
+/app/cache/
+/public/files/
+vendor/
+.idea/

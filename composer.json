@@ -1,10 +1,16 @@
 {
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "E:/mylib/test"
+        }
+    ],
     "require": {
         "nesbot/carbon": "^1.20",
         "fabpot/goutte": "^3.1",
         "vlucas/phpdotenv": "^2.2",
-        "codeception/codeception": "2.1.7",
-        "phalcon-ext/mailer": "^2.0"
+        "phalcon-ext/mailer": "^2.0",
+        "huoybb/test":"dev-master"
     },
     "require-dev": {
         "snowair/phalcon-debugbar": "^1.1"
@@ -14,4 +20,5 @@
             "webParser\\": "app/parsers"
         }
     }
+
 }

@@ -11,15 +11,6 @@ use Phalcon\Security;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Cache\Frontend\Output as FrontOutput;
 
-
-/**
- * helper function dd:die dump
- */
-if(!function_exists('dd')){
-    function dd($x){
-        var_dump($x);die();
-    }
-}
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
  */
